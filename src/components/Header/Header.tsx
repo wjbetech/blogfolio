@@ -1,24 +1,14 @@
-import Link from "next/link";
-
 export default function Header() {
   return (
-    <header>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-26">
-        <Link href="/" className="text-lg font-bold">
-          William East
-        </Link>
-        <nav className="space-x-4 text-sm">
-          <Link href="/">
-            <span>1 </span>Home
-          </Link>
-          <Link href="/portfolio">
-            <span>2 </span>Portfolio
-          </Link>
-          <Link href="/contact">
-            <span>3 </span>Contact
-          </Link>
-        </nav>
+    <div className="flex justify-between">
+      <h1 className="text-3xl font-bold tracking-tight text-indigo-600 leading-tight">Hi, I&apos;m Will</h1>
+
+      <div className="mt-1 space-y-1 md:space-y-2 text-sm md:text-base leading-relaxed text-slate-700">
+        <div className="font-semibold">Fullstack Developer</div>
+        <div className="font-medium">KR‑EN Translator</div>
+        <div className="font-medium">Professor, Seoul University of Foreign Studies</div>
+        <div className="text-xs md:text-sm text-slate-500">Seoul · wjbeast@gmail.com</div>
       </div>
-    </header>
+    </div>
   );
 }

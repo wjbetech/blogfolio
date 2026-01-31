@@ -15,9 +15,9 @@ export default function HeaderWithDrawer() {
       <ThemeDrawer
         open={open}
         onClose={() => setOpen(false)}
+        // Selecting a theme now only updates the active palette without closing the drawer
         onSelect={(id) => {
           setActivePalette(id);
-          setOpen(false);
         }}
         active={activePalette}
       />

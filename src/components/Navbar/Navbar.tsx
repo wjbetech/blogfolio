@@ -25,7 +25,7 @@ export default function Navbar({
 
   return (
     <header>
-      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-32">
         <Link href="/" className="text-2xl font-bold">
           William East
         </Link>

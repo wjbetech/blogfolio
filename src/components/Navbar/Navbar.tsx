@@ -18,10 +18,10 @@ export default function Navbar({
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
-    { id: "2", href: "/portfolio", label: "Writing" },
-    { id: "3", href: "/blog", label: "Projects" },
-    { id: "4", href: "/projects", label: "Notes" },
-    { id: "5", href: "/contact", label: "About" }
+    { id: "4", href: "/blog", label: "Blog" },
+    { id: "3", href: "/dev", label: "Dev" },
+    { id: "2", href: "/language-services", label: "Language" },
+    { id: "5", href: "/contact", label: "Contact" }
   ];
 
   const handleLinkClick = () => {

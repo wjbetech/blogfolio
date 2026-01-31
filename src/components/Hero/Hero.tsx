@@ -7,11 +7,11 @@ export default function Hero() {
         </div>
 
         <div className="flex-1 text-right">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-indigo-600 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent2 leading-tight">
             Hey, I&apos;m Will
           </h1>
 
-          <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed text-slate-700">
+          <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed text-heading">
             <h5 className="font-bold">Fullstack Developer</h5>
             <p className="text-sm md:text-base text-slate-500 leading-0">
               Next.js, Node, TypeScript, Prisma, TailwindCSS, and more

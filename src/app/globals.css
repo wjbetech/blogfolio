@@ -51,66 +51,78 @@
 /* Theme variable bridge - map our theme variables into shadcn theme tokens */
 @theme inline {
   --color-bg-100: var(--bg-100);
+  --color-bg100: var(--bg-100);
   --color-bg-200: var(--bg-200);
+  --color-bg200: var(--bg-200);
   --color-bg-300: var(--bg-300);
+  --color-bg300: var(--bg-300);
   --color-headline: var(--headline);
   --color-paragraph: var(--paragraph);
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
+  --color-accent-2: var(--accent-2);
+  --color-accent2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent3: var(--accent-3);
 }
 
 :root {
   /* Defaults for themeable variables (can be overridden by JS applyTheme or by [data-theme] blocks) */
   --bg-100: #ffffff;
+  --bg100: var(--bg-100);
   --bg-200: #f8fafc;
+  --bg200: var(--bg-200);
   --bg-300: #eef2ff;
+  --bg300: var(--bg-300);
   --headline: #0f172a;
   --paragraph: #334155;
   --accent: #06b6d4;
   --accent-text: #ffffff;
   --accent-2: #7c3aed;
+  --accent2: var(--accent-2);
   --accent-3: #f97316;
+  --accent3: var(--accent-3);
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.028 261.692);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.61 0.11 222);
-  --primary-foreground: oklch(0.98 0.02 201);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.003 264.542);
-  --muted-foreground: oklch(0.551 0.027 264.364);
-  --accent: oklch(0.967 0.003 264.542);
-  --accent-foreground: oklch(0.21 0.034 264.665);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.928 0.006 264.531);
-  --input: oklch(0.928 0.006 264.531);
-  --ring: oklch(0.707 0.022 261.325);
-  --chart-1: oklch(0.87 0.12 207);
-  --chart-2: oklch(0.8 0.13 212);
-  --chart-3: oklch(0.71 0.13 215);
-  --chart-4: oklch(0.61 0.11 222);
-  --chart-5: oklch(0.52 0.09 223);
+  /* Map theme variables into shadcn tokens to avoid conflicting direct color definitions */
+  --background: var(--bg-100);
+  --foreground: var(--headline);
+  --card: var(--bg-100);
+  --card-foreground: var(--headline);
+  --popover: var(--bg-100);
+  --popover-foreground: var(--headline);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-text);
+  --secondary: var(--accent-2);
+  --secondary-foreground: var(--accent-text);
+  --muted: var(--bg-200);
+  --muted-foreground: var(--paragraph);
+  --accent-foreground: var(--accent-text);
+  --destructive: #ef4444;
+  --border: rgba(15, 23, 42, 0.06);
+  --input: rgba(15, 23, 42, 0.06);
+  --ring: rgba(6, 182, 212, 0.18);
+  --chart-1: var(--accent);
+  --chart-2: var(--accent-2);
+  --chart-3: var(--accent-3);
+  --chart-4: var(--accent);
+  --chart-5: var(--bg-200);
   --radius: 0.45rem;
-  --sidebar: oklch(0.985 0.002 247.839);
-  --sidebar-foreground: oklch(0.13 0.028 261.692);
-  --sidebar-primary: oklch(0.61 0.11 222);
-  --sidebar-primary-foreground: oklch(0.98 0.02 201);
-  --sidebar-accent: oklch(0.967 0.003 264.542);
-  --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
-  --sidebar-border: oklch(0.928 0.006 264.531);
-  --sidebar-ring: oklch(0.707 0.022 261.325);
+  --sidebar: var(--bg-100);
+  --sidebar-foreground: var(--headline);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-text);
+  --sidebar-border: rgba(15, 23, 42, 0.06);
+  --sidebar-ring: rgba(6, 182, 212, 0.12);
 }
 
 /* Optional: attribute-driven theme blocks. If you set data-theme="id" on <html>, these vars will apply.
    Values here are examples matching some themes defined in src/lib/themes.ts. You can add more entries as needed. */
 [data-theme="welcome"] {
-  --bg-100: #eaf4f4;
-  --bg-200: #d4e9e2;
-  --bg-300: #bddbd0;
+  --bg100: #eaf4f4;
+  --bg200: #d4e9e2;
+  --bg300: #bddbd0;
   --headline: #344e41;
   --paragraph: #5f6f73;
   --accent: #84a98c;
@@ -118,9 +130,9 @@
 }
 
 [data-theme="demon"] {
-  --bg-100: #16161a;
-  --bg-200: #0f0f11;
-  --bg-300: #0c0c0e;
+  --bg100: #16161a;
+  --bg200: #0f0f11;
+  --bg300: #0c0c0e;
   --headline: #fffffe;
   --paragraph: #94a1b2;
   --accent: #7f5af0;

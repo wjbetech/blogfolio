@@ -41,7 +41,6 @@ export default function ThemeDrawer({
           <div className="max-w-7xl mx-auto py-4 flex items-center justify-between px-16">
             <div className="flex flex-col mx-auto">
               <h3 className="text-lg font-bold m-auto place-self-center">Theme palettes</h3>
-              <p className="text-xs text-slate-600">Pick a palette to preview/apply</p>
             </div>
 
             <div>

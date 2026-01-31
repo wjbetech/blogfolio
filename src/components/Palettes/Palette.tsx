@@ -6,26 +6,6 @@ type Palette = {
   colors: string[]; // hex colors, first is base
 };
 
-function hexToRgb(hex: string) {
-  const cleaned = hex.replace("#", "");
-  const bigint = parseInt(
-    cleaned.length === 3
-      ? cleaned
-          .split("")
-          .map((c) => c + c)
-          .join("")
-      : cleaned,
-    16
-  );
-  return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
-}
-
-function isDark(hex: string) {
-  const { r, g, b } = hexToRgb(hex);
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance < 0.5;
-}
-
 export default function Palette({
   palette,
   onSelect,
@@ -40,76 +20,61 @@ export default function Palette({
   // pad with base color if needed
   while (bars.length < 5) bars.push(base);
 
-  const dark = isDark(base);
-  const textColor = dark ? "#ffffff" : "#0f172a";
-
   // visual sizing for the pill bars (matching reference image)
-  const barWidth = 30;
-  const barHeight = 110;
-  const barSpacing = 24; // spacing between bar centers
+  const barWidth = 26;
+  const barHeight = 88;
+  const barSpacing = 20; // spacing between bar centers
 
   const totalWidth = barSpacing * (bars.length - 1) + barWidth;
 
   return (
-    <button
-      onClick={() => onSelect(palette.id)}
-      aria-pressed={selected}
-      className="w-55 shrink-0 rounded-2xl transition-all hover:shadow-lg flex flex-col p-4 gap-3"
-      style={{
-        backgroundColor: base,
-        border: selected ? "2px solid rgba(99, 102, 241, 0.4)" : "1px solid rgba(0,0,0,0.08)",
-        color: textColor
-      }}>
-      {/* layered pill bars */}
-      <div
-        className="relative mx-auto"
+    <div className="flex flex-col items-center gap-2 shrink-0">
+      <button
+        onClick={() => onSelect(palette.id)}
+        aria-pressed={selected}
+        className={
+          "w-40 h-32 rounded-2xl transition-all hover:shadow-lg flex items-center justify-center shrink-0 border-[6px] border-transparent" +
+          (selected
+            ? "" // selected uses inline border style below
+            : "border border-[rgba(0,0,0,0.08)] hover:border-[6px] hover:border-slate-200 cursor-pointer")
+        }
         style={{
-          width: totalWidth,
-          height: barHeight
-        }}
-        aria-hidden>
-        {bars.map((c, i) => {
-          const left = i * barSpacing;
-          return (
-            <span
-              key={i}
-              style={{
-                position: "absolute",
-                left: `${left}px`,
-                top: 0,
-                width: `${barWidth}px`,
-                height: `${barHeight}px`,
-                borderRadius: `${barWidth / 2}px`,
-                backgroundColor: c,
-                boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
-                zIndex: i + 1,
-                border: "1px solid rgba(255,255,255,0.1)"
-              }}
-            />
-          );
-        })}
-      </div>
-
-      <div className="text-center">
-        <div className="text-sm font-semibold truncate mb-1" style={{ color: textColor }}>
-          {palette.name}
-        </div>
+          backgroundColor: base,
+          border: selected ? "6px solid teal" : undefined
+        }}>
+        {/* layered pill bars */}
         <div
-          className="text-xs truncate"
+          className="relative"
           style={{
-            color: dark ? "rgba(255,255,255,0.75)" : "rgba(15,23,42,0.6)"
-          }}>
-          {base}
+            width: totalWidth,
+            height: barHeight
+          }}
+          aria-hidden>
+          {bars.map((c, i) => {
+            const left = i * barSpacing;
+            return (
+              <span
+                key={i}
+                style={{
+                  position: "absolute",
+                  left: `${left}px`,
+                  top: 0,
+                  width: `${barWidth}px`,
+                  height: `${barHeight}px`,
+                  borderRadius: `${barWidth / 2}px`,
+                  backgroundColor: c,
+                  boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+                  zIndex: i + 1,
+                  border: "1px solid rgba(255,255,255,0.1)"
+                }}
+              />
+            );
+          })}
         </div>
-      </div>
+      </button>
 
-      {selected ? (
-        <div
-          className="text-xs font-medium px-2 py-1 rounded-md text-center"
-          style={{ background: "rgba(0,0,0,0.08)", color: textColor }}>
-          Active
-        </div>
-      ) : null}
-    </button>
+      {/* Title below the palette box */}
+      <div className="text-center text-sm font-semibold text-slate-900">{palette.name}</div>
+    </div>
   );
 }

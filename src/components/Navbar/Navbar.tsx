@@ -2,62 +2,56 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import ColorPaletteIcon from "../Icons/ColorPalette";
-import ThemeDrawer from "../ThemeDrawer/ThemeDrawer";
+import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
 
-const navLinks = [
-  { id: "1", href: "/", label: "Home" },
-  { id: "2", href: "/portfolio", label: "Blog" },
-  { id: "3", href: "/language-work", label: "Lang. Services" },
-  { id: "4", href: "/contact", label: "Contact" }
-];
-
-export default function Navbar() {
+export default function Navbar({
+  onToggle,
+  isDrawerOpen
+  // activePalette IMPLEMENT THIS
+}: {
+  onToggle?: () => void;
+  isDrawerOpen?: boolean;
+  activePalette?: string | null;
+}) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-  const [activePalette, setActivePalette] = useState<string | null>(null);
+
+  const navLinks = [
+    { id: "1", href: "/", label: "Home" },
+    { id: "2", href: "/portfolio", label: "Blog" },
+    { id: "3", href: "/projects", label: "Dev" },
+    { id: "4", href: "/language-work", label: "Lang" },
+    { id: "5", href: "/contact", label: "Contact" }
+  ];
 
   return (
-    <header className="">
-      <div className="max-w-7xl mx-auto px-16 flex items-center align-middle justify-between h-32">
+    <header>
+      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-20">
         <Link href="/" className="text-2xl font-bold">
           William East
         </Link>
-        <nav className="flex gap-4 items-center align-middle">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
 
-            return (
-              <Link key={link.label} href={link.href}>
-                <span className="font-bold">{link.id}</span>{" "}
-                <span className={isActive ? "text-primary underline underline-offset-2" : "text-slate-900"}>
-                  {link.label}
-                </span>
+        <div className="flex items-center">
+          <nav className="flex items-center gap-4 md:gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                className={`text-sm ${pathname === link.href ? "font-semibold" : "text-slate-700"}`}>
+                {link.label}
               </Link>
-            );
-          })}
+            ))}
+          </nav>
 
           <button
-            onClick={() => setOpen(true)}
-            className="ml-6 rounded-full p-3 bg-slate-100 shadow-lg cursor-pointer"
-            aria-label="Open theme palettes"
-            aria-expanded={open}>
-            <ColorPaletteIcon className="w-6 h-6 text-primary" />
+            type="button"
+            aria-label="Theme settings"
+            aria-expanded={isDrawerOpen}
+            onClick={() => onToggle?.()}
+            className="ml-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center cursor-pointer">
+            <ColorPaletteIcon className="text-primary" />
           </button>
-        </nav>
+        </div>
       </div>
-
-      <ThemeDrawer
-        open={open}
-        onClose={() => setOpen(false)}
-        onSelect={(id) => {
-          setActivePalette(id);
-          setOpen(false);
-          // TODO: apply theme -> hook into app theme logic later
-        }}
-        active={activePalette}
-      />
     </header>
   );
 }

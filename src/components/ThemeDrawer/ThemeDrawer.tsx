@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import PaletteItem from "../Theme/PaletteItem";
+import UpArrowIcon from "../Icons/UpArrowIcon";
 
 type Palette = {
   id: string;
@@ -26,46 +28,38 @@ export default function ThemeDrawer({
     { id: "rose", name: "Rose Dawn", colors: ["#BE123C", "#F43F5E", "#FECACA", "#FDE68A"] }
   ];
 
-  if (!open) return null;
-
   return (
-    <>
-      {/* backdrop */}
-      <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm" onClick={onClose} aria-hidden />
+    <AnimatePresence initial={false}>
+      {open && (
+        <motion.div
+          key="theme-drawer"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.28, ease: "easeInOut" }}
+          className="overflow-hidden border-b bg-white">
+          <div className="max-w-7xl mx-auto py-4 flex items-center justify-between px-16">
+            <div className="flex flex-col mx-auto">
+              <h3 className="text-lg font-bold m-auto place-self-center">Theme palettes</h3>
+              <p className="text-xs text-slate-600">Pick a palette to preview/apply</p>
+            </div>
 
-      {/* drawer */}
-      <div className="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold">Theme palettes</h3>
-            <p className="text-sm text-slate-600">Pick a palette to preview/apply</p>
+            <div>
+              <button onClick={onClose} aria-label="Close theme drawer" className="text-sm p-2 cursor-pointer">
+                <UpArrowIcon />
+              </button>
+            </div>
           </div>
 
-          <div>
-            <button
-              onClick={onClose}
-              aria-label="Close theme drawer"
-              className="text-sm px-3 py-1 rounded bg-slate-100 hover:bg-slate-200">
-              Close
-            </button>
+          <div className="max-w-7xl mx-auto px-16 pb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {palettes.map((p) => (
+                <PaletteItem key={p.id} palette={p} onSelect={(id) => onSelect(id)} selected={active === p.id} />
+              ))}
+            </div>
           </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 pb-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {palettes.map((p) => (
-              <PaletteItem
-                key={p.id}
-                palette={p}
-                onSelect={(id) => {
-                  onSelect(id);
-                }}
-                selected={active === p.id}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import PaletteItem from "../Theme/PaletteItem";
+import PaletteItem from "../Palettes/Palette";
 import UpArrowIcon from "../Icons/UpArrowIcon";
 
 type Palette = {

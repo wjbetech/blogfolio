@@ -47,7 +47,7 @@ export default function Navbar({
             aria-label="Theme settings"
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
-            className="ml-6 rounded-full hover:bg-bg200 flex items-center justify-center cursor-pointer">
+            className="ml-6 rounded-full flex items-center justify-center cursor-pointer">
             <ColorPaletteIcon className="text-primary" />
           </button>
         </div>

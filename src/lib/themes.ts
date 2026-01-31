@@ -2,11 +2,25 @@ import { ColorTheme } from "@/app/types/themes";
 
 export const ColorThemes: ColorTheme[] = [
   {
+    id: "welcome",
+    name: "Welcome Theme",
+    bg100: "#eaf4f4", // sky over Lumbridge
+    bg200: "#d4e9e2",
+    bg300: "#bddbd0",
+    headline: "#344e41",
+    paragraph: "#5f6f73",
+    button: "#84a98c", // gentle adventure green
+    buttonText: "#fffffe",
+    accent: "#a7c7e7", // river Lum
+    accent2: "#f2cc8f", // wheat fields
+    accent3: "#e07a5f" // rooftops / subtle warmth
+  },
+  {
     id: "gnome",
     name: "Tree Gnome Village",
     bg100: "#fef6e4",
-    bg200: "#f0e6d2",
-    bg300: "#e1d7bf",
+    bg200: "#f3ead7",
+    bg300: "#e8ddc6",
     headline: "#001858",
     paragraph: "172c66",
     button: "#f582ae",
@@ -18,9 +32,9 @@ export const ColorThemes: ColorTheme[] = [
   {
     id: "kiln",
     name: "Blackrock Kiln",
-    bg100: "#16213e",
-    bg200: "#1a1a2e",
-    bg300: "#0f0e17",
+    bg100: "#2a2522",
+    bg200: "#211d1b",
+    bg300: "#191514",
     headline: "#fffffe",
     paragraph: "#a7a9be",
     button: "#ff8906",
@@ -47,8 +61,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "silk",
     name: "Proudmore Silk",
     bg100: "#232946",
-    bg200: "#121629",
-    bg300: "#0f1123",
+    bg200: "#1f2340",
+    bg300: "#191c34",
     headline: "#fffffe",
     paragraph: "#b8c1ec",
     button: "#eebbc3",
@@ -75,8 +89,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "demon",
     name: "Demon Hunter",
     bg100: "#16161a",
-    bg200: "#0f0f11",
-    bg300: "#0c0c0e",
+    bg200: "#121216",
+    bg300: "#0e0e12",
     headline: "#fffffe",
     paragraph: "#94a1b2",
     button: "#7f5af0",
@@ -103,8 +117,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "rellekka",
     name: "Rellekka",
     bg100: "#e3f6f5",
-    bg200: "#c5e4e3",
-    bg300: "#a7d1d1",
+    bg200: "#cde8e6",
+    bg300: "#b7dad8",
     headline: "#094067",
     paragraph: "#5f6c7b",
     button: "#1f6aa5",
@@ -131,8 +145,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "jungle",
     name: "Jungle Remedy",
     bg100: "#b3d7c9",
-    bg200: "#89cbb7",
-    bg300: "#5fc0a5",
+    bg200: "#97ccb9",
+    bg300: "#7cc1aa",
     headline: "#0f3d2e",
     paragraph: "#3a5f54",
     button: "#3a7d5c",
@@ -159,8 +173,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "lich",
     name: "The Lich King",
     bg100: "#1b1f26",
-    bg200: "#141820",
-    bg300: "#0d1117",
+    bg200: "#161a22",
+    bg300: "#161a22",
     headline: "#e6f1ff",
     paragraph: "#9fb3c8",
     button: "#3b82f6",
@@ -173,8 +187,8 @@ export const ColorThemes: ColorTheme[] = [
     id: "sunwell",
     name: "The Sunwell",
     bg100: "#fff6e5", // arcane sanctum red
-    bg200: "#fde9c9",
-    bg300: "#f6d8a8",
+    bg200: "#fee7cb",
+    bg300: "#fdd8b1",
     headline: "#7c1d1d",
     paragraph: "#7a4a2e",
     button: "#c81e1e", // blood elf crimson
@@ -182,19 +196,5 @@ export const ColorThemes: ColorTheme[] = [
     accent: "#f5c16c", // radiant gold
     accent2: "#6fa58c", // dried blood / obsession
     accent3: "#f43f5e" // unstable arcane energy
-  },
-  {
-    id: "welcome",
-    name: "Welcome Theme",
-    bg100: "#eaf4f4", // sky over Lumbridge
-    bg200: "#d4e9e2",
-    bg300: "#bddbd0",
-    headline: "#344e41",
-    paragraph: "#5f6f73",
-    button: "#84a98c", // gentle adventure green
-    buttonText: "#fffffe",
-    accent: "#a7c7e7", // river Lum
-    accent2: "#f2cc8f", // wheat fields
-    accent3: "#e07a5f" // rooftops / subtle warmth
   }
 ];

@@ -120,23 +120,37 @@
 /* Optional: attribute-driven theme blocks. If you set data-theme="id" on <html>, these vars will apply.
    Values here are examples matching some themes defined in src/lib/themes.ts. You can add more entries as needed. */
 [data-theme="welcome"] {
-  --bg100: #eaf4f4;
-  --bg200: #d4e9e2;
-  --bg300: #bddbd0;
+  --bg-100: #eaf4f4;
+  --bg100: var(--bg-100);
+  --bg-200: #d4e9e2;
+  --bg200: var(--bg-200);
+  --bg-300: #bddbd0;
+  --bg300: var(--bg-300);
   --headline: #344e41;
   --paragraph: #5f6f73;
   --accent: #84a98c;
   --accent-text: #ffffff;
+  --accent-2: #f2cc8f;
+  --accent2: var(--accent-2);
+  --accent-3: #e07a5f;
+  --accent3: var(--accent-3);
 }
 
 [data-theme="demon"] {
-  --bg100: #16161a;
-  --bg200: #0f0f11;
-  --bg300: #0c0c0e;
+  --bg-100: #16161a;
+  --bg100: var(--bg-100);
+  --bg-200: #0f0f11;
+  --bg200: var(--bg-200);
+  --bg-300: #0c0c0e;
+  --bg300: var(--bg-300);
   --headline: #fffffe;
   --paragraph: #94a1b2;
   --accent: #7f5af0;
   --accent-text: #fffffe;
+  --accent-2: #4a3f6b;
+  --accent2: var(--accent-2);
+  --accent-3: #2cb67d;
+  --accent3: var(--accent-3);
 }
 
 .dark {

@@ -25,13 +25,13 @@ export default function Navbar({
 
   return (
     <header>
-      <div className="max-w-7xl mx-auto px-6 md:px-16 flex items-center justify-between h-32">
+      <div className="max-w-7xl mx-auto px-16 flex items-center justify-between h-32">
         <Link href="/" className="text-2xl font-bold">
           William East
         </Link>
 
         <div className="flex items-center">
-          <nav className="flex items-center gap-4 md:gap-6">
+          <nav className="flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.id}
@@ -47,7 +47,7 @@ export default function Navbar({
             aria-label="Theme settings"
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
-            className="ml-6 p-2 rounded-full hover:bg-bg200 flex items-center justify-center cursor-pointer">
+            className="ml-6 rounded-full hover:bg-bg200 flex items-center justify-center cursor-pointer">
             <ColorPaletteIcon className="text-primary" />
           </button>
         </div>

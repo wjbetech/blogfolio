@@ -29,6 +29,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 `}>
+        <script
+          // Apply saved theme (or default to 'welcome') before hydration to avoid flash
+          dangerouslySetInnerHTML={{
+            __html: `(() => {
+  try {
+    var id = null;
+    try { id = localStorage.getItem('site:theme'); } catch(e) { id = null; }
+    if (!id) id = 'welcome';
+    document.documentElement.setAttribute('data-theme', id);
+  } catch (e) {}
+})();`
+          }}
+        />
         <HeaderWithDrawer />
         <main className="max-w-7xl mx-auto px-10 py-8">{children}</main>
         <Footer />

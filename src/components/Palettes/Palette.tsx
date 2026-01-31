@@ -33,14 +33,14 @@ export default function Palette({
         onClick={() => onSelect(palette.id)}
         aria-pressed={selected}
         className={
-          "w-40 h-32 rounded-2xl transition-all hover:shadow-lg flex items-center justify-center shrink-0 border-[6px] border-transparent" +
+          "w-40 h-30 rounded-2xl transition-all hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
           (selected
             ? "" // selected uses inline border style below
-            : "border border-[rgba(0,0,0,0.08)] hover:border-[6px] hover:border-slate-200 cursor-pointer")
+            : "")
         }
         style={{
           backgroundColor: base,
-          border: selected ? "6px solid teal" : undefined
+          border: selected ? "6px solid var(--accent)" : undefined
         }}>
         {/* layered pill bars */}
         <div
@@ -74,7 +74,7 @@ export default function Palette({
       </button>
 
       {/* Title below the palette box */}
-      <div className="text-center text-sm font-semibold text-slate-900">{palette.name}</div>
+      <div className="text-center text-sm font-semibold">{palette.name}</div>
     </div>
   );
 }

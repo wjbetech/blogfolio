@@ -8,18 +8,18 @@ export default function Hero() {
 
         <div className="flex-1 text-right">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent leading-tight">
-            Hey, I&apos;m Will
+            Hey, I&apos;m Will.
           </h1>
 
           <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed text-heading">
             <h5 className="font-bold">Fullstack Developer</h5>
-            <p className="text-sm md:text-base text-slate-500 leading-0">
+            <p className="text-sm md:text-base text-paragraph leading-0">
               Next.js, Node, TypeScript, Prisma, TailwindCSS, and more
             </p>
             <h5 className="font-bold mt-6">Translation and Editing</h5>
-            <p className="text-sm md:text-base text-slate-500 leading-0">Korean, English</p>
+            <p className="text-sm md:text-base text-paragraph leading-0">Korean, English</p>
             <h5 className="font-bold mt-6">Professor of Interpretation and Culture</h5>
-            <p className="text-sm md:text-base text-slate-500 leading-0">Seoul University of Foreign Studies</p>
+            <p className="text-sm md:text-base text-paragraph leading-0">Seoul University of Foreign Studies</p>
           </div>
         </div>
       </div>

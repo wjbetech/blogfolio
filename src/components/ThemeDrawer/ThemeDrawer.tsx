@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import PaletteItem from "../Palettes/Palette";
+import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "./ThemeDrawerCarousel";
 import UpArrowIcon from "../Icons/UpArrowIcon";
 import { ColorThemes } from "@/lib/themes";
 import { applyTheme } from "@/lib/applyTheme";
@@ -18,6 +18,7 @@ export default function ThemeDrawer({
   onSelect: (id: string) => void;
   active?: string | null;
 }) {
+  const carouselRef = useRef<ThemeDrawerCarouselHandle | null>(null);
   return (
     <AnimatePresence initial={false}>
       {open && (
@@ -27,38 +28,45 @@ export default function ThemeDrawer({
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.28, ease: "easeInOut" }}
-          className="overflow-hidden border-b bg-white">
-          <div className="max-w-7xl mx-auto py-4 flex items-center justify-between px-16">
-            <div className="flex flex-col mx-auto">
-              <h3 className="text-xl font-bold m-auto place-self-center">Themes</h3>
+          className="overflow-hidden border-b bg-bg200">
+          <div className="max-w-7xl mx-auto py-2 flex items-center justify-between px-16">
+            <div className="flex items-center gap-2 mx-auto">
+              <button
+                type="button"
+                aria-label="Scroll themes left"
+                onClick={() => carouselRef.current?.scrollLeft()}
+                className="hidden md:inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80">
+                ‹
+              </button>
+
+              <h3 className="text-xl font-bold">Themes</h3>
+
+              <button
+                type="button"
+                aria-label="Scroll themes right"
+                onClick={() => carouselRef.current?.scrollRight()}
+                className="hidden md:inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80">
+                ›
+              </button>
             </div>
 
             <div>
-              <button onClick={onClose} aria-label="Close theme drawer" className="text-sm p-2 cursor-pointer">
+              <button onClick={onClose} aria-label="Close theme drawer" className="py-2 cursor-pointer text-accent">
                 <UpArrowIcon />
               </button>
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto px-16 pb-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {ColorThemes.map((t) => (
-                <PaletteItem
-                  key={t.id}
-                  palette={{
-                    id: t.id,
-                    name: t.name,
-                    colors: [t.bg100, t.accent, t.accent2 ?? t.accent, t.accent3 ?? t.accent]
-                  }}
-                  onSelect={(id) => {
-                    const theme = ColorThemes.find((x) => x.id === id);
-                    if (theme) applyTheme(theme);
-                    onSelect(id);
-                  }}
-                  selected={active === t.id}
-                />
-              ))}
-            </div>
+          <div className="max-w-7xl mx-auto px-12">
+            <ThemeDrawerCarousel
+              ref={carouselRef}
+              active={active}
+              onSelect={(id) => {
+                const theme = ColorThemes.find((x) => x.id === id);
+                if (theme) applyTheme(theme);
+                onSelect(id);
+              }}
+            />
           </div>
         </motion.div>
       )}

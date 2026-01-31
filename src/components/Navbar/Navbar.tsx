@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
@@ -7,51 +8,106 @@ import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
 export default function Navbar({
   onToggle,
   isDrawerOpen
-  // activePalette IMPLEMENT THIS
 }: {
   onToggle?: () => void;
   isDrawerOpen?: boolean;
   activePalette?: string | null;
 }) {
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
-    { id: "2", href: "/portfolio", label: "Blog" },
-    { id: "3", href: "/projects", label: "Dev" },
-    { id: "4", href: "/language-work", label: "Lang" },
-    { id: "5", href: "/contact", label: "Contact" }
+    { id: "2", href: "/portfolio", label: "Writing" },
+    { id: "3", href: "/blog", label: "Projects" },
+    { id: "4", href: "/projects", label: "Notes" },
+    { id: "5", href: "/contact", label: "About" }
   ];
+
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header>
-      <div className="max-w-7xl mx-auto px-16 flex items-center justify-between h-32">
-        <Link href="/" className="text-2xl font-bold text-headline">
+      <div className="max-w-7xl mx-auto px-14 flex items-center justify-between h-20 sm:h-32">
+        <Link href="/" className="text-xl sm:text-2xl font-bold text-headline">
           William East
         </Link>
 
-        <div className="flex items-center">
-          <nav className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
+          {/* Desktop Navigation - hidden on mobile */}
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.id}
                 href={link.href}
-                className={`text-sm ${pathname === link.href ? "font-semibold text-headline" : "text-paragraph"}`}>
-                {link.label}
+                className={`flex items-baseline gap-2 text-sm relative pb-1 transition-colors ${
+                  pathname === link.href
+                    ? "font-semibold text-headline after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-accent"
+                    : "text-paragraph hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-accent2"
+                }`}>
+                <span className="text-xs font-normal text-paragraph opacity-60">0{link.id}</span>
+                <span>{link.label}</span>
               </Link>
             ))}
           </nav>
 
+          {/* Mobile Menu Button - visible on mobile only */}
+          <button
+            type="button"
+            aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex flex-col gap-1.5 w-6 h-6 cursor-pointer">
+            <span
+              className={`block h-0.5 w-full bg-headline transition-transform ${
+                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-full bg-headline transition-opacity ${mobileMenuOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-full bg-headline transition-transform ${
+                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            />
+          </button>
+
+          {/* Theme Toggle Button */}
           <button
             type="button"
             aria-label="Theme settings"
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
-            className="ml-6 rounded-full flex items-center justify-center cursor-pointer">
+            className="rounded-full flex items-center justify-center cursor-pointer">
             <ColorPaletteIcon className="text-accent" />
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Modal - full width, half screen height */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg100 border-b border-accent2/20 shadow-xl">
+          <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={link.href}
+                onClick={handleLinkClick}
+                className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 transition-colors ${
+                  pathname === link.href
+                    ? "text-headline after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-accent"
+                    : "text-paragraph hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-1 hover:after:bg-accent2"
+                }`}>
+                <span className="text-sm font-normal text-paragraph opacity-60">0{link.id}</span>
+                <span>{link.label}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

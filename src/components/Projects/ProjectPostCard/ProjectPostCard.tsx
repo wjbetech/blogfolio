@@ -4,7 +4,7 @@ import type { Project } from "@/app/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <Card className="w-64 shrink-0 mr-4">
+    <Card className="w-90 shrink-0 mr-4 h-110">
       <div className="h-40 rounded-md overflow-hidden bg-slate-100">
         {project.images?.[0] ? (
           <Image
@@ -19,19 +19,19 @@ export default function ProjectCard({ project }: { project: Project }) {
         )}
       </div>
 
-      <div className="mt-3">
-        <h3 className="text-sm font-semibold line-clamp-2">{project.title}</h3>
-        {project.description ? <p className="text-xs text-slate-500 mt-1 line-clamp-2">{project.description}</p> : null}
+      <div className="mt-4 flex-1">
+        <h3 className="text-lg font-semibold line-clamp-2">{project.title}</h3>
+        {project.description ? <p className="text-sm text-slate-600 mt-2 line-clamp-3">{project.description}</p> : null}
       </div>
 
-      <div className="mt-3">
+      <div className="mt-4">
         {project.link ? (
           <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-sky-600 hover:underline">
-            Visit
+            className="text-md text-sky-600 hover:underline">
+            View
           </a>
         ) : null}
       </div>

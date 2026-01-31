@@ -8,7 +8,7 @@ type CarouselProps = {
   step?: number;
 };
 
-export default function Carousel({ children, gap = 16, step = 320 }: CarouselProps) {
+export default function Carousel({ children, gap = 20, step = 400 }: CarouselProps) {
   const scroller = useRef<HTMLDivElement>(null);
   const scrollBy = (dir: number) => {
     if (!scroller.current) return;
@@ -19,23 +19,28 @@ export default function Carousel({ children, gap = 16, step = 320 }: CarouselPro
   };
 
   return (
-    <div className="py-10">
-      <div ref={scroller} className="flex overflow-x-auto no-scrollbar py-2 px-1" style={{ gap }}>
+    // make container relative so absolute buttons are scoped here
+    <div className="relative pb-4">
+      <div ref={scroller} className="flex overflow-x-auto no-scrollbar py-2 px-1 z-0" style={{ gap }}>
         {children}
       </div>
 
       <button
         aria-label="Previous post"
         onClick={() => scrollBy(-1)}
-        className="absolute top-1/2 ml-4 transform -translate-y-1/2 hidden md:flex">
-        <span>{"<"}</span>
+        className="absolute left-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-1 shadow z-10">
+        <svg className="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
+        </svg>
       </button>
 
       <button
         aria-label="Next post"
         onClick={() => scrollBy(1)}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/50 rounded-full p-1 shadow hidden md:flex">
-        <span>{">"}</span>
+        className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-1 shadow z-10">
+        <svg className="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
+        </svg>
       </button>
     </div>
   );

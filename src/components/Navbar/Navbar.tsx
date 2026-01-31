@@ -1,26 +1,37 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navLinks = [
+  { id: "1", href: "/", label: "Home" },
+  { id: "2", href: "/portfolio", label: "Blog" },
+  { id: "3", href: "/language-work", label: "Translation // Editing" },
+  { id: "4", href: "/contact", label: "Contact" }
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-32">
-        <Link href="/" className="text-lg font-bold">
+      <div className="max-w-7xl mx-auto px-16 flex items-center justify-between h-32">
+        <Link href="/" className="text-2xl font-bold">
           William East
         </Link>
-        <nav className="space-x-8 text-sm">
-          <Link href="/">
-            <span className="font-bold">1 </span>Home
-          </Link>
-          <Link href="/portfolio">
-            <span className="font-bold">2 </span>Dev Portfolio
-          </Link>
-          <Link href="/contact">
-            <span className="font-bold">3 </span>Contact
-          </Link>
+        <nav className="flex gap-4">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
 
-          <Link href="/language-work">
-            <span className="font-bold">4 </span>Translation // Editing
-          </Link>
+            return (
+              <Link key={link.label} href={link.href}>
+                <span className="font-bold">{link.id}</span>{" "}
+                <span className={isActive ? "text-primary underline underline-offset-2" : "text-slate-900"}>
+                  {link.label}
+                </span>
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

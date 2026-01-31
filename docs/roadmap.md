@@ -2,7 +2,7 @@
 
 ## 1.1 Layout & Navigation
 
-- [ ] Create the main layout in `src/app/layout.tsx`
+- [x] Create the main layout in `src/app/layout.tsx`
 - [ ] Build a Header component with navigation (Home/Blog, Portfolio, Admin\*)
 - [ ] Setup Tailwind styling and Tailwind workflow with suitable documentation
 - [ ] Add a responsive mobile menu
@@ -66,11 +66,10 @@
 - [ ] Create the admin page UI at `src/app/admin/layout.tsx`
 - [ ] Build posts list view with edit/delete actions for the authenticated admin user
 - [ ] Create a post editor with rich text support
-- [ ] Add image upload functionality*
+- [ ] Add image upload functionality\*
   - [ ] This depends on whether you store images via uploadthing or in mongoDB
 - [ ] Build the preview mode
 
 # Current Status
 
-Phase 1 - Layout & Navigation
-Next Step: Build the main layout and header component.
+Phase 1 - Layout & Navigation Next Step: Build the main layout and header component.

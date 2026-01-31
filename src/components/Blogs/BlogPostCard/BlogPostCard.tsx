@@ -5,24 +5,24 @@ import type { Post } from "@/app/types/post";
 
 export default function BlogPostCard({ post }: { post: Post }) {
   return (
-    <Card className="w-44 shrink-0 mr-4">
-      <div className="h-60 rounded-md overflow-hidden bg-slate-100">
+    <Card className="w-90 shrink-0 mr-4 h-110">
+      <div className="h-48 rounded-md overflow-hidden bg-slate-100">
         {post.coverImage ? (
           <Image
             src={post.coverImage}
             alt={post.title}
-            width={180}
-            height={240}
+            width={320}
+            height={192}
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-linear-to-br from-slate-200 to-slate-300"></div>
+          <div className="w-full h-full bg-linear-to-br from-slate-200 to-slate-300" />
         )}
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 flex-1">
         <h3 className="text-lg font-semibold line-clamp-2">{post.title}</h3>
-        {post.excerpt ? <p>{post.excerpt}</p> : null}
+        {post.excerpt ? <p className="text-sm text-slate-600 mt-2 line-clamp-3">{post.excerpt}</p> : null}
       </div>
 
       <div className="mt-4">

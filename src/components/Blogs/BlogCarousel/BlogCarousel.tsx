@@ -5,7 +5,7 @@ import { mockPosts } from "@/app/data/posts";
 export default function BlogCarousel() {
   return (
     <section className="">
-      <h2 className="text-2xl font-bold mb-4">Blog Posts</h2>
+      <h2 className="text-2xl font-bold mt-4">Blog Posts</h2>
       <Carousel>
         {mockPosts.map((post) => (
           <BlogPostCard key={post.slug} post={post} />

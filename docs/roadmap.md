@@ -3,7 +3,8 @@
 ## 1.1 Layout & Navigation
 
 - [x] Create the main layout in `src/app/layout.tsx`
-- [ ] Build a Header component with navigation (Home/Blog, Portfolio, Admin\*)
+- [x] Build a Header component with navigation (Home/Blog, Portfolio, Admin\*)
+- [ ] Build a Footer component with external navigations, icons, etc.
 - [ ] Setup Tailwind styling and Tailwind workflow with suitable documentation
 - [ ] Add a responsive mobile menu
 

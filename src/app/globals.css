@@ -48,7 +48,29 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
+/* Theme variable bridge - map our theme variables into shadcn theme tokens */
+@theme inline {
+  --color-bg-100: var(--bg-100);
+  --color-bg-200: var(--bg-200);
+  --color-bg-300: var(--bg-300);
+  --color-headline: var(--headline);
+  --color-paragraph: var(--paragraph);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+}
+
 :root {
+  /* Defaults for themeable variables (can be overridden by JS applyTheme or by [data-theme] blocks) */
+  --bg-100: #ffffff;
+  --bg-200: #f8fafc;
+  --bg-300: #eef2ff;
+  --headline: #0f172a;
+  --paragraph: #334155;
+  --accent: #06b6d4;
+  --accent-text: #ffffff;
+  --accent-2: #7c3aed;
+  --accent-3: #f97316;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
@@ -81,6 +103,28 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
+}
+
+/* Optional: attribute-driven theme blocks. If you set data-theme="id" on <html>, these vars will apply.
+   Values here are examples matching some themes defined in src/lib/themes.ts. You can add more entries as needed. */
+[data-theme="welcome"] {
+  --bg-100: #eaf4f4;
+  --bg-200: #d4e9e2;
+  --bg-300: #bddbd0;
+  --headline: #344e41;
+  --paragraph: #5f6f73;
+  --accent: #84a98c;
+  --accent-text: #ffffff;
+}
+
+[data-theme="demon"] {
+  --bg-100: #16161a;
+  --bg-200: #0f0f11;
+  --bg-300: #0c0c0e;
+  --headline: #fffffe;
+  --paragraph: #94a1b2;
+  --accent: #7f5af0;
+  --accent-text: #fffffe;
 }
 
 .dark {

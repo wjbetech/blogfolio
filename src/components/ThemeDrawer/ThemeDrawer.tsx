@@ -4,12 +4,8 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PaletteItem from "../Palettes/Palette";
 import UpArrowIcon from "../Icons/UpArrowIcon";
-
-type Palette = {
-  id: string;
-  name: string;
-  colors: string[];
-};
+import { ColorThemes } from "@/lib/themes";
+import { applyTheme } from "@/lib/applyTheme";
 
 export default function ThemeDrawer({
   open,
@@ -22,12 +18,6 @@ export default function ThemeDrawer({
   onSelect: (id: string) => void;
   active?: string | null;
 }) {
-  const palettes: Palette[] = [
-    { id: "indigo", name: "Indigo Sunshine", colors: ["#5B21B6", "#7C3AED", "#C084FC", "#A78BFA"] },
-    { id: "teal", name: "Teal Breeze", colors: ["#0D9488", "#14B8A6", "#5EEAD4", "#99F6E4"] },
-    { id: "rose", name: "Rose Dawn", colors: ["#BE123C", "#F43F5E", "#FECACA", "#FDE68A"] }
-  ];
-
   return (
     <AnimatePresence initial={false}>
       {open && (
@@ -40,7 +30,7 @@ export default function ThemeDrawer({
           className="overflow-hidden border-b bg-white">
           <div className="max-w-7xl mx-auto py-4 flex items-center justify-between px-16">
             <div className="flex flex-col mx-auto">
-              <h3 className="text-lg font-bold m-auto place-self-center">Theme palettes</h3>
+              <h3 className="text-xl font-bold m-auto place-self-center">Themes</h3>
             </div>
 
             <div>
@@ -51,9 +41,22 @@ export default function ThemeDrawer({
           </div>
 
           <div className="max-w-7xl mx-auto px-16 pb-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {palettes.map((p) => (
-                <PaletteItem key={p.id} palette={p} onSelect={(id) => onSelect(id)} selected={active === p.id} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {ColorThemes.map((t) => (
+                <PaletteItem
+                  key={t.id}
+                  palette={{
+                    id: t.id,
+                    name: t.name,
+                    colors: [t.bg100, t.accent, t.accent2 ?? t.accent, t.accent3 ?? t.accent]
+                  }}
+                  onSelect={(id) => {
+                    const theme = ColorThemes.find((x) => x.id === id);
+                    if (theme) applyTheme(theme);
+                    onSelect(id);
+                  }}
+                  selected={active === t.id}
+                />
               ))}
             </div>
           </div>

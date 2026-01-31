@@ -3,11 +3,11 @@ export default function Hero() {
     <section className="w-full pb-12">
       <div className="max-w-7xl px-4 mx-auto flex flex-col md:flex-row items-center gap-6">
         <div className="shrink-0">
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-indigo-200 via-pink-100 to-amber-100 shadow-lg" />
+          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-accent via-accent2 to-accent3 shadow-lg" />
         </div>
 
         <div className="flex-1 text-right">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent2 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent leading-tight">
             Hey, I&apos;m Will
           </h1>
 

@@ -6,9 +6,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-white">
+    <footer className="border-t">
       <div className="max-w-7xl mx-auto px-4 md:px-16 flex items-center justify-between h-16">
-        <div className="text-sm text-slate-700">© 2021-{year} William East</div>
+        <div className="text-sm text-headline">© 2021-{year} William East</div>
 
         <nav className="flex items-center gap-4 text-sm">
           <Link
@@ -17,7 +17,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex items-center gap-2"
             aria-label="GitHub">
-            <GithubIcon className="w-5 h-5 text-primary" />
+            <GithubIcon className="w-5 h-5 text-paragraph" />
           </Link>
 
           <Link
@@ -26,7 +26,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex items-center gap-2"
             aria-label="LinkedIn">
-            <LinkedInIcon className="w-5 h-5 text-primary" />
+            <LinkedInIcon className="w-5 h-5 text-paragraph" />
           </Link>
         </nav>
       </div>

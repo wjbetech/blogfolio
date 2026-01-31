@@ -36,7 +36,7 @@ export default function Navbar({
               <Link
                 key={link.id}
                 href={link.href}
-                className={`text-sm ${pathname === link.href ? "font-semibold" : "text-slate-700"}`}>
+                className={`text-sm ${pathname === link.href ? "font-semibold" : "text-paragraph"}`}>
                 {link.label}
               </Link>
             ))}
@@ -47,7 +47,7 @@ export default function Navbar({
             aria-label="Theme settings"
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
-            className="ml-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center cursor-pointer">
+            className="ml-6 p-2 rounded-full hover:bg-bg200 flex items-center justify-center cursor-pointer">
             <ColorPaletteIcon className="text-primary" />
           </button>
         </div>

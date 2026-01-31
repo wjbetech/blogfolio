@@ -26,7 +26,7 @@ export default function Navbar({
   return (
     <header>
       <div className="max-w-7xl mx-auto px-16 flex items-center justify-between h-32">
-        <Link href="/" className="text-2xl font-bold">
+        <Link href="/" className="text-2xl font-bold text-headline">
           William East
         </Link>
 
@@ -36,7 +36,7 @@ export default function Navbar({
               <Link
                 key={link.id}
                 href={link.href}
-                className={`text-sm ${pathname === link.href ? "font-semibold" : "text-paragraph"}`}>
+                className={`text-sm ${pathname === link.href ? "font-semibold text-headline" : "text-paragraph"}`}>
                 {link.label}
               </Link>
             ))}
@@ -48,7 +48,7 @@ export default function Navbar({
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
             className="ml-6 rounded-full flex items-center justify-center cursor-pointer">
-            <ColorPaletteIcon className="text-primary" />
+            <ColorPaletteIcon className="text-accent" />
           </button>
         </div>
       </div>

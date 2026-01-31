@@ -4,16 +4,16 @@ export const ColorThemes: ColorTheme[] = [
   {
     id: "welcome",
     name: "Welcome Theme",
-    bg100: "#eaf4f4", // sky over Lumbridge
+    bg100: "#eaf4f4",
     bg200: "#d4e9e2",
     bg300: "#bddbd0",
     headline: "#344e41",
     paragraph: "#5f6f73",
-    button: "#84a98c", // gentle adventure green
+    button: "#84a98c",
     buttonText: "#fffffe",
-    accent: "#a7c7e7", // river Lum
-    accent2: "#f2cc8f", // wheat fields
-    accent3: "#e07a5f" // rooftops / subtle warmth
+    accent: "#a7c7e7",
+    accent2: "#f2cc8f",
+    accent3: "#e07a5f"
   },
   {
     id: "gnome",
@@ -186,15 +186,15 @@ export const ColorThemes: ColorTheme[] = [
   {
     id: "sunwell",
     name: "The Sunwell",
-    bg100: "#fff6e5", // arcane sanctum red
+    bg100: "#fff6e5",
     bg200: "#fee7cb",
     bg300: "#fdd8b1",
     headline: "#7c1d1d",
     paragraph: "#7a4a2e",
-    button: "#c81e1e", // blood elf crimson
+    button: "#c81e1e",
     buttonText: "#fff6e5",
-    accent: "#f5c16c", // radiant gold
-    accent2: "#6fa58c", // dried blood / obsession
-    accent3: "#f43f5e" // unstable arcane energy
+    accent: "#f5c16c",
+    accent2: "#6fa58c",
+    accent3: "#f43f5e"
   }
 ];

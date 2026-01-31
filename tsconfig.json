@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/components/Card"  ],
+, "src/components/Card", "src/components/Icons/GitHubIcon.tsx"  ],
   "exclude": ["node_modules"]
 }

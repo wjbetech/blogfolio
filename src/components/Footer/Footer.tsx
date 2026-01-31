@@ -6,7 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t">
+    <footer>
       <div className="max-w-7xl mx-auto px-4 md:px-16 flex items-center justify-between h-16">
         <div className="text-sm text-headline">© 2021-{year} William East</div>
 

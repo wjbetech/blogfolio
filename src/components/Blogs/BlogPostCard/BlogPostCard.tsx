@@ -21,12 +21,12 @@ export default function BlogPostCard({ post }: { post: Post }) {
       </div>
 
       <div className="mt-4 flex-1">
-        <h3 className="text-lg font-semibold line-clamp-2">{post.title}</h3>
-        {post.excerpt ? <p className="text-sm text-slate-600 mt-2 line-clamp-3">{post.excerpt}</p> : null}
+        <h3 className="text-xl text-headline font-semibold line-clamp-2">{post.title}</h3>
+        {post.excerpt ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{post.excerpt}</p> : null}
       </div>
 
       <div className="mt-4">
-        <Link href={`/posts/${post.slug}`} className="text-md text-sky-600 hover:underline">
+        <Link href={`/posts/${post.slug}`} className="text-paragraph hover:underline">
           View
         </Link>
       </div>

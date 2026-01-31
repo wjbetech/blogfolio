@@ -28,7 +28,7 @@ export default function ThemeDrawer({
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.28, ease: "easeInOut" }}
-          className="overflow-hidden border-b bg-bg200">
+          className="overflow-hidden border-b-2 bg-bg200 border-b-accent3">
           <div className="max-w-7xl mx-auto py-2 flex items-center justify-between px-16">
             <div className="flex items-center gap-2 mx-auto">
               <button

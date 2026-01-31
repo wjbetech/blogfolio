@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useImperativeHandle, forwardRef } from "react";
-import PaletteItem from "../Palettes/Palette";
+import PaletteItem from "../../Palettes/Palette";
 import { ColorThemes } from "@/lib/themes";
 
 type Props = {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
-import HeaderWithDrawer from "@/components/HeaderWithDrawer/HeaderWithDrawer";
+import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -42,7 +42,7 @@ export default function RootLayout({
 })();`
           }}
         />
-        <HeaderWithDrawer />
+        <ThemeAside />
         <main className="max-w-7xl mx-auto px-10 py-8">{children}</main>
         <Footer />
       </body>

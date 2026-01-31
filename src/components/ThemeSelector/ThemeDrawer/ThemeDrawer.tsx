@@ -2,8 +2,8 @@
 
 import React, { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "./ThemeDrawerCarousel";
-import UpArrowIcon from "../Icons/UpArrowIcon";
+import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "../ThemeCarousel/ThemeDrawerCarousel";
+import UpArrowIcon from "../../Icons/UpArrowIcon";
 import { ColorThemes } from "@/lib/themes";
 import { applyTheme } from "@/lib/applyTheme";
 

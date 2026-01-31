@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Navbar from "../Navbar/Navbar";
-import ThemeDrawer from "../ThemeDrawer/ThemeDrawer";
+import Navbar from "@/components/Navbar/Navbar";
+import ThemeDrawer from "@/components/ThemeSelector/ThemeDrawer/ThemeDrawer";
 
-export default function HeaderWithDrawer() {
+export default function ThemeAside() {
   const [open, setOpen] = useState(false);
   const [activePalette, setActivePalette] = useState<string | null>(null);
 
@@ -15,7 +15,6 @@ export default function HeaderWithDrawer() {
       <ThemeDrawer
         open={open}
         onClose={() => setOpen(false)}
-        // Selecting a theme now only updates the active palette without closing the drawer
         onSelect={(id) => {
           setActivePalette(id);
         }}

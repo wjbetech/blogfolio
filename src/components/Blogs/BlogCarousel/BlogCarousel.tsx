@@ -27,8 +27,10 @@ const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, r
           />
         </div>
         <div>
-          <Link href="/posts" className="text-link text-lg">
-            See all posts
+          <Link
+            href="/blog"
+            className="flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors text-paragraph hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-200/70 hover:after:-z-10">
+            <span>See all blogs</span>
           </Link>
         </div>
       </div>

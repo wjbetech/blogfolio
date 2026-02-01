@@ -14,6 +14,7 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 - [x] Add a responsive mobile menu.
 - [x] Standardize and centralize theme variable names.
 - [x] Fix the carousel arrows to be useful and accessible.
+- [ ] Add thick underline affects to the 'See all [...]' links.
 
 ### 1.1.1 Initial Unit Testing
 

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
+import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,22 +27,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" className={inter.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 `}>
-        <script
-          // Apply saved theme (or default to 'welcome') before hydration to avoid flash
-          dangerouslySetInnerHTML={{
-            __html: `(() => {
+  // Read the theme id from cookies on the server so the rendered HTML
+  // includes the correct `data-theme` attribute and avoids hydration mismatches.
+  // Read cookie header and parse `site-theme` manually to be robust across runtimes
+  let cookieHeader = "";
   try {
-    var id = null;
-    try { id = localStorage.getItem('site:theme'); } catch(e) { id = null; }
-    if (!id) id = 'welcome';
-    document.documentElement.setAttribute('data-theme', id);
-  } catch (e) {}
-})();`
-          }}
-        />
+    const hdrs = headers();
+    if (hdrs && typeof (hdrs as any).get === "function") {
+      cookieHeader = (hdrs as any).get("cookie") ?? "";
+    } else if (hdrs && typeof hdrs === "object") {
+      // Some runtimes expose headers as plain objects
+      cookieHeader = (hdrs as any)["cookie"] ?? (hdrs as any)["Cookie"] ?? "";
+    }
+  } catch (e) {
+    cookieHeader = "";
+  }
+  const parseCookie = (cookieStr: string, name: string) => {
+    if (!cookieStr) return null;
+    const pairs = cookieStr.split(";").map((p) => p.trim());
+    for (const pair of pairs) {
+      const idx = pair.indexOf("=");
+      if (idx === -1) continue;
+      const key = pair.substring(0, idx).trim();
+      const val = pair.substring(idx + 1).trim();
+      if (key === name) return decodeURIComponent(val);
+    }
+    return null;
+  };
+
+  const themeId = parseCookie(cookieHeader, "site-theme") ?? "welcome";
+
+  return (
+    <html lang="en" data-theme={themeId} className={inter.variable}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 `}>
         <ThemeAside />
         <main className="max-w-7xl mx-auto px-10 py-8">{children}</main>
         <Footer />

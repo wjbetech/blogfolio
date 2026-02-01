@@ -1,0 +1,44 @@
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
+
+// Mock applyTheme and loadSavedThemeId
+jest.mock("@/lib/applyTheme", () => ({
+  applyTheme: jest.fn(),
+  loadSavedThemeId: jest.fn(() => null)
+}));
+
+// Mock framer-motion to render children synchronously
+jest.mock("framer-motion", () => ({
+  AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
+  motion: { div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div {...props}>{children}</div> }
+}));
+
+// Mock next/navigation usePathname used by Navbar
+jest.mock("next/navigation", () => ({ usePathname: () => "/" }));
+
+import * as lib from "@/lib/applyTheme";
+
+describe("Theme interaction", () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it("applies theme when palette is clicked", async () => {
+    render(<ThemeAside />);
+
+    // open the drawer via the navbar theme button
+    const themeToggle = screen.getByLabelText(/Theme settings/i);
+    fireEvent.click(themeToggle);
+
+    // wait for a palette title to appear (Welcome Theme exists in ColorThemes)
+    const title = await screen.findByText("Welcome Theme");
+
+    // the title's previous sibling is the palette button
+    const paletteButton = title.previousElementSibling as HTMLButtonElement | null;
+    expect(paletteButton).toBeTruthy();
+    if (!paletteButton) return;
+
+    fireEvent.click(paletteButton);
+
+    await waitFor(() => expect(lib.applyTheme).toHaveBeenCalledWith(expect.objectContaining({ id: "welcome" })));
+  });
+});

@@ -44,8 +44,8 @@ export default function Navbar({
                 href={link.href}
                 className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors ${
                   pathname === link.href
-                    ? "font-semibold text-headline after:absolute after:bottom-px after:-left-1.5 after:right-0 after:h-3 after:bg-accent/70 after:-z-10"
-                    : "text-paragraph hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent2/70 hover:after:-z-10"
+                    ? "font-semibold text-headline after:absolute after:bottom-px after:-left-1.5 after:right-0 after:h-3 after:bg-accent-100/70 after:-z-10"
+                    : "text-paragraph hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-200/70 hover:after:-z-10"
                 }`}>
                 <span className="text-xs font-normal text-paragraph opacity-60">0{link.id}</span>
                 <span>{link.label}</span>
@@ -82,14 +82,14 @@ export default function Navbar({
             aria-expanded={isDrawerOpen}
             onClick={() => onToggle?.()}
             className="rounded-full flex items-center justify-center cursor-pointer">
-            <ColorPaletteIcon className="text-accent" />
+            <ColorPaletteIcon className="text-accent-100" />
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Modal - full width, half screen height */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg100 border-b border-accent2/20 shadow-xl">
+        <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
           <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
             {navLinks.map((link) => (
               <Link
@@ -98,8 +98,8 @@ export default function Navbar({
                 onClick={handleLinkClick}
                 className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 transition-colors ${
                   pathname === link.href
-                    ? "text-headline after:absolute after:bottom-1 after:-left-2 after:right-0 after:h-6 after:bg-accent after:-z-10"
-                    : "text-paragraph hover:after:absolute hover:after:bottom-1 hover:after:-left-2 hover:after:right-0 hover:after:h-6 hover:after:bg-accent2 hover:after:-z-10"
+                    ? "text-headline after:absolute after:bottom-1 after:-left-2 after:right-0 after:h-6 after:bg-accent-100 after:-z-10"
+                    : "text-paragraph hover:after:absolute hover:after:bottom-1 hover:after:-left-2 hover:after:right-0 hover:after:h-6 hover:after:bg-accent-200 hover:after:-z-10"
                 }`}>
                 <span className="text-sm font-normal text-paragraph opacity-60">0{link.id}</span>
                 <span>{link.label}</span>

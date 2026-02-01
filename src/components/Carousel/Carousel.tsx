@@ -28,8 +28,8 @@ export default function Carousel({ children, gap = 20, step = 400 }: CarouselPro
       <button
         aria-label="Previous post"
         onClick={() => scrollBy(-1)}
-        className="absolute left-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-1 shadow z-10">
-        <svg className="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        className="absolute left-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-bg-200 rounded-full p-1 shadow z-10">
+        <svg className="w-4 h-4 text-paragraph" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" />
         </svg>
       </button>
@@ -37,8 +37,8 @@ export default function Carousel({ children, gap = 20, step = 400 }: CarouselPro
       <button
         aria-label="Next post"
         onClick={() => scrollBy(1)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-white rounded-full p-1 shadow z-10">
-        <svg className="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center bg-bg-200 rounded-full p-1 shadow z-10">
+        <svg className="w-4 h-4 text-paragraph" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 6l6 6-6 6" />
         </svg>
       </button>

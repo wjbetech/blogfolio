@@ -5,49 +5,52 @@
 
 /* Register CSS variables as Tailwind color utilities */
 @theme inline {
-  --color-bg100: var(--bg100);
-  --color-bg200: var(--bg200);
-  --color-bg300: var(--bg300);
+  --color-bg-100: var(--bg-100);
+  --color-bg-200: var(--bg-200);
+  --color-bg-300: var(--color-bg-300);
   --color-headline: var(--headline);
   --color-paragraph: var(--paragraph);
   --color-button: var(--button);
   --color-buttonText: var(--buttonText);
-  --color-accent: var(--accent);
-  --color-accent2: var(--accent2);
-  --color-accent3: var(--accent3);
+  --color-link: var(--link);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
 }
 
 :root {
   /* Welcome Theme as the default for new users */
   /* CSS variable names match themes.ts property names exactly */
-  --bg100: #eaf4f4;
-  --bg200: #d4e9e2;
-  --bg300: #bddbd0;
+  --bg-100: #eaf4f4;
+  --bg-200: #d4e9e2;
+  --bg-300: #bddbd0;
 
   --headline: #344e41;
   --paragraph: #5f6f73;
 
   --button: #84a98c;
   --buttonText: #fffffe;
+  --link: #344e41;
 
-  --accent: #a7c7e7;
-  --accent2: #f2cc8f;
-  --accent3: #e07a5f;
+  --accent-100: #a7c7e7;
+  --accent-200: #f2cc8f;
+  --accent-300: #e07a5f;
 }
 
 /* Keep data-theme override blocks (example) — they override the same variables above */
 [data-theme="welcome"] {
   /* CSS variable names match themes.ts property names exactly */
-  --bg100: #eaf4f4;
-  --bg200: #d4e9e2;
-  --bg300: #bddbd0;
+  --bg-100: #eaf4f4;
+  --bg-200: #d4e9e2;
+  --bg-300: #bddbd0;
   --headline: #344e41;
   --paragraph: #5f6f73;
   --button: #84a98c;
   --buttonText: #fffffe;
-  --accent: #a7c7e7;
-  --accent2: #f2cc8f;
-  --accent3: #e07a5f;
+  --link: #344e41;
+  --accent-100: #a7c7e7;
+  --accent-200: #f2cc8f;
+  --accent-300: #e07a5f;
 }
 
 /* ...other [data-theme="..."] blocks remain here... */
@@ -60,7 +63,7 @@
     box-sizing: border-box;
   }
   body {
-    background-color: var(--bg100);
+    background-color: var(--bg-100);
     color: var(--paragraph);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

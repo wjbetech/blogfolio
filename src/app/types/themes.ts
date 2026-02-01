@@ -1,15 +1,15 @@
 export type ColorTheme = {
   id: string;
   name: string;
-  bg100: string;
-  bg200: string;
-  bg300: string;
+  "bg-100": string;
+  "bg-200": string;
+  "bg-300": string;
   headline: string;
   paragraph: string;
   button: string;
-  buttonText: string;
-  link: string;
-  accent: string;
-  accent2: string;
-  accent3: string;
+  "button-text"?: string;
+  link?: string;
+  "accent-100": string;
+  "accent-200"?: string;
+  "accent-300"?: string;
 };

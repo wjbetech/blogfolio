@@ -51,7 +51,12 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
               palette={{
                 id: t.id,
                 name: t.name,
-                colors: [t.bg100, t.accent, t.accent2 ?? t.accent, t.accent3 ?? t.accent]
+                colors: [
+                  t["bg-100"],
+                  t["accent-100"],
+                  t["accent-200"] ?? t["accent-100"],
+                  t["accent-300"] ?? t["accent-100"]
+                ]
               }}
               onSelect={onSelect}
               selected={active === t.id}

@@ -1,3 +1,7 @@
+# Current Status
+
+Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variable names.
+
 # Phase 1: Foundational Frontend
 
 ## 1.1 Layout & Navigation
@@ -8,7 +12,7 @@
 - [x] Setup Tailwind styling and Tailwind workflow with suitable documentation
   - [x] Fix the styles in the ThemeDrawer components.
 - [x] Add a responsive mobile menu.
-- [ ] Standardize and centralize theme variable names.
+- [x] Standardize and centralize theme variable names.
 - [ ] Fix the carousel arrows to be useful and accessible.
 
 ### 1.1.1 Initial Unit Testing
@@ -95,7 +99,3 @@
 - [ ] Add image upload functionality\*
   - [ ] This depends on whether you store images via uploadthing or in mongoDB
 - [ ] Build the preview mode
-
-# Current Status
-
-Phase 1 - Layout & Navigation Next Step: Build the main layout and header component.

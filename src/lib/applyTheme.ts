@@ -1,32 +1,51 @@
 import { ColorTheme } from "@/app/types/themes";
 
 export function applyTheme(theme: ColorTheme) {
-  const root = document.documentElement;
-  // Set CSS variables using non-hyphenated names that match themes.ts properties
-  root.style.setProperty("--bg100", theme.bg100);
-  root.style.setProperty("--bg200", theme.bg200);
-  root.style.setProperty("--bg300", theme.bg300);
-  root.style.setProperty("--headline", theme.headline);
-  root.style.setProperty("--paragraph", theme.paragraph);
-  root.style.setProperty("--button", theme.button);
-  root.style.setProperty("--buttonText", theme.buttonText);
-  root.style.setProperty("--accent", theme.accent);
-  root.style.setProperty("--accent2", theme.accent2);
-  root.style.setProperty("--accent3", theme.accent3);
-
-  // Persist selection to localStorage
   try {
-    localStorage.setItem("site:theme", theme.id);
-  } catch (error) {
-    console.log(error, "Could not save theme to localStorage");
-  }
+    const root = document.documentElement;
 
-  // Persist to cookie so server can read it on SSR (prevents hydration mismatch)
-  try {
-    const maxAge = 60 * 60 * 24 * 365; // 1 year
-    document.cookie = `site-theme=${encodeURIComponent(theme.id)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
+    // backgrounds
+    root.style.setProperty("--bg-100", theme["bg-100"]);
+    root.style.setProperty("--bg-200", theme["bg-200"]);
+    root.style.setProperty("--bg-300", theme["bg-300"]);
+
+    // text
+    root.style.setProperty("--headline", theme.headline);
+    root.style.setProperty("--paragraph", theme.paragraph);
+
+    // button
+    root.style.setProperty("--button", theme.button);
+    if (theme["button-text"]) root.style.setProperty("--button-text", theme["button-text"]);
+
+    // link (primary link color) and hover/focus fallback
+    if (theme.link) {
+      root.style.setProperty("--link", theme.link);
+    } else {
+      // fallback to headline if no explicit link color
+      root.style.setProperty("--link", theme.headline);
+    }
+
+    // accents (numeric scale)
+    root.style.setProperty("--accent-100", theme["accent-100"]);
+    if (theme["accent-200"]) root.style.setProperty("--accent-200", theme["accent-200"]);
+    if (theme["accent-300"]) root.style.setProperty("--accent-300", theme["accent-300"]);
+
+    // persist selection
+    try {
+      localStorage.setItem("site:theme", theme.id);
+    } catch (error) {
+      console.log(error, "applyTheme localStorage error");
+    }
+
+    // cookie for SSR hydration parity
+    try {
+      const maxAge = 60 * 60 * 24 * 365;
+      document.cookie = `site-theme=${encodeURIComponent(theme.id)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
+    } catch (error) {
+      console.log(error, "applyTheme cookie error");
+    }
   } catch (error) {
-    console.log(error, "Could not save theme to cookie");
+    console.error("applyTheme error", error);
   }
 }
 

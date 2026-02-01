@@ -6,7 +6,7 @@ import type { Post } from "@/app/types/post";
 export default function BlogPostCard({ post }: { post: Post }) {
   return (
     <Card className="w-90 shrink-0 mr-4 h-110">
-      <div className="h-48 rounded-md overflow-hidden bg-slate-100">
+      <div className="h-48 rounded-md overflow-hidden bg-accent-100">
         {post.coverImage ? (
           <Image
             src={post.coverImage}
@@ -16,7 +16,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-linear-to-br from-slate-200 to-slate-300" />
+          <div className="w-full h-full bg-linear-to-br from-bg-200 to-bg-300" />
         )}
       </div>
 

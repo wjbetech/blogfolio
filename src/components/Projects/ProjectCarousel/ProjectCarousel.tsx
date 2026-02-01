@@ -19,7 +19,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarouse
     <section className="">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <h2 className="text-2xl font-bold">Featured Projects</h2>
+          <h2 className="text-2xl font-bold text-headline">Featured Projects</h2>
           <CarouselControls
             onPrev={() => innerRef.current?.scrollLeft()}
             onNext={() => innerRef.current?.scrollRight()}
@@ -29,7 +29,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarouse
         <div>
           <Link
             href="/portfolio"
-            className="flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors text-paragraph hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-200/70 hover:after:-z-10">
+            className="flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors text-link hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-200/70 hover:after:-z-10">
             <span>See all projects</span>
           </Link>
         </div>

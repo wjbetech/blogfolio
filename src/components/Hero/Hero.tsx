@@ -12,13 +12,13 @@ export default function Hero() {
           </h1>
 
           <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed">
-            <h5 className="font-bold text-heading">Fullstack Developer</h5>
+            <h5 className="font-bold text-headline">Fullstack Developer</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">
               Next.js, Node, TypeScript, Prisma, TailwindCSS, and more
             </p>
-            <h5 className="font-bold text-heading mt-6">Translation and Editing</h5>
+            <h5 className="font-bold text-headline mt-6">Translation and Editing</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Korean, English</p>
-            <h5 className="font-bold text-heading mt-6">Professor of Interpretation and Culture</h5>
+            <h5 className="font-bold text-headline mt-6">Professor of Interpretation and Culture</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Seoul University of Foreign Studies</p>
           </div>
         </div>

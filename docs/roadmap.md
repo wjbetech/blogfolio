@@ -26,7 +26,7 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 - [x] Take a look at Tailwind pseudo-classes again
   - [ ] Optimize for DX and overall re-useability/readability
 - [ ] Ensure keyboard accessibility and clear focus states
-- [ ] Add a canonical useTheme hook (src/lib/useTheme.ts) that exposes theme
+- [x] Add a canonical useTheme hook (src/lib/useTheme.ts) that exposes theme
 - [ ] Replace remaining cookie/localStorage calls with useTheme for a single source of truth
   - [ ] Need evaluation of how this will work for new users/existing users
 - [ ] Fix palette cards to be fully fixed-width

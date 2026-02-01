@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "../ThemeCarousel/ThemeDrawerCarousel";
 import UpArrowIcon from "../../Icons/UpArrowIcon";
 import { ColorThemes } from "@/lib/themes";
-import { applyTheme } from "@/lib/applyTheme";
 
 export default function ThemeDrawer({
   open,
@@ -58,15 +57,7 @@ export default function ThemeDrawer({
           </div>
 
           <div className="max-w-7xl mx-auto px-12">
-            <ThemeDrawerCarousel
-              ref={carouselRef}
-              active={active}
-              onSelect={(id) => {
-                const theme = ColorThemes.find((x) => x.id === id);
-                if (theme) applyTheme(theme);
-                onSelect(id);
-              }}
-            />
+            <ThemeDrawerCarousel ref={carouselRef} active={active} onSelect={(id) => onSelect(id)} />
           </div>
         </motion.div>
       )}

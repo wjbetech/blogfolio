@@ -8,9 +8,8 @@ export type ColorTheme = {
   paragraph: string;
   button: string;
   buttonText: string;
+  link: string;
   accent: string;
   accent2: string;
   accent3: string;
-  // optional alternate key for accent text — some theme objects may provide this
-  accentText?: string;
 };

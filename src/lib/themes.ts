@@ -11,6 +11,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#5f6f73",
     button: "#84a98c",
     buttonText: "#fffffe",
+    link: "#344e41",
     accent: "#a7c7e7",
     accent2: "#f2cc8f",
     accent3: "#e07a5f"
@@ -25,6 +26,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "172c66",
     button: "#f582ae",
     buttonText: "#001858",
+    link: "#001858",
     accent: "#8bd3dd",
     accent2: "#a786df",
     accent3: "#f3d2c1"
@@ -39,6 +41,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#a7a9be",
     button: "#ff8906",
     buttonText: "#fffffe",
+    link: "#fffffe",
     accent: "#f25f4c",
     accent2: "#e53170",
     accent3: "#a63a2a"
@@ -53,6 +56,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#abd1c6",
     button: "#f9bc60",
     buttonText: "#001e1d",
+    link: "#fffffe",
     accent: "#abd1c6",
     accent2: "#e16162",
     accent3: "#d4a373"
@@ -67,6 +71,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#b8c1ec",
     button: "#eebbc3",
     buttonText: "#232946",
+    link: "#fffffe",
     accent: "#fffffe",
     accent2: "#d9a0aa",
     accent3: "#7a5c8e"
@@ -81,6 +86,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#605e5b",
     button: "#8b5e3c",
     buttonText: "#f4e8c1",
+    link: "#403d39",
     accent: "#8aa17a",
     accent2: "#6f9e9a",
     accent3: "#d2b48c"
@@ -95,6 +101,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#94a1b2",
     button: "#7f5af0",
     buttonText: "#fffffe",
+    link: "#fffffe",
     accent: "#4a3f6b",
     accent2: "#2cb67d",
     accent3: "#18261f"
@@ -109,6 +116,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#2d3334a",
     button: "#ffd803",
     buttonText: "#272343",
+    link: "#272343",
     accent: "#3fa66b",
     accent2: "#7fb7e6",
     accent3: "#f6d365"
@@ -123,6 +131,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#5f6c7b",
     button: "#1f6aa5",
     buttonText: "#fffffe",
+    link: "#094067",
     accent: "#90b4ce",
     accent2: "#7a1e2d",
     accent3: "#b6a76c"
@@ -137,6 +146,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#605e5b",
     button: "#6d5bd0",
     buttonText: "#f9f5eb",
+    link: "#403d39",
     accent: "#9f8fdc",
     accent2: "#d6c38b",
     accent3: "#c7b6e2"
@@ -151,6 +161,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#3a5f54",
     button: "#3a7d5c",
     buttonText: "#fffffe",
+    link: "#0f3d2e",
     accent: "#4ea8a1",
     accent2: "#7fbf7f",
     accent3: "#e9c46a"
@@ -165,6 +176,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#4b5563",
     button: "#4a5d78",
     buttonText: "#fffffe",
+    link: "#1f2933",
     accent: "#9da3ae",
     accent2: "#cfa15d",
     accent3: "#5eead4"
@@ -179,6 +191,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#9fb3c8",
     button: "#3b82f6",
     buttonText: "#e6f1ff",
+    link: "#e6f1ff",
     accent: "#7dd3fc",
     accent2: "#94a3b8",
     accent3: "#a5c9e8"
@@ -193,6 +206,7 @@ export const ColorThemes: ColorTheme[] = [
     paragraph: "#7a4a2e",
     button: "#c81e1e",
     buttonText: "#fff6e5",
+    link: "#7c1d1d",
     accent: "#f5c16c",
     accent2: "#6fa58c",
     accent3: "#f43f5e"

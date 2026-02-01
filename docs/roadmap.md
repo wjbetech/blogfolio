@@ -2,12 +2,36 @@
 
 ## 1.1 Layout & Navigation
 
-- [x] Create the main layout in `src/app/layout.tsx`
-- [x] Build a Header component with navigation (Home/Blog, Portfolio, Admin\*)
+- [x] Create the main layout in `src/app/layout.tsx`.
+- [x] Build a Header component with navigation (Home/Blog, Portfolio, Admin\*).
 - [x] Build a Footer component with external navigations, icons, etc.
 - [x] Setup Tailwind styling and Tailwind workflow with suitable documentation
-  - [x] Fix the styles in the ThemeDrawer components
-- [ ] Add a responsive mobile menu
+  - [x] Fix the styles in the ThemeDrawer components.
+- [x] Add a responsive mobile menu.
+- [ ] Standardize and centralize theme variable names.
+- [ ] Fix the carousel arrows to be useful and accessible.
+
+### 1.1.1 Initial Unit Testing
+
+- [ ] Build unit tests for the applyTheme logic.
+
+### 1.1.2 UI Improvements & Accessibility
+
+- [ ] Take a look at Tailwind pseudo-classes again
+  - [ ] Optimize for DX and overall re-useability/readability
+- [ ] Ensure keyboard accessibility and clear focus states
+- [ ] Add a canonical useTheme hook (src/lib/useTheme.ts) that exposes theme
+- [ ] Replace remaining cookie/localStorage calls with useTheme for a single source of truth
+  - [ ] Need evaluation of how this will work for new users/existing users
+- [ ] Fix palette cards to be fully fixed-width
+- [ ] CSS snap for carousels (scroll-snap-type)\*
+- [ ] Look into a Changelog for the entire app that can export to Webcomments or other automatic updater in the app HTML.
+
+  #### 1.1.2
+  - [ ] Theme toggle button should have aria-expanded and aria-controls atts.
+  - [ ] Drawer role should be "dialog" and aria-modal when overlaying.
+  - [ ] Mobile nav should trap focus and restore focus on close.
+  - [ ] Links should use aria-current="page" for active nav items.
 
 ## 1.2 Blog Pages
 

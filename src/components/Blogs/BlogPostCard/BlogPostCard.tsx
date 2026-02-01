@@ -26,7 +26,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
       </div>
 
       <div className="mt-4">
-        <Link href={`/posts/${post.slug}`} className="text-paragraph hover:underline">
+        <Link href={`/posts/${post.slug}`} className="text-link font-semibold hover:underline">
           View
         </Link>
       </div>

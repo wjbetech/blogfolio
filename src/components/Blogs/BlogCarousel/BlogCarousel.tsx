@@ -1,13 +1,31 @@
-import React from "react";
-import Carousel, { CarouselHandle } from "@/components/Carousel/Carousel";
+"use client";
+
+import React, { useRef, useImperativeHandle } from "react";
+import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
+import CarouselControls from "@/components/Carousel/CarouselControls";
 import BlogPostCard from "../BlogPostCard/BlogPostCard";
 import { mockPosts } from "@/app/data/posts";
 
 const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, ref) {
+  const innerRef = useRef<CarouselHandle | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    scrollLeft: () => innerRef.current?.scrollLeft(),
+    scrollRight: () => innerRef.current?.scrollRight()
+  }));
+
   return (
-    <section className="">
-      <h2 className="text-2xl font-bold mt-4">Blog Posts</h2>
-      <Carousel ref={ref}>
+    <section className="mt-4">
+      <div className="flex items-center">
+        <h2 className="text-2xl font-bold">Featured Blogs</h2>
+        <CarouselControls
+          onPrev={() => innerRef.current?.scrollLeft()}
+          onNext={() => innerRef.current?.scrollRight()}
+          className="ml-4"
+        />
+      </div>
+
+      <Carousel ref={innerRef} hideControls>
         {mockPosts.map((post) => (
           <BlogPostCard key={post.slug} post={post} />
         ))}

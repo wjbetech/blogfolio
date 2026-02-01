@@ -4,13 +4,13 @@ import type { Project } from "@/app/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <Card className="w-90 shrink-0 mr-4 h-110">
+    <Card className="w-92 shrink-0 mr-4 h-110">
       <div className="h-40 rounded-md overflow-hidden bg-accent-100">
         {project.images?.[0] ? (
           <Image
             src={project.images[0]}
             alt={project.title}
-            width={256}
+            width={280}
             height={160}
             className="w-full h-full object-cover"
           />

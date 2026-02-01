@@ -19,11 +19,11 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 
 ### 1.1.1 Initial Unit Testing
 
-- [ ] Build unit tests for the applyTheme logic.
+- [x] Build unit tests for the applyTheme logic.
 
 ### 1.1.2 UI Improvements & Accessibility
 
-- [ ] Take a look at Tailwind pseudo-classes again
+- [x] Take a look at Tailwind pseudo-classes again
   - [ ] Optimize for DX and overall re-useability/readability
 - [ ] Ensure keyboard accessibility and clear focus states
 - [ ] Add a canonical useTheme hook (src/lib/useTheme.ts) that exposes theme

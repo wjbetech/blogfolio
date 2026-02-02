@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "../ThemeCarousel/ThemeDrawerCarousel";
 import UpArrowIcon from "../../Icons/UpArrowIcon";
-import { ColorThemes } from "@/lib/themes";
 
 export default function ThemeDrawer({
   open,

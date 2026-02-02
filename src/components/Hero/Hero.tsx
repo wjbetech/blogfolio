@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="w-full pb-12">
@@ -14,10 +16,15 @@ export default function Hero() {
           <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed">
             <h5 className="font-bold text-headline">Fullstack Developer</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">
-              Next.js, Node, TypeScript, Prisma, TailwindCSS, and more
+              Next.js, Node, TypeScript, Prisma, TailwindCSS, and{" "}
+              <Link
+                href="/dev"
+                className="relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10">
+                more
+              </Link>
             </p>
             <h5 className="font-bold text-headline mt-6">Translation and Editing</h5>
-            <p className="text-sm md:text-base text-paragraph leading-0">Korean, English</p>
+            <p className="text-sm md:text-base text-paragraph leading-0">Korean & English</p>
             <h5 className="font-bold text-headline mt-6">Professor of Interpretation and Culture</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Seoul University of Foreign Studies</p>
           </div>

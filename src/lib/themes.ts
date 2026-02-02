@@ -14,7 +14,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#344e41",
     "accent-100": "#a7c7e7",
     "accent-200": "#f2cc8f",
-    "accent-300": "#e07a5f"
+    "accent-300": "#e07a5f",
+    "palette-border": "#84a98c"
   },
   {
     id: "gnome",
@@ -29,7 +30,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#3fa66b",
     "accent-100": "#8bd3dd",
     "accent-200": "#a786df",
-    "accent-300": "#f3d2c1"
+    "accent-300": "#f3d2c1",
+    "palette-border": "#f582ae"
   },
   {
     id: "kiln",
@@ -44,7 +46,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#fffffe",
     "accent-100": "#f25f4c",
     "accent-200": "#e53170",
-    "accent-300": "#a63a2a"
+    "accent-300": "#a63a2a",
+    "palette-border": "#ff8906"
   },
   {
     id: "flax",
@@ -59,7 +62,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#f2c879",
     "accent-100": "#6fd3b0",
     "accent-200": "#e16162",
-    "accent-300": "#d4a373"
+    "accent-300": "#d4a373",
+    "palette-border": "#f9bc60"
   },
   {
     id: "silk",
@@ -74,7 +78,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#f2c2d1",
     "accent-100": "#d9a0aa",
     "accent-200": "#9aa4d8",
-    "accent-300": "#7a5c8e"
+    "accent-300": "#7a5c8e",
+    "palette-border": "#eebbc3"
   },
   {
     id: "dunes",
@@ -89,7 +94,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#403d39",
     "accent-100": "#8aa17a",
     "accent-200": "#6f9e9a",
-    "accent-300": "#d2b48c"
+    "accent-300": "#d2b48c",
+    "palette-border": "#8b5e3c"
   },
   {
     id: "demon",
@@ -104,7 +110,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#a78bfa",
     "accent-100": "#7f5af0",
     "accent-200": "#2cb67d",
-    "accent-300": "#241733"
+    "accent-300": "#241733",
+    "palette-border": "#7f5af0"
   },
   {
     id: "camelot",
@@ -119,7 +126,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#4b78c2",
     "accent-100": "#3fa66b",
     "accent-200": "#7fb7e6",
-    "accent-300": "#f6d365"
+    "accent-300": "#f6d365",
+    "palette-border": "#ffd803"
   },
   {
     id: "rellekka",
@@ -134,7 +142,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#5f8fa8",
     "accent-100": "#90b4ce",
     "accent-200": "#7a1e2d",
-    "accent-300": "#b6a76c"
+    "accent-300": "#b6a76c",
+    "palette-border": "#1f6aa5"
   },
   {
     id: "ardougne",
@@ -149,7 +158,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#5a4bb7",
     "accent-100": "#9f8fdc",
     "accent-200": "#d6c38b",
-    "accent-300": "#c7b6e2"
+    "accent-300": "#c7b6e2",
+    "palette-border": "#6d5bd0"
   },
   {
     id: "jungle",
@@ -164,7 +174,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#0f3d2e",
     "accent-100": "#4ea8a1",
     "accent-200": "#7fbf7f",
-    "accent-300": "#e9c46a"
+    "accent-300": "#e9c46a",
+    "palette-border": "#3a7d5c"
   },
   {
     id: "tinker",
@@ -179,7 +190,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#43566f",
     "accent-100": "#9da3ae",
     "accent-200": "#cfa15d",
-    "accent-300": "#5eead4"
+    "accent-300": "#5eead4",
+    "palette-border": "#4a5d78"
   },
   {
     id: "lich",
@@ -194,7 +206,8 @@ export const ColorThemes: ColorTheme[] = [
     link: "#e6f1ff",
     "accent-100": "#7dd3fc",
     "accent-200": "#94a3b8",
-    "accent-300": "#a5c9e8"
+    "accent-300": "#a5c9e8",
+    "palette-border": "#3b82f6"
   },
   {
     id: "sunwell",
@@ -209,6 +222,7 @@ export const ColorThemes: ColorTheme[] = [
     link: "#7c1d1d",
     "accent-100": "#f5c16c",
     "accent-200": "#6fa58c",
-    "accent-300": "#f43f5e"
+    "accent-300": "#f43f5e",
+    "palette-border": "#c81e1e"
   }
 ];

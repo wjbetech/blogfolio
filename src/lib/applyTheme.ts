@@ -30,6 +30,9 @@ export function applyTheme(theme: ColorTheme) {
     if (theme["accent-200"]) root.style.setProperty("--accent-200", theme["accent-200"]);
     if (theme["accent-300"]) root.style.setProperty("--accent-300", theme["accent-300"]);
 
+    // palette border
+    root.style.setProperty("--palette-border", theme["palette-border"] || theme["accent-200"] || theme["accent-100"]);
+
     // persist selection
     try {
       localStorage.setItem("site:theme", theme.id);

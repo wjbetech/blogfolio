@@ -16,6 +16,7 @@
   --color-accent-100: var(--accent-100);
   --color-accent-200: var(--accent-200);
   --color-accent-300: var(--accent-300);
+  --color-palette-border: var(--palette-border);
 }
 
 :root {

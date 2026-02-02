@@ -12,4 +12,5 @@ export type ColorTheme = {
   "accent-100": string;
   "accent-200"?: string;
   "accent-300"?: string;
+  "palette-border"?: string;
 };

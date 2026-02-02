@@ -34,13 +34,10 @@ export default function Palette({
         aria-pressed={selected}
         className={
           "w-40 h-30 rounded-2xl transition-all hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
-          (selected
-            ? "" // selected uses inline border style below
-            : "")
+          (selected ? " border-2 border-accent-100" : "")
         }
         style={{
-          backgroundColor: base,
-          border: selected ? "6px solid var(--accent)" : undefined
+          backgroundColor: base
         }}>
         {/* layered pill bars */}
         <div

@@ -13,7 +13,7 @@
       },
       {
         "category": "Feature",
-        "description": "Began work on the Changelog system which will track updates made to the portfolio and display them in `/dev`."
+        "description": "Began work on the Changelog system which will track updates made to the website and display them in `/dev`."
       }
     ]
   },

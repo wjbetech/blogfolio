@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="w-full pb-12">
-      <div className="max-w-7xl px-4 mx-auto flex flex-col md:flex-row items-center gap-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6">
         <div className="shrink-0">
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-linear-to-br from-accent-100 via-accent-200 to-accent-300 shadow-lg" />
         </div>

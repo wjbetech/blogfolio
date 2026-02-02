@@ -7,7 +7,7 @@ export default function Page() {
     <main className="min-h-screen">
       <Hero />
 
-      <div className="max-w-7xl mx-auto space-y-10 px-4">
+      <div className="max-w-7xl mx-auto space-y-10">
         <BlogCarousel />
         <ProjectCarousel />
       </div>

@@ -5,7 +5,7 @@ const commitMessage = process.env.COMMIT_MESSAGE || "";
 const commitSha = process.env.COMMIT_SHA || "";
 const actor = process.env.GITHUB_ACTOR || "";
 
-const filePath = join(process.cwd(), "docs", "changelog", "entries.json");
+const filePath = join(process.cwd(), "changelog", "entries.json");
 
 let entries = [];
 if (existsSync(filePath)) {
@@ -59,6 +59,9 @@ if (version) {
   console.log("Detected release version:", version);
 }
 
+/**
+ * @type {{sha: string; message: string; author: string; date: string; version?: string}}
+ */
 const entry = {
   sha: commitSha,
   message: commitMessage,

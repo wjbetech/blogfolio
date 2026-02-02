@@ -43,7 +43,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     <div>
       <div
         ref={scrollerRef}
-        className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6 px-4"
+        className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6"
         style={{ WebkitOverflowScrolling: "touch" }}>
         {ColorThemes.map((t) => (
           <div key={t.id} className="flex-none">

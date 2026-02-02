@@ -27,7 +27,7 @@ export default function ThemeDrawer({
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.28, ease: "easeInOut" }}
           className="overflow-hidden border-b-2 bg-bg-200 border-b-accent-300">
-          <div className="max-w-7xl mx-auto py-2 flex items-center justify-between px-16">
+          <div className="max-w-7xl mx-auto py-2 flex items-center justify-between">
             <div className="flex items-center gap-2 mx-auto">
               <button
                 type="button"
@@ -55,7 +55,7 @@ export default function ThemeDrawer({
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto px-12">
+          <div className="max-w-7xl mx-auto">
             <ThemeDrawerCarousel ref={carouselRef} active={active} onSelect={(id) => onSelect(id)} />
           </div>
         </motion.div>

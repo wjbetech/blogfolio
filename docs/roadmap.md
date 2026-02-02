@@ -31,7 +31,7 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
   - [x] Need evaluation of how this will work for new users/existing users
 - [ ] Fix palette cards to be fully fixed-width
 - [ ] CSS snap for carousels (scroll-snap-type)\*
-- [ ] Look into a Changelog for the entire app that can export to Webcomments or other automatic updater in the app HTML.
+- [x] Look into a Changelog for the entire app that can export to Webcomments or other automatic updater in the app HTML.
 
   #### 1.1.2
   - [ ] Theme toggle button should have aria-expanded and aria-controls atts.

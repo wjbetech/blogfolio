@@ -44,8 +44,8 @@ export default function Navbar({
                 href={link.href}
                 className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors ${
                   pathname === link.href
-                    ? "font-semibold text-headline after:absolute after:bottom-px after:-left-1.5 after:right-0 after:h-3 after:bg-accent-100/50 after:-z-10"
-                    : "text-paragraph hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-200/50 hover:after:-z-10"
+                    ? "font-semibold text-headline after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/70 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10"
+                    : "text-paragraph after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/70 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10"
                 }`}>
                 <span className="text-xs font-normal text-paragraph opacity-60">0{link.id}</span>
                 <span>{link.label}</span>
@@ -98,8 +98,8 @@ export default function Navbar({
                 onClick={handleLinkClick}
                 className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 transition-colors ${
                   pathname === link.href
-                    ? "text-headline after:absolute after:bottom-1 after:-left-2 after:right-0 after:h-6 after:bg-accent-100 after:-z-10"
-                    : "text-paragraph hover:after:absolute hover:after:bottom-1 hover:after:-left-2 hover:after:right-0 hover:after:h-6 hover:after:bg-accent-200 hover:after:-z-10"
+                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10"
+                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10"
                 }`}>
                 <span className="text-sm font-normal text-paragraph opacity-60">0{link.id}</span>
                 <span>{link.label}</span>

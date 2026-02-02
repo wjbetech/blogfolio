@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="max-w-7xl mx-auto px-4 md:px-14 flex items-center justify-between h-16">
-        <div className="text-paragraph font-bold">© 2021-{year} William East</div>
+        <div className="text-paragraph font-bold">© 2020-{year} William East</div>
 
         <nav className="flex items-center gap-4 text-sm">
           <Link

@@ -22,17 +22,14 @@ export const metadata: Metadata = {
   description: "The combined blog // portfolio of William East"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Read the theme id from cookies on the server so the rendered HTML
-  // includes the correct `data-theme` attribute and avoids hydration mismatches.
-  // Read cookie header and parse `site-theme` manually to be robust across runtimes
   let cookieHeader = "";
   try {
-    const hdrs = headers();
+    const hdrs = await headers();
     if (hdrs && typeof (hdrs as any).get === "function") {
       cookieHeader = (hdrs as any).get("cookie") ?? "";
     } else if (hdrs && typeof hdrs === "object") {

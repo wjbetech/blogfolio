@@ -9,11 +9,32 @@ export function getChangelogEntries(): ChangelogEntry[] {
   try {
     const fileContent = fs.readFileSync(changelogPath, "utf-8");
     const parsedData = JSON.parse(fileContent);
-    const validatedData = changelogSchema.parse(parsedData);
+
+    // Log the actual data for debugging
+    console.log("Parsed changelog data:", JSON.stringify(parsedData, null, 2));
+
+    const result = changelogSchema.safeParse(parsedData);
+
+    if (!result.success) {
+      console.error("Validation failed:");
+      result.error.issues.forEach((err) => {
+        console.error(`Path: ${err.path.join(".")}`);
+        console.error(`Error: ${err.message}`);
+        // Log the actual value at that path
+        const actualValue = err.path.reduce((obj: any, key) => obj?.[key], parsedData);
+        console.error(`Received value:`, actualValue);
+      });
+      return [];
+    }
+
+    const validatedData = result.data;
     // sort by newest entries first
     return validatedData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
-    console.error(error, "Failed to read or parse changelog entries.");
+    console.error("Error loading changelog:", error);
+    if (error instanceof Error) {
+      console.error("Error details:", error.message);
+    }
     return [];
   }
 }

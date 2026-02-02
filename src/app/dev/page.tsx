@@ -1,20 +1,20 @@
-export default function DevPage() {
-  return (
-    <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto py-16">
-        <h1 className="text-5xl font-bold text-headline mb-6">Dev Projects</h1>
-        <p className="text-lg text-paragraph mb-8">
-          A collection of my development work, experiments, and open source contributions.
-        </p>
+import { getChangelogEntries } from "@/lib/changelog/entryParser";
+import ChangelogEntry from "@/components/ChangelogEntry/ChangelogEntry";
 
-        <div className="grid gap-8">
-          {/* Projects will go here */}
-          <div className="border border-accent2/20 rounded-lg p-6 hover:border-accent2 transition-colors">
-            <h2 className="text-2xl font-semibold text-headline mb-2">Projects Coming Soon</h2>
-            <p className="text-paragraph">Development projects will be showcased here.</p>
-          </div>
-        </div>
+export default function DevPage() {
+  const entries = getChangelogEntries();
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-4xl font-bold mb-2 text-headline">Changelog</h1>
+      <p className="text-paragraph mb-8">Track all updates, improvements, and fixes to the application.</p>
+
+      <div className="space-y-6">
+        {entries.map((entry, idx) => (
+          <ChangelogEntry key={`${entry.date}-${idx}`} entry={entry} />
+        ))}
       </div>
+
+      {entries.length === 0 && <p className="text-center text-paragraph/50 py-12">No changelog entries yet.</p>}
     </div>
   );
 }

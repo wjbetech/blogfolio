@@ -18,9 +18,9 @@ export default function Navbar({
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
-    { id: "4", href: "/blog", label: "Blog" },
+    { id: "2", href: "/blog", label: "Blog" },
     { id: "3", href: "/dev", label: "Dev" },
-    { id: "2", href: "/language-services", label: "Language" },
+    { id: "4", href: "/language-services", label: "Language" },
     { id: "5", href: "/contact", label: "Contact" }
   ];
 

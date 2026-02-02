@@ -56,9 +56,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en" data-theme={themeId} className={inter.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 `}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}>
         <ThemeAside />
-        <main className="max-w-7xl mx-auto px-10 py-8">{children}</main>
+        <main className="max-w-7xl mx-auto px-10 py-8 w-full flex-1">{children}</main>
         <Footer />
       </body>
     </html>

@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2026-02-02",
+    "version": "0.2.1",
+    "changes": [
+      {
+        "category": "improvement",
+        "description": "Updated palette border styles for better visibility."
+      },
+      {
+        "category": "fix",
+        "description": "Corrected footer copyright year to start from 2020."
+      },
+      {
+        "category": "feature",
+        "description": "Began work on the Changelog system which will track updates made to the portfolio and display them in `/dev`."
+      }
+    ]
+  },
+  {
+    "date": "2026-02-01",
+    "version": "0.2.0",
+    "changes": [
+      {
+        "category": "feature",
+        "description": "Added a theme selector with a range of WoW and OSRS inspired color palettes."
+      },
+      {
+        "category": "improvement",
+        "description": "Enhanced theme application logic for better performance."
+      }
+    ]
+  }
+]

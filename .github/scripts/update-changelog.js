@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 
-const commitMessage = process.env.COMMIT_MESSAGE || "";
+const commitMessage = (process.env.COMMIT_MESSAGE || "").trim();
 const commitSha = process.env.COMMIT_SHA || "";
 const actor = process.env.GITHUB_ACTOR || "";
 
@@ -33,16 +33,17 @@ if (entries.some((e) => e.sha === commitSha)) {
 // Accept patterns like:
 // - "chore(release): v1.2.3"
 // - "release: v1.2.3"
+// - "version: v1.2.3"
 // - "v1.2.3" (at start of message)
-const releaseRegex = /(?:chore\(release\):|release:)\s*(v?\d+\.\d+\.\d+(?:[-+][0-9A-Za-z-.]+)?)/i;
+const releaseRegex = /(?:chore\(release\):|release:|version:)\s*(v?\d+\.\d+\.\d+(?:[-+][0-9A-Za-z-.]+)?)/i;
 const tagStartRegex = /^v?\d+\.\d+\.\d+(?:[-+][0-9A-Za-z-.]+)?/;
 
 let version = null;
 const releaseMatch = commitMessage.match(releaseRegex);
 if (releaseMatch) {
   version = releaseMatch[1];
-} else if (tagStartRegex.test(commitMessage.trim())) {
-  const m = commitMessage.trim().match(tagStartRegex);
+} else if (tagStartRegex.test(commitMessage)) {
+  const m = commitMessage.match(tagStartRegex);
   if (m) version = m[0];
 }
 
@@ -59,17 +60,59 @@ if (version) {
   console.log("Detected release version:", version);
 }
 
+const latestVersion = entries.length > 0 ? entries[0].version : null;
+if (!version) {
+  if (!latestVersion) {
+    console.error("No version found in commit message and no existing changelog entries to infer version.");
+    process.exit(1);
+  }
+  version = latestVersion;
+}
+
+const allowedCategories = new Set(["Feature", "Fix", "Bug", "Improvement", "Chore", "Removed", "Test", "Style"]);
+
+const segments = commitMessage
+  .split("|")
+  .map((segment) => segment.trim())
+  .filter(Boolean);
+
+const changes = [];
+for (const segment of segments) {
+  if (releaseRegex.test(segment) || tagStartRegex.test(segment)) {
+    continue;
+  }
+
+  const separatorIndex = segment.indexOf(":");
+  if (separatorIndex === -1) continue;
+
+  const rawCategory = segment.slice(0, separatorIndex).trim();
+  const description = segment.slice(separatorIndex + 1).trim();
+  const normalizedCategory = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
+
+  if (!allowedCategories.has(normalizedCategory)) continue;
+  if (!description) continue;
+
+  changes.push({
+    category: normalizedCategory,
+    description
+  });
+}
+
+if (changes.length === 0) {
+  changes.push({
+    category: "Chore",
+    description: commitMessage || "Update"
+  });
+}
+
 /**
- * @type {{sha: string; message: string; author: string; date: string; version?: string}}
+ * @type {{date: string; version: string; changes: {category: string; description: string}[]}}
  */
 const entry = {
-  sha: commitSha,
-  message: commitMessage,
-  author: actor,
-  date: new Date().toISOString()
+  date: new Date().toISOString().slice(0, 10),
+  version,
+  changes
 };
-
-if (version) entry.version = version;
 
 entries.unshift(entry);
 

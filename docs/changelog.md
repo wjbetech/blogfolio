@@ -1,34 +1,73 @@
-# Semantic Versioning & Release Process
+# Changelog Commit Message Guide
 
-This project follows Semantic Versioning (semver) for releases: MAJOR.MINOR.PATCH.
+This project writes changelog entries into `changelog/entries.json` using the structure in `src/app/types/changelog.ts`.
 
-Quick rules:
+Each entry looks like:
 
-- Bumps must follow semver (e.g., `1.2.3`). A leading `v` is accepted in commit messages but will be normalized (e.g., `v1.2.3` → `1.2.3`).
-- Release commits should use one of these formats in the commit message:
-  - `chore(release): v1.2.3`
-  - `release: v1.2.3`
-  - Or start the commit message with `v1.2.3` (e.g., `v1.2.3 — publish changelog`).
+```json
+{
+  "date": "YYYY-MM-DD",
+  "version": "0.2.3",
+  "changes": [
+    { "category": "Feature", "description": "Added a new palette card" },
+    { "category": "Fix", "description": "Corrected theme drawer focus state" }
+  ]
+}
+```
 
-What the GitHub Actions workflow does:
+## Required: Commit message format
 
-- On pushes to `master`, the workflow runs a script that prepends a new entry into `docs/changelog/entries.json` containing the commit SHA, author, message, and date.
-- If the commit message indicates a release (matches the patterns above), the workflow/script validates the version string against semver. If the version is invalid, the workflow will fail.
-- Valid release entries include a `version` field in `entries.json` (normalized without a leading `v`).
+The script parses your commit message to extract:
 
-Recommended workflow for making a release:
+1. **Version** (semver)
+2. **Changes list** (category + description)
 
-1. Bump the version locally using a tool like `npm version` or manually update your release branch.
-2. Create a release commit with one of the accepted formats, e.g.:
+### Version formats (semver)
 
-   chore(release): v1.2.3
+Use one of these in the commit message:
 
-3. Push to `master`. The workflow will validate the semver and update `docs/changelog/entries.json`.
+- `chore(release): v1.2.3`
+- `release: v1.2.3`
+- `version: v1.2.3`
+- or start the message with `v1.2.3`
 
-Notes & tips:
+If no version is in the message, the script will reuse the latest version from the first entry in `changelog/entries.json`.
 
-- The workflow is conservative: it only treats commits as releases when the commit message explicitly declares a version (per the patterns above) or starts with a version tag.
-- If you'd prefer releases to be created from Git tags instead of commit messages, we can update the workflow to trigger on tag creation and pull the tag name rather than parsing the commit message.
-- If you want automatic CHANGELOG generation (with commit grouping by type), consider integrating tools like `semantic-release` or `standard-version`.
+### Changes list format
 
-If you want changes to the release detection patterns or stricter rules (e.g., require PRs, require signed commits), say so and I'll update the workflow and script.
+Use a **pipe-separated** list of `Category: description` segments.
+
+Example commit message:
+
+```
+chore(release): v0.2.3 | Feature: Added changelog view | Fix: Improved focus states
+```
+
+Valid categories (from `src/app/types/changelog.ts`):
+
+- Feature
+- Fix
+- Bug
+- Improvement
+- Chore
+- Removed
+- Test
+- Style
+
+If no valid changes are detected, the script will add a single:
+
+```
+Chore: <entire commit message>
+```
+
+## What happens on push
+
+- On pushes to `master`, GitHub Actions runs `.github/scripts/update-changelog.js`.
+- It prepends a new entry in `changelog/entries.json` using your commit message.
+- If the version string is present but not valid semver, the workflow fails.
+
+## Tips
+
+- Keep descriptions short and user-facing.
+- Prefer multiple segments rather than long sentences.
+- If you want tag-based releases instead of commit parsing, we can switch the workflow to trigger on tags.

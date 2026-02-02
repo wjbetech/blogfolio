@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-02-02",
+    "version": "0.2.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added the Changelog system to track updates made to the website and display them in `/dev` dynamically."
+      },
+      {
+        "category": "Style",
+        "description": "Updated border color for theme palettes to improve visibility."
+      }
+    ]
+  },
+  {
+    "date": "2026-02-02",
     "version": "0.2.1",
     "changes": [
       {

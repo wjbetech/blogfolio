@@ -10,13 +10,13 @@ export default function Blog({ post }: { post: Post }) {
   return (
     <Card className="overflow-hidden cursor-pointer transition-shadow">
       <div className="flex flex-col md:flex-row">
-        <div className="md:w-56 w-full md:h-auto h-30 shrink-0 overflow-hidden bg-secondary/5">
+        <div className="md:w-56 w-full md:h-auto h-40 shrink-0 overflow-hidden bg-secondary/5">
           {post.image ? (
             <Image
               src={post.image}
               alt={post.title}
               width={224}
-              height={192}
+              height={240}
               className="w-full h-full object-cover rounded-lg"
             />
           ) : (

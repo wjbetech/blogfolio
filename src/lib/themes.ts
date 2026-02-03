@@ -103,7 +103,7 @@ export const ColorThemes: ColorTheme[] = [
     "bg-100": "#16161a",
     "bg-200": "#121216",
     "bg-300": "#0e0e12",
-    headline: "#8b5cf6",
+    headline: "#2cb67d",
     paragraph: "#7f8f9b",
     button: "#7f5af0",
     "button-text": "#fffffe",

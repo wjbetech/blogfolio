@@ -5,6 +5,8 @@ export const mockPosts: Post[] = [
     id: "1",
     title: "Understanding TypeScript Generics",
     slug: "understanding-typescript-generics",
+    image:
+      "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png",
     excerpt: "A deep dive into TypeScript generics and how they can improve your code.",
     content: `TypeScript generics are a powerful feature that allows you to write reusable, type-safe code. They enable you to create components that work with a variety of types rather than a single one.
 
@@ -33,6 +35,7 @@ Let's dive into some practical examples and see how generics can transform your 
     id: "2",
     title: "Building a Next.js Application",
     slug: "building-a-nextjs-application",
+    image: "https://developer.mozilla.org/en-US/blog/static-site-generation-with-nextjs/featured.png",
     excerpt: "Step-by-step guide to building a web application using Next.js.",
     content: `Next.js is a powerful React framework that makes building production-ready web applications easier than ever. With features like server-side rendering, static site generation, and API routes built in, it's become the go-to choice for modern web development.
 
@@ -54,6 +57,7 @@ Next.js provides an excellent developer experience with features like hot module
     id: "3",
     title: "CSS Grid vs. Flexbox: When to Use Which",
     slug: "css-grid-vs-flexbox",
+    image: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Grids/grid.png",
     excerpt: "An analysis of CSS Grid and Flexbox, and guidance on when to use each layout system.",
     content: `Both CSS Grid and Flexbox are powerful layout systems that have revolutionized web design. But when should you use one over the other? This article breaks down the key differences and provides practical guidance.
 

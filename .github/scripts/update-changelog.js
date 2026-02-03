@@ -3,7 +3,6 @@ import { join, dirname } from "path";
 
 const commitMessage = (process.env.COMMIT_MESSAGE || "").trim();
 const commitSha = process.env.COMMIT_SHA || "";
-const actor = process.env.GITHUB_ACTOR || "";
 
 const filePath = join(process.cwd(), "changelog", "entries.json");
 

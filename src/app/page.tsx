@@ -4,7 +4,7 @@ import ProjectCarousel from "@/components/Projects/ProjectCarousel/ProjectCarous
 
 export default function Page() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen max-w-7xl">
       <Hero />
 
       <div className="max-w-7xl mx-auto space-y-10">

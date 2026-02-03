@@ -55,7 +55,7 @@ Next.js provides an excellent developer experience with features like hot module
   },
   {
     id: "3",
-    title: "CSS Grid vs. Flexbox: When to Use Which",
+    title: "CSS Grid vs. Flexbox",
     slug: "css-grid-vs-flexbox",
     image: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Grids/grid.png",
     excerpt: "An analysis of CSS Grid and Flexbox, and guidance on when to use each layout system.",

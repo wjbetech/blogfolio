@@ -41,8 +41,9 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 
 ## 1.2 Blog Pages
 
-- [ ] Create a blog list page at `src/app/blog/page.tsx`
-- [ ] Create the BlogCard component
+- [x] Create a blog list page at `src/app/blog/page.tsx`
+- [x] Create the BlogCard component
+  - [ ] Not happy with this currently, look up other designs
 - [ ] Create a dynamic blog detail page at `src/app/blog/[slug]/page.tsx`
 - [ ] Build some mock data for testing purposes
 

@@ -6,6 +6,7 @@ import { mockPosts } from "@/app/data/posts";
 import { Button } from "@/components/ui/button";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import Blog from "@/components/BlogPageBlogs/Blog/Blog";
+import TopBlog from "@/components/BlogPageBlogs/Blog/TopBlog";
 
 export default function BlogPage() {
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
@@ -62,22 +63,25 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-3xl font-bold text-accent-200 relative inline-block pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10">
-          Blog
-        </h1>
-      </div>
+      <div className="flex items-center justify-between"></div>
+      <h5 className="text-paragraph pt-6">Featured Post</h5>
 
-      <div className="flex gap-8">
+      <div className="flex gap-12">
         {/* Main content */}
-        <div className="flex-1 space-y-8 pr-8 border-r border-accent-100/30">
-          {displayPosts.map((post) => (
-            <Blog key={post.id} post={post} />
-          ))}
+        <div className="flex-1 mt-4 pr-12 border-r border-accent-100/30">
+          {/* featured top post */}
+          {displayPosts.length > 0 && <TopBlog post={displayPosts[0]} />}
+
+          {/* grid for the remaining posts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 auto-rows-[420px] gap-6 mt-12">
+            {displayPosts.slice(1).map((post) => (
+              <Blog key={post.id} post={post} />
+            ))}
+          </div>
         </div>
 
         {/* Sidebar */}
-        <aside className={`${sidebarOpen ? "w-64" : "w-12"} transition-all duration-300 relative`}>
+        <aside className={`${sidebarOpen ? "w-64" : "w-12"} transition-all duration-300 relative mt-4`}>
           <Button
             variant="ghost"
             size="sm"
@@ -88,7 +92,7 @@ export default function BlogPage() {
 
           {sidebarOpen && (
             <div className="sticky top-24 space-y-4">
-              <h3 className="text-lg font-semibold text-accent-200 mb-4">Archives</h3>
+              <h3 className="text-lg font-semibold text-accent-100 mb-4">Archives</h3>
               <div className="space-y-2">
                 <Button
                   variant={selectedMonth === null ? "secondary" : "ghost"}

@@ -62,13 +62,13 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-4">
         <h1 className="text-3xl font-bold text-accent-200">Blog</h1>
       </div>
 
       <div className="flex gap-8">
         {/* Main content */}
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-8">
           {displayPosts.map((post) => (
             <Blog key={post.id} post={post} />
           ))}

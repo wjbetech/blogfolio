@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero/Hero";
-import BlogCarousel from "@/components/Blogs/BlogCarousel/BlogCarousel";
+import BlogCarousel from "@/components/HomePageBlogs/BlogCarousel/BlogCarousel";
 import ProjectCarousel from "@/components/Projects/ProjectCarousel/ProjectCarousel";
 
 export default function Page() {

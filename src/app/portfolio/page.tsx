@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectCarousel from "@/components/Projects/ProjectCarousel/ProjectCarousel";
+import ProjectCarousel from "@/app/components/Projects/ProjectCarousel/ProjectCarousel";
 
 export default function PortfolioPage() {
   return (

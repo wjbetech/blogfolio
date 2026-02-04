@@ -66,7 +66,7 @@ export default function BlogPage() {
           <div className="space-y-6">
             <div className="space-y-2">
               <p className="text-[0.7rem] uppercase tracking-[0.3em] text-accent-200/80">Journal</p>
-              <h1 className="text-3xl md:text-4xl font-semibold text-headline">Blog</h1>
+              <h1 className="text-3xl md:text-4xl font-semibold font-serif text-headline">Blog</h1>
               <p className="text-sm md:text-base text-paragraph max-w-2xl">
                 Minimal notes on design, engineering, and the ideas behind the work.
               </p>

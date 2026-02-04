@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-02-04",
+    "version": "0.2.4",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Cleaned up the /blog view to be clean and minimalistic so I can move on to the /dev view."
+      },
+      {
+        "category": "Improvement",
+        "description": "Refactored types for the headers that handle themes/cookies, etc."
+      }
+    ]
+  },
+  {
     "date": "2026-02-02",
     "version": "0.2.3",
     "changes": [

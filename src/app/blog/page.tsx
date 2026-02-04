@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { IconArrowUpRight, IconCalendar, IconTag } from "@tabler/icons-react";
 import { mockPosts } from "@/app/data/posts";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
-import Blog from "@/components/BlogPageBlogs/Blog/Blog";
-import TopBlog from "@/components/BlogPageBlogs/Blog/TopBlog";
 
 export default function BlogPage() {
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
@@ -30,16 +32,17 @@ export default function BlogPage() {
     {} as Record<number, Record<string, typeof mockPosts>>
   );
 
-  // Get first 5 posts (or filtered by month)
+  const sortedPosts = [...mockPosts].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
   const displayPosts = selectedMonth
-    ? mockPosts
-        .filter((post) => {
-          const date = new Date(post.publishedAt);
-          const key = `${date.getFullYear()}-${date.toLocaleString("default", { month: "long" })}`;
-          return key === selectedMonth;
-        })
-        .slice(0, 5)
-    : mockPosts.slice(0, 5);
+    ? sortedPosts.filter((post) => {
+        const date = new Date(post.publishedAt);
+        const key = `${date.getFullYear()}-${date.toLocaleString("default", { month: "long" })}`;
+        return key === selectedMonth;
+      })
+    : sortedPosts;
 
   const toggleYear = (year: number) => {
     const newExpanded = new Set(expandedYears);
@@ -59,17 +62,77 @@ export default function BlogPage() {
     <div className="max-w-7xl mx-auto">
       <div className="flex gap-12">
         {/* Main content */}
-        <div className="flex-1 mt-4 pr-12 border-r border-accent-100/30">
-          {/* featured top post */}
-          {displayPosts.length > 0 && <TopBlog post={displayPosts[0]} />}
+        <section className="flex-1 mt-4 pr-12 border-r border-accent-100/30">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <p className="text-[0.7rem] uppercase tracking-[0.3em] text-accent-200/80">Journal</p>
+              <h1 className="text-3xl md:text-4xl font-semibold text-headline">Blog</h1>
+              <p className="text-sm md:text-base text-paragraph max-w-2xl">
+                Minimal notes on design, engineering, and the ideas behind the work.
+              </p>
+            </div>
 
-          {/* grid for the remaining posts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-0 mt-12">
-            {displayPosts.slice(1).map((post) => (
-              <Blog key={post.id} post={post} />
-            ))}
+            <Separator className="bg-accent-100/40" />
+
+            {selectedMonth && (
+              <div className="flex items-center gap-2 text-xs text-paragraph">
+                <span className="inline-flex h-2 w-2 rounded-full bg-accent-200" />
+                Filtered to <span className="text-headline font-medium">{selectedMonth.replace("-", " ")}</span>
+                <Button variant="ghost" size="xs" className="ml-2" onClick={() => setSelectedMonth(null)}>
+                  Clear
+                </Button>
+              </div>
+            )}
+
+            <div className="space-y-6">
+              {displayPosts.map((post) => {
+                const dateLabel = new Date(post.publishedAt).toLocaleDateString("default", {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric"
+                });
+
+                return (
+                  <Card key={post.id} className="border border-accent-100/30 bg-bg-200/30 shadow-none">
+                    <CardHeader className="px-6 pt-6">
+                      <div className="flex items-center gap-2 text-xs text-paragraph">
+                        <IconCalendar className="h-4 w-4" />
+                        <time dateTime={post.publishedAt}>{dateLabel}</time>
+                      </div>
+                      <CardTitle className="text-xl md:text-2xl text-headline mt-2">
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="inline-flex items-center gap-2 hover:text-accent-200 transition-colors">
+                          {post.title}
+                          <IconArrowUpRight className="h-4 w-4" />
+                        </Link>
+                      </CardTitle>
+                      <CardAction className="mt-2">
+                        <Button asChild variant="ghost" size="sm" className="text-headline">
+                          <Link href={`/blog/${post.slug}`}>Read</Link>
+                        </Button>
+                      </CardAction>
+                    </CardHeader>
+                    <CardContent className="px-6 text-sm text-paragraph">{post.excerpt}</CardContent>
+                    <CardFooter className="px-6 bg-transparent">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="inline-flex items-center gap-1 text-xs text-paragraph">
+                          <IconTag className="h-3.5 w-3.5" />
+                          Tags
+                        </span>
+                        {post.tags.map((tag) => (
+                          <Badge key={tag} variant="outline" className="border-accent-100/40 text-paragraph">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardFooter>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Sidebar */}
         <aside className="w-64 transition-all duration-300 relative mt-4">

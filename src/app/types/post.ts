@@ -5,7 +5,7 @@ export interface Post {
   excerpt: string;
   content: string;
   author: string;
-  tags?: string[];
+  tags: string[];
   image?: string;
   coverImage?: string;
   publishedAt: string;

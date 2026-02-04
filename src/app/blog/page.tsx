@@ -10,9 +10,9 @@ import TopBlog from "@/components/BlogPageBlogs/Blog/TopBlog";
 
 export default function BlogPage() {
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
   const [expandedMonths, setExpandedMonths] = useState<Set<string>>(new Set());
+  // Archives are always expanded; we no longer track expandedYears/expandedMonths
 
   // Group posts by year and month
   const groupedPosts = mockPosts.reduce(
@@ -43,21 +43,15 @@ export default function BlogPage() {
 
   const toggleYear = (year: number) => {
     const newExpanded = new Set(expandedYears);
-    if (newExpanded.has(year)) {
-      newExpanded.delete(year);
-    } else {
-      newExpanded.add(year);
-    }
+    if (newExpanded.has(year)) newExpanded.delete(year);
+    else newExpanded.add(year);
     setExpandedYears(newExpanded);
   };
 
   const toggleMonth = (key: string) => {
     const newExpanded = new Set(expandedMonths);
-    if (newExpanded.has(key)) {
-      newExpanded.delete(key);
-    } else {
-      newExpanded.add(key);
-    }
+    if (newExpanded.has(key)) newExpanded.delete(key);
+    else newExpanded.add(key);
     setExpandedMonths(newExpanded);
   };
 
@@ -84,76 +78,64 @@ export default function BlogPage() {
         </div>
 
         {/* Sidebar */}
-        <aside className={`${sidebarOpen ? "w-64" : "w-12"} transition-all duration-300 relative mt-4`}>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="absolute top-0 right-0 z-10">
-            <ChevronRightIcon className={`w-4 h-4 transition-transform ${sidebarOpen ? "rotate-180" : ""}`} />
-          </Button>
-
-          {sidebarOpen && (
-            <div className="sticky top-24 space-y-4">
-              <h3 className="text-lg font-semibold text-accent-100 mb-4">Archives</h3>
-              <div className="space-y-2">
-                <Button
-                  variant={selectedMonth === null ? "secondary" : "ghost"}
-                  className="w-full justify-start"
-                  onClick={() => setSelectedMonth(null)}>
-                  All Posts
-                </Button>
-                {Object.entries(groupedPosts)
-                  .sort(([a], [b]) => Number(b) - Number(a))
-                  .map(([year, months]) => {
-                    const yearNum = Number(year);
-                    const isYearExpanded = expandedYears.has(yearNum);
-                    return (
-                      <div key={year} className="space-y-1">
-                        <div
-                          className="text-sm font-semibold text-headline mt-3 mb-2 flex items-center gap-2 cursor-pointer hover:text-main transition-colors"
-                          onClick={() => toggleYear(yearNum)}>
-                          <ChevronRightIcon
-                            className={`w-3 h-3 transition-transform ${isYearExpanded ? "rotate-90" : ""}`}
-                          />
-                          {year}
-                        </div>
-                        {isYearExpanded &&
-                          Object.entries(months).map(([month, posts]) => {
-                            const key = `${year}-${month}`;
-                            const isMonthExpanded = expandedMonths.has(key);
-                            return (
-                              <div key={key} className="ml-4 space-y-1">
-                                <div
-                                  className="flex items-center gap-2 text-sm text-paragraph hover:text-headline transition-colors cursor-pointer py-1"
-                                  onClick={() => toggleMonth(key)}>
-                                  <span className="flex-1">{month}</span>
-                                  <span className="text-xs">({posts.length})</span>
-                                  <ChevronRightIcon
-                                    className={`w-3 h-3 transition-transform ${isMonthExpanded ? "rotate-90" : ""}`}
-                                  />
-                                </div>
-                                {isMonthExpanded && (
-                                  <div className="ml-5 space-y-1">
-                                    {posts.map((post) => (
-                                      <Link
-                                        key={post.id}
-                                        href={`/blog/${post.slug}`}
-                                        className="block text-sm text-paragraph hover:text-main transition-colors py-1 truncate">
-                                        {post.title}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
+        <aside className="w-64 transition-all duration-300 relative mt-4">
+          <div className="sticky top-24 space-y-4">
+            <h3 className="text-lg font-semibold text-accent-100 mb-4">Archives</h3>
+            <div className="space-y-2">
+              <Button
+                variant={selectedMonth === null ? "secondary" : "ghost"}
+                className="w-full justify-start"
+                onClick={() => setSelectedMonth(null)}>
+                All Posts
+              </Button>
+              {Object.entries(groupedPosts)
+                .sort(([a], [b]) => Number(b) - Number(a))
+                .map(([year, months]) => {
+                  return (
+                    <div key={year} className="space-y-1">
+                      <div
+                        className="text-sm font-semibold text-headline mt-3 mb-2 flex items-center gap-2 cursor-pointer hover:text-main transition-colors"
+                        onClick={() => toggleYear(Number(year))}>
+                        <ChevronRightIcon
+                          className={`w-3 h-3 transition-transform ${expandedYears.has(Number(year)) ? "rotate-90" : ""}`}
+                        />
+                        {year}
                       </div>
-                    );
-                  })}
-              </div>
+                      {expandedYears.has(Number(year)) &&
+                        Object.entries(months).map(([month, posts]) => {
+                          const key = `${year}-${month}`;
+                          const isMonthExpanded = expandedMonths.has(key);
+                          return (
+                            <div key={key} className="ml-4 space-y-1">
+                              <div
+                                className="flex items-center gap-2 text-sm text-paragraph hover:text-headline transition-colors cursor-pointer py-1"
+                                onClick={() => toggleMonth(key)}>
+                                <span className="flex-1">{month}</span>
+                                <span className="text-xs">({posts.length})</span>
+                                <ChevronRightIcon
+                                  className={`w-3 h-3 transition-transform ${isMonthExpanded ? "rotate-90" : ""}`}
+                                />
+                              </div>
+                              {isMonthExpanded && (
+                                <div className="ml-5 space-y-1">
+                                  {posts.map((post) => (
+                                    <Link
+                                      key={post.id}
+                                      href={`/blog/${post.slug}`}
+                                      className="block text-sm text-paragraph hover:text-main transition-colors py-1 truncate">
+                                      {post.title}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                    </div>
+                  );
+                })}
             </div>
-          )}
+          </div>
         </aside>
       </div>
     </div>

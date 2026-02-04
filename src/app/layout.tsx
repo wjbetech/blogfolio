@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 import { headers } from "next/headers";
+import { MaybeHeaders, isHeaders } from "@/app/types/headers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,14 +27,20 @@ export default async function RootLayout({
 }>) {
   let cookieHeader = "";
   try {
-    const hdrs = await headers();
-    if (hdrs && typeof (hdrs as any).get === "function") {
-      cookieHeader = (hdrs as any).get("cookie") ?? "";
-    } else if (hdrs && typeof hdrs === "object") {
+    const hdrs: MaybeHeaders = await headers();
+
+    if (isHeaders(hdrs)) {
+      cookieHeader = hdrs.get("cookie") ?? "";
+    } else {
       // Some runtimes expose headers as plain objects
-      cookieHeader = (hdrs as any)["cookie"] ?? (hdrs as any)["Cookie"] ?? "";
+      const obj = hdrs as Record<string, string | string[] | undefined>;
+      const cookieVal = obj["cookie"] ?? obj["Cookie"];
+      if (typeof cookieVal === "string") cookieHeader = cookieVal;
+      else if (Array.isArray(cookieVal)) cookieHeader = cookieVal.join("; ");
+      else cookieHeader = "";
     }
-  } catch (e) {
+  } catch (error) {
+    console.log(error, "Error retrieving headers in layout");
     cookieHeader = "";
   }
   const parseCookie = (cookieStr: string, name: string) => {

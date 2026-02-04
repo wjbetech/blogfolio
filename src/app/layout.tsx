@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
@@ -7,10 +7,7 @@ import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"]
-});
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-serif" });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -56,7 +53,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" data-theme={themeId} className={inter.variable}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}>
+      <body className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}>
         <ThemeAside />
         <main className="max-w-7xl mx-auto pb-4 w-full flex-1">{children}</main>
         <Footer />

@@ -31,7 +31,7 @@ export default function Navbar({
   return (
     <header>
       <div className="max-w-7xl mx-auto flex items-center justify-between h-20 sm:h-32">
-        <Link href="/" className="text-xl sm:text-2xl font-bold text-headline">
+        <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
         </Link>
 

@@ -7,6 +7,7 @@ export interface Post {
   author: string;
   tags: string[];
   image?: string;
+  featured: boolean;
   coverImage?: string;
   publishedAt: string;
   updatedAt: string;

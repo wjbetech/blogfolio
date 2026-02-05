@@ -28,6 +28,7 @@ Let's dive into some practical examples and see how generics can transform your 
     author: "William East",
     tags: ["TypeScript", "Generics", "Programming"],
     coverImage: "",
+    featured: true,
     publishedAt: new Date("2026-02-01").toISOString(),
     updatedAt: new Date("2026-02-01").toISOString()
   },

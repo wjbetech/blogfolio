@@ -1,6 +1,7 @@
 # Current Status
 
-Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variable names.
+Phase 2 - CMS Data Layer
+Current Task - Setting up Prisma DB
 
 # Phase 1: Foundational Frontend
 
@@ -43,44 +44,61 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 
 - [x] Create a blog list page at `src/app/blog/page.tsx`
 - [x] Create the BlogCard component
-  - [ ] Not happy with this currently, look up other designs
 - [ ] Create a dynamic blog detail page at `src/app/blog/[slug]/page.tsx`
-- [ ] Build some mock data for testing purposes
+- [x] Build some mock data for testing purposes
 
 ## 1.3 Portfolio Page
 
-- [ ] Create a static portfolio page at `src/app/portfolio/page.tsx`
-- [ ] Build project showcase components
-  - [ ] PortfolioItem component with re-useable structure?
+- [x] Create a static portfolio page at `src/app/portfolio/page.tsx`
+- [x] Build project showcase components
+  - [x] PortfolioItem component with re-useable structure?
 - [ ] Add project images and descriptions
   - [ ] Host the images somewhere else if needed
 
-# Phase 2: DB & Models
+# Phase 2: CMS Data Layer
 
-## 2.1 MongoDB
+## 2.1 Prisma + Database (SQLite dev, Postgres prod)
 
-- [ ] Install `mongodb` and `mongoose` packages
-- [ ] Create MongoDB connection utility in `src/lib/mongodb.ts`
+- [ ] Install `prisma` and `@prisma/client`
+- [ ] Initialize Prisma schema and SQLite dev DB
+- [ ] Add Postgres connection for production
+- [ ] Create DB utility in `src/lib/db.ts`
 - [ ] Setup env variables in `.env.local`
 
-## 2.2 Data Models
+## 2.2 Content Models (Posts + Projects)
 
-- [ ] Define the Post schema in `src/models/post.ts`
-  - [ ] Define texts, images, etc
+- [ ] Define Post model: title, slug, date, tags, coverImage, bodyMDX, status (draft/published)
+- [ ] Define Project model: title, slug, date, tags, coverImage, bodyMDX, status
+- [ ] Add metadata fields: createdAt, updatedAt, publishedAt
+- [ ] Add audit log model (action, entity, user, timestamp)
 - [ ] Add types in `src/app/types/index.ts`
 
-# Phase 3: API Routing
+## 2.3 Media Storage
 
-## 3.1 CRUD
+- [ ] Choose media storage (S3 or Cloudinary)
+- [ ] Implement presigned upload flow
+- [ ] Store media references on posts/projects
 
-- [ ] GET via `/api/posts`
-  - [ ] List all posts, a single post, post by category(?)
-- [ ] POST via `/api/posts`
-  - [ ] A protected API route for creating a new blog post
-- [ ] PUT via `/api/posts/[id]`
-  - [ ] A protected API route for updating a blog post
-- [ ] DELETE via `/api/posts/[id]`
-  - [ ] A protect API route for deleting a blog post
+# Phase 3: API Routing + Validation
+
+## 3.1 CRUD (Posts + Projects)
+
+- [ ] GET `/api/posts` + `/api/projects` (list, single, filters)
+- [ ] POST `/api/posts` + `/api/projects` (protected)
+- [ ] PUT `/api/posts/[id]` + `/api/projects/[id]` (protected)
+- [ ] DELETE `/api/posts/[id]` + `/api/projects/[id]` (protected)
+
+## 3.2 Validation + Sanitization
+
+- [ ] Server-side validation (Zod or similar)
+- [ ] Sanitize MDX/HTML input
+- [ ] Rate limiting for admin routes
+
+## 3.3 Preview + Publishing
+
+- [ ] Draft vs published workflow
+- [ ] Preview mode for draft content
+- [ ] Incremental revalidation on publish/update
 
 # Phase 4: Auth
 
@@ -98,7 +116,34 @@ Phase 1 - Layout & Navigation Next Step: Standardize and centralize theme variab
 
 - [ ] Create the admin page UI at `src/app/admin/layout.tsx`
 - [ ] Build posts list view with edit/delete actions for the authenticated admin user
-- [ ] Create a post editor with rich text support
-- [ ] Add image upload functionality\*
-  - [ ] This depends on whether you store images via uploadthing or in mongoDB
-- [ ] Build the preview mode
+- [ ] Build projects list view with edit/delete actions
+- [ ] Create a post/project editor with Markdown/MDX support
+- [ ] Add image upload functionality (S3/Cloudinary)
+- [ ] Build preview mode for drafts
+- [ ] Add audit log viewer for admin actions
+
+# Phase 6: Build Plan (Incremental)
+
+## 6.1 Schema + API + Tests
+
+- [ ] Implement Prisma schema and migrations
+- [ ] Build CRUD endpoints for posts/projects
+- [ ] Add basic API tests for create/read/update/delete
+
+## 6.2 Admin UI + Editor
+
+- [ ] Build admin list views + editor form
+- [ ] Add Markdown/MDX editor with preview
+- [ ] Add status controls (draft/published)
+
+## 6.3 Media + Deploy
+
+- [ ] Add presigned uploads + media storage
+- [ ] Store coverImage/media references in DB
+- [ ] Deploy with environment configs
+
+## 6.4 Polish
+
+- [ ] Roles/permissions
+- [ ] Backups
+- [ ] UX improvements

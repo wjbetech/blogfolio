@@ -13,11 +13,11 @@ export default function DevPage() {
   const entries = getChangelogEntries();
   return (
     <div className="container mx-auto max-w-7xl">
-      <section>
+      <section className="">
         <h1 className="text-xl font-bold mb-2 text-headline font-serif">Dev</h1>
         <p className="text-paragraph mb-8">My own software development projects.</p>
 
-        <div>
+        <div className="mb-2">
           {mockProjects.map((project) => {
             return (
               <Card key={project.title} className="mb-6 bg-bg-200 border border-accent-200 p-4 transition-transform">
@@ -65,7 +65,7 @@ export default function DevPage() {
         </div>
       </section>
 
-      <Separator className="bg-accent-100/40 mb-8" />
+      <Separator className="bg-accent-100/40 my-8" />
 
       {/* the changelog for the blogfolio website */}
       <section>

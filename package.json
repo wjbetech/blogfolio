@@ -9,7 +9,11 @@
     "lint": "next lint",
     "test": "jest",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
-    "pullAll": "node ./scripts/pull-all.js"
+    "pullAll": "node ./scripts/pull-all.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",

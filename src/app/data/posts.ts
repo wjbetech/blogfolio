@@ -36,6 +36,7 @@ Let's dive into some practical examples and see how generics can transform your 
     id: "2",
     title: "Building a Next.js Application",
     slug: "building-a-nextjs-application",
+    featured: true,
     image: "https://developer.mozilla.org/en-US/blog/static-site-generation-with-nextjs/featured.png",
     excerpt: "Step-by-step guide to building a web application using Next.js.",
     content: `Next.js is a powerful React framework that makes building production-ready web applications easier than ever. With features like server-side rendering, static site generation, and API routes built in, it's become the go-to choice for modern web development.
@@ -58,6 +59,7 @@ Next.js provides an excellent developer experience with features like hot module
     id: "3",
     title: "CSS Grid vs. Flexbox",
     slug: "css-grid-vs-flexbox",
+    featured: false,
     image: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Grids/grid.png",
     excerpt: "An analysis of CSS Grid and Flexbox, and guidance on when to use each layout system.",
     content: `Both CSS Grid and Flexbox are powerful layout systems that have revolutionized web design. But when should you use one over the other? This article breaks down the key differences and provides practical guidance.
@@ -85,6 +87,7 @@ Understanding when to use each tool will make you a more effective developer and
     id: "4",
     title: "Introduction to GraphQL",
     slug: "introduction-to-graphql",
+    featured: false,
     excerpt: "Learn the basics of GraphQL and how it differs from REST APIs.",
     content: `GraphQL is a query language for APIs and a runtime for executing those queries. Developed by Facebook, it provides a more efficient, powerful, and flexible alternative to REST.
 
@@ -107,6 +110,7 @@ In this article, we'll explore the fundamentals of GraphQL, compare it to REST, 
     id: "5",
     title: "Effective State Management in React",
     slug: "effective-state-management-in-react",
+    featured: false,
     excerpt: "Explore various state management techniques in React applications.",
     content: `State management is one of the most important aspects of building React applications. As your app grows, managing state becomes increasingly complex. This guide explores different approaches and helps you choose the right solution.
 
@@ -116,7 +120,7 @@ State management options:
 - Redux for complex applications
 - Zustand for simpler global state
 - React Query for server state
-
+    
 Each solution has its own use cases and trade-offs. The key is understanding when to use each approach and how they can work together to create a maintainable application architecture.
 
 We'll also discuss best practices, common pitfalls, and patterns that will help you manage state effectively in your React applications.`,
@@ -130,6 +134,7 @@ We'll also discuss best practices, common pitfalls, and patterns that will help 
     id: "6",
     title: "Modern Authentication Patterns",
     slug: "modern-authentication-patterns",
+    featured: false,
     excerpt: "Implementing secure authentication in web applications using modern best practices.",
     content: `Authentication is a critical part of any web application. This article explores modern authentication patterns including JWT, OAuth, and session-based auth.
 

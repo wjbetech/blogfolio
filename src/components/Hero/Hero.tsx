@@ -9,7 +9,7 @@ export default function Hero() {
         </div>
 
         <div className="flex-1 text-right">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent-100 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent-100 leading-tight font-serif">
             Hey, I&apos;m Will.
           </h1>
 
@@ -19,7 +19,7 @@ export default function Hero() {
               Next.js, Node, TypeScript, Prisma, TailwindCSS, and{" "}
               <Link
                 href="/dev"
-                className="relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10">
+                className="relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
                 more
               </Link>
             </p>

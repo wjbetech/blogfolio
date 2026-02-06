@@ -42,7 +42,7 @@ export default function Navbar({
               <Link
                 key={link.id}
                 href={link.href}
-                className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors ${
+                className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif transition-colors ${
                   pathname === link.href
                     ? "font-semibold text-headline after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10"
                     : "text-accent-200 after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10"

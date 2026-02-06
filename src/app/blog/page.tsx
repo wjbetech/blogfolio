@@ -62,13 +62,12 @@ export default function BlogPage() {
     <div className="max-w-7xl mx-auto">
       <div className="flex gap-12">
         {/* Main content */}
-        <section className="flex-1 mt-4 pr-12 border-r border-accent-100/30">
+        <section className="flex-1 pr-12 border-r border-accent-100/30">
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="text-[0.7rem] uppercase tracking-[0.3em] text-accent-200/80">Journal</p>
-              <h1 className="text-3xl md:text-4xl font-semibold font-serif text-headline">Blog</h1>
+              <h1 className="text-3xl md:text-4xl font-semibold text-headline font-serif ">Blog</h1>
               <p className="text-sm md:text-base text-paragraph max-w-2xl">
-                Minimal notes on design, engineering, and the ideas behind the work.
+                Notes on software, life and work in Korea.
               </p>
             </div>
 
@@ -94,12 +93,12 @@ export default function BlogPage() {
 
                 return (
                   <Card key={post.id} className="border border-accent-100/30 bg-bg-200/30 shadow-none">
-                    <CardHeader className="px-6 pt-6">
+                    <CardHeader className="px-6">
                       <div className="flex items-center gap-2 text-xs text-paragraph">
                         <IconCalendar className="h-4 w-4" />
                         <time dateTime={post.publishedAt}>{dateLabel}</time>
                       </div>
-                      <CardTitle className="text-xl md:text-2xl text-headline mt-2">
+                      <CardTitle className="text-xl md:text-2xl text-headline mt-2 font-serif">
                         <Link
                           href={`/blog/${post.slug}`}
                           className="inline-flex items-center gap-2 hover:text-accent-200 transition-colors">
@@ -135,7 +134,7 @@ export default function BlogPage() {
         </section>
 
         {/* Sidebar */}
-        <aside className="w-64 transition-all duration-300 relative mt-4">
+        <aside className="w-52 lg:w-64 transition-all duration-300 relative">
           <div className="sticky top-24 space-y-4">
             <h3 className="text-lg font-semibold font-serif text-accent-100 mb-4">Archives</h3>
             <div className="space-y-2">

@@ -64,7 +64,7 @@ export default function BlogPage() {
     <div className="max-w-7xl mx-auto">
       {/* ── Page header ── */}
       <header className="pt-2 pb-10 space-y-3">
-        <h1 className="text-4xl md:text-5xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
+        <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
         <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>
       </header>
 
@@ -72,7 +72,7 @@ export default function BlogPage() {
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
           {/* ── Featured hero card ── */}
-          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-12">
+          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-6">
             <article className="relative rounded-2xl overflow-hidden bg-bg-200/60 border border-accent-100/20 transition-all duration-300 hover:border-accent-100/50 hover:shadow-lg">
               {/* Image */}
               {featuredPost.image && (
@@ -90,9 +90,6 @@ export default function BlogPage() {
               {/* Content overlay */}
               <div className={`${featuredPost.image ? "absolute bottom-0 left-0 right-0" : ""} p-6 md:p-8 space-y-3`}>
                 <div className="flex items-center gap-3 text-xs text-paragraph/80">
-                  <Badge className="bg-accent-200/20 text-accent-200 border-accent-200/30 text-[11px] uppercase tracking-wider font-medium">
-                    Featured
-                  </Badge>
                   <span className="flex items-center gap-1">
                     <IconCalendar className="h-3 w-3" />
                     {formatDate(featuredPost.publishedAt)}
@@ -121,31 +118,6 @@ export default function BlogPage() {
               </div>
             </article>
           </Link>
-
-          {/* ── Tag filter pills ── */}
-          <div className="flex flex-wrap items-center gap-2 mb-8">
-            <button
-              onClick={() => setSelectedTag(null)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
-                selectedTag === null
-                  ? "bg-button text-button-text border-button"
-                  : "border-accent-100/30 text-paragraph hover:border-accent-100/60 hover:text-headline"
-              }`}>
-              All
-            </button>
-            {allTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
-                  selectedTag === tag
-                    ? "bg-button text-button-text border-button"
-                    : "border-accent-100/30 text-paragraph hover:border-accent-100/60 hover:text-headline"
-                }`}>
-                {tag}
-              </button>
-            ))}
-          </div>
 
           {/* ── Active filter indicator ── */}
           {selectedTag && (

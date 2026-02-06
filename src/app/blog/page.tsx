@@ -2,194 +2,286 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IconArrowUpRight, IconCalendar, IconTag } from "@tabler/icons-react";
+import Image from "next/image";
+import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import { mockPosts } from "@/app/data/posts";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 
 export default function BlogPage() {
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
-  const [expandedMonths, setExpandedMonths] = useState<Set<string>>(new Set());
-  // Archives are always expanded; we no longer track expandedYears/expandedMonths
 
-  // Group posts by year and month
-  const groupedPosts = mockPosts.reduce(
-    (acc, post) => {
-      const date = new Date(post.publishedAt);
-      const year = date.getFullYear();
-      const month = date.toLocaleString("default", { month: "long" });
+  // Derive all unique tags
+  const allTags = Array.from(new Set(mockPosts.flatMap((p) => p.tags)));
 
-      if (!acc[year]) acc[year] = {};
-      if (!acc[year][month]) acc[year][month] = [];
-      acc[year][month].push(post);
-
-      return acc;
-    },
-    {} as Record<number, Record<string, typeof mockPosts>>
-  );
-
+  // Sort posts by date (newest first)
   const sortedPosts = [...mockPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
-  const displayPosts = selectedMonth
-    ? sortedPosts.filter((post) => {
-        const date = new Date(post.publishedAt);
-        const key = `${date.getFullYear()}-${date.toLocaleString("default", { month: "long" })}`;
-        return key === selectedMonth;
-      })
-    : sortedPosts;
+  // Featured post = most recent featured, or most recent overall
+  const featuredPost = sortedPosts.find((p) => p.featured) ?? sortedPosts[0];
+
+  // Remaining posts (exclude featured)
+  const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id);
+
+  // Apply tag filter
+  const displayPosts = selectedTag ? remainingPosts.filter((p) => p.tags.includes(selectedTag)) : remainingPosts;
+
+  // Group posts by year for sidebar archive
+  const groupedByYear = sortedPosts.reduce(
+    (acc, post) => {
+      const year = new Date(post.publishedAt).getFullYear();
+      if (!acc[year]) acc[year] = [];
+      acc[year].push(post);
+      return acc;
+    },
+    {} as Record<number, typeof sortedPosts>
+  );
 
   const toggleYear = (year: number) => {
-    const newExpanded = new Set(expandedYears);
-    if (newExpanded.has(year)) newExpanded.delete(year);
-    else newExpanded.add(year);
-    setExpandedYears(newExpanded);
+    const next = new Set(expandedYears);
+    if (next.has(year)) next.delete(year);
+    else next.add(year);
+    setExpandedYears(next);
   };
 
-  const toggleMonth = (key: string) => {
-    const newExpanded = new Set(expandedMonths);
-    if (newExpanded.has(key)) newExpanded.delete(key);
-    else newExpanded.add(key);
-    setExpandedMonths(newExpanded);
+  // Estimate reading time (~200 wpm)
+  const readTime = (content: string) => {
+    const words = content.trim().split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
   };
+
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
 
   return (
     <div className="max-w-7xl mx-auto">
-      <div className="flex gap-12">
-        {/* Main content */}
-        <section className="flex-1 pr-12 border-r border-accent-100/30">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="text-3xl md:text-4xl font-semibold text-headline font-serif ">Blog</h1>
-              <p className="text-sm md:text-base text-paragraph max-w-2xl">
-                Notes on software, life and work in Korea.
-              </p>
-            </div>
+      {/* ── Page header ── */}
+      <header className="pt-2 pb-10 space-y-3">
+        <h1 className="text-4xl md:text-5xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
+        <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>
+      </header>
 
-            <Separator className="bg-accent-100/40" />
+      <div className="flex gap-14 lg:gap-16">
+        {/* ════════════════ Main column ════════════════ */}
+        <section className="flex-1 min-w-0">
+          {/* ── Featured hero card ── */}
+          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-12">
+            <article className="relative rounded-2xl overflow-hidden bg-bg-200/60 border border-accent-100/20 transition-all duration-300 hover:border-accent-100/50 hover:shadow-lg">
+              {/* Image */}
+              {featuredPost.image && (
+                <div className="relative w-full h-56 md:h-72 overflow-hidden">
+                  <Image
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-bg-100/90 via-bg-100/40 to-transparent" />
+                </div>
+              )}
 
-            {selectedMonth && (
-              <div className="flex items-center gap-2 text-xs text-paragraph">
-                <span className="inline-flex h-2 w-2 rounded-full bg-accent-200" />
-                Filtered to <span className="text-headline font-medium">{selectedMonth.replace("-", " ")}</span>
-                <Button variant="ghost" size="xs" className="ml-2" onClick={() => setSelectedMonth(null)}>
-                  Clear
-                </Button>
+              {/* Content overlay */}
+              <div className={`${featuredPost.image ? "absolute bottom-0 left-0 right-0" : ""} p-6 md:p-8 space-y-3`}>
+                <div className="flex items-center gap-3 text-xs text-paragraph/80">
+                  <Badge className="bg-accent-200/20 text-accent-200 border-accent-200/30 text-[11px] uppercase tracking-wider font-medium">
+                    Featured
+                  </Badge>
+                  <span className="flex items-center gap-1">
+                    <IconCalendar className="h-3 w-3" />
+                    {formatDate(featuredPost.publishedAt)}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <IconClock className="h-3 w-3" />
+                    {readTime(featuredPost.content)} min read
+                  </span>
+                </div>
+
+                <h2 className="text-2xl md:text-3xl font-serif font-semibold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
+                  {featuredPost.title}
+                </h2>
+
+                <p className="text-sm text-paragraph leading-relaxed line-clamp-2 max-w-xl">{featuredPost.excerpt}</p>
+
+                <div className="flex items-center gap-2 pt-1">
+                  {featuredPost.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[11px] px-2 py-0.5 rounded-full border border-accent-100/30 text-paragraph/70">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            )}
+            </article>
+          </Link>
 
-            <div className="space-y-6">
-              {displayPosts.map((post) => {
-                const dateLabel = new Date(post.publishedAt).toLocaleDateString("default", {
-                  month: "short",
-                  day: "2-digit",
-                  year: "numeric"
-                });
+          {/* ── Tag filter pills ── */}
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            <button
+              onClick={() => setSelectedTag(null)}
+              className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                selectedTag === null
+                  ? "bg-button text-button-text border-button"
+                  : "border-accent-100/30 text-paragraph hover:border-accent-100/60 hover:text-headline"
+              }`}>
+              All
+            </button>
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                  selectedTag === tag
+                    ? "bg-button text-button-text border-button"
+                    : "border-accent-100/30 text-paragraph hover:border-accent-100/60 hover:text-headline"
+                }`}>
+                {tag}
+              </button>
+            ))}
+          </div>
 
-                return (
-                  <Card key={post.id} className="border border-accent-100/30 bg-bg-200/30 shadow-none">
-                    <CardHeader className="px-6">
-                      <div className="flex items-center gap-2 text-xs text-paragraph">
-                        <IconCalendar className="h-4 w-4" />
-                        <time dateTime={post.publishedAt}>{dateLabel}</time>
-                      </div>
-                      <CardTitle className="text-xl md:text-2xl text-headline mt-2 font-serif">
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="inline-flex items-center gap-2 hover:text-accent-200 transition-colors">
-                          {post.title}
-                          <IconArrowUpRight className="h-4 w-4" />
-                        </Link>
-                      </CardTitle>
-                      <CardAction className="mt-2">
-                        <Button asChild variant="ghost" size="sm" className="text-headline">
-                          <Link href={`/blog/${post.slug}`}>Read</Link>
-                        </Button>
-                      </CardAction>
-                    </CardHeader>
-                    <CardContent className="px-6 text-sm text-paragraph">{post.excerpt}</CardContent>
-                    <CardFooter className="px-6 bg-transparent">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center gap-1 text-xs text-paragraph">
-                          <IconTag className="h-3.5 w-3.5" />
-                          Tags
+          {/* ── Active filter indicator ── */}
+          {selectedTag && (
+            <div className="flex items-center gap-2 mb-6 text-xs text-paragraph">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-200" />
+              Showing posts tagged&nbsp;
+              <span className="text-headline font-medium">{selectedTag}</span>
+              <button
+                onClick={() => setSelectedTag(null)}
+                className="ml-1 underline underline-offset-2 text-link hover:text-headline transition-colors">
+                clear
+              </button>
+            </div>
+          )}
+
+          {/* ── Post list ── */}
+          <div className="space-y-1">
+            {displayPosts.map((post, i) => {
+              const dateLabel = formatDate(post.publishedAt);
+              return (
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
+                  <article
+                    className={`flex items-start gap-5 py-6 transition-colors duration-200 ${
+                      i < displayPosts.length - 1 ? "border-b border-accent-100/15" : ""
+                    }`}>
+                    {/* Left: date column */}
+                    <div className="hidden sm:block w-24 shrink-0 pt-1">
+                      <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
+                        {dateLabel}
+                      </time>
+                    </div>
+
+                    {/* Center: text */}
+                    <div className="flex-1 min-w-0 space-y-2">
+                      <h3 className="text-lg font-serif font-medium text-headline leading-snug group-hover:text-accent-200 transition-colors duration-200">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-paragraph/80 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      <div className="flex items-center gap-3 pt-1">
+                        <span className="sm:hidden text-[11px] text-paragraph/50 flex items-center gap-1">
+                          <IconCalendar className="h-3 w-3" />
+                          {dateLabel}
                         </span>
-                        {post.tags.map((tag) => (
-                          <Badge key={tag} variant="outline" className="border-accent-100/40 text-paragraph">
+                        <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
+                          <IconClock className="h-3 w-3" />
+                          {readTime(post.content)} min
+                        </span>
+                        {post.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[11px] px-2 py-0.5 rounded-full border border-accent-100/20 text-paragraph/50">
                             {tag}
-                          </Badge>
+                          </span>
                         ))}
                       </div>
-                    </CardFooter>
-                  </Card>
-                );
-              })}
-            </div>
+                    </div>
+
+                    {/* Right: arrow */}
+                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                      <IconArrowRight className="h-4 w-4 text-accent-200" />
+                    </div>
+                  </article>
+                </Link>
+              );
+            })}
+
+            {displayPosts.length === 0 && (
+              <p className="py-12 text-center text-sm text-paragraph/60">No posts found for this filter.</p>
+            )}
           </div>
         </section>
 
-        {/* Sidebar */}
-        <aside className="w-52 lg:w-64 transition-all duration-300 relative">
-          <div className="sticky top-24 space-y-4">
-            <h3 className="text-lg font-semibold font-serif text-accent-100 mb-4">Archives</h3>
-            <div className="space-y-2">
-              <Button
-                variant={selectedMonth === null ? "secondary" : "ghost"}
-                className="w-full justify-start"
-                onClick={() => setSelectedMonth(null)}>
-                All Posts
-              </Button>
-              {Object.entries(groupedPosts)
-                .sort(([a], [b]) => Number(b) - Number(a))
-                .map(([year, months]) => {
-                  return (
-                    <div key={year} className="space-y-1">
-                      <div
-                        className="text-sm font-semibold text-headline mt-3 mb-2 flex items-center gap-2 cursor-pointer hover:text-main transition-colors"
-                        onClick={() => toggleYear(Number(year))}>
-                        <ChevronRightIcon
-                          className={`w-3 h-3 transition-transform ${expandedYears.has(Number(year)) ? "rotate-90" : ""}`}
-                        />
-                        {year}
+        {/* ════════════════ Sidebar ════════════════ */}
+        <aside className="hidden lg:block w-56 shrink-0">
+          <div className="sticky top-24 space-y-8">
+            {/* Archive */}
+            <div>
+              <h3 className="text-xs font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+                Archive
+              </h3>
+              <nav className="space-y-1">
+                {Object.entries(groupedByYear)
+                  .sort(([a], [b]) => Number(b) - Number(a))
+                  .map(([year, posts]) => {
+                    const isOpen = expandedYears.has(Number(year));
+                    return (
+                      <div key={year}>
+                        <button
+                          onClick={() => toggleYear(Number(year))}
+                          className="w-full flex items-center justify-between py-2 text-sm text-headline hover:text-accent-200 transition-colors group/year">
+                          <span className="font-medium font-serif">{year}</span>
+                          <span className="flex items-center gap-1.5">
+                            <span className="text-[11px] text-paragraph/40 tabular-nums">{posts.length}</span>
+                            <ChevronRightIcon
+                              className={`w-3 h-3 text-paragraph/30 transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`}
+                            />
+                          </span>
+                        </button>
+                        {isOpen && (
+                          <ul className="ml-1 border-l border-accent-100/15 pl-3 pb-2 space-y-0.5">
+                            {posts.map((post) => (
+                              <li key={post.id}>
+                                <Link
+                                  href={`/blog/${post.slug}`}
+                                  className="block py-1.5 text-[13px] text-paragraph/70 hover:text-headline transition-colors truncate">
+                                  {post.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
-                      {expandedYears.has(Number(year)) &&
-                        Object.entries(months).map(([month, posts]) => {
-                          const key = `${year}-${month}`;
-                          const isMonthExpanded = expandedMonths.has(key);
-                          return (
-                            <div key={key} className="ml-4 space-y-1">
-                              <div
-                                className="flex items-center gap-2 text-sm text-paragraph hover:text-headline transition-colors cursor-pointer py-1"
-                                onClick={() => toggleMonth(key)}>
-                                <span className="flex-1">{month}</span>
-                                <span className="text-xs">({posts.length})</span>
-                                <ChevronRightIcon
-                                  className={`w-3 h-3 transition-transform ${isMonthExpanded ? "rotate-90" : ""}`}
-                                />
-                              </div>
-                              {isMonthExpanded && (
-                                <div className="ml-5 space-y-1">
-                                  {posts.map((post) => (
-                                    <Link
-                                      key={post.id}
-                                      href={`/blog/${post.slug}`}
-                                      className="block text-sm text-paragraph hover:text-main transition-colors py-1 truncate">
-                                      {post.title}
-                                    </Link>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </nav>
+            </div>
+
+            {/* Tags cloud */}
+            <div>
+              <h3 className="text-xs font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+                Topics
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {allTags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-all duration-200 ${
+                      selectedTag === tag
+                        ? "bg-button text-button-text border-button"
+                        : "border-accent-100/25 text-paragraph/60 hover:border-accent-100/50 hover:text-headline"
+                    }`}>
+                    {tag}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </aside>

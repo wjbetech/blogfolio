@@ -63,7 +63,7 @@ export default function BlogPage() {
   return (
     <div className="max-w-7xl mx-auto">
       {/* ── Page header ── */}
-      <header className="pt-2 pb-10 space-y-3">
+      <header className="pb-10 space-y-3">
         <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
         <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>
       </header>
@@ -129,17 +129,17 @@ export default function BlogPage() {
           )}
 
           {/* ── Post list ── */}
-          <div className="space-y-1">
+          <div className="space-y-4">
             {displayPosts.map((post, i) => {
               const dateLabel = formatDate(post.publishedAt);
               return (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group block bg-bg-200 px-2">
                   <article
                     className={`flex items-start gap-5 py-6 transition-colors duration-200 ${
                       i < displayPosts.length - 1 ? "border-b border-accent-100/15" : ""
                     }`}>
                     {/* Left: date column */}
-                    <div className="hidden sm:block w-24 shrink-0 pt-1">
+                    <div className="hidden sm:block w-24 shrink-0">
                       <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
                         {dateLabel}
                       </time>

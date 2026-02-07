@@ -11,15 +11,11 @@ export default function DevPage() {
   return (
     <div className="max-w-7xl mx-auto ">
       {/* ── Hero header ── */}
-      <header className="pt-6 pb-16 relative">
-        <div className="relative z-10 space-y-4">
-          <p className="text-xs font-mono uppercase tracking-[0.3em] text-accent-200">Portfolio &mdash; Projects</p>
-          <h1 className="text-3xl font-serif font-extrabold text-headline tracking-tight leading-[1.1]">Dev</h1>
+      <header className="relative">
+        <div className="relative pb-10 z-10 space-y-4">
+          <h1 className="text-3xl font-serif font-semibold text-headline tracking-tight leading-[1.1]">Dev</h1>
           <p className="text-lg text-paragraph leading-relaxed">Software I&apos;ve designed and built.</p>
         </div>
-
-        {/* Thin accent rule */}
-        <div className="mt-10 h-px w-full bg-accent-200/40" />
       </header>
 
       <div className="flex gap-14 lg:gap-16">

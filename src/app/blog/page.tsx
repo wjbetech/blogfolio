@@ -82,9 +82,15 @@ export default function BlogPage() {
                   </span>
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight hover:text-accent-200 transition-colors duration-200">
-                  {featuredPost.title}
-                </h2>
+                <div className="flex flex-row justify-between">
+                  <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
+                    {featuredPost.title}
+                  </h2>
+                  {/* Right: arrow */}
+                  <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                    <IconArrowRight className="h-4 w-4 text-accent-200" />
+                  </div>
+                </div>
 
                 <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">{featuredPost.excerpt}</p>
 
@@ -179,6 +185,9 @@ export default function BlogPage() {
           </div>
         </section>
 
+        {/* vertical separator shown when Archive is visible */}
+        <div className="hidden lg:block w-0.5 bg-accent-200/50 self-stretch" />
+
         {/* ════════════════ Sidebar ════════════════ */}
         <aside className="hidden lg:block w-56 shrink-0">
           <div className="sticky top-24 space-y-8">
@@ -196,7 +205,7 @@ export default function BlogPage() {
                       <div key={year}>
                         <button
                           onClick={() => toggleYear(Number(year))}
-                          className="w-full flex items-center justify-between py-2 text-sm text-headline hover:text-accent-200 transition-colors group/year">
+                          className="w-full flex items-center justify-between py-2 text-sm text-headline hover:text-accent-200 transition-colors group/year cursor-pointer">
                           <span className="font-medium font-serif">{year}</span>
                           <span className="flex items-center gap-1.5">
                             <span className="text-[11px] text-paragraph/40 tabular-nums">{posts.length}</span>

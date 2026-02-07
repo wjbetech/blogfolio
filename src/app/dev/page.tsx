@@ -2,7 +2,7 @@ import { getChangelogEntries } from "@/lib/changelog/entryParser";
 import ChangelogEntry from "@/components/ChangelogEntry/ChangelogEntry";
 import Link from "next/link";
 import Image from "next/image";
-import { IconArrowUpRight, IconBrandGithub, IconCode } from "@tabler/icons-react";
+import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { mockProjects } from "../data/projects";
 
 export default function DevPage() {
@@ -12,9 +12,11 @@ export default function DevPage() {
     <div className="max-w-7xl mx-auto ">
       {/* ── Hero header ── */}
       <header className="relative">
-        <div className="relative pb-10 z-10 space-y-4">
+        <div className="relative pb-10 z-10 space-y-2">
           <h1 className="text-3xl font-serif font-semibold text-headline tracking-tight leading-[1.1]">Dev</h1>
-          <p className="text-lg text-paragraph leading-relaxed">Software I&apos;ve designed and built.</p>
+          <p className="text-paragraph leading-relaxed">
+            My own projects - apps and software I built both for my own use and for friends and co-workers.
+          </p>
         </div>
       </header>
 
@@ -43,7 +45,7 @@ export default function DevPage() {
                   <div className={`absolute top-0 bottom-0 w-1 bg-accent-200 z-10 ${isEven ? "left-0" : "right-0"}`} />
 
                   <div
-                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-all duration-300 group-hover/project:-translate-y-0.5 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
+                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-all duration-300 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
                     {/* ── Visual side ── */}
                     <div className="relative w-full md:w-[42%] shrink-0 overflow-hidden">
                       {hasImage ? (
@@ -68,19 +70,6 @@ export default function DevPage() {
                               {project.title.charAt(0)}
                             </span>
                           </div>
-                          {/* Corner accent */}
-                          <div className={`absolute bottom-0 ${isEven ? "right-0" : "left-0"} w-20 h-20`}>
-                            <div
-                              className={`absolute bottom-0 ${isEven ? "right-0" : "left-0"} w-full h-full bg-accent-200`}
-                            />
-                          </div>
-                          {/* Floating tech icon */}
-                          <div className="absolute bottom-6 left-6 flex items-center gap-2">
-                            <IconCode className="w-5 h-5 text-accent-200/30" />
-                            <span className="text-[11px] font-mono text-accent-200/30 tracking-wider">
-                              {project.tech?.[0] ?? "code"}
-                            </span>
-                          </div>
                         </div>
                       )}
                     </div>
@@ -91,7 +80,7 @@ export default function DevPage() {
                       <div className="space-y-6">
                         {/* Title with hover underline */}
                         <div>
-                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-extrabold text-headline leading-[1.15] tracking-tight">
+                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight">
                             <span className="relative inline-block">
                               {project.title}
                               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-200 transition-all duration-300 group-hover/project:w-full" />
@@ -105,14 +94,14 @@ export default function DevPage() {
                         {/* Tech stack — pills with subtle background */}
                         {project.tech && project.tech.length > 0 && (
                           <div className="space-y-2">
-                            <span className="text-[10px] uppercase tracking-[0.2em] text-accent-200/60 font-mono block">
+                            <span className="text-sm uppercase tracking-[0.2em] text-accent-200/60 font-mono block">
                               Built with
                             </span>
                             <div className="flex items-center gap-2 flex-wrap">
                               {project.tech.map((tag) => (
                                 <span
                                   key={tag}
-                                  className="text-[12px] px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono transition-colors duration-200 hover:border-accent-200/30 hover:text-headline">
+                                  className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono transition-colors duration-200">
                                   {tag}
                                 </span>
                               ))}
@@ -160,7 +149,7 @@ export default function DevPage() {
           <div className="sticky top-24 space-y-10">
             {/* Project index */}
             <div>
-              <h3 className="text-[10px] font-mono uppercase tracking-[0.25em] text-accent-200 mb-5">Index</h3>
+              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-5">Index</h3>
               <nav className="space-y-0.5">
                 {mockProjects.map((project, i) => (
                   <a
@@ -180,22 +169,22 @@ export default function DevPage() {
 
             {/* Quick stats */}
             <div className="space-y-3">
-              <h3 className="text-[10px] font-mono uppercase tracking-[0.25em] text-accent-200 mb-3">At a glance</h3>
+              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-3">At a glance</h3>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">{mockProjects.length}</span>
-                <span className="text-xs text-paragraph/50">projects</span>
+                <span className="text-sm text-paragraph/50">projects</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
                   {new Set(mockProjects.flatMap((p) => p.tech)).size}
                 </span>
-                <span className="text-xs text-paragraph/50">technologies</span>
+                <span className="text-sm text-paragraph/50">technologies</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
                   {mockProjects.filter((p) => p.featured).length}
                 </span>
-                <span className="text-xs text-paragraph/50">featured</span>
+                <span className="text-sm text-paragraph/50">featured</span>
               </div>
             </div>
           </div>
@@ -205,13 +194,12 @@ export default function DevPage() {
       {/* ── Changelog ── */}
       <div className="mt-24 mb-8">
         <div className="flex items-center gap-4 mb-6">
-          <span className="text-[11px] font-mono text-accent-200 tracking-widest uppercase">Changelog</span>
           <div className="flex-1 h-px bg-accent-200/40" />
         </div>
 
         <section className="pb-16 max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline mb-3 tracking-tight">
-            What&apos;s New
+            Changelog
           </h2>
           <p className="text-base text-paragraph/70 mb-10 max-w-lg leading-relaxed">
             Track updates, improvements, and fixes to this application.

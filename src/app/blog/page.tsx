@@ -243,10 +243,10 @@ export default function BlogPage() {
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-all duration-200 ${
+                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-all cursor-pointer duration-200 text-paragraph ${
                       selectedTag === tag
-                        ? "bg-button text-button-text border-button"
-                        : "border-accent-100/25 text-paragraph/60 hover:border-accent-100/50 hover:text-headline"
+                        ? "border-button"
+                        : "border-accent-100/25 hover:border-accent-100/50 hover:text-headline"
                     }`}>
                     {tag}
                   </button>

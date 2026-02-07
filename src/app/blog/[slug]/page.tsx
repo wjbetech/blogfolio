@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { mockPosts } from "@/app/data/posts";
+import { allPosts } from "contentlayer/generated";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
@@ -8,13 +8,13 @@ import CalendarIcon from "@/components/Icons/CalendarIcon";
 import UserIcon from "@/components/Icons/UserIcon";
 
 export async function generateStaticParams() {
-  return mockPosts.map((post) => ({
+  return allPosts.map((post) => ({
     slug: post.slug
   }));
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = mockPosts.find((p) => p.slug === params.slug);
+  const post = allPosts.find((p) => p.slug === params.slug);
 
   if (!post) {
     notFound();

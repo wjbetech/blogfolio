@@ -2,8 +2,8 @@ import { getChangelogEntries } from "@/lib/changelog/entryParser";
 import ChangelogEntry from "@/components/ChangelogEntry/ChangelogEntry";
 import Link from "next/link";
 import Image from "next/image";
-import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
-import { mockProjects } from "../data/projects";
+import { IconArrowUpRight, IconBrandGithub, IconCode } from "@tabler/icons-react";
+import { allProjects } from "contentlayer/generated";
 
 export default function DevPage() {
   const entries = getChangelogEntries();
@@ -23,7 +23,7 @@ export default function DevPage() {
       <div className="flex gap-14 lg:gap-16">
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
-          {mockProjects.map((project, i) => {
+          {allProjects.map((project, i) => {
             const isEven = i % 2 === 0;
             const hasImage = project.images && project.images.length > 0 && project.images[0] !== "";
             const num = String(i + 1).padStart(2, "0");
@@ -151,7 +151,7 @@ export default function DevPage() {
             <div>
               <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-5">Index</h3>
               <nav className="space-y-0.5">
-                {mockProjects.map((project, i) => (
+                {allProjects.map((project, i) => (
                   <a
                     key={project.id}
                     href={`#${project.slug}`}
@@ -171,18 +171,18 @@ export default function DevPage() {
             <div className="space-y-3">
               <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-3">At a glance</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-serif font-bold text-headline">{mockProjects.length}</span>
+                <span className="text-2xl font-serif font-bold text-headline">{allProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
-                  {new Set(mockProjects.flatMap((p) => p.tech)).size}
+                  {new Set(allProjects.flatMap((p) => p.tech)).size}
                 </span>
                 <span className="text-sm text-paragraph/50">technologies</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
-                  {mockProjects.filter((p) => p.featured).length}
+                  {allProjects.filter((p) => p.featured).length}
                 </span>
                 <span className="text-sm text-paragraph/50">featured</span>
               </div>

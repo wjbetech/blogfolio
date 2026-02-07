@@ -4,7 +4,7 @@ import React, { useRef, useImperativeHandle } from "react";
 import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import CarouselControls from "@/components/Carousel/CarouselControls";
 import BlogPostCard from "../BlogPostCard/BlogPostCard";
-import { mockPosts } from "@/app/data/posts";
+import { allPosts } from "contentlayer/generated";
 import Link from "next/link";
 
 const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, ref) {
@@ -36,7 +36,7 @@ const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, r
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {mockPosts.map((post) => (
+        {allPosts.map((post) => (
           <BlogPostCard key={post.slug} post={post} />
         ))}
       </Carousel>

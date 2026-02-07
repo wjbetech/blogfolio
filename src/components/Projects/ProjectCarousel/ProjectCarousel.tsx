@@ -4,7 +4,7 @@ import React, { useRef, useImperativeHandle } from "react";
 import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import CarouselControls from "@/components/Carousel/CarouselControls";
 import ProjectCard from "../ProjectPostCard/ProjectPostCard";
-import { mockProjects } from "@/app/data/projects";
+import { allProjects } from "contentlayer/generated";
 import Link from "next/link";
 
 const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarousel(_, ref) {
@@ -36,7 +36,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarouse
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {mockProjects.map((project) => (
+        {allProjects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </Carousel>

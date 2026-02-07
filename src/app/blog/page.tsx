@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 // images removed for simplified layout
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
-import { mockPosts } from "@/app/data/posts";
+import { allPosts } from "contentlayer/generated";
 // Badge not needed here; UI elements use inline tags
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 
@@ -13,10 +13,10 @@ export default function BlogPage() {
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
   // Derive all unique tags
-  const allTags = Array.from(new Set(mockPosts.flatMap((p) => p.tags)));
+  const allTags = Array.from(new Set(allPosts.flatMap((p: { tags: string[] }) => p.tags)));
 
   // Sort posts by date (newest first)
-  const sortedPosts = [...mockPosts].sort(
+  const sortedPosts = [...allPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 

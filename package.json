@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "contentlayer:generate": "node ./scripts/contentlayer-build.mjs",
+    "dev": "npm run contentlayer:generate && next dev --turbopack",
+    "build": "npm run contentlayer:generate && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
@@ -49,6 +50,8 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "contentlayer": "^0.3.4",
+    "@contentlayer/source-files": "^0.3.4"
   }
 }

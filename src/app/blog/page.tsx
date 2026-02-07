@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// images removed for simplified layout
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import { mockPosts } from "@/app/data/posts";
-import { Badge } from "@/components/ui/badge";
+// Badge not needed here; UI elements use inline tags
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 
 export default function BlogPage() {
@@ -71,49 +71,38 @@ export default function BlogPage() {
       <div className="flex gap-14 lg:gap-16">
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
-          {/* ── Featured hero card ── */}
-          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-6">
-            <article className="relative rounded-2xl overflow-hidden bg-bg-200/60 border border-accent-100/20 transition-all duration-300 hover:border-accent-100/50 hover:shadow-lg">
-              {/* Image */}
-              {featuredPost.image && (
-                <div className="relative w-full h-56 md:h-72 overflow-hidden">
-                  <Image
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-bg-100/90 via-bg-100/40 to-transparent" />
-                </div>
-              )}
-
-              {/* Content overlay */}
-              <div className={`${featuredPost.image ? "absolute bottom-0 left-0 right-0" : ""} p-6 md:p-8 space-y-3`}>
-                <div className="flex items-center gap-3 text-xs text-paragraph/80">
-                  <span className="flex items-center gap-1">
-                    <IconCalendar className="h-3 w-3" />
-                    {formatDate(featuredPost.publishedAt)}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <IconClock className="h-3 w-3" />
-                    {readTime(featuredPost.content)} min read
+          {/* ── Featured expanded post (text-first, no image) ── */}
+          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
+            <article className="bg-bg-200/60 border border-accent-100/10 transition-all duration-300 hover:shadow-lg p-6 md:p-8">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-4 text-sm text-paragraph/70">
+                  <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
+                  <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
+                    <IconClock className="h-4 w-4" /> {readTime(featuredPost.content)} min read
                   </span>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-serif font-semibold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
+                <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight hover:text-accent-200 transition-colors duration-200">
                   {featuredPost.title}
                 </h2>
 
-                <p className="text-sm text-paragraph leading-relaxed line-clamp-2 max-w-xl">{featuredPost.excerpt}</p>
+                <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">{featuredPost.excerpt}</p>
 
-                <div className="flex items-center gap-2 pt-1">
-                  {featuredPost.tags.slice(0, 3).map((tag) => (
+                <div className="flex items-center gap-2 flex-wrap mt-2">
+                  {featuredPost.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-2 py-0.5 rounded-full border border-accent-100/30 text-paragraph/70">
+                      className="text-[12px] px-3 py-1 rounded-full border border-accent-100/20 text-paragraph/70 bg-bg-100/50">
                       {tag}
                     </span>
                   ))}
+                </div>
+
+                <div className="mt-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-link font-medium">Read full article</span>
+                    <IconArrowRight className="h-4 w-4 text-accent-200" />
+                  </div>
                 </div>
               </div>
             </article>

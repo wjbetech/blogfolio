@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-02-07",
+    "version": "0.2.5",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Redesigned the /blog and /dev views for a cleaner and more minimalistic look."
+      },
+      {
+        "category": "Style",
+        "description": "Fixed the broken palette drawer padding issues on larger screens."
+      }
+    ]
+  },
+  {
     "date": "2026-02-04",
     "version": "0.2.4",
     "changes": [

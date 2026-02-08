@@ -60,9 +60,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en" data-theme={themeId} className={inter.variable}>
-      <body className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}>
+      <body
+        className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}
+        style={{ transition: "none" }}>
         <ThemeAside />
-        <div className="px-6">
+        <div className="px-6" style={{ transition: "none" }}>
           <main className="max-w-7xl mx-auto pb-4 w-full flex-1">{children}</main>
           <Footer />
         </div>

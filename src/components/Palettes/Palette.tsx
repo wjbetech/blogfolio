@@ -33,7 +33,7 @@ export default function Palette({
         onClick={() => onSelect(palette.id)}
         aria-pressed={selected}
         className={
-          "w-40 h-30 rounded-2xl transition-all hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
+          "w-40 h-30 rounded-2xl transition-[box-shadow,border] hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
           (selected ? " border-2 border-accent-100" : "")
         }
         style={{

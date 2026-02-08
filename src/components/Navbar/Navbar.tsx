@@ -29,7 +29,7 @@ export default function Navbar({
   };
 
   return (
-    <header>
+    <header className="isolate z-50" style={{ contain: "paint" }}>
       <div className="max-w-7xl px-6 mx-auto flex items-center justify-between h-20 sm:h-32">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
@@ -42,13 +42,20 @@ export default function Navbar({
               <Link
                 key={link.id}
                 href={link.href}
-                className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif transition-colors ${
+                style={{
+                  transition: "none",
+                  color: pathname === link.href ? "var(--headline)" : "var(--accent-200)",
+                  willChange: "auto"
+                }}
+                className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
                   pathname === link.href
-                    ? "font-semibold text-headline after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10"
-                    : "text-accent-200 after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10"
+                    ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
+                    : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 hover:after:scale-x-100 after:-z-10"
                 }`}>
-                <span className="text-xs font-normal text-paragraph opacity-60">0{link.id}</span>
-                <span>{link.label}</span>
+                <span className="text-xs font-normal text-paragraph" style={{ transition: "none" }}>
+                  0{link.id}
+                </span>
+                <span style={{ transition: "none" }}>{link.label}</span>
               </Link>
             ))}
           </nav>
@@ -96,13 +103,16 @@ export default function Navbar({
                 key={link.id}
                 href={link.href}
                 onClick={handleLinkClick}
-                className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 transition-colors ${
+                style={{ transition: "none" }}
+                className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
                   pathname === link.href
-                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200 after:-z-10"
-                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10"
+                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
+                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 hover:after:scale-x-100 after:-z-10"
                 }`}>
-                <span className="text-sm font-normal text-paragraph opacity-60">0{link.id}</span>
-                <span>{link.label}</span>
+                <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
+                  0{link.id}
+                </span>
+                <span style={{ transition: "none" }}>{link.label}</span>
               </Link>
             ))}
           </nav>

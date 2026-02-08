@@ -73,7 +73,7 @@ export default function BlogPage() {
         <section className="flex-1 min-w-0">
           {/* ── Featured expanded post (text-first, no image) ── */}
           <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
-            <article className="bg-bg-200/60 border border-accent-100/10 transition-all duration-300 hover:shadow-lg p-6 md:p-8">
+            <article className="bg-bg-200/60 border border-accent-100/10 transition-shadow duration-300 hover:shadow-lg p-6 md:p-8">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4 text-sm text-paragraph/70">
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
@@ -87,7 +87,7 @@ export default function BlogPage() {
                     {featuredPost.title}
                   </h2>
                   {/* Right: arrow */}
-                  <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                  <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200">
                     <IconArrowRight className="h-4 w-4 text-accent-200" />
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export default function BlogPage() {
                     </div>
 
                     {/* Right: arrow */}
-                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pr-4">
+                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200 pr-4">
                       <IconArrowRight className="h-4 w-4 text-accent-200" />
                     </div>
                   </article>
@@ -243,7 +243,7 @@ export default function BlogPage() {
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-all cursor-pointer duration-200 text-paragraph ${
+                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-[border-color] cursor-pointer duration-200 text-paragraph ${
                       selectedTag === tag
                         ? "border-button"
                         : "border-accent-100/25 hover:border-accent-100/50 hover:text-headline"

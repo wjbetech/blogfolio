@@ -20,7 +20,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="mt-4 flex-1">
-        <h3 className="text-lg font-semibold line-clamp-2">{project.title}</h3>
+        <h3 className="text-lg font-semibold text-headline line-clamp-2">{project.title}</h3>
         {project.description ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p> : null}
       </div>
 
@@ -30,7 +30,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-md font-bold text-link hover:underline">
+            className="text-md font-bold text-link hover:underline transition-none">
             View
           </a>
         ) : null}

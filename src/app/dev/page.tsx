@@ -32,10 +32,16 @@ export default function DevPage() {
               <article key={project.id} id={project.slug} className="scroll-mt-28 group/project mb-28 last:mb-12">
                 {/* ── Project number + rule ── */}
                 <div className={`flex items-center gap-4 mb-6 ${isEven ? "" : "flex-row-reverse"}`}>
-                  <span className="font-mono text-accent-200 tracking-widest">{num}</span>
+                  <span className="font-mono text-accent-200 tracking-widest" style={{ transition: "none" }}>
+                    {num}
+                  </span>
                   <div className="flex-1 h-px bg-accent-100/30" />
                   {project.featured && i !== 0 && i !== 3 && (
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-accent-200/70">Featured</span>
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-widest text-accent-200/70"
+                      style={{ transition: "none" }}>
+                      Featured
+                    </span>
                   )}
                 </div>
 
@@ -45,7 +51,7 @@ export default function DevPage() {
                   <div className={`absolute top-0 bottom-0 w-1 bg-accent-200 z-10 ${isEven ? "left-0" : "right-0"}`} />
 
                   <div
-                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-all duration-300 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
+                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-shadow duration-300 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
                     {/* ── Visual side ── */}
                     <div className="relative w-full md:w-[42%] shrink-0 overflow-hidden">
                       {hasImage ? (
@@ -83,7 +89,10 @@ export default function DevPage() {
                           <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight">
                             <span className="relative inline-block">
                               {project.title}
-                              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-200 transition-all duration-300 group-hover/project:w-full" />
+                              <span
+                                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-200 transition-[width] duration-300 group-hover/project:w-full"
+                                style={{ transition: "width 300ms" }}
+                              />
                             </span>
                           </h2>
                         </div>
@@ -117,7 +126,7 @@ export default function DevPage() {
                             href={project.repo || project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-all duration-150">
+                            className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150">
                             <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
                             View on GitHub
                           </Link>
@@ -149,17 +158,24 @@ export default function DevPage() {
           <div className="sticky top-24 space-y-10">
             {/* Project index */}
             <div>
-              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-5">Index</h3>
+              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-5" style={{ transition: "none" }}>
+                Index
+              </h3>
               <nav className="space-y-0.5">
                 {allProjects.map((project, i) => (
                   <a
                     key={project.id}
                     href={`#${project.slug}`}
-                    className="group/nav flex items-center gap-3 py-2 cursor-pointer transition-colors">
-                    <span className="text-[11px] font-mono text-paragraph/30 group-hover/nav:text-accent-200 transition-colors tabular-nums">
+                    className="group/nav flex items-center gap-3 py-2 cursor-pointer"
+                    style={{ transition: "none" }}>
+                    <span
+                      className="text-[11px] font-mono text-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
+                      style={{ transition: "none" }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-[13px] text-paragraph/60 group-hover/nav:text-headline transition-colors truncate">
+                    <span
+                      className="text-[13px] text-paragraph/60 group-hover/nav:text-headline truncate"
+                      style={{ transition: "none" }}>
                       {project.title}
                     </span>
                   </a>
@@ -169,7 +185,9 @@ export default function DevPage() {
 
             {/* Quick stats */}
             <div className="space-y-3">
-              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-3">At a glance</h3>
+              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-3" style={{ transition: "none" }}>
+                At a glance
+              </h3>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">{allProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>

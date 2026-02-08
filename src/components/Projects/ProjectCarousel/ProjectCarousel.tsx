@@ -29,7 +29,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarouse
         <div>
           <Link
             href="/portfolio"
-            className="flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors text-link hover:after:absolute hover:after:bottom-px hover:after:-left-1.5 hover:after:right-0 hover:after:h-3 hover:after:bg-accent-100/50 hover:after:-z-10">
+            className="flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg transition-colors text-link after:absolute after:bottom-px after:-left-1.5 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 after:-z-10">
             <span>See all projects</span>
           </Link>
         </div>

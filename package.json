@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "contentlayer:generate": "node ./scripts/contentlayer-build.mjs",
-    "dev": "npm run contentlayer:generate && next dev --turbopack",
+    "contentlayer:dev": "node ./scripts/contentlayer-dev.mjs",
+    "dev": "concurrently -k \"npm run contentlayer:dev\" \"next dev --turbopack\"",
     "build": "npm run contentlayer:generate && next build",
     "start": "next start",
     "lint": "next lint",
@@ -42,6 +43,7 @@
     "@types/pg": "^8.16.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "jest": "^30.2.0",

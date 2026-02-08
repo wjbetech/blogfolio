@@ -18,6 +18,7 @@
 - Portfolio item headers need the same underline effect as the Navbar
 - Portfolio item headers should probably have `hover:` color changers
 - Portfolio `BUILT WITH` text has low opacity which needs changing
+- Fix the Navbar padding issue
 
 #### Bugs
 

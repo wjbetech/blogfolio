@@ -2,7 +2,7 @@ import { getChangelogEntries } from "@/lib/changelog/entryParser";
 import ChangelogEntry from "@/components/ChangelogEntry/ChangelogEntry";
 import Link from "next/link";
 import Image from "next/image";
-import { IconArrowUpRight, IconBrandGithub, IconCode } from "@tabler/icons-react";
+import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
 
 export default function DevPage() {
@@ -94,7 +94,7 @@ export default function DevPage() {
                         {/* Tech stack — pills with subtle background */}
                         {project.tech && project.tech.length > 0 && (
                           <div className="space-y-2">
-                            <span className="text-sm uppercase tracking-[0.2em] text-accent-200/60 font-mono block">
+                            <span className="text-sm uppercase tracking-[0.2em] text-accent-300 font-mono block">
                               Built with
                             </span>
                             <div className="flex items-center gap-2 flex-wrap">

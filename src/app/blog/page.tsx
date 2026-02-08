@@ -139,7 +139,7 @@ export default function BlogPage() {
                       i < displayPosts.length - 1 ? "border-b border-accent-100/15" : ""
                     }`}>
                     {/* Left: date column */}
-                    <div className="hidden sm:block w-24 shrink-0">
+                    <div className="hidden sm:block w-24 shrink-0 pl-4">
                       <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
                         {dateLabel}
                       </time>
@@ -171,7 +171,7 @@ export default function BlogPage() {
                     </div>
 
                     {/* Right: arrow */}
-                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pr-4">
                       <IconArrowRight className="h-4 w-4 text-accent-200" />
                     </div>
                   </article>

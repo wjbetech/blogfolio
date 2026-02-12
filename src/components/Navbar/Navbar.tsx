@@ -29,7 +29,9 @@ export default function Navbar({
   };
 
   return (
-    <header className="isolate z-50" style={{ contain: "paint" }}>
+    <header
+      className="isolate z-50"
+      style={{ contain: "paint", willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="max-w-7xl px-6 mx-auto flex items-center justify-between h-20 sm:h-32">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
@@ -44,13 +46,12 @@ export default function Navbar({
                 href={link.href}
                 style={{
                   transition: "none",
-                  color: pathname === link.href ? "var(--headline)" : "var(--accent-200)",
-                  willChange: "auto"
+                  color: pathname === link.href ? "var(--headline)" : "var(--accent-200)"
                 }}
                 className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
                   pathname === link.href
                     ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                    : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 hover:after:scale-x-100 after:-z-10"
+                    : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
                 }`}>
                 <span className="text-xs font-normal text-paragraph" style={{ transition: "none" }}>
                   0{link.id}
@@ -107,7 +108,7 @@ export default function Navbar({
                 className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
                   pathname === link.href
                     ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 hover:after:scale-x-100 after:-z-10"
+                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
                 }`}>
                 <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
                   0{link.id}

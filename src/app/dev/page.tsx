@@ -220,7 +220,7 @@ export default function DevPage() {
             Changelog
           </h2>
           <p className="text-base text-paragraph/70 mb-10 max-w-lg leading-relaxed">
-            Track updates, improvements, and fixes to this application.
+            Track updates, improvements, and fixes to this blogfolio.
           </p>
 
           <div className="space-y-6">

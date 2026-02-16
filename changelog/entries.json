@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-02-16",
+    "version": "0.2.7",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed the broken Navbar that would flicker on scroll while on smaller screens."
+      }
+    ]
+  },
+  {
     "date": "2026-02-07",
     "version": "0.2.6",
     "changes": [

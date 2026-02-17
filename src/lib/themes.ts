@@ -7,15 +7,15 @@ export const ColorThemes: ColorTheme[] = [
     "bg-100": "#eaf4f4",
     "bg-200": "#d4e9e2",
     "bg-300": "#bddbd0",
-    headline: "#344e41",
-    paragraph: "#5f6f73",
-    button: "#84a98c",
+    headline: "#183b33",
+    paragraph: "#495a56",
+    button: "#2f6f58",
     "button-text": "#fffffe",
     link: "#344e41",
-    "accent-100": "#a7c7e7",
+    "accent-100": "#8fbcd8",
     "accent-200": "#f2cc8f",
     "accent-300": "#e07a5f",
-    "palette-border": "#84a98c"
+    "palette-border": "#2f6f58"
   },
   {
     id: "gnome",

@@ -13,7 +13,7 @@ export const ColorThemes: ColorTheme[] = [
     "button-text": "#fffffe",
     link: "#344e41",
     "accent-100": "#8fbcd8",
-    "accent-200": "#f2cc8f",
+    "accent-200": "#c79a60",
     "accent-300": "#e07a5f",
     "palette-border": "#2f6f58"
   },

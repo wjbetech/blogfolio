@@ -7,7 +7,7 @@ export const ColorThemes: ColorTheme[] = [
     "bg-100": "#eaf4f4",
     "bg-200": "#d4e9e2",
     "bg-300": "#bddbd0",
-    headline: "#183b33",
+    headline: "#4a8f87",
     paragraph: "#495a56",
     button: "#2f6f58",
     "button-text": "#fffffe",

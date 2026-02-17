@@ -1,6 +1,6 @@
 # Current Status
 
-Phase 2 - CMS Data Layer Current Task - Setting up Prisma DB
+Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/projects into typed `.md` content with strong frontmatter standards.
 
 # Phase 1: Foundational Frontend
 
@@ -75,3 +75,78 @@ Phase 2 - CMS Data Layer Current Task - Setting up Prisma DB
 - [ ] Store `coverImage`/media as frontmatter paths (relative to `public/`) or CDN URLs.
 - [ ] If you require programmatic uploads, choose an admin workflow (Git-backed CMS, Netlify CMS, or a headless CMS) or an external storage provider (S3/Cloudinary) and document how uploaded URLs are stored back in frontmatter via that workflow.
 - [ ] No DB storage is required for public content when using Contentlayer; document any environment variables only for optional external services.
+
+## 2.4 Content Operations (Editorial Workflow)
+
+- [ ] Define a publishing workflow: draft in feature branch → PR review → merge to publish.
+- [ ] Add a content QA checklist for PRs (frontmatter present, links valid, images resolve, slug uniqueness).
+- [ ] Add monthly content maintenance tasks: refresh stale portfolio links and update older posts.
+
+# Phase 3: SEO & Discovery
+
+## 3.1 Metadata Foundation
+
+- [ ] Standardize page metadata templates for posts/projects (`title`, `description`, canonical, OG/Twitter image).
+- [ ] Add route-level metadata quality checks so each post/project has complete social preview information.
+
+## 3.2 Indexing & Feeds
+
+- [ ] Generate and verify `sitemap.xml` and `robots.txt`.
+- [ ] Add RSS feed generation for blog posts.
+- [ ] Add structured data where useful (Article schema for posts, CreativeWork/Project schema for portfolio items).
+
+# Phase 4: UX & Accessibility Polish
+
+## 4.1 Reading Experience
+
+- [ ] Add reading time estimates for blog posts.
+- [ ] Add previous/next post navigation on post detail pages.
+- [ ] Add heading anchors and optional table of contents for long posts.
+
+## 4.2 Accessibility Completion Pass
+
+- [ ] Close all open keyboard/focus/ARIA TODOs in navigation/theme drawer.
+- [ ] Define acceptance checks: keyboard-only navigation works, visible focus states, semantic landmark usage.
+- [ ] Add one accessibility regression checklist to PR template for UI changes.
+
+# Phase 5: Performance & Reliability
+
+## 5.1 Performance Budget
+
+- [ ] Set explicit Lighthouse targets for Performance, Accessibility, and Best Practices.
+- [ ] Add periodic performance review checks (homepage, blog list, one blog detail, portfolio/dev pages).
+
+## 5.2 Media & Rendering Quality
+
+- [ ] Define image conventions (dimensions, formats, fallbacks) for `content/posts` and `content/projects`.
+- [ ] Ensure fallback placeholders appear whenever an image path is missing or invalid.
+- [ ] Document where media should live (`public/images/...`) and naming conventions.
+
+# Phase 6: Analytics & Product Feedback
+
+## 6.1 Privacy-friendly Analytics
+
+- [ ] Add lightweight analytics for page views and outbound link clicks (portfolio/contact/github/demo).
+- [ ] Define success metrics: most viewed posts, project click-through rate, contact link engagement.
+
+## 6.2 Iteration Cadence
+
+- [ ] Add a monthly review ritual: identify top content, stale content, and roadmap priorities for next cycle.
+
+# Phase 7: Developer Experience & Governance
+
+## 7.1 Content Validation in CI
+
+- [ ] Add checks for frontmatter correctness and required fields.
+- [ ] Add broken-link checks for internal links and key external links.
+- [ ] Fail CI on malformed content or missing required metadata.
+
+## 7.2 Documentation Governance
+
+- [ ] Keep architecture decisions in sync across docs (`roadmap`, `contentlayer`, `styling`, `todo`).
+- [ ] Add a quarterly docs audit to remove stale references.
+
+## 7.3 Optional Future Track (Not MVP)
+
+- [ ] If content editing needs exceed PR-based workflow, evaluate a Git-backed CMS first.
+- [ ] Only introduce write APIs/admin backend if clearly needed; keep it separate from static public content delivery.

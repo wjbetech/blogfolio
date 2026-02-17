@@ -10,8 +10,8 @@
   - dev: `npm run dev`
   - build: `npm run build`
 
-# Decisions 
+# Decisions
 
 - Portfolio will be static - built with app routes and static content.
-- Blog list/details will start with mocked data, later backed by MongoDB + API + Auth.
-
+- Blog list/details are file-based via Contentlayer + Markdown (`content/posts`, `content/projects`) and rendered as static content.
+- Any future admin/write workflow is optional and should be planned separately from the static public site architecture.

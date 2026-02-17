@@ -1,18 +1,26 @@
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import type { Project } from "@/app/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const [imgError, setImgError] = useState(false);
+  const declared = project.images && project.images.length > 0 ? project.images[0] : "";
+  const showImage = !!declared && !imgError;
+
   return (
     <Card className="w-92 shrink-0 mr-4 h-110">
       <div className="h-40 rounded-md overflow-hidden bg-accent-100">
-        {project.images?.[0] ? (
+        {showImage ? (
           <Image
-            src={project.images[0]}
+            src={declared}
             alt={project.title}
             width={280}
             height={160}
             className="w-full h-full object-cover"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-full h-full bg-linear-to-br from-accent-200 to-accent-300" />

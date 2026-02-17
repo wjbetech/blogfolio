@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
+import fs from "fs";
+import path from "path";
 
 export default function DevPage() {
   const entries = getChangelogEntries();
@@ -25,7 +27,20 @@ export default function DevPage() {
         <section className="flex-1 min-w-0">
           {allProjects.map((project, i) => {
             const isEven = i % 2 === 0;
-            const hasImage = project.images && project.images.length > 0 && project.images[0] !== "";
+            // Prefer an explicit filesystem check so we don't attempt to render images
+            // that exist in frontmatter but are missing from `public/`.
+            const declared = project.images && project.images.length > 0 && project.images[0] !== "";
+            let hasImage = false;
+            if (declared) {
+              const rel = project.images![0].startsWith("/") ? project.images![0].slice(1) : project.images![0];
+              const abs = path.join(process.cwd(), "public", rel);
+              try {
+                hasImage = fs.existsSync(abs);
+              } catch (e) {
+                console.log(e, "Error checking image file:", abs);
+                hasImage = false;
+              }
+            }
             const num = String(i + 1).padStart(2, "0");
 
             return (
@@ -65,17 +80,8 @@ export default function DevPage() {
                           <div className="absolute inset-0 bg-bg-200/10 mix-blend-multiply" />
                         </div>
                       ) : (
-                        <div className="relative w-full h-80 md:h-full min-h-80 bg-bg-300/30 overflow-hidden">
-                          {/* Layered geometric decoration */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            {/* Background circle */}
-                            <div className="absolute w-40 h-40 rounded-full border border-accent-100/8" />
-                            <div className="absolute w-56 h-56 rounded-full border border-accent-100/5 rotate-45" />
-                            {/* Large initial */}
-                            <span className="text-[10rem] font-serif font-black text-accent-100 select-none leading-none">
-                              {project.title.charAt(0)}
-                            </span>
-                          </div>
+                        <div className="relative w-full h-80 md:h-full min-h-80">
+                          <div className="w-full h-full bg-linear-to-br from-accent-100 to-accent-200" />
                         </div>
                       )}
                     </div>

@@ -1,7 +1,6 @@
 # Current Status
 
-Phase 2 - CMS Data Layer
-Current Task - Setting up Prisma DB
+Phase 2 - CMS Data Layer Current Task - Setting up Prisma DB
 
 # Phase 1: Foundational Frontend
 
@@ -55,29 +54,27 @@ Current Task - Setting up Prisma DB
 - [ ] Add project images and descriptions
   - [ ] Host the images somewhere else if needed
 
-# Phase 2: CMS Data Layer
+# Phase 2: File-based Content (Contentlayer)
 
-## 2.1 Prisma + Database (SQLite dev, Postgres prod)
+## 2.1 Contentlayer + Markdown (.md/.mdx)
 
-- [ ] Install `prisma` and `@prisma/client`
-- [ ] Initialize Prisma schema and SQLite dev DB
-- [ ] Add Postgres connection for production
-- [ ] Create DB utility in `src/lib/db.ts`
-- [ ] Setup env variables in `.env.local`
+- [ ] Add `@contentlayer/source-files` and configure `contentlayer.config.ts` to read `content/posts` and `content/projects` (already present in this repo).
+- [ ] Define Contentlayer document schemas and computed fields so `allPosts`/`allProjects` expose typed fields used across the app.
+- [ ] Commit example `.md` files under `content/` (frontmatter: `title`, `slug`, `date`, `tags`, `coverImage`, `status`, etc.) and document expected frontmatter shape.
+- [ ] Document build/dev workflow: run the Contentlayer generation step (`npm run contentlayer:generate`) and reference generated types in imports (e.g. `contentlayer/generated`).
 
 ## 2.2 Content Models (Posts + Projects)
 
-- [ ] Define Post model: title, slug, date, tags, coverImage, bodyMDX, status (draft/published)
-- [ ] Define Project model: title, slug, date, tags, coverImage, bodyMDX, status
-- [ ] Add metadata fields: createdAt, updatedAt, publishedAt
-- [ ] Add audit log model (action, entity, user, timestamp)
-- [ ] Add types in `src/app/types/index.ts`
+- [ ] Define frontmatter fields for file-based content: `title`, `slug`, `date`, `tags`, `coverImage`, `status`, and `body` (MDX if needed).
+- [ ] Implement these fields in `contentlayer.config.ts` so the fields become typed and available via `allPosts`/`allProjects`.
+- [ ] Use frontmatter metadata (`createdAt`, `updatedAt`, `publishedAt`) where applicable; keep audit logs external only if you add an admin backend later.
+- [ ] Add types or helper interfaces in `src/app/types/` only if you want an additional abstraction over Contentlayer types.
 
-## 2.3 Media Storage
+## 2.3 Media References & Admin Uploads
 
-- [ ] Choose media storage (S3 or Cloudinary)
-- [ ] Implement presigned upload flow
-- [ ] Store media references on posts/projects
+- [ ] Store `coverImage`/media as frontmatter paths (relative to `public/`) or CDN URLs.
+- [ ] If you require programmatic uploads, choose an admin workflow (Git-backed CMS, Netlify CMS, or a headless CMS) or an external storage provider (S3/Cloudinary) and document how uploaded URLs are stored back in frontmatter via that workflow.
+- [ ] No DB storage is required for public content when using Contentlayer; document any environment variables only for optional external services.
 
 # Phase 3: API Routing + Validation
 

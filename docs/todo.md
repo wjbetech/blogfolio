@@ -9,6 +9,18 @@ How to use this file:
 - For each task, include: PR link, screenshots (if UI), and test/build proof.
 - Keep changes small and focused (one theme per PR when possible).
 
+## Master Checklist
+
+A short, actionable checklist that maps to sections below. Check items as you complete them and include PR links and test proof in the section bodies.
+
+- [ ] A) Foundation + Frontend Completion (A1-A4)
+- [ ] B) Contentlayer Core (B1-B3)
+- [ ] C) Content Operations & PR workflow (C1-C3)
+- [ ] D) SEO & Discovery (medium-term)
+- [ ] G) Analytics & KPI setup
+- [ ] H) DX & CI governance
+
+
 Priority windows:
 
 - **Short term (0-4 weeks):** Must-have for stable MVP and clean architecture.

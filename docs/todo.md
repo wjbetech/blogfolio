@@ -20,7 +20,6 @@ A short, actionable checklist that maps to sections below. Check items as you co
 - [ ] G) Analytics & KPI setup
 - [ ] H) DX & CI governance
 
-
 Priority windows:
 
 - **Short term (0-4 weeks):** Must-have for stable MVP and clean architecture.

@@ -88,6 +88,7 @@ export default function Navbar({
             type="button"
             aria-label="Theme settings"
             aria-expanded={isDrawerOpen}
+            aria-controls="theme-drawer"
             onClick={() => onToggle?.()}
             className="rounded-full flex items-center justify-center cursor-pointer">
             <ColorPaletteIcon className="text-accent-100" />

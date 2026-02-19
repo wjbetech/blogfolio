@@ -75,7 +75,7 @@ export default function ThemeDrawer({
           aria-modal="true"
           aria-labelledby="theme-drawer-title"
           className="overflow-hidden border-b-2 bg-bg-200 border-b-accent-300">
-          <div className="max-w-7xl mx-auto py-2 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto py-2 flex items-center justify-between relative">
             <div className="flex items-center gap-2 mx-auto">
               <button
                 type="button"
@@ -85,7 +85,9 @@ export default function ThemeDrawer({
                 ‹
               </button>
 
-              <h3 id="theme-drawer-title" className="text-xl font-bold">Themes</h3>
+              <h3 id="theme-drawer-title" className="text-xl font-bold">
+                Themes
+              </h3>
 
               <button
                 type="button"
@@ -96,7 +98,7 @@ export default function ThemeDrawer({
               </button>
             </div>
 
-            <div>
+            <div className="absolute right-6 top-1/2 -translate-y-1/2 md:static md:translate-y-0">
               <button onClick={onClose} aria-label="Close theme drawer" className="py-2 cursor-pointer text-headline">
                 <UpArrowIcon />
               </button>

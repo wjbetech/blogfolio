@@ -25,18 +25,12 @@ Priority windows:
 
 #### Color Scheme
 
-- Welcome Theme
-  - Headline color needs to be darker
-- Proudmoore Silk
-  - Headline color needs to be darker
-- Demon Hunter
-  - Headline color is too similar with other colors (Should probably be changed to purple?)
-- Ardougne
-  - Headline color needs to be darker
-- Jungle Remedy
-  - Headline color needs to be darker
-  - Navbar item color needs to be darker
-- Tinkertown - Headline color needs to be darker
+- [x] Welcome Theme — Headline color darkened (merged)
+- [x] Proudmoore Silk — Headline color darkened (merged)
+- [x] Demon Hunter — Headline adjusted for contrast (merged)
+- [x] Ardougne — Headline darkened (merged)
+- [x] Jungle Remedy — Headline and navbar item darkened (merged)
+- [ ] Tinkertown — Headline color needs to be darker
 
 #### Styling
 

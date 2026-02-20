@@ -78,9 +78,6 @@ Priority windows:
 
 #### A2. UI consistency and remaining style fixes
 
-- [ ] Palette card sizing
-  - [ ] Make palette cards fixed width in all breakpoints.
-  - [ ] Verify no layout jump in carousels.
 - [ ] Carousel UX improvements
   - [ ] Implement CSS scroll snapping where planned.
   - [ ] Ensure arrow controls align with snap points.

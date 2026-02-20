@@ -27,6 +27,12 @@ export default function ThemeDrawer({
     // focus the close button when drawer opens
     closeBtn?.focus();
 
+    // ensure the active palette is scrolled into view once the carousel is mounted
+    // small timeout to allow children to render/layout
+    setTimeout(() => {
+      carouselRef.current?.scrollToActive?.();
+    }, 50);
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();

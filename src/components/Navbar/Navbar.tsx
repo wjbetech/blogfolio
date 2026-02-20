@@ -32,7 +32,7 @@ export default function Navbar({
     <header
       className="isolate z-50"
       style={{ contain: "paint", willChange: "transform", backfaceVisibility: "hidden" }}>
-      <div className="max-w-7xl px-4 sm:px-6 mx-auto flex items-center justify-between h-20 sm:h-32">
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-20 sm:h-32">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
         </Link>

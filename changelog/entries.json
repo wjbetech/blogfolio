@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-02-21",
+    "version": "0.3.1",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Overhaul of several color themes to improve contrast and readability."
+      },
+      {
+        "category": "Style",
+        "description": "Removed some off-theme styling effects to keep the design clean and consistent."
+      }
+    ]
+  },
+  {
     "date": "2026-02-16",
     "version": "0.2.7",
     "changes": [

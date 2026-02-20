@@ -109,7 +109,7 @@ export default function DevPage() {
                         {/* Tech stack — pills with subtle background */}
                         {project.tech && project.tech.length > 0 && (
                           <div className="space-y-2">
-                            <span className="text-sm uppercase tracking-[0.2em] text-accent-300 font-mono block">
+                            <span className="text-sm uppercase tracking-[0.2em] text-paragraph/80 font-mono block">
                               Built with
                             </span>
                             <div className="flex items-center gap-2 flex-wrap">

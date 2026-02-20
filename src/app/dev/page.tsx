@@ -90,16 +90,10 @@ export default function DevPage() {
                     <div
                       className={`flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 ${isEven ? "md:pl-10" : "md:pr-10"}`}>
                       <div className="space-y-6">
-                        {/* Title with hover underline */}
+                        {/* Title (no decorative underline on /dev) */}
                         <div>
-                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight">
-                            <span className="relative inline-block">
-                              {project.title}
-                              <span
-                                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-200 transition-[width] duration-300 group-hover/project:w-full"
-                                style={{ transition: "width 300ms" }}
-                              />
-                            </span>
+                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight group-hover/project:text-accent-200 transition-colors duration-200">
+                            {project.title}
                           </h2>
                         </div>
 

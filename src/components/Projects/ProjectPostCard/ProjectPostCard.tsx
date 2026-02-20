@@ -11,7 +11,7 @@ export default function ProjectCard({ project }: { project: Project }) {
   const showImage = !!declared && !imgError;
 
   return (
-    <Card className="w-92 shrink-0 mr-4 h-110">
+    <Card className="w-92 shrink-0 mr-4 h-110 group">
       <div className="h-40 rounded-md overflow-hidden bg-accent-100">
         {showImage ? (
           <Image
@@ -28,7 +28,9 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="mt-4 flex-1">
-        <h3 className="text-lg font-semibold text-headline line-clamp-2">{project.title}</h3>
+        <h3 className="text-lg font-semibold text-headline line-clamp-2 relative pb-1 hover:text-headline transition-colors group-hover:text-headline after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:invisible group-hover:after:scale-x-100 group-hover:after:visible after:-z-10">
+          {project.title}
+        </h3>
         {project.description ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p> : null}
       </div>
 

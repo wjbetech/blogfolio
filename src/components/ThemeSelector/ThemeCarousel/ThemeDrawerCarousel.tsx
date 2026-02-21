@@ -12,6 +12,7 @@ type Props = {
 export type ThemeDrawerCarouselHandle = {
   scrollLeft: () => void;
   scrollRight: () => void;
+  scrollToActive: () => void;
 };
 
 const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ active, onSelect }, ref) => {
@@ -37,7 +38,19 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     el.scrollBy({ left: scrollAmount(), behavior: "smooth" });
   };
 
-  useImperativeHandle(ref, () => ({ scrollLeft, scrollRight }), [scrollLeft, scrollRight]);
+  const scrollToActive = () => {
+    const container = scrollerRef.current;
+    if (!container || !active) return;
+    const target = container.querySelector<HTMLElement>(`[data-palette-id="${active}"]`);
+    if (!target) return;
+
+    const containerWidth = container.clientWidth;
+    const targetCenter = target.offsetLeft + target.offsetWidth / 2;
+    const scrollLeftTo = Math.max(0, targetCenter - containerWidth / 2);
+    container.scrollTo({ left: scrollLeftTo, behavior: "smooth" });
+  };
+
+  useImperativeHandle(ref, () => ({ scrollLeft, scrollRight, scrollToActive }), [scrollLeft, scrollRight, scrollToActive]);
 
   return (
     <div>
@@ -46,7 +59,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
         className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6 px-6"
         style={{ WebkitOverflowScrolling: "touch" }}>
         {ColorThemes.map((t) => (
-          <div key={t.id} className="flex-none">
+          <div key={t.id} className="flex-none" data-palette-id={t.id}>
             <PaletteItem
               palette={{
                 id: t.id,

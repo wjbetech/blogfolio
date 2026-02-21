@@ -14,10 +14,17 @@ jest.mock("framer-motion", () => ({
 }));
 
 // Mock the internal carousel component to avoid DOM scroll behaviors in tests
+const mockScrollToActive = jest.fn();
 jest.mock("@/components/ThemeSelector/ThemeCarousel/ThemeDrawerCarousel", () => {
-  return function DummyCarousel() {
+  const React = require("react");
+  return React.forwardRef((props: any, ref: any) => {
+    React.useImperativeHandle(ref, () => ({
+      scrollLeft: jest.fn(),
+      scrollRight: jest.fn(),
+      scrollToActive: mockScrollToActive
+    }));
     return <div data-testid="theme-drawer-carousel">mock-carousel</div>;
-  };
+  });
 });
 
 // Mock the UpArrowIcon to a simple element
@@ -61,5 +68,18 @@ describe("ThemeDrawer", () => {
 
     // Verify the mocked carousel is rendered
     expect(screen.getByTestId("theme-drawer-carousel")).toBeInTheDocument();
+  });
+
+  it("calls scrollToActive when opened with an active palette", () => {
+    jest.useFakeTimers();
+
+    render(<ThemeDrawer open={true} onClose={mockOnClose} onSelect={mockOnSelect} active="welcome" />);
+
+    // advance timers to let the setTimeout in the drawer run
+    jest.advanceTimersByTime(100);
+
+    expect(mockScrollToActive).toHaveBeenCalled();
+
+    jest.useRealTimers();
   });
 });

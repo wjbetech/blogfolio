@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
-import UserIcon from "@/components/Icons/UserIcon";
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -13,73 +12,104 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = allPosts.find((p) => p.slug === params.slug);
+type BlogPostPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+function formatPublishedDate(dateValue: string) {
+  return new Date(dateValue).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = allPosts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
   }
 
+  const heroImage = post.coverImage || post.image || "";
+  const bodyContent = post.content?.trim() || post.body.raw?.trim() || "";
+  const contentBlocks = bodyContent
+    .split("\n\n")
+    .map((block) => block.trim())
+    .filter((block) => block.length > 0);
+
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-8">
+    <article className="mx-auto w-full max-w-7xl">
+      <div className="mb-6">
         <Link href="/blog">
-          <Button variant="ghost" className="gap-2">
+          <Button variant="ghost" className="gap-2 text-link hover:text-headline">
             <ArrowLeftIcon className="w-4 h-4" />
             Back to Blog
           </Button>
         </Link>
       </div>
 
-      <article className="max-w-4xl mx-auto">
-        <Card className="overflow-hidden">
-          <CardHeader className="space-y-4">
-            <div className="flex items-center gap-4 text-sm text-paragraph">
-              <div className="flex items-center gap-2">
-                <CalendarIcon className="w-4 h-4" />
-                <time dateTime={post.publishedAt}>
-                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                  })}
-                </time>
-              </div>
-              <div className="flex items-center gap-2">
-                <UserIcon className="w-4 h-4" />
-                <span>{post.author}</span>
-              </div>
-            </div>
-
-            <CardTitle className="text-4xl text-headline">{post.title}</CardTitle>
-
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-secondary/10 text-secondary border border-secondary/20">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </CardHeader>
-
-          <CardContent className="prose prose-lg max-w-none">
-            <div className="text-paragraph leading-relaxed whitespace-pre-wrap">{post.content}</div>
-          </CardContent>
-        </Card>
-
-        <div className="mt-8 flex justify-between items-center">
-          <Link href="/blog">
-            <Button variant="outline" className="gap-2">
-              <ArrowLeftIcon className="w-4 h-4" />
-              Back to all posts
-            </Button>
-          </Link>
+      <header className="mb-6 space-y-4">
+        <div className="flex flex-wrap items-center gap-x-4 text-sm text-paragraph/80">
+          <div className="flex items-center gap-2">
+            <CalendarIcon className="w-4 h-4" />
+            <time dateTime={post.publishedAt}>{formatPublishedDate(post.publishedAt)}</time>
+          </div>
         </div>
-      </article>
-    </div>
+
+        <h1 className="text-3xl font-serif text-headline leading-tight">{post.title}</h1>
+
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-accent-100/30 bg-bg-200 px-3 py-1 text-xs font-medium text-link">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <section className="mb-8 sm:mb-10 overflow-hidden rounded-xl border border-accent-100/25 bg-bg-200/70">
+        {heroImage ? (
+          <div className="relative aspect-video w-full">
+            <Image
+              src={heroImage}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(min-width: 1024px) 1024px, 100vw"
+            />
+          </div>
+        ) : (
+          <div className="flex aspect-video w-full items-center justify-center bg-bg-200 text-sm text-paragraph/70">
+            No cover image available
+          </div>
+        )}
+      </section>
+
+      <section className="rounded-xl">
+        <div className="space-y-4 text-base leading-8 text-paragraph sm:text-lg">
+          {contentBlocks.map((paragraph, idx) => (
+            <p key={`${post.id}-${idx}`} className="whitespace-pre-wrap">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <footer className="mt-8 sm:mt-10 flex items-center">
+        <Link href="/blog">
+          <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline">
+            <ArrowLeftIcon className="w-4 h-4" />
+            Back to all posts
+          </Button>
+        </Link>
+      </footer>
+    </article>
   );
 }

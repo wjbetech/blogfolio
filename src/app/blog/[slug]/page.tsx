@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import CoverImage from "@/components/Blog/CoverImage";
+import PostNav from "@/components/Blog/PostNav";
 import { allPosts } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
@@ -43,7 +44,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="mx-auto w-full max-w-7xl">
       <div className="mb-6">
         <Link href="/blog">
-          <Button variant="ghost" className="gap-2 text-link hover:text-headline">
+          <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">
             <ArrowLeftIcon className="w-4 h-4" />
             Back to Blog
           </Button>
@@ -73,7 +74,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
       </header>
 
-      <section className="mb-8 sm:mb-10 overflow-hidden rounded-xl">
+      <section className="mb-8 sm:mb-10 overflow-hidden rounded-xl max-w-3xl mx-auto my-12">
         {/* Componentized cover image with robust fallback */}
         <CoverImage src={heroImage} title={post.title} className="rounded-xl" />
       </section>
@@ -87,10 +88,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           ))}
         </div>
       </section>
+          <PostNav posts={allPosts} slug={post.slug} />
 
       <footer className="mt-8 sm:mt-10 flex items-center">
         <Link href="/blog">
-          <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline">
+          <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline cursor-pointer">
             <ArrowLeftIcon className="w-4 h-4" />
             Back to all posts
           </Button>

@@ -47,7 +47,12 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     const containerWidth = container.clientWidth;
     const targetCenter = target.offsetLeft + target.offsetWidth / 2;
     const scrollLeftTo = Math.max(0, targetCenter - containerWidth / 2);
-    container.scrollTo({ left: scrollLeftTo, behavior: "smooth" });
+    if (typeof container.scrollTo === "function") {
+      container.scrollTo({ left: scrollLeftTo, behavior: "smooth" });
+    } else {
+      // jsdom / some environments don't implement scrollTo — fall back to immediate set
+      container.scrollLeft = scrollLeftTo;
+    }
   };
 
   useImperativeHandle(ref, () => ({ scrollLeft, scrollRight, scrollToActive }), [

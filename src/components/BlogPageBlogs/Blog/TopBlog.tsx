@@ -17,10 +17,10 @@ export default function TopBlog({ post }: { post: Post }) {
 
       <div className="absolute left-6 bottom-6 right-6 text-white">
         <div className="text-sm opacity-90 mb-2">{post.tags?.[0] ?? ""}</div>
-        <h2 className="text-3xl font-serif font-extrabold leading-tight mb-2">
+        <h2 className="text-3xl font-serif font-extrabold leading-tight">
           <Link
             href={`/blog/${post.slug}`}
-            className="relative inline-block pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200">
+            className="relative font-serif inline-block pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:transition-transform after:duration-200">
             {post.title}
           </Link>
         </h2>

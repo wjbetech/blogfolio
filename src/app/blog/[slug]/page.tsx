@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import CoverImage from "@/components/Blog/CoverImage";
 import { allPosts } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
@@ -73,23 +73,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
       </header>
 
-      <section className="mb-8 sm:mb-10 overflow-hidden rounded-xl border border-accent-100/25 bg-bg-200/70">
-        {heroImage ? (
-          <div className="relative aspect-video w-full">
-            <Image
-              src={heroImage}
-              alt={post.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(min-width: 1024px) 1024px, 100vw"
-            />
-          </div>
-        ) : (
-          <div className="flex aspect-video w-full items-center justify-center bg-bg-200 text-sm text-paragraph/70">
-            No cover image available
-          </div>
-        )}
+      <section className="mb-8 sm:mb-10 overflow-hidden rounded-xl">
+        {/* Componentized cover image with robust fallback */}
+        <CoverImage src={heroImage} title={post.title} className="rounded-xl" />
       </section>
 
       <section className="rounded-xl">

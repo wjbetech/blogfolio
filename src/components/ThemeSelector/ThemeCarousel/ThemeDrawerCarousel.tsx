@@ -50,7 +50,11 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     container.scrollTo({ left: scrollLeftTo, behavior: "smooth" });
   };
 
-  useImperativeHandle(ref, () => ({ scrollLeft, scrollRight, scrollToActive }), [scrollLeft, scrollRight, scrollToActive]);
+  useImperativeHandle(ref, () => ({ scrollLeft, scrollRight, scrollToActive }), [
+    scrollLeft,
+    scrollRight,
+    scrollToActive
+  ]);
 
   return (
     <div>

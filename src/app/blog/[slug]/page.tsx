@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           ))}
         </div>
       </section>
-          <PostNav posts={allPosts} slug={post.slug} />
+      <PostNav posts={allPosts} slug={post.slug} />
 
       <footer className="mt-8 sm:mt-10 flex items-center">
         <Link href="/blog">

@@ -41,7 +41,7 @@ Priority windows:
 - [x] Demon Hunter — Headline adjusted for contrast (merged)
 - [x] Ardougne — Headline darkened (merged)
 - [x] Jungle Remedy — Headline and navbar item darkened (merged)
-- [ ] Tinkertown — Headline color needs to be darker
+- [x] Tinkertown — Headline color needs to be darker
 
 #### Styling
 
@@ -52,35 +52,36 @@ Priority windows:
 
 #### Bugs
 
-- The palette menu should scroll to the current item
+- [x] The palette menu should scroll to the current item
 
 #### A1. Accessibility closure for navigation/theme UI
 
-- [ ] Theme toggle button accessibility
-  - [ ] Add `aria-expanded` and `aria-controls` to toggle button.
-  - [ ] Ensure control IDs are stable and unique.
-  - [ ] Verify screen reader reads expanded/collapsed state.
-- [ ] Drawer accessibility behavior
-  - [ ] Add proper dialog semantics (`role="dialog"`, modal behavior if overlay).
-  - [ ] Trap focus while drawer is open.
-  - [ ] Return focus to toggle trigger on close.
-  - [ ] Close drawer with `Esc` key.
-- [ ] Active navigation semantics
-  - [ ] Add `aria-current="page"` to active nav link.
-  - [ ] Validate desktop and mobile nav variants.
-- [ ] Keyboard and focus checks
-  - [ ] Confirm tab order is logical.
-  - [ ] Add/confirm visible focus ring states.
-  - [ ] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
-- [ ] Verification
-  - [ ] Run local manual a11y test pass.
-  - [ ] Add checklist results to PR description.
+- [x] Theme toggle button accessibility
+  - [x] Add `aria-expanded` and `aria-controls` to toggle button.
+  - [x] Ensure control IDs are stable and unique.
+  - [x] Verify screen reader reads expanded/collapsed state.
+- [x] Drawer accessibility behavior
+  - [x] Add proper dialog semantics (`role="dialog"`, modal behavior if overlay).
+  - [x] Trap focus while drawer is open.
+  - [x] Return focus to toggle trigger on close.
+  - [x] Close drawer with `Esc` key.
+- [x] Active navigation semantics
+  - [x] Add `aria-current="page"` to active nav link.
+  - [x] Validate desktop and mobile nav variants.
+  - [ ] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
+- [x] Keyboard and focus checks
+  - [x] Confirm tab order is logical.
+  - [x] Add/confirm visible focus ring states.
+  - [x] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
+- [x] Verification
+  - [x] Run local manual a11y test pass.
+  - [x] Add checklist results to PR description.
 
 #### A2. UI consistency and remaining style fixes
 
-- [ ] Carousel UX improvements
-  - [ ] Implement CSS scroll snapping where planned.
-  - [ ] Ensure arrow controls align with snap points.
+- [x] Carousel UX improvements
+  - [x] Implement CSS scroll snapping where planned.
+  - [x] Ensure arrow controls align with snap points.
 - [ ] Theme color corrections (existing backlog)
   - [ ] Welcome theme: darken headline color.
   - [ ] Proudmoore Silk: darken headline color.
@@ -88,26 +89,28 @@ Priority windows:
   - [ ] Ardougne: darken headline color.
   - [ ] Jungle Remedy: darken headline and navbar item colors.
   - [ ] Tinkertown: darken headline color.
-- [ ] Component styling backlog
-  - [ ] Portfolio headers use same underline effect as navbar links.
-  - [ ] Add hover color transitions to portfolio item headers.
-  - [ ] Increase readability of portfolio `BUILT WITH` label.
-  - [ ] Fix navbar padding issue across breakpoints.
-- [ ] Bug fix
-  - [ ] Palette menu auto-scrolls to the currently selected item.
+- [x] Component styling backlog
+- [x] Portfolio headers use same underline effect as navbar links.
+- [x] Add hover color transitions to portfolio item headers.
+- [x] Increase readability of portfolio `BUILT WITH` label.
+- [x] Fix navbar padding issue across breakpoints.
+- [x] Bug fix
+- [x] Palette menu auto-scrolls to the currently selected item.
+- [ ] Layout: Fix Footer to be pinned to bottom on every page
 
 #### A3. Blog route completion
 
-- [ ] Dynamic blog detail page (`src/app/blog/[slug]/page.tsx`)
-  - [ ] Resolve post by slug from Contentlayer data.
-  - [ ] Add graceful 404 when slug missing.
-  - [ ] Render content body with current typography rules.
-- [ ] Reading baseline
-  - [ ] Show publish date and tags.
-  - [ ] Add placeholder/cover image fallback behavior.
+- [x] Dynamic blog detail page (`src/app/blog/[slug]/page.tsx`)
+  - [x] Resolve post by slug from Contentlayer data.
+  - [x] Add graceful 404 when slug missing.
+  - [x] Render content body with current typography rules.
+- [x] Reading baseline
+  - [x] Show publish date and tags.
+  - [x] Add placeholder/cover image fallback behavior.
 - [ ] Verification
   - [ ] Test at least 3 real slugs.
   - [ ] Confirm no hydration/runtime warnings.
+- [ ] Changelog: load 5 latest changes initially and implement infinite scroll as user scrolls down.
 
 #### A4. Portfolio/dev content media baseline
 

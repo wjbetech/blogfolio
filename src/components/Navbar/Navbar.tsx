@@ -40,25 +40,30 @@ export default function Navbar({
         <div className="flex items-center gap-4">
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={link.href}
-                style={{
-                  transition: "none",
-                  color: pathname === link.href ? "var(--headline)" : "var(--accent-200)"
-                }}
-                className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
-                  pathname === link.href
-                    ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                    : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                }`}>
-                <span className="text-xs font-normal text-paragraph" style={{ transition: "none" }}>
-                  0{link.id}
-                </span>
-                <span style={{ transition: "none" }}>{link.label}</span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isBlogLink = link.href === "/blog";
+              const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
+
+              return (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  style={{
+                    transition: "none",
+                    color: active ? "var(--headline)" : "var(--accent-200)"
+                  }}
+                  className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
+                    active
+                      ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
+                      : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
+                  }`}>
+                  <span className="text-xs font-normal text-paragraph" style={{ transition: "none" }}>
+                    0{link.id}
+                  </span>
+                  <span style={{ transition: "none" }}>{link.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Mobile Menu Button - visible on mobile only */}
@@ -100,23 +105,28 @@ export default function Navbar({
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
           <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={link.href}
-                onClick={handleLinkClick}
-                style={{ transition: "none" }}
-                className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
-                  pathname === link.href
-                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                }`}>
-                <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
-                  0{link.id}
-                </span>
-                <span style={{ transition: "none" }}>{link.label}</span>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isBlogLink = link.href === "/blog";
+              const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
+
+              return (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  onClick={handleLinkClick}
+                  style={{ transition: "none" }}
+                  className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
+                    active
+                      ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
+                      : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
+                  }`}>
+                  <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
+                    0{link.id}
+                  </span>
+                  <span style={{ transition: "none" }}>{link.label}</span>
+                </Link>
+              );
+            })}
           </nav>
         </div>
       )}

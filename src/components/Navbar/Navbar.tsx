@@ -42,7 +42,9 @@ export default function Navbar({
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
               const isBlogLink = link.href === "/blog";
-              const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
+              const active = isBlogLink
+                ? pathname === "/blog" || pathname?.startsWith("/blog/")
+                : pathname === link.href;
 
               return (
                 <Link
@@ -107,7 +109,9 @@ export default function Navbar({
           <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
             {navLinks.map((link) => {
               const isBlogLink = link.href === "/blog";
-              const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
+              const active = isBlogLink
+                ? pathname === "/blog" || pathname?.startsWith("/blog/")
+                : pathname === link.href;
 
               return (
                 <Link

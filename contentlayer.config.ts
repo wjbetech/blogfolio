@@ -7,9 +7,10 @@ const Post = defineDocumentType(() => ({
   fields: {
     id: { type: "string", required: true },
     title: { type: "string", required: true },
-    slug: { type: "string", required: true },
-    excerpt: { type: "string", required: true },
-    content: { type: "string", required: true },
+    // `slug` is computed from the file path when not provided in frontmatter.
+    // `content` is the document body rather than a frontmatter field, so
+    // we remove it from required fields to avoid duplication.
+    excerpt: { type: "string", required: false },
     author: { type: "string", required: true },
     tags: { type: "list", of: { type: "string" }, required: true },
     image: { type: "string", required: false },
@@ -19,9 +20,24 @@ const Post = defineDocumentType(() => ({
     updatedAt: { type: "date", required: true }
   },
   computedFields: {
+    slug: {
+      type: "string",
+      resolve: (post) => {
+        // Prefer an explicit frontmatter `slug`, otherwise derive from the
+        // source filename (without extension) or flattenedPath.
+        // Use `_raw.flattenedPath` when available (works for nested files).
+        // Fallback to the source file name.
+        // @ts-ignore - contentlayer exposes _raw at runtime
+        const raw = (post as any)._raw || {};
+        if (post.slug) return post.slug;
+        if (raw.flattenedPath) return raw.flattenedPath.split("/").pop();
+        if (raw.sourceFileName) return raw.sourceFileName.replace(/\.[^.]+$/, "");
+        return "";
+      }
+    },
     url: {
       type: "string",
-      resolve: (post) => `/blog/${post.slug}`
+      resolve: (post) => `/blog/${(post as any).slug}`
     }
   }
 }));
@@ -33,7 +49,7 @@ const Project = defineDocumentType(() => ({
   fields: {
     id: { type: "string", required: true },
     title: { type: "string", required: true },
-    slug: { type: "string", required: true },
+    // `slug` computed from file path when not provided in frontmatter
     description: { type: "string", required: true },
     tech: { type: "list", of: { type: "string" }, required: true },
     link: { type: "string", required: true },
@@ -44,9 +60,20 @@ const Project = defineDocumentType(() => ({
     updatedAt: { type: "date", required: true }
   },
   computedFields: {
+    slug: {
+      type: "string",
+      resolve: (project) => {
+        // @ts-ignore
+        const raw = (project as any)._raw || {};
+        if ((project as any).slug) return (project as any).slug;
+        if (raw.flattenedPath) return raw.flattenedPath.split("/").pop();
+        if (raw.sourceFileName) return raw.sourceFileName.replace(/\.[^.]+$/, "");
+        return "";
+      }
+    },
     url: {
       type: "string",
-      resolve: (project) => `/portfolio/${project.slug}`
+      resolve: (project) => `/portfolio/${(project as any).slug}`
     }
   }
 }));

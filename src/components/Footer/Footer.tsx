@@ -6,7 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer mt-auto w-full">
+    <footer className="footer mt-auto w-full flex-shrink-0">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
         <div className="text-paragraph font-serif font-bold">© 2020-{year} William East</div>
 

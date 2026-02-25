@@ -1,5 +1,5 @@
-import { getChangelogEntries } from "@/lib/changelog/entryParser";
-import ChangelogEntry from "@/components/ChangelogEntry/ChangelogEntry";
+import { getChangelogEntries, getChangelogSlice } from "@/lib/changelog/entryParser";
+import ChangelogList from "@/components/Changelog/ChangelogList";
 import Link from "next/link";
 import Image from "next/image";
 import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
@@ -8,7 +8,7 @@ import fs from "fs";
 import path from "path";
 
 export default function DevPage() {
-  const entries = getChangelogEntries();
+  const entries = getChangelogSlice(0, 5);
 
   return (
     <div className="max-w-7xl mx-auto ">
@@ -224,9 +224,7 @@ export default function DevPage() {
           </p>
 
           <div className="space-y-6">
-            {entries.map((entry, idx) => (
-              <ChangelogEntry key={`${entry.date}-${idx}`} entry={entry} />
-            ))}
+            <ChangelogList initial={entries} />
           </div>
 
           {entries.length === 0 && <p className="text-center text-paragraph/50 py-12">No changelog entries yet.</p>}

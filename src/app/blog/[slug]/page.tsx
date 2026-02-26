@@ -34,7 +34,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const heroImage = post.coverImage || post.image || "";
-  const bodyContent = post.content?.trim() || post.body.raw?.trim() || "";
+  const bodyContent = post.coent?.trim() || post.body.raw?.trim() || "";
   const contentBlocks = bodyContent
     .split("\n\n")
     .map((block) => block.trim())

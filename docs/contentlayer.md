@@ -74,3 +74,12 @@ Check the `coverImage`, `image` and `images` fields. If using local images in MD
 ### 11. Cleanup
 
 Once pages are migrated successfully, delete `posts.ts` and `projects.ts` and any remaining Prisma remnants.
+
+### Build/dev workflow
+
+- **When to run Contentlayer generation** – run `npm run contentlayer:generate` after updating `contentlayer.config.ts`, altering frontmatter fields, or adding/removing files under `/content`. Generation emits TypeScript definitions and JSON data that must stay in sync with the filesystem.
+- **Common failures & fixes**
+  - Schema mismatches or missing required frontmatter? Run `npm run validate:content` to surface missing fields (IDs, slugs, dates, tags) and fix the offending `.md` file.
+  - `contentlayer.config.ts` errors during dev/build? Double-check top-level document types, computed fields, and imported plugins; rerun `npm run contentlayer:generate` until the helper output stops emitting warnings.
+  - Missing assets or broken image references are usually resolved by placing files under `/public` or adding allowed domains in `next.config.ts`.
+- **Verification** – after touching schema or content, confirm `npm run contentlayer:generate` and `npm run dev` both succeed (watch the console for the generated `contentlayer/generated/` folder). This ensures both build and local dev modes see the same data.

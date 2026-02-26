@@ -48,8 +48,9 @@ export default function BlogPage() {
   };
 
   // Estimate reading time (~200 wpm)
-  const readTime = (content: string) => {
-    const words = content.trim().split(/\s+/).length;
+  const readTime = (content?: string) => {
+    const text = typeof content === "string" ? content : "";
+    const words = text.trim().length > 0 ? text.trim().split(/\s+/).length : 0;
     return Math.max(1, Math.ceil(words / 200));
   };
 
@@ -78,7 +79,8 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-paragraph/70">
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                   <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-                    <IconClock className="h-4 w-4" /> {readTime(featuredPost.content)} min read
+                    <IconClock className="h-4 w-4" />{" "}
+                    {readTime((featuredPost as any).content ?? (featuredPost as any).body?.raw)} min read
                   </span>
                 </div>
 
@@ -158,7 +160,7 @@ export default function BlogPage() {
                         </span>
                         <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
                           <IconClock className="h-3 w-3" />
-                          {readTime(post.content)} min
+                          {readTime((post as any).content ?? (post as any).body?.raw)} min
                         </span>
                         {post.tags.slice(0, 2).map((tag) => (
                           <span

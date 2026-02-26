@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import CoverImage from "@/components/Blog/CoverImage";
 import PostNav from "@/components/Blog/PostNav";
-import { allPosts } from "contentlayer/generated";
+import { allPosts, type Post } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
@@ -27,14 +27,14 @@ function formatPublishedDate(dateValue: string) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = allPosts.find((p) => p.slug === slug);
+  const post = allPosts.find((p) => p.slug === slug) as Post | undefined;
 
   if (!post) {
     notFound();
   }
 
   const heroImage = post.coverImage || post.image || "";
-  const bodyContent = post.coent?.trim() || post.body.raw?.trim() || "";
+  const bodyContent = post.content?.trim() || post.body?.raw?.trim() || "";
   const contentBlocks = bodyContent
     .split("\n\n")
     .map((block) => block.trim())

@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 // images removed for simplified layout
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
-import { allPosts } from "contentlayer/generated";
+import { allPosts, type Post } from "contentlayer/generated";
+import { computeReadingTime } from "@/app/types/content";
 // Badge not needed here; UI elements use inline tags
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 
@@ -13,18 +14,18 @@ export default function BlogPage() {
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
   // Derive all unique tags
-  const allTags = Array.from(new Set(allPosts.flatMap((p: { tags: string[] }) => p.tags)));
+  const allTags = Array.from(new Set(allPosts.flatMap((p: Post) => p.tags)));
 
   // Sort posts by date (newest first)
-  const sortedPosts = [...allPosts].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  const sortedPosts = [...allPosts].sort((a: Post, b: Post) =>
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
   // Featured post = most recent featured, or most recent overall
-  const featuredPost = sortedPosts.find((p) => p.featured) ?? sortedPosts[0];
+  const featuredPost: Post = (sortedPosts.find((p) => p.featured) ?? sortedPosts[0]) as Post;
 
   // Remaining posts (exclude featured)
-  const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id);
+  const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id) as Post[];
 
   // Apply tag filter
   const displayPosts = selectedTag ? remainingPosts.filter((p) => p.tags.includes(selectedTag)) : remainingPosts;
@@ -48,11 +49,7 @@ export default function BlogPage() {
   };
 
   // Estimate reading time (~200 wpm)
-  const readTime = (content?: string) => {
-    const text = typeof content === "string" ? content : "";
-    const words = text.trim().length > 0 ? text.trim().split(/\s+/).length : 0;
-    return Math.max(1, Math.ceil(words / 200));
-  };
+  const readTime = (content?: string) => computeReadingTime(content);
 
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString("en-US", {
@@ -80,7 +77,7 @@ export default function BlogPage() {
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                   <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
                     <IconClock className="h-4 w-4" />{" "}
-                    {readTime((featuredPost as any).content ?? (featuredPost as any).body?.raw)} min read
+                    {readTime(featuredPost.content ?? featuredPost.body?.raw)} min read
                   </span>
                 </div>
 
@@ -160,7 +157,7 @@ export default function BlogPage() {
                         </span>
                         <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
                           <IconClock className="h-3 w-3" />
-                          {readTime((post as any).content ?? (post as any).body?.raw)} min
+                          {readTime(post.content ?? post.body?.raw)} min
                         </span>
                         {post.tags.slice(0, 2).map((tag) => (
                           <span

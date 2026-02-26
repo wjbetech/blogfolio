@@ -17,8 +17,8 @@ export default function BlogPage() {
   const allTags = Array.from(new Set(allPosts.flatMap((p: Post) => p.tags)));
 
   // Sort posts by date (newest first)
-  const sortedPosts = [...allPosts].sort((a: Post, b: Post) =>
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  const sortedPosts = [...allPosts].sort(
+    (a: Post, b: Post) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
   // Featured post = most recent featured, or most recent overall
@@ -76,8 +76,8 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-paragraph/70">
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                   <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-                    <IconClock className="h-4 w-4" />{" "}
-                    {readTime(featuredPost.content ?? featuredPost.body?.raw)} min read
+                    <IconClock className="h-4 w-4" /> {readTime(featuredPost.content ?? featuredPost.body?.raw)} min
+                    read
                   </span>
                 </div>
 

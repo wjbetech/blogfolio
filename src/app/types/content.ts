@@ -1,9 +1,8 @@
 import type { Post } from "contentlayer/generated";
 
-export type UIArticle = Pick<
-  Post,
-  "id" | "slug" | "title" | "excerpt" | "publishedAt" | "tags" | "featured"
-> & { readingTime?: number };
+export type UIArticle = Pick<Post, "id" | "slug" | "title" | "excerpt" | "publishedAt" | "tags" | "featured"> & {
+  readingTime?: number;
+};
 
 export const computeReadingTime = (content?: string) => {
   const text = typeof content === "string" ? content : "";

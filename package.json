@@ -11,6 +11,7 @@
     "lint": "next lint",
     "test": "jest",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "validate:content": "node ./scripts/validate-content.js",
     "pullAll": "node ./scripts/pull-all.js"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@contentlayer/source-files": "^0.3.4",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -44,16 +46,16 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "concurrently": "^9.1.2",
+    "contentlayer": "^0.3.4",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "gray-matter": "^4.0.3",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5",
-    "contentlayer": "^0.3.4",
-    "@contentlayer/source-files": "^0.3.4"
+    "typescript": "^5"
   }
 }

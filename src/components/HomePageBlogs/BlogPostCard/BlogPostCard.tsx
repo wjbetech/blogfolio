@@ -2,8 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card } from "../../ui/card";
 import type { Post } from "@/app/types/post";
+import { getPostSnippet } from "@/lib/post";
 
 export default function BlogPostCard({ post }: { post: Post }) {
+  const snippet = getPostSnippet(post, 120);
   return (
     <Card className="w-92 shrink-0 h-110">
       <div className="h-48 rounded-md overflow-hidden">
@@ -22,7 +24,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
 
       <div className="mt-4 flex-1">
         <h3 className="text-xl text-headline font-semibold line-clamp-2">{post.title}</h3>
-        {post.excerpt ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{post.excerpt}</p> : null}
+        {snippet ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{snippet}</p> : null}
       </div>
 
       <div className="mt-4">

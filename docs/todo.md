@@ -82,13 +82,13 @@ Priority windows:
 - [x] Carousel UX improvements
   - [x] Implement CSS scroll snapping where planned.
   - [x] Ensure arrow controls align with snap points.
-- [ ] Theme color corrections (existing backlog)
-  - [ ] Welcome theme: darken headline color.
-  - [ ] Proudmoore Silk: darken headline color.
-  - [ ] Demon Hunter: adjust headline to improve contrast (purple candidate).
-  - [ ] Ardougne: darken headline color.
-  - [ ] Jungle Remedy: darken headline and navbar item colors.
-  - [ ] Tinkertown: darken headline color.
+- [x] Theme color corrections (existing backlog)
+  - [x] Welcome theme: darken headline color.
+  - [x] Proudmoore Silk: darken headline color.
+  - [x] Demon Hunter: adjust headline to improve contrast (purple candidate).
+  - [x] Ardougne: darken headline color.
+  - [x] Jungle Remedy: darken headline and navbar item colors.
+  - [x] Tinkertown: darken headline color.
 - [x] Component styling backlog
 - [x] Portfolio headers use same underline effect as navbar links.
 - [x] Add hover color transitions to portfolio item headers.
@@ -96,7 +96,7 @@ Priority windows:
 - [x] Fix navbar padding issue across breakpoints.
 - [x] Bug fix
 - [x] Palette menu auto-scrolls to the currently selected item.
-- [ ] Layout: Fix Footer to be pinned to bottom on every page
+- [x] Layout: Fix Footer to be pinned to bottom on every page
 
 #### A3. Blog route completion
 

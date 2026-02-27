@@ -63,16 +63,6 @@ export default function BlogPage() {
     setExpandedYears(next);
   };
 
-<<<<<<< HEAD
-=======
-  // Estimate reading time (~200 wpm)
-  const readTime = (content?: string) => {
-    const text = typeof content === "string" ? content : "";
-    const words = text.trim().length > 0 ? text.trim().split(/\s+/).length : 0;
-    return Math.max(1, Math.ceil(words / 200));
-  };
-
->>>>>>> origin/master
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString("en-US", {
       month: "short",
@@ -98,12 +88,7 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-paragraph/70">
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                   <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-<<<<<<< HEAD
                     <IconClock className="h-4 w-4" /> {getPostReadingTime(featuredPost)} min read
-=======
-                    <IconClock className="h-4 w-4" />{" "}
-                    {readTime((featuredPost as any).content ?? (featuredPost as any).body?.raw)} min read
->>>>>>> origin/master
                   </span>
                 </div>
 
@@ -186,12 +171,7 @@ export default function BlogPage() {
                           {dateLabel}
                         </span>
                         <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
-                          <IconClock className="h-3 w-3" />
-<<<<<<< HEAD
-                          {getPostReadingTime(post)} min
-=======
-                          {readTime((post as any).content ?? (post as any).body?.raw)} min
->>>>>>> origin/master
+                          <IconClock className="h-3 w-3" /> {getPostReadingTime(post)} min
                         </span>
                         {(post.tags ?? []).slice(0, 2).map((tag) => (
                           <span

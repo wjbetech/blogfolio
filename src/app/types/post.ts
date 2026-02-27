@@ -1,13 +1,3 @@
-export interface Post {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  tags: string[];
-  image?: string;
-  featured: boolean;
-  coverImage?: string;
-  publishedAt: string;
-  updatedAt: string;
-}
+import type { Post as ContentlayerPost } from "contentlayer/generated";
+
+export type Post = ContentlayerPost;

@@ -34,11 +34,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const heroImage = post.coverImage || post.image || "";
-  const bodyContent = post.content?.trim() || post.body.raw?.trim() || "";
+  const bodyContent = (post as any).content?.trim() || post.body?.raw?.trim() || "";
   const contentBlocks = bodyContent
     .split("\n\n")
-    .map((block) => block.trim())
-    .filter((block) => block.length > 0);
+    .map((block: string) => block.trim())
+    .filter((block: string) => block.length > 0);
 
   return (
     <article className="mx-auto w-full max-w-7xl">
@@ -81,7 +81,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <section className="rounded-xl">
         <div className="space-y-4 text-base leading-8 text-paragraph sm:text-lg">
-          {contentBlocks.map((paragraph, idx) => (
+          {contentBlocks.map((paragraph: string, idx: number) => (
             <p key={`${post.id}-${idx}`} className="whitespace-pre-wrap">
               {paragraph}
             </p>

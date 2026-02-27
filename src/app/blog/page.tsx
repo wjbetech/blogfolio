@@ -5,20 +5,34 @@ import Link from "next/link";
 // images removed for simplified layout
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import { allPosts } from "contentlayer/generated";
+import type { Post } from "contentlayer/generated";
 // Badge not needed here; UI elements use inline tags
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
+import { getPostReadingTime, getPostSnippet } from "@/lib/post";
 
 export default function BlogPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
-  // Derive all unique tags
-  const allTags = Array.from(new Set(allPosts.flatMap((p: { tags: string[] }) => p.tags)));
+  // Derive all unique tags (defensive for missing tags)
+  const allTags = Array.from(new Set(allPosts.flatMap((p: Post) => p.tags ?? [])));
 
   // Sort posts by date (newest first)
   const sortedPosts = [...allPosts].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
+
+  // Guard: if there are no posts, show an empty state
+  if (sortedPosts.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto">
+        <header className="pb-10 space-y-3">
+          <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
+          <p className="text-base text-paragraph max-w-lg leading-relaxed">No posts yet — check back soon.</p>
+        </header>
+      </div>
+    );
+  }
 
   // Featured post = most recent featured, or most recent overall
   const featuredPost = sortedPosts.find((p) => p.featured) ?? sortedPosts[0];
@@ -27,7 +41,9 @@ export default function BlogPage() {
   const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id);
 
   // Apply tag filter
-  const displayPosts = selectedTag ? remainingPosts.filter((p) => p.tags.includes(selectedTag)) : remainingPosts;
+  const displayPosts = selectedTag
+    ? remainingPosts.filter((p) => (p.tags ?? []).includes(selectedTag))
+    : remainingPosts;
 
   // Group posts by year for sidebar archive
   const groupedByYear = sortedPosts.reduce(
@@ -37,7 +53,7 @@ export default function BlogPage() {
       acc[year].push(post);
       return acc;
     },
-    {} as Record<number, typeof sortedPosts>
+    {} as Record<number, Post[]>
   );
 
   const toggleYear = (year: number) => {
@@ -45,12 +61,6 @@ export default function BlogPage() {
     if (next.has(year)) next.delete(year);
     else next.add(year);
     setExpandedYears(next);
-  };
-
-  // Estimate reading time (~200 wpm)
-  const readTime = (content: string) => {
-    const words = content.trim().split(/\s+/).length;
-    return Math.max(1, Math.ceil(words / 200));
   };
 
   const formatDate = (iso: string) =>
@@ -78,7 +88,7 @@ export default function BlogPage() {
                 <div className="flex items-center gap-4 text-sm text-paragraph/70">
                   <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                   <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-                    <IconClock className="h-4 w-4" /> {readTime(featuredPost.content)} min read
+                    <IconClock className="h-4 w-4" /> {getPostReadingTime(featuredPost)} min read
                   </span>
                 </div>
 
@@ -92,7 +102,9 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">{featuredPost.excerpt}</p>
+                <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">
+                  {getPostSnippet(featuredPost, 400)}
+                </p>
 
                 <div className="flex items-center gap-2 flex-wrap mt-2">
                   {featuredPost.tags.slice(0, 4).map((tag) => (
@@ -150,7 +162,9 @@ export default function BlogPage() {
                       <h3 className="text-lg font-serif font-medium text-headline leading-snug group-hover:text-accent-200 transition-colors duration-200">
                         {post.title}
                       </h3>
-                      <p className="text-sm text-paragraph/80 leading-relaxed line-clamp-2">{post.excerpt}</p>
+                      <p className="text-sm text-paragraph/80 leading-relaxed line-clamp-2">
+                        {getPostSnippet(post, 160)}
+                      </p>
                       <div className="flex items-center gap-3 pt-1">
                         <span className="sm:hidden text-[11px] text-paragraph/50 flex items-center gap-1">
                           <IconCalendar className="h-3 w-3" />
@@ -158,9 +172,9 @@ export default function BlogPage() {
                         </span>
                         <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
                           <IconClock className="h-3 w-3" />
-                          {readTime(post.content)} min
+                          {getPostReadingTime(post)} min
                         </span>
-                        {post.tags.slice(0, 2).map((tag) => (
+                        {(post.tags ?? []).slice(0, 2).map((tag) => (
                           <span
                             key={tag}
                             className="text-[11px] px-2 py-0.5 rounded-full border border-accent-100/20 text-paragraph/50">

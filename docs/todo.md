@@ -164,19 +164,19 @@ Priority windows:
 
 #### C2. Content QA checklist implementation
 
-- [ ] Checklist includes:
-  - [ ] Frontmatter complete and valid.
-  - [ ] Links work (internal and key external).
-  - [ ] Images resolve/fallback correctly.
-  - [ ] Slugs are unique and human-readable.
-- [ ] Add this checklist to docs and PR process.
+- [x] Checklist includes:
+  - [x] Frontmatter complete and valid.
+  - [x] Links work (internal and key external).
+  - [x] Images resolve/fallback correctly.
+  - [x] Slugs are unique and human-readable.
+- [x] Add this checklist to docs and PR process.
 
 #### C3. Monthly content maintenance cadence
 
-- [ ] Create recurring maintenance checklist:
-  - [ ] Update stale project links.
-  - [ ] Refresh outdated post metadata.
-  - [ ] Archive or revise obsolete content.
+- [x] Create recurring maintenance checklist:
+  - [x] Update stale project links.
+  - [x] Refresh outdated post metadata.
+  - [x] Archive or revise obsolete content.
 
 ---
 

@@ -79,8 +79,8 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 ## 2.4 Content Operations (Editorial Workflow)
 
 - [ ] Define a publishing workflow: draft in feature branch → PR review → merge to publish.
-- [ ] Add a content QA checklist for PRs (frontmatter present, links valid, images resolve, slug uniqueness).
-- [ ] Add monthly content maintenance tasks: refresh stale portfolio links and update older posts.
+- [x] Add a content QA checklist for PRs (frontmatter present, links valid, images resolve, slug uniqueness).
+- [x] Add monthly content maintenance tasks: refresh stale portfolio links and update older posts.
 
 # Phase 3: SEO & Discovery
 

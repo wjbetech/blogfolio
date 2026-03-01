@@ -7,10 +7,12 @@ const Post = defineDocumentType(() => ({
   fields: {
     id: { type: "string", required: true },
     title: { type: "string", required: true },
+    slug: { type: "string", required: true },
     // `slug` is computed from the file path when not provided in frontmatter.
-    // `content` is the document body rather than a frontmatter field, so
-    // we remove it from required fields to avoid duplication.
-    excerpt: { type: "string", required: false },
+    // `content` is stored as a frontmatter block (the file body is empty), so we
+    // keep it here so Contentlayer recognizes it as part of the schema.
+    content: { type: "string", required: true },
+    excerpt: { type: "string", required: true },
     author: { type: "string", required: true },
     tags: { type: "list", of: { type: "string" }, required: true },
     image: { type: "string", required: false },
@@ -51,6 +53,7 @@ const Project = defineDocumentType(() => ({
     title: { type: "string", required: true },
     // `slug` computed from file path when not provided in frontmatter
     description: { type: "string", required: true },
+    slug: { type: "string", required: true },
     tech: { type: "list", of: { type: "string" }, required: true },
     link: { type: "string", required: true },
     repo: { type: "string", required: false },

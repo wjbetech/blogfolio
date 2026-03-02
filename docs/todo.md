@@ -69,10 +69,10 @@ Priority windows:
     - [x] Add `aria-current="page"` to active nav link.
     - [x] Validate desktop and mobile nav variants.
     - [x] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
-- [x] Keyboard and focus checks
-  - [x] Confirm tab order is logical.
-  - [x] Add/confirm visible focus ring states.
-  - [x] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
+  - [x] Keyboard and focus checks
+    - [x] Confirm tab order is logical.
+    - [x] Add/confirm visible focus ring states.
+    - [x] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
 - [x] Verification
   - [x] Run local manual a11y test pass.
   - [x] Add checklist results to PR description.

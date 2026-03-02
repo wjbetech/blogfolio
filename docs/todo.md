@@ -65,10 +65,10 @@ Priority windows:
   - [x] Trap focus while drawer is open.
   - [x] Return focus to toggle trigger on close.
   - [x] Close drawer with `Esc` key.
-- [x] Active navigation semantics
-  - [x] Add `aria-current="page"` to active nav link.
-  - [x] Validate desktop and mobile nav variants.
-  - [ ] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
+  - [x] Active navigation semantics
+    - [x] Add `aria-current="page"` to active nav link.
+    - [x] Validate desktop and mobile nav variants.
+    - [x] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
 - [x] Keyboard and focus checks
   - [x] Confirm tab order is logical.
   - [x] Add/confirm visible focus ring states.

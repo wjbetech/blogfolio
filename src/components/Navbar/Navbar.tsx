@@ -15,6 +15,9 @@ export default function Navbar({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const currentPath = pathname ?? "";
+  const isActiveLink = (href: string) =>
+    href === "/blog" ? currentPath === "/blog" || currentPath.startsWith("/blog/") : currentPath === href;
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
@@ -41,10 +44,7 @@ export default function Navbar({
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
-              const isBlogLink = link.href === "/blog";
-              const active = isBlogLink
-                ? pathname === "/blog" || pathname?.startsWith("/blog/")
-                : pathname === link.href;
+              const active = isActiveLink(link.href);
 
               return (
                 <Link
@@ -54,6 +54,7 @@ export default function Navbar({
                     transition: "none",
                     color: active ? "var(--headline)" : "var(--accent-200)"
                   }}
+                  aria-current={active ? "page" : undefined}
                   className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
                     active
                       ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
@@ -108,10 +109,7 @@ export default function Navbar({
         <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
           <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
             {navLinks.map((link) => {
-              const isBlogLink = link.href === "/blog";
-              const active = isBlogLink
-                ? pathname === "/blog" || pathname?.startsWith("/blog/")
-                : pathname === link.href;
+              const active = isActiveLink(link.href);
 
               return (
                 <Link
@@ -119,6 +117,7 @@ export default function Navbar({
                   href={link.href}
                   onClick={handleLinkClick}
                   style={{ transition: "none" }}
+                  aria-current={active ? "page" : undefined}
                   className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
                     active
                       ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"

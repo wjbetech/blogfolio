@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "The combined blog // portfolio of William East"
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children
 }: Readonly<{

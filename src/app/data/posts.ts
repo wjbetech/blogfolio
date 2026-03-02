@@ -1,5 +1,5 @@
 import type { Post } from "../types/post";
-import type { DocumentContentType } from "@contentlayer/source-files/dist/schema/defs/index.js";
+import type { DocumentContentType } from "@contentlayer/source-files";
 
 const POST_CONTENT_TYPE: DocumentContentType = "mdx";
 

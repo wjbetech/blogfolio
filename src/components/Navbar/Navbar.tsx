@@ -17,9 +17,9 @@ export default function Navbar({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
-  const mobileButtonRef = useRef<HTMLButtonElement | null>(null);
-  const mobileNavId = "primary-navigation-mobile";
+  const currentPath = pathname ?? "";
+  const isActiveLink = (href: string) =>
+    href === "/blog" ? currentPath === "/blog" || currentPath.startsWith("/blog/") : currentPath === href;
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
@@ -93,10 +93,7 @@ export default function Navbar({
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
             {navLinks.map((link) => {
-              const isBlogLink = link.href === "/blog";
-              const active = isBlogLink
-                ? pathname === "/blog" || pathname?.startsWith("/blog/")
-                : pathname === link.href;
+              const active = isActiveLink(link.href);
 
               return (
                 <Link

@@ -17,6 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = createSiteMetadata();
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children
 }: Readonly<{

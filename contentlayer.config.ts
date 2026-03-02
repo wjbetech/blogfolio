@@ -34,7 +34,7 @@ const Post = defineDocumentType(() => ({
         // source filename (without extension) or flattenedPath.
         // Use `_raw.flattenedPath` when available (works for nested files).
         // Fallback to the source file name.
-        // @ts-ignore - contentlayer exposes _raw at runtime
+        // @ts-expect-error - contentlayer exposes _raw at runtime
         const raw = (post as any)._raw || {};
         const fallbackSlugs = [
           post.slug,

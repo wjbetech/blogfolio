@@ -1,7 +1,6 @@
 ---
 id: "1"
 title: "Understanding TypeScript Generics"
-slug: "understanding-typescript-generics"
 excerpt: "A deep dive into TypeScript generics and how they can improve your code."
 author: "William East"
 tags:
@@ -13,6 +12,7 @@ coverImage: ""
 featured: false
 publishedAt: 2026-02-01
 updatedAt: 2026-02-01
+status: published
 ---
 
 TypeScript generics are a powerful feature that allows you to write reusable, type-safe code. They enable you to create components that work with a variety of types rather than a single one.

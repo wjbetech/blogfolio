@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useImperativeHandle, forwardRef } from "react";
-import PaletteItem from "../../Palettes/Palette";
+import PaletteItem, { PALETTE_CARD_WIDTH } from "../../Palettes/Palette";
 import { ColorThemes } from "@/lib/themes";
 
 type Props = {
@@ -18,24 +18,19 @@ export type ThemeDrawerCarouselHandle = {
 const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ active, onSelect }, ref) => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollAmount = () => {
-    const el = scrollerRef.current;
-    if (!el) return 240;
-    return Math.max(el.clientWidth * 0.6, 240);
-  };
+  const cardGap = 16;
+  const scrollDistance = PALETTE_CARD_WIDTH + cardGap;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const scrollLeft = () => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    el.scrollBy({ left: -scrollDistance, behavior: "smooth" });
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const scrollRight = () => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    el.scrollBy({ left: scrollDistance, behavior: "smooth" });
   };
 
   const scrollToActive = () => {
@@ -66,9 +61,9 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
       <div
         ref={scrollerRef}
         className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6 px-6"
-        style={{ WebkitOverflowScrolling: "touch" }}>
+        style={{ WebkitOverflowScrolling: "touch", scrollSnapType: "x mandatory" }}>
         {ColorThemes.map((t) => (
-          <div key={t.id} className="flex-none" data-palette-id={t.id}>
+          <div key={t.id} className="flex-none" data-palette-id={t.id} style={{ scrollSnapAlign: "start" }}>
             <PaletteItem
               palette={{
                 id: t.id,

@@ -66,6 +66,16 @@ export default function ThemeDrawer({
     };
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const timer = window.setTimeout(() => {
+      carouselRef.current?.scrollToActive?.();
+    }, 50);
+
+    return () => window.clearTimeout(timer);
+  }, [open, active]);
+
   return (
     <AnimatePresence initial={false}>
       {open && (

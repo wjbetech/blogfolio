@@ -92,7 +92,7 @@ export default function DevPage() {
                       <div className="space-y-6">
                         {/* Title (no decorative underline on /dev) */}
                         <div>
-                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight group-hover/project:text-accent-200 transition-colors duration-200">
+                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight transition-colors duration-200 group-hover/project:text-accent-200 relative pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-2 after:bg-accent-100/60 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 after:-z-10 group-hover/project:after:scale-x-100">
                             {project.title}
                           </h2>
                         </div>
@@ -103,7 +103,7 @@ export default function DevPage() {
                         {/* Tech stack — pills with subtle background */}
                         {project.tech && project.tech.length > 0 && (
                           <div className="space-y-2">
-                            <span className="text-sm uppercase tracking-[0.2em] text-accent-300 font-mono block">
+                            <span className="text-sm uppercase tracking-[0.2em] text-paragraph/80 font-mono font-semibold block">
                               Built with
                             </span>
                             <div className="flex items-center gap-2 flex-wrap">

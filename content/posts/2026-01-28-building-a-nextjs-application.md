@@ -1,7 +1,6 @@
 ---
 id: "2"
 title: "Building a Next.js Application"
-slug: "building-a-nextjs-application"
 excerpt: "Step-by-step guide to building a web application using Next.js."
 author: "William East"
 tags:
@@ -13,6 +12,7 @@ coverImage: ""
 featured: false
 publishedAt: 2026-01-28
 updatedAt: 2026-01-28
+status: published
 ---
 
 Next.js is a powerful React framework that makes building production-ready web applications easier than ever. With features like server-side rendering, static site generation, and API routes built in, it's become the go-to choice for modern web development.

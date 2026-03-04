@@ -1,10 +1,13 @@
 "use client";
 
-type Palette = {
+export type Palette = {
   id: string;
   name: string;
   colors: string[]; // hex colors, first is base
 };
+
+export const PALETTE_CARD_WIDTH = 160;
+export const PALETTE_CARD_HEIGHT = 180;
 
 export default function Palette({
   palette,
@@ -28,15 +31,17 @@ export default function Palette({
   const totalWidth = barSpacing * (bars.length - 1) + barWidth;
 
   return (
-    <div className="flex flex-col items-center gap-2 shrink-0">
+    <div className="flex flex-col items-center gap-2 shrink-0" style={{ width: PALETTE_CARD_WIDTH }}>
       <button
         onClick={() => onSelect(palette.id)}
         aria-pressed={selected}
         className={
-          "w-40 h-30 rounded-2xl transition-[box-shadow,border] hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
+          "rounded-2xl transition-[box-shadow,border] hover:shadow-lg flex items-center justify-center shrink-0 cursor-pointer" +
           (selected ? " border-2 border-accent-100" : "")
         }
         style={{
+          width: PALETTE_CARD_WIDTH,
+          height: PALETTE_CARD_HEIGHT,
           backgroundColor: base
         }}>
         {/* layered pill bars */}

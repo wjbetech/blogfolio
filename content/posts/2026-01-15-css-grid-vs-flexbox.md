@@ -1,7 +1,6 @@
 ---
 id: "3"
 title: "CSS Grid vs. Flexbox"
-slug: "css-grid-vs-flexbox"
 excerpt: "An analysis of CSS Grid and Flexbox, and guidance on when to use each layout system."
 author: "William East"
 tags:
@@ -13,6 +12,7 @@ coverImage: ""
 featured: true
 publishedAt: 2026-01-15
 updatedAt: 2026-01-15
+status: published
 ---
 
 Both CSS Grid and Flexbox are powerful layout systems that have revolutionized web design. But when should you use one over the other? This article breaks down the key differences and provides practical guidance.

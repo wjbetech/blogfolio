@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
@@ -15,6 +15,9 @@ export default function Navbar({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement | null>(null);
+  const mobileNavId = "primary-navigation-mobile";
 
   const navLinks = [
     { id: "1", href: "/", label: "Home" },
@@ -28,9 +31,51 @@ export default function Navbar({
     setMobileMenuOpen(false);
   };
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const menu = mobileMenuRef.current;
+    const focusableSelector =
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const firstFocusable = menu?.querySelector<HTMLElement>(focusableSelector);
+    firstFocusable?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !menu) return;
+
+      const focusable = Array.from(menu.querySelectorAll<HTMLElement>(focusableSelector));
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!event.shiftKey && document.activeElement === last) {
+        first.focus();
+        event.preventDefault();
+      }
+
+      if (event.shiftKey && document.activeElement === first) {
+        last.focus();
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      mobileButtonRef.current?.focus();
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header
-      className="isolate z-50 px-6"
+      className="isolate z-50 px-4 sm:px-6 lg:px-8"
       style={{ contain: "paint", willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between h-20 sm:h-32">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
@@ -39,7 +84,7 @@ export default function Navbar({
 
         <div className="flex items-center gap-4">
           {/* Desktop Navigation - hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
             {navLinks.map((link) => {
               const isBlogLink = link.href === "/blog";
               const active = isBlogLink
@@ -54,6 +99,7 @@ export default function Navbar({
                     transition: "none",
                     color: active ? "var(--headline)" : "var(--accent-200)"
                   }}
+                  aria-current={active ? "page" : undefined}
                   className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
                     active
                       ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
@@ -70,8 +116,10 @@ export default function Navbar({
 
           {/* Mobile Menu Button - visible on mobile only */}
           <button
+            ref={mobileButtonRef}
             type="button"
             aria-label="Toggle mobile menu"
+            aria-controls={mobileNavId}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden flex flex-col gap-1.5 w-6 h-6 cursor-pointer">
@@ -106,7 +154,12 @@ export default function Navbar({
       {/* Mobile Menu Modal - full width, half screen height */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
-          <nav className="flex flex-col h-full justify-center items-start px-8 gap-8">
+          <nav
+            id={mobileNavId}
+            ref={mobileMenuRef}
+            role="menu"
+            aria-label="Mobile navigation"
+            className="flex flex-col h-full justify-center items-start px-8 gap-8">
             {navLinks.map((link) => {
               const isBlogLink = link.href === "/blog";
               const active = isBlogLink
@@ -123,7 +176,8 @@ export default function Navbar({
                     active
                       ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
                       : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                  }`}>
+                  }`}
+                  aria-current={active ? "page" : undefined}>
                   <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
                     0{link.id}
                   </span>

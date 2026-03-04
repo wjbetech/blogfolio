@@ -1,5 +1,7 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
+const dropDatePrefix = (value: string) => value.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+
 const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: "posts/**/*.{md,mdx}",
@@ -17,7 +19,12 @@ const Post = defineDocumentType(() => ({
     coverImage: { type: "string", required: false },
     featured: { type: "boolean", required: true },
     publishedAt: { type: "date", required: true },
-    updatedAt: { type: "date", required: true }
+    updatedAt: { type: "date", required: true },
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
+      required: true
+    }
   },
   computedFields: {
     slug: {
@@ -29,10 +36,24 @@ const Post = defineDocumentType(() => ({
         // Fallback to the source file name.
         // @ts-ignore - contentlayer exposes _raw at runtime
         const raw = (post as any)._raw || {};
-        if (post.slug) return post.slug;
-        if (raw.flattenedPath) return raw.flattenedPath.split("/").pop();
-        if (raw.sourceFileName) return raw.sourceFileName.replace(/\.[^.]+$/, "");
-        return "";
+        const fallbackSlugs = [
+          post.slug,
+          raw.flattenedPath?.split("/").pop(),
+          raw.sourceFileName?.replace(/\.[^.]+$/, "")
+        ];
+        const candidate = fallbackSlugs.find(Boolean);
+        return candidate ? dropDatePrefix(candidate) : "";
+      }
+    },
+    readingTime: {
+      type: "number",
+      resolve: (post) => {
+        const bodyText = (post as any).body?.raw ?? "";
+        const words = bodyText
+          .split(/\s+/)
+          .map((token: string) => token.trim())
+          .filter(Boolean).length;
+        return Math.max(1, Math.round(words / 200));
       }
     },
     url: {
@@ -53,6 +74,11 @@ const Project = defineDocumentType(() => ({
     description: { type: "string", required: true },
     tech: { type: "list", of: { type: "string" }, required: true },
     link: { type: "string", required: true },
+    status: {
+      type: "enum",
+      options: ["draft", "published"],
+      required: true
+    },
     repo: { type: "string", required: false },
     images: { type: "list", of: { type: "string" }, required: false },
     featured: { type: "boolean", required: true },
@@ -65,10 +91,12 @@ const Project = defineDocumentType(() => ({
       resolve: (project) => {
         // @ts-ignore
         const raw = (project as any)._raw || {};
-        if ((project as any).slug) return (project as any).slug;
-        if (raw.flattenedPath) return raw.flattenedPath.split("/").pop();
-        if (raw.sourceFileName) return raw.sourceFileName.replace(/\.[^.]+$/, "");
-        return "";
+        const candidate = [
+          (project as any).slug,
+          raw.flattenedPath?.split("/").pop(),
+          raw.sourceFileName?.replace(/\.[^.]+$/, "")
+        ].find(Boolean);
+        return candidate ? dropDatePrefix(candidate) : "";
       }
     },
     url: {

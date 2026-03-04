@@ -9,6 +9,8 @@ function readPostSlugs() {
   return entries
     .map((file) => {
       const data = readFrontMatter(path.join(postsDir, file));
+      const status = (data.status as string | undefined)?.trim().toLowerCase();
+      if (status !== "published") return null;
       return deriveSlugFromFile(path.join(postsDir, file), data.slug as string | undefined);
     })
     .filter((slug): slug is string => Boolean(slug));

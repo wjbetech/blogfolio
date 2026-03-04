@@ -6,8 +6,9 @@ export type FrontMatter = Record<string, string | string[] | boolean>;
 const dropDatePrefix = (value: string) => value.replace(/^[0-9]{4}-[0-9]{2}-[0-9]{2}-/, "");
 
 export function deriveSlugFromFile(filePath: string, override?: string) {
-  if (override && override.trim()) {
-    return override;
+  const candidate = override?.trim();
+  if (candidate) {
+    return dropDatePrefix(candidate);
   }
 
   const base = path.basename(filePath).replace(/\.[^.]+$/, "");
@@ -54,9 +55,10 @@ export function parseFrontMatter(lines: string[]): FrontMatter {
 
 export function readFrontMatter(filePath: string): FrontMatter {
   const source = fs.readFileSync(filePath, "utf8");
-  const start = source.indexOf("---");
-  const end = source.indexOf("---", start + 3);
-  if (start === -1 || end === -1) return {};
-  const block = source.slice(start + 3, end).split(/\r?\n/);
+  const lines = source.split(/\r?\n/);
+  if (lines[0].trim() !== "---") return {};
+  const closingIndex = lines.findIndex((line, index) => index > 0 && line.trim() === "---");
+  if (closingIndex === -1) return {};
+  const block = lines.slice(1, closingIndex);
   return parseFrontMatter(block);
 }

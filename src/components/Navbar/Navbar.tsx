@@ -153,11 +153,10 @@ export default function Navbar({
 
       {/* Mobile Menu Modal - full width, half screen height */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
+          <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
           <nav
             id={mobileNavId}
             ref={mobileMenuRef}
-            role="menu"
             aria-label="Mobile navigation"
             className="flex flex-col h-full justify-center items-start px-8 gap-8">
             {navLinks.map((link) => {

@@ -17,8 +17,8 @@ The key changes include:
 
 Confirm the current data and where it is consumed:
 
-- Data is contained in `posts.ts` and `projects.ts`
-- It is consumed in `page.tsx`, at `src/app/blog/[slug]/page/tsx`, and in components such as `BlogCarousel.tsx` and `ProjectCarousel.tsx`
+- Content now lives as Markdown under `content/posts/` and `content/projects/`, and Contentlayer generates the typed article/project data.
+- The generated types (`allPosts`, `allProjects`, `Post`, `Project`) are consumed in `src/app/blog/[slug]/page.tsx`, `src/app/blog/page.tsx`, `src/app/portfolio/page.tsx`, and components such as `BlogCarousel.tsx` and `ProjectCarousel.tsx`.
 
 ### 2. Install Dependencies
 
@@ -73,4 +73,65 @@ Check the `coverImage`, `image` and `images` fields. If using local images in MD
 
 ### 11. Cleanup
 
-Once pages are migrated successfully, delete `posts.ts` and `projects.ts` and any remaining Prisma remnants.
+- Old mock-data modules (`src/app/data/posts.ts` and `src/app/data/projects.ts`) have been deleted; rely on the `/content` Markdown sources and generated Contentlayer output going forward.
+
+## Frontmatter specs
+
+### Post frontmatter
+
+| Field       | Required | Notes                                                                                      |
+| ----------- | -------- | ------------------------------------------------------------------------------------------ |
+| id          | ✓        | Unique identifier that matches the generated `Post.id`.                                    |
+| title       | ✓        | Headline shown in listings and metadata.                                                   |
+| slug        | computed | Kebab-case URL segment for `/blog/{slug}` derived from the filename (strip `YYYY-MM-DD-`). |
+| excerpt     | ✓        | Short summary displayed in previews.                                                       |
+| author      | ✓        | Display name for the author.                                                               |
+| tags        | ✓        | Array of string labels (at least one).                                                     |
+| image       |          | Optional hero image URL (remote or `/images`).                                             |
+| coverImage  |          | Optional fallback image path (can be empty).                                               |
+| featured    | ✓        | Boolean used to highlight the post.                                                        |
+| publishedAt | ✓        | ISO date (`YYYY-MM-DD`).                                                                   |
+| updatedAt   | ✓        | ISO date (`YYYY-MM-DD`).                                                                   |
+| status      | ✓        | Enum (`published` / `draft`) to gate visibility.                                           |
+
+### Project frontmatter
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| id | ✓ | Unique identifier used for ordering. |
+| title | ✓ | Project name shown on `/dev`. |
+| slug | computed | Portfolio URL segment (`/portfolio/{slug}`) derived from the filename (strip `YYYY-MM-DD-`). |
+| description | ✓ | Summary shown on the `/dev` page and cards. |
+| tech | ✓ | At least one technology (list of strings). |
+| link | ✓ | Live demo or marketing URL. |
+| repo |  | Optional source repository link. |
+| images |  | Optional array of visuals (local `/images` or remote). |
+| featured | ✓ | Highlights the project in the featured carousel. |
+| publishedAt | ✓ | ISO date (`YYYY-MM-DD`). |
+| updatedAt | ✓ | ISO date (`YYYY-MM-DD`). |
+| status | ✓ | Enum (`published` / `draft`) for content gating. |
+
+> **Note:** `slug` is computed from the Markdown filename (dates stripped). Don't duplicate it in frontmatter.
+
+## Type strategy
+
+- Prefer using `Post` / `Project` from `contentlayer/generated` so the generated fields (`slug`, `url`, `readingTime`, etc.) are always in sync with the content schema.
+- If you need a narrower shape for a component, derive it via selectors or mappers instead of redefining the interface. That keeps the Contentlayer output as the single source of truth.
+
+## Running Contentlayer tooling
+
+- `npm run contentlayer:generate` – run this whenever you change frontmatter or the Contentlayer schema. It regenerates `contentlayer/generated`, which must be up to date before running `next build`.
+- `npm run contentlayer:dev` – used by `npm run dev`; it watches content files so the dev server reflects changes immediately.
+
+## When to run Contentlayer tooling
+
+- After editing frontmatter fields (adding/removing metadata, toggling `status`, etc.) so generated types remain accurate.
+- Any time the document schema changes (new required fields, computed values, directory patterns) to ensure the generated type output is in sync.
+- Before merging or deploying to confirm the latest generated code exists; rerun `npm run contentlayer:generate` after all metadata edits and then fire up `npm run dev` (which runs `contentlayer:dev`) to catch runtime issues. Running `contentlayer:generate` today succeeds without extra-field errors (it outputs 5 documents under `.contentlayer`), and the Windows warning (`might not work as expected on Windows`) is expected but the tool still completes.
+
+## Common failures and fixes
+
+- **Missing required field**: Contentlayer errors often state which key is absent. Fix the frontmatter (or mark the field optional) and rerun `npm run contentlayer:generate`.
+- **Slug collisions**: Keep slugs unique and lowercase. If Contentlayer complains about duplicate routes, check that each `.md` file has a distinct `slug` and `id`.
+- **Invalid dates**: Stick to `YYYY-MM-DD` for `publishedAt`/`updatedAt`. Extra time components or typos will cause parsing errors.
+- **Extra-field errors**: Fields like `slug` are now computed from the filename (the `docs/contentlayer.md` tables explain this), so remove any `slug:` lines from frontmatter to avoid “field data which isn't defined in the document type” warnings.

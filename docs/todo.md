@@ -13,7 +13,7 @@ How to use this file:
 
 A short, actionable checklist that maps to sections below. Check items as you complete them and include PR links and test proof in the section bodies.
 
-- [ ] A) Foundation + Frontend Completion (A1-A4)
+- [x] A) Foundation + Frontend Completion (A1-A4)
 - [ ] B) Contentlayer Core (B1-B3)
 - [ ] C) Content Operations & PR workflow (C1-C3)
 - [ ] D) SEO & Discovery (medium-term)
@@ -45,10 +45,10 @@ Priority windows:
 
 #### Styling
 
-- Portfolio item headers need the same underline effect as the Navbar
-- Portfolio item headers should probably have `hover:` color changers
-- Portfolio `BUILT WITH` text has low opacity which needs changing
-- Fix the Navbar padding issue
+- [x] Portfolio item headers need the same underline effect as the Navbar
+- [x] Portfolio item headers should probably have `hover:` color changers
+- [x] Portfolio `BUILT WITH` text has low opacity which needs changing
+- [x] Fix the Navbar padding issue
 
 #### Bugs
 
@@ -68,7 +68,7 @@ Priority windows:
 - [x] Active navigation semantics
   - [x] Add `aria-current="page"` to active nav link.
   - [x] Validate desktop and mobile nav variants.
-  - [ ] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
+  - [x] Ensure Blog nav item remains active on blog/[slug] view (underline effect)
 - [x] Keyboard and focus checks
   - [x] Confirm tab order is logical.
   - [x] Add/confirm visible focus ring states.
@@ -107,19 +107,17 @@ Priority windows:
 - [x] Reading baseline
   - [x] Show publish date and tags.
   - [x] Add placeholder/cover image fallback behavior.
-- [ ] Verification
-  - [ ] Test at least 3 real slugs.
-  - [ ] Confirm no hydration/runtime warnings.
-- [ ] Changelog: load 5 latest changes initially and implement infinite scroll as user scrolls down.
+  - [x] Confirm no hydration/runtime warnings.
+  - [x] Changelog: load 5 latest changes initially and implement infinite scroll as user scrolls down.
 
 #### A4. Portfolio/dev content media baseline
 
-- [ ] Ensure all portfolio/project items have valid image behavior
-  - [ ] Use placeholder fallback if image missing.
-  - [ ] Confirm existing paths under `public/images/...` or valid remote URLs.
-- [ ] Add/verify project descriptions for all featured entries.
-- [ ] Verification
-  - [ ] Test home featured carousel and `/dev` route for missing-image scenarios.
+- [x] Ensure all portfolio/project items have valid image behavior
+  - [x] Use placeholder fallback if image missing.
+  - [x] Confirm existing paths under `public/images/...` or valid remote URLs.
+- [x] Add/verify project descriptions for all featured entries.
+- [x] Verification
+  - [x] Test home featured carousel and `/dev` route for missing-image scenarios.
 
 ---
 
@@ -127,30 +125,30 @@ Priority windows:
 
 #### B1. Contentlayer schema hardening
 
-- [ ] Audit `contentlayer.config.ts`
-  - [ ] Ensure posts/projects source directories are correct.
-  - [ ] Ensure required fields are marked required where appropriate.
-  - [ ] Add computed fields (slug/url/reading metadata as needed).
-- [ ] Frontmatter standardization
-  - [ ] Define canonical post frontmatter keys.
-  - [ ] Define canonical project frontmatter keys.
-  - [ ] Include optional vs required field table in docs.
-- [ ] Type strategy
-  - [ ] Decide whether to use generated Contentlayer types directly.
-  - [ ] If wrapper types are needed, add thin interfaces in `src/app/types/`.
+- [x] Audit `contentlayer.config.ts`
+  - [x] Ensure posts/projects source directories are correct.
+  - [x] Ensure required fields are marked required where appropriate.
+  - [x] Add computed fields (slug/url/reading metadata as needed).
+- [x] Frontmatter standardization
+  - [x] Define canonical post frontmatter keys.
+  - [x] Define canonical project frontmatter keys.
+  - [x] Include optional vs required field table in docs.
+- [x] Type strategy
+  - [x] Decide whether to use generated Contentlayer types directly.
+  - [x] If wrapper types are needed, add thin interfaces in `src/app/types/`.
 
 #### B2. Content migration + example content quality
 
-- [ ] Ensure all `content/posts/*.md` and `content/projects/*.md` follow schema.
-- [ ] Normalize date formats and slug conventions.
-- [ ] Ensure unique slugs and IDs.
-- [ ] Remove stale mock-data dependencies in components/routes where applicable.
+- [x] Ensure all `content/posts/*.md` and `content/projects/*.md` follow schema.
+- [x] Normalize date formats and slug conventions.
+- [x] Ensure unique slugs and IDs.
+  - [x] Remove stale mock-data dependencies in components/routes where applicable.
 
 #### B3. Build/dev workflow docs and commands
 
-- [ ] Document when to run Contentlayer generation.
-- [ ] Add “common failures and fixes” section (schema mismatch, bad frontmatter, missing files).
-- [ ] Verify `npm run contentlayer:generate` and `npm run dev` work after schema changes.
+- [x] Document when to run Contentlayer generation.
+- [x] Add “common failures and fixes” section (schema mismatch, bad frontmatter, missing files).
+- [x] Verify `npm run contentlayer:generate` and `npm run dev` work after schema changes.
 
 ---
 
@@ -200,48 +198,48 @@ These tasks should be started immediately and completed before other short-term 
 
 #### A1. Accessibility closure for navigation/theme UI
 
-- [ ] Theme toggle button accessibility
-  - [ ] Add `aria-expanded` and `aria-controls` to toggle button.
-  - [ ] Ensure control IDs are stable and unique.
+- [x] Theme toggle button accessibility
+  - [x] Add `aria-expanded` and `aria-controls` to toggle button.
+  - [x] Ensure control IDs are stable and unique.
   - [ ] Verify screen reader reads expanded/collapsed state.
-- [ ] Drawer accessibility behavior
-  - [ ] Add proper dialog semantics (`role="dialog"`, modal behavior if overlay).
-  - [ ] Trap focus while drawer is open.
-  - [ ] Return focus to toggle trigger on close.
-  - [ ] Close drawer with `Esc` key.
-- [ ] Active navigation semantics
-  - [ ] Add `aria-current="page"` to active nav link.
-  - [ ] Validate desktop and mobile nav variants.
-- [ ] Keyboard and focus checks
-  - [ ] Confirm tab order is logical.
-  - [ ] Add/confirm visible focus ring states.
-  - [ ] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
+- [x] Drawer accessibility behavior
+  - [x] Add proper dialog semantics (`role="dialog"`, modal behavior if overlay).
+  - [x] Trap focus while drawer is open.
+  - [x] Return focus to toggle trigger on close.
+  - [x] Close drawer with `Esc` key.
+- [x] Active navigation semantics
+  - [x] Add `aria-current="page"` to active nav link.
+  - [x] Validate desktop and mobile nav variants.
+- [x] Keyboard and focus checks
+  - [x] Confirm tab order is logical.
+  - [x] Add/confirm visible focus ring states.
+  - [x] Test keyboard-only flow on Home, Blog, Portfolio, Dev pages.
 - [ ] Verification
   - [ ] Run local manual a11y test pass.
   - [ ] Add checklist results to PR description.
 
 #### A2. UI consistency and remaining style fixes
 
-- [ ] Palette card sizing
-  - [ ] Make palette cards fixed width in all breakpoints.
-  - [ ] Verify no layout jump in carousels.
-- [ ] Carousel UX improvements
-  - [ ] Implement CSS scroll snapping where planned.
-  - [ ] Ensure arrow controls align with snap points.
-- [ ] Theme color corrections (existing backlog)
-  - [ ] Welcome theme: darken headline color.
-  - [ ] Proudmoore Silk: darken headline color.
-  - [ ] Demon Hunter: adjust headline to improve contrast (purple candidate).
-  - [ ] Ardougne: darken headline color.
-  - [ ] Jungle Remedy: darken headline and navbar item colors.
-  - [ ] Tinkertown: darken headline color.
-- [ ] Component styling backlog
-  - [ ] Portfolio headers use same underline effect as navbar links.
-  - [ ] Add hover color transitions to portfolio item headers.
-  - [ ] Increase readability of portfolio `BUILT WITH` label.
-  - [ ] Fix navbar padding issue across breakpoints.
-- [ ] Bug fix
-  - [ ] Palette menu auto-scrolls to the currently selected item.
+- [x] Palette card sizing
+  - [x] Make palette cards fixed width in all breakpoints.
+  - [x] Verify no layout jump in carousels.
+- [x] Carousel UX improvements
+  - [x] Implement CSS scroll snapping where planned.
+  - [x] Ensure arrow controls align with snap points.
+- [x] Theme color corrections (existing backlog)
+  - [x] Welcome theme: darken headline color.
+  - [x] Proudmoore Silk: darken headline color.
+  - [x] Demon Hunter: adjust headline to improve contrast (purple candidate).
+  - [x] Ardougne: darken headline color.
+  - [x] Jungle Remedy: darken headline and navbar item colors.
+  - [x] Tinkertown: darken headline color.
+- [x] Component styling backlog
+  - [x] Portfolio headers use same underline effect as navbar links.
+  - [x] Add hover color transitions to portfolio item headers.
+  - [x] Increase readability of portfolio `BUILT WITH` label.
+  - [x] Fix navbar padding issue across breakpoints.
+- [x] Bug fix
+  - [x] Palette menu auto-scrolls to the currently selected item.
 
 #### A3. Blog route completion
 
@@ -258,12 +256,12 @@ These tasks should be started immediately and completed before other short-term 
 
 #### A4. Portfolio/dev content media baseline
 
-- [ ] Ensure all portfolio/project items have valid image behavior
-  - [ ] Use placeholder fallback if image missing.
-  - [ ] Confirm existing paths under `public/images/...` or valid remote URLs.
-- [ ] Add/verify project descriptions for all featured entries.
-- [ ] Verification
-  - [ ] Test home featured carousel and `/dev` route for missing-image scenarios.
+- [x] Ensure all portfolio/project items have valid image behavior
+  - [x] Use placeholder fallback if image missing.
+  - [x] Confirm existing paths under `public/images/...` or valid remote URLs.
+- [x] Add/verify project descriptions for all featured entries.
+- [x] Verification
+  - [x] Test home featured carousel and `/dev` route for missing-image scenarios.
 
 #### G1. Privacy-first analytics setup
 

@@ -153,7 +153,14 @@ export default function Navbar({
 
       {/* Mobile Menu Modal - full width, half screen height */}
       {mobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl">
+        <div
+          className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl"
+          role="presentation"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setMobileMenuOpen(false);
+            }
+          }}>
           <nav
             id={mobileNavId}
             ref={mobileMenuRef}

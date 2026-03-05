@@ -5,13 +5,18 @@ This document explains the playbook for completing the outstanding items in [doc
 1. **Locate and verify the next todo.**
    - Open [docs/todo.md](./todo.md) and find the first unchecked checkbox. Treat the list as ordered priority; you should never skip to a lower section unless higher ones are complete.
    - Confirm alignment with the corresponding phase in [docs/roadmap.md](./roadmap.md). If the todo spans phases (e.g., a Contentlayer task that touches UI), mention both sections in your notes.
+This document explains the playbook for completing the outstanding items in [./todo.md](./todo.md). The goal is to stay autonomous: pick the next unchecked item, run through the scripted workflow, and open a PR that can auto-merge once the checks pass. Follow the numbered steps below for every todo entry.
+
+1. **Locate and verify the next todo.**
+   - Open [./todo.md](./todo.md) and find the first unchecked checkbox. Treat the list as ordered priority; you should never skip to a lower section unless higher ones are complete.
+   - Confirm alignment with the corresponding phase in [./roadmap.md](./roadmap.md). If the todo spans phases (e.g., a Contentlayer task that touches UI), mention both sections in your notes.
 
 2. **Decide on the scope.**
    - Decide whether the todo is small enough to ship in one commit or if it needs multiple sub-tasks. If you split it, aim for no more than three incremental subtasks—each should have its own branch/PR if needed, but keep the big-picture todo item in mind.
    - Document the planned subtasks in the PR description so reviewers know what to expect.
 
 3. **Create a branch.**
-   - Always start from a clean `master` (fetch/pull first). Branch naming should follow the policy: `feature/<short-name>` for new work, `fix/<short-name>` for bug fixes, and `refactor/<short-name>` for rework or cleanup tasks.
+   - Always start from the default branch (main/master) on a clean working tree (fetch and pull first). Branch naming should follow the policy: `feature/<short-name>` for new work, `fix/<short-name>` for bug fixes, and `refactor/<short-name>` for rework or cleanup tasks.
    - Include the todo reference in the branch name when helpful (e.g., `feature/content-ops-guidelines` for C1 work).
 
 4. **Implement the todo.**
@@ -36,5 +41,10 @@ This document explains the playbook for completing the outstanding items in [doc
 
 9. **Repeat.**
    - Return to step 1 and start again with the next unchecked item. Keep an eye on [docs/roadmap.md](./roadmap.md) for priority shifts or newly added items.
+   - After the PR merges, update [./todo.md](./todo.md) by checking off the completed item and adding a short note containing the PR number and proof (tests run, screenshot location, etc.).
+   - If you split the todo into sub-items, only mark the top-level checkbox complete when all related PRs are merged.
+
+9. **Repeat.**
+   - Return to step 1 and start again with the next unchecked item. Keep an eye on [./roadmap.md](./roadmap.md) for priority shifts or newly added items.
 
 By following this guide, future work on the todo list becomes a predictable sequence: inspect, branch, build, verify, open a PR, and update the checklist. Let me know when you’d like me to start on the next unchecked checkbox (C1).

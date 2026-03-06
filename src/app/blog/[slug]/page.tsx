@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import CoverImage from "@/components/Blog/CoverImage";
@@ -6,11 +7,21 @@ import { allPosts } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
+import { createBlogListMetadata, generatePostMetadata } from "@/lib/metadata";
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post.slug
   }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = allPosts.find((candidate) => candidate.slug === params.slug);
+  if (!post) {
+    return createBlogListMetadata();
+  }
+
+  return generatePostMetadata(post);
 }
 
 type BlogPostPageProps = {

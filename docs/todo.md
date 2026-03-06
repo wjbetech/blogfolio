@@ -16,7 +16,7 @@ A short, actionable checklist that maps to sections below. Check items as you co
 - [x] A) Foundation + Frontend Completion (A1-A4)
 - [x] B) Contentlayer Core (B1-B3)
 - [x] C) Content Operations & PR workflow (C1-C3)
-- [ ] D) SEO & Discovery (medium-term)
+- [x] D) SEO & Discovery (medium-term)
 - [ ] G) Analytics & KPI setup
 - [ ] H) DX & CI governance
 
@@ -181,6 +181,16 @@ Priority windows:
 ## Medium Term (1-3 Months)
 
 ### D) SEO & Discovery (Roadmap Phase 3)
+
+#### D1. Metadata foundations
+
+- [x] Standardize site/blog/project metadata templates with canonical, Open Graph, and Twitter fields (see `src/lib/metadata.ts`).
+- [x] Wire the helper into layout, the `/blog` and `/portfolio` pages, and the `blog/[slug]` route so every page emits the same SEO data.
+
+#### D2. Route-level metadata validation
+
+- [x] Generate metadata per post (`generateMetadata`) that embeds canonical URLs and OG images.
+- [x] Add a Jest guard (`__tests__/metadata.test.ts`) that ensures metadata helpers always return canonical supporting data before merging content.
 
 Priority windows:
 

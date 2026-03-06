@@ -17,6 +17,7 @@ Every content-focused PR should include a dedicated **Content Operations** secti
 
 ```markdown
 ## Content Operations
+
 - **Todo item:** C1, C2, C3 (record the specific checkbox or combination).
 - **Commands:** `npm run contentlayer:generate`, targeted `npm run test`, `npm run lint`, etc. (list only the commands you actually ran).
 - **QA checklist link:** Reference `docs/content-operations.md` and call out any automated tooling used to validate links/images/slugs.

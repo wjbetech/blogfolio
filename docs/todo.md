@@ -14,8 +14,8 @@ How to use this file:
 A short, actionable checklist that maps to sections below. Check items as you complete them and include PR links and test proof in the section bodies.
 
 - [x] A) Foundation + Frontend Completion (A1-A4)
-- [ ] B) Contentlayer Core (B1-B3)
-- [ ] C) Content Operations & PR workflow (C1-C3)
+- [x] B) Contentlayer Core (B1-B3)
+- [x] C) Content Operations & PR workflow (C1-C3)
 - [ ] D) SEO & Discovery (medium-term)
 - [ ] G) Analytics & KPI setup
 - [ ] H) DX & CI governance
@@ -156,25 +156,25 @@ Priority windows:
 
 #### C1. Editorial workflow definition
 
-- [ ] Define branch naming for content-only updates.
-- [ ] Define PR template section for content changes.
-- [ ] Define review checklist for content PRs.
+- [x] Define branch naming for content-only updates. (see [./content-operations.md](./content-operations.md))
+- [x] Define PR template section for content changes. (see [./content-operations.md](./content-operations.md))
+- [x] Define review checklist for content PRs. (see [./content-operations.md](./content-operations.md))
 
 #### C2. Content QA checklist implementation
 
-- [ ] Checklist includes:
-  - [ ] Frontmatter complete and valid.
-  - [ ] Links work (internal and key external).
-  - [ ] Images resolve/fallback correctly.
-  - [ ] Slugs are unique and human-readable.
-- [ ] Add this checklist to docs and PR process.
+- [x] Checklist includes: (see [./content-operations.md](./content-operations.md))
+  - [x] Frontmatter complete and valid.
+  - [x] Links work (internal and key external).
+  - [x] Images resolve/fallback correctly.
+  - [x] Slugs are unique and human-readable.
+- [x] Add this checklist to docs and PR process. (see [./content-operations.md](./content-operations.md))
 
 #### C3. Monthly content maintenance cadence
 
-- [ ] Create recurring maintenance checklist:
-  - [ ] Update stale project links.
-  - [ ] Refresh outdated post metadata.
-  - [ ] Archive or revise obsolete content.
+- [x] Create recurring maintenance checklist: (see [./content-operations.md](./content-operations.md))
+  - [x] Update stale project links.
+  - [x] Refresh outdated post metadata.
+  - [x] Archive or revise obsolete content.
 
 ---
 

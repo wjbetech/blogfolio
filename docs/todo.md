@@ -15,7 +15,7 @@ A short, actionable checklist that maps to sections below. Check items as you co
 
 - [x] A) Foundation + Frontend Completion (A1-A4)
 - [x] B) Contentlayer Core (B1-B3)
-- [ ] C) Content Operations & PR workflow (C1-C3)
+- [x] C) Content Operations & PR workflow (C1-C3)
 - [ ] D) SEO & Discovery (medium-term)
 - [ ] G) Analytics & KPI setup
 - [ ] H) DX & CI governance

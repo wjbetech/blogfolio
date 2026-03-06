@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 import { headers } from "next/headers";
 import { MaybeHeaders, isHeaders } from "@/app/types/headers";
+import { createSiteMetadata } from "@/lib/metadata";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -15,10 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"]
 });
 
-export const metadata: Metadata = {
-  title: "BlogFolio",
-  description: "The combined blog // portfolio of William East"
-};
+export const metadata: Metadata = createSiteMetadata();
 
 export default async function RootLayout({
   children

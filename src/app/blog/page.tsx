@@ -9,6 +9,9 @@ import type { Post } from "contentlayer/generated";
 // Badge not needed here; UI elements use inline tags
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import { getPostReadingTime, getPostSnippet } from "@/lib/post";
+import { createBlogListMetadata } from "@/lib/metadata";
+
+export const metadata = createBlogListMetadata();
 
 export default function BlogPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);

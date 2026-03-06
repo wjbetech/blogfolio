@@ -1,6 +1,9 @@
 "use client";
 
 import ProjectCarousel from "@/components/Projects/ProjectCarousel/ProjectCarousel";
+import { createPortfolioMetadata } from "@/lib/metadata";
+
+export const metadata = createPortfolioMetadata();
 
 export default function PortfolioPage() {
   return (

@@ -1,4 +1,5 @@
 import { getChangelogEntries, getChangelogSlice } from "@/lib/changelog/entryParser";
+import TrackedLink from "@/components/Analytics/TrackedLink";
 import ChangelogList from "@/components/Changelog/ChangelogList";
 import Link from "next/link";
 import Image from "next/image";
@@ -122,24 +123,32 @@ export default function DevPage() {
                       {/* Actions — separated with space, not a border */}
                       <div className="flex items-center gap-5 mt-10">
                         {(project.repo || project.link) && (
-                          <Link
+                          <TrackedLink
                             href={project.repo || project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150">
+                            className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150"
+                            eventName="Project CTA Click"
+                            eventProps={{
+                              kind: project.repo ? "github" : "demo",
+                              slug: project.slug,
+                              surface: "dev_primary"
+                            }}>
                             <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
                             View on GitHub
-                          </Link>
+                          </TrackedLink>
                         )}
                         {project.link && (
-                          <Link
+                          <TrackedLink
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors">
+                            className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors"
+                            eventName="Project CTA Click"
+                            eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}>
                             Live Demo
                             <IconArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
-                          </Link>
+                          </TrackedLink>
                         )}
                       </div>
                     </div>

@@ -3,14 +3,15 @@ import type { Post, Project } from "contentlayer/generated";
 
 const SITE_NAME = "BlogFolio";
 const SITE_DESCRIPTION = "The combined blog // portfolio of William East";
-const SITE_URL = "https://blogfolio.dev";
+export const SITE_URL = "https://blogfolio.dev";
 const DEFAULT_TWITTER_HANDLE = "@wjbetech";
-const DEFAULT_OG_IMAGE = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80";
+const DEFAULT_OG_IMAGE =
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80";
 const metadataBase = new URL(SITE_URL);
 
 const normalizeDescription = (value?: string) => value ?? SITE_DESCRIPTION;
 
-const toAbsoluteUrl = (value?: string) => {
+export const toAbsoluteUrl = (value?: string) => {
   if (!value) return DEFAULT_OG_IMAGE;
   if (value.startsWith("http://") || value.startsWith("https://")) return value;
   const normalized = value.startsWith("/") ? value : `/${value}`;
@@ -22,7 +23,7 @@ const buildMetadata = (options: {
   description?: string;
   path: string;
   image?: string;
-  type?: Metadata["openGraph"]["type"];
+  type?: "website" | "article";
 }): Metadata => {
   const canonical = `${SITE_URL}${options.path}`;
   const imageUrl = toAbsoluteUrl(options.image);
@@ -62,10 +63,18 @@ export const createSiteMetadata = (): Metadata =>
   buildMetadata({ title: SITE_NAME, description: SITE_DESCRIPTION, path: "/", image: DEFAULT_OG_IMAGE });
 
 export const createBlogListMetadata = (): Metadata =>
-  buildMetadata({ title: "Blog | BlogFolio", description: "Notes on software, life, and work in Korea.", path: "/blog" });
+  buildMetadata({
+    title: "Blog | BlogFolio",
+    description: "Notes on software, life, and work in Korea.",
+    path: "/blog"
+  });
 
 export const createPortfolioMetadata = (): Metadata =>
-  buildMetadata({ title: "Projects | BlogFolio", description: "Featured projects that showcase product design, DevOps, and engineering work.", path: "/portfolio" });
+  buildMetadata({
+    title: "Projects | BlogFolio",
+    description: "Featured projects that showcase product design, DevOps, and engineering work.",
+    path: "/portfolio"
+  });
 
 export const generatePostMetadata = (post: Post): Metadata =>
   buildMetadata({
@@ -83,4 +92,3 @@ export const generateProjectMetadata = (project: Project): Metadata =>
     image: project.images?.[0],
     path: `/portfolio/${project.slug}`
   });
-

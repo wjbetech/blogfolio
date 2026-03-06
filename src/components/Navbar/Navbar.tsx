@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
 
 export default function Navbar({
@@ -27,7 +28,14 @@ export default function Navbar({
     { id: "5", href: "/contact", label: "Contact" }
   ];
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (href?: string, surface: "desktop" | "mobile" = "mobile") => {
+    if (href === "/contact") {
+      trackAnalyticsEvent("Contact Click", {
+        surface: `navbar_${surface}`,
+        target: href
+      });
+    }
+
     setMobileMenuOpen(false);
   };
 
@@ -95,6 +103,7 @@ export default function Navbar({
                 <Link
                   key={link.id}
                   href={link.href}
+                  onClick={() => handleLinkClick(link.href, "desktop")}
                   style={{
                     transition: "none",
                     color: active ? "var(--headline)" : "var(--accent-200)"
@@ -176,7 +185,7 @@ export default function Navbar({
                 <Link
                   key={link.id}
                   href={link.href}
-                  onClick={handleLinkClick}
+                  onClick={() => handleLinkClick(link.href, "mobile")}
                   style={{ transition: "none" }}
                   className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
                     active

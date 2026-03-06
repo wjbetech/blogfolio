@@ -1,50 +1,56 @@
 # Content Operations Playbook
 
-This guide converts the C1–C3 items in [docs/todo.md](./todo.md) into a repeatable process that complements `docs/task-guidelines.md`. Follow it whenever you handle editorial branches, PRs, or periodic content maintenance.
+This guide turns the C1–C3 items from [docs/todo.md](./todo.md) into a repeatable editorial process. Use it whenever you open a content-only branch, file a content PR, or run the monthly maintenance sweep.
 
-## Branch naming for content-only updates
+## C1 — Editorial workflow foundation
 
-- Start from the default branch (`master`) and branch with one of the prefixes from `task-guidelines.md` (`feature/`, `fix/`, `refactor/`), but include a content label so it is obvious which task you are addressing (e.g., `feature/content-ops-guidelines`, `fix/content-slug-normalization`).
-- Use hyphenated short names that reference the todo identifier (C1, C2, etc.) or describe the content area (posts, projects, editorial). Example: `feature/C1-content-ops-playbook`, `feature/C2-content-qacomplete`.
-- Always run `git fetch && git pull` on `master` before branching so you build on the latest docs and code.
+### Branch naming for content-only updates
 
-## PR template and review checklist for content
+- Always start from the default branch (`master`) on a clean tree: run `git fetch && git pull`, then branch off with the appropriate prefix (`feature/`, `fix/`, `refactor/`).
+- Append a descriptive, hyphenated identifier that references the content scope or todo reference so it is obvious what you are tackling. Valid examples: `feature/C1-content-ops-playbook`, `feature/C2-content-qacomplete`, `fix/content-slug-normalize`.
+- If a branch spans multiple C-series checkboxes, call that out in the branch name (e.g., `feature/C1-C2-content-ops`), and document the split in the PR description.
+- Include the todo or roadmap reference in your own notes (`docs/todo.md` and `docs/roadmap.md` should both state the work is in the C-series). This keeps the traceability between the checklist and the branch alive.
 
-- Add a “Content Operations” section to every content-focused PR and call out:
-  - Which `docs/todo.md` item this PR resolves (e.g., C1, C2.a, etc.).
-  - The automated commands you ran (`npm run contentlayer:generate`, targeted Jest suites, `npm run lint`).
-  - Proof of content validation (screenshots, storybook URLs, Contentlayer status).  
-- On the reviewer side, explicitly verify that:
-  - No stale mock data remains.
-  - `docs/todo.md` and `docs/task-guidelines.md` receive updates if the work changes the process.
-  - Frontmatter changes are reflected in the `content/` markdown files and `contentlayer.config.ts` if needed.
+### Content PR template additions
 
-## Review checklist for editors
+Every content-focused PR should include a dedicated **Content Operations** section near the bottom of the description. Copy this skeleton so reviewers know what to look for:
 
-1. Confirm the proposed content matches the schema in `contentlayer.config.ts`. Mandatory fields (title, date, status, tags, slug-derived values) must stay intact.  
-2. Verify slug consistency: either supply an override that matches the existing naming convention or rely on the computed slug from the filename.  
-3. Ensure there are no duplicate slugs or IDs across posts/projects.  
-4. Check that any referenced images exist under `public/images` or use verified remote URLs.  
-5. Validate external/internal links render correctly and have sensible CTAs (projects → demos, posts → related guides).  
-6. Review `docs/task-guidelines.md` to confirm you followed the workflow (branch naming, verification commands, PR checklist) and update that file when the process shifts.
+```markdown
+## Content Operations
+- **Todo item:** C1, C2, C3 (record the specific checkbox or combination).
+- **Commands:** `npm run contentlayer:generate`, targeted `npm run test`, `npm run lint`, etc. (list only the commands you actually ran).
+- **QA checklist link:** Reference `docs/content-operations.md` and call out any automated tooling used to validate links/images/slugs.
+- **Proof:** include screenshots, Contentlayer build output, or notes about preview verification.
+```
 
-## Content QA checklist (C2)
+Point readers back to [docs/todo.md](./todo.md) when your changes resolve a checkbox so the review has a single source of truth for the task status.
 
-Use this checklist before merging any content change:
+### Review checklist for editors
 
-- **Frontmatter complete and valid.** Ensure every markdown file has `title`, `date`, `status`, `tags`, `description`, and any required fields for posts (e.g., `coverImage`) or projects (`builtWith`). Missing keys should block the PR.  
-- **Links work.** Validate key references (internal blog/project links, about/contact references, new outbound resources) either manually or via an automated link checker if you add one in the future.  
-- **Images resolve/fallback.** Confirm the `coverImage` or project screenshot paths exist in `public/images/projects/` or the referenced CDN provides the asset. Add a fallback notice for missing assets.  
-- **Slugs are human-readable and unique.** Prefer slug overrides that match the derived slug pattern (`YYYY-MM-DD-title`). When a slug is specified manually, trim spaces and drop date prefixes so the normalized version matches the computed slug.
+1. Confirm the content adheres to the schema defined in `contentlayer.config.ts`, especially mandatory frontmatter such as `title`, `date`, `status`, `tags`, and the body field.
+2. Verify slug consistency: either allow Contentlayer’s computed slug from the filename or provide a manual override that follows the `YYYY-MM-DD-title` convention. Do not introduce spaces or unexpected characters.
+3. Ensure slug/ID uniqueness across `allPosts` and `allProjects`. Update metadata or rename files if a collision is detected.
+4. Confirm referenced images live under `public/` (preferably `/public/images/...`) or on a trusted CDN, and include a fallback notice when external assets are fragile.
+5. Validate every internal/external link in the content block, especially those pointing to the blog, portfolio, contact/demo, or external resources used in tutorials.
+6. Double-check that `docs/task-guidelines.md` or this playbook receives an update whenever the workflow changes, and add a note to the PR about the docs touched.
 
-Record this checklist in the PR under a “QA Checklist” section so reviewers can tick off each item. If a bullet is not applicable (e.g., no new links), note why.
+## C2 — Content QA checklist
 
-## Monthly content maintenance cadence (C3)
+Include this checklist under a **QA Checklist** heading inside the PR so both author and reviewer can quickly tick boxes before merging:
 
-Every month run through this quick pass and update `docs/todo.md` with the status (date/PR reference).  
+- **Frontmatter complete and valid.** Posts require `title`, `date`, `status`, `tags`, `description`, and `coverImage`. Projects need `title`, `status`, `builtWith`, `callToActionLink`, and any required custom fields. Missing keys should block the merge.
+- **Links work.** Manually click every new internal link (cross-check `src/app/pages` if needed), and verify outbound links resolve and use HTTPS when available. If you add lots of links, consider running a link-checker script (add the command to this section).
+- **Images resolve/fallback.** `coverImage` or project screenshots must point to existing files in `public/images` (projects or posts) or be hosted on reliable CDNs. Provide alt text and note any fallback shown when the asset is missing.
+- **Slugs are human-readable and unique.** Prefer the computed slug derived from the filename, but allow manual overrides when necessary. If you override, trim whitespace/prefixes and make sure the value matches `/posts/yyyy-mm-dd-slug` or `/projects/slug` patterns.
 
-1. **Update stale project links.** Open each `content/projects/*.md` and verify its `callToActionLink`, demo URL, and repo link still resolve. Replace dead links or archive the project if necessary.  
-2. **Refresh outdated post metadata.** Reconfirm publish dates, featured tags, and author attributions for evergreen posts; update the `status` field to `archived` if the guide is obsolete.  
-3. **Archive or revise obsolete content.** Identify posts or projects that reference deprecated frameworks, old exercises, or outdated APIs—add a note about the deprecation and link to a fresher resource, or move the file to an `archive/` directory if it should no longer appear.
+If any bullet does not apply (e.g., no new links), add a short justification in the checklist so reviewers understand why the box is left unchecked.
 
-Use a single changelog entry per cadence run (e.g., `docs/changelog.md`) that references the maintenance PR so future audits know when the last sweep occurred.
+## C3 — Monthly content maintenance cadence
+
+Perform this sweep once per month (suggested first weekday) and log the results in `docs/changelog.md` and the adjacent entry in `docs/todo.md` so the team knows the last time the cadence ran.
+
+1. **Update stale project links.** Review `content/projects/*.md` for `callToActionLink`, demo URLs, and repo links. Replace any dead resources, repair redirects, or archive the project if it no longer applies.
+2. **Refresh outdated post metadata.** Skim evergreen posts for stale dates, tags, or `status` fields; adjust `status` to `archived` when the content is obsolete, and note any author attribution changes.
+3. **Archive or revise obsolete content.** Tag guides that rely on deprecated frameworks/APIs with a short notice and link to fresher alternatives, or move them into an `archive/` folder if they should be hidden from lists.
+
+Document this cadence run with a single changelog entry (`docs/changelog.md`) and a reminder in `docs/todo.md` (e.g., “Monthly content sweep – March 2026”). That way the next maintainer knows what was verified.

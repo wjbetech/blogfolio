@@ -14,7 +14,7 @@ How to use this file:
 A short, actionable checklist that maps to sections below. Check items as you complete them and include PR links and test proof in the section bodies.
 
 - [x] A) Foundation + Frontend Completion (A1-A4)
-- [ ] B) Contentlayer Core (B1-B3)
+- [x] B) Contentlayer Core (B1-B3)
 - [ ] C) Content Operations & PR workflow (C1-C3)
 - [ ] D) SEO & Discovery (medium-term)
 - [ ] G) Analytics & KPI setup

@@ -297,10 +297,10 @@ These tasks should be started immediately and completed before other short-term 
 
 #### H1. Content validation in CI
 
-- [ ] Add frontmatter schema checks in CI.
-- [ ] Add required field checks for posts/projects.
-- [ ] Add broken-link checks (internal + important external).
-- [ ] Fail CI for malformed content or missing required metadata.
+- [x] Add frontmatter schema checks in CI. (see [./content-validation.md](./content-validation.md))
+- [x] Add required field checks for posts/projects. (see [./content-validation.md](./content-validation.md))
+- [x] Add broken-link checks (internal + important external). (see [./content-validation.md](./content-validation.md))
+- [x] Fail CI for malformed content or missing required metadata. (see [./content-validation.md](./content-validation.md))
 
 #### H2. Documentation governance
 

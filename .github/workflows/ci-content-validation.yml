@@ -1,0 +1,36 @@
+name: Content Validation CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      CONTENT_VALIDATION_EXTERNAL_HOSTS: developer.mozilla.org,github.com,linkedin.com,www.linkedin.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate content metadata and links
+        run: npm run validate:content
+
+      - name: Run test suite
+        run: npm test -- --runInBand
+
+      - name: Run production build
+        run: npm run build

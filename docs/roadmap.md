@@ -137,9 +137,9 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 
 ## 7.1 Content Validation in CI
 
-- [ ] Add checks for frontmatter correctness and required fields.
-- [ ] Add broken-link checks for internal links and key external links.
-- [ ] Fail CI on malformed content or missing required metadata.
+- [x] Add checks for frontmatter correctness and required fields.
+- [x] Add broken-link checks for internal links and key external links.
+- [x] Fail CI on malformed content or missing required metadata.
 
 ## 7.2 Documentation Governance
 

@@ -1,3 +1,5 @@
+import TrackedLink from "@/components/Analytics/TrackedLink";
+
 export default function ContactPage() {
   return (
     <div className="min-h-screen">
@@ -59,29 +61,37 @@ export default function ContactPage() {
           <div className="space-y-3 text-paragraph">
             <p>
               Email:{" "}
-              <a href="mailto:hello@williameast.com" className="text-accent hover:underline">
+              <TrackedLink
+                href="mailto:hello@williameast.com"
+                className="text-accent hover:underline"
+                eventName="Contact Click"
+                eventProps={{ surface: "contact_email", target: "mailto" }}>
                 hello@williameast.com
-              </a>
+              </TrackedLink>
             </p>
             <p>
               GitHub:{" "}
-              <a
+              <TrackedLink
                 href="https://github.com/wjbetech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent hover:underline">
+                className="text-accent hover:underline"
+                eventName="Contact Click"
+                eventProps={{ surface: "contact_github", target: "github" }}>
                 @wjbetech
-              </a>
+              </TrackedLink>
             </p>
             <p>
               LinkedIn:{" "}
-              <a
+              <TrackedLink
                 href="https://linkedin.com/in/williameast"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent hover:underline">
+                className="text-accent hover:underline"
+                eventName="Contact Click"
+                eventProps={{ surface: "contact_linkedin", target: "linkedin" }}>
                 William East
-              </a>
+              </TrackedLink>
             </p>
           </div>
         </div>

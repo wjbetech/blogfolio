@@ -1,5 +1,3 @@
-"use client";
-
 import ProjectCarousel from "@/components/Projects/ProjectCarousel/ProjectCarousel";
 import { createPortfolioMetadata } from "@/lib/metadata";
 

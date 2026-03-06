@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import type { Project } from "@/app/types/project";
+import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imgError, setImgError] = useState(false);
@@ -40,6 +41,13 @@ export default function ProjectCard({ project }: { project: Project }) {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackAnalyticsEvent("Project CTA Click", {
+                kind: "demo",
+                slug: project.slug,
+                surface: "project_card"
+              })
+            }
             className="text-md font-bold text-link hover:underline transition-none">
             View
           </a>

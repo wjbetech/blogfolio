@@ -17,7 +17,7 @@ A short, actionable checklist that maps to sections below. Check items as you co
 - [x] B) Contentlayer Core (B1-B3)
 - [x] C) Content Operations & PR workflow (C1-C3)
 - [x] D) SEO & Discovery (medium-term)
-- [ ] G) Analytics & KPI setup
+- [x] G) Analytics & KPI setup
 - [ ] H) DX & CI governance
 
 Priority windows:
@@ -275,19 +275,19 @@ These tasks should be started immediately and completed before other short-term 
 
 #### G1. Privacy-first analytics setup
 
-- [ ] Choose lightweight analytics provider and integration strategy.
-- [ ] Track core events:
-  - [ ] Page views
-  - [ ] Outbound GitHub/demo clicks
-  - [ ] Contact link clicks
+- [x] Choose lightweight analytics provider and integration strategy. (see [./analytics.md](./analytics.md))
+- [x] Track core events:
+  - [x] Page views
+  - [x] Outbound GitHub/demo clicks
+  - [x] Contact link clicks
 
 #### G2. KPI framework
 
-- [ ] Define and document KPIs:
-  - [ ] Most viewed posts
-  - [ ] Project CTA click-through rate
-  - [ ] Contact engagement rate
-- [ ] Add monthly KPI review checklist and actions.
+- [x] Define and document KPIs: (see [./analytics.md](./analytics.md))
+  - [x] Most viewed posts
+  - [x] Project CTA click-through rate
+  - [x] Contact engagement rate
+- [x] Add monthly KPI review checklist and actions. (see [./analytics.md](./analytics.md))
 
 ---
 

@@ -126,12 +126,12 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 
 ## 6.1 Privacy-friendly Analytics
 
-- [ ] Add lightweight analytics for page views and outbound link clicks (portfolio/contact/github/demo).
-- [ ] Define success metrics: most viewed posts, project click-through rate, contact link engagement.
+- [x] Add lightweight analytics for page views and outbound link clicks (portfolio/contact/github/demo).
+- [x] Define success metrics: most viewed posts, project click-through rate, contact link engagement.
 
 ## 6.2 Iteration Cadence
 
-- [ ] Add a monthly review ritual: identify top content, stale content, and roadmap priorities for next cycle.
+- [x] Add a monthly review ritual: identify top content, stale content, and roadmap priorities for next cycle.
 
 # Phase 7: Developer Experience & Governance
 

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
+import AnalyticsProvider from "@/components/Analytics/AnalyticsProvider";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
-import { headers } from "next/headers";
-import { MaybeHeaders, isHeaders } from "@/app/types/headers";
 import { createSiteMetadata } from "@/lib/metadata";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -23,41 +22,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let cookieHeader = "";
-  try {
-    const hdrs: MaybeHeaders = await headers();
-
-    if (isHeaders(hdrs)) {
-      cookieHeader = hdrs.get("cookie") ?? "";
-    } else {
-      // Some runtimes expose headers as plain objects
-      const obj = hdrs as Record<string, string | string[] | undefined>;
-      const cookieVal = obj["cookie"] ?? obj["Cookie"];
-      if (typeof cookieVal === "string") cookieHeader = cookieVal;
-      else if (Array.isArray(cookieVal)) cookieHeader = cookieVal.join("; ");
-      else cookieHeader = "";
-    }
-  } catch (error) {
-    console.log(error, "Error retrieving headers in layout");
-    cookieHeader = "";
-  }
-  const parseCookie = (cookieStr: string, name: string) => {
-    if (!cookieStr) return null;
-    const pairs = cookieStr.split(";").map((p) => p.trim());
-    for (const pair of pairs) {
-      const idx = pair.indexOf("=");
-      if (idx === -1) continue;
-      const key = pair.substring(0, idx).trim();
-      const val = pair.substring(idx + 1).trim();
-      if (key === name) return decodeURIComponent(val);
-    }
-    return null;
-  };
-
-  const themeId = parseCookie(cookieHeader, "site-theme") ?? "welcome";
-
   return (
-    <html lang="en" data-theme={themeId} className={inter.variable}>
+    <html lang="en" data-theme="welcome" className={inter.variable} suppressHydrationWarning>
       <body
         className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}
         style={{ transition: "none" }}>
@@ -66,6 +32,7 @@ export default async function RootLayout({
           <main className="max-w-7xl mx-auto pb-4 w-full flex-1">{children}</main>
           <Footer />
         </div>
+        <AnalyticsProvider />
       </body>
     </html>
   );

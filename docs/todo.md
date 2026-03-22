@@ -106,7 +106,7 @@ Priority windows:
   - [x] Render content body with current typography rules.
 - [x] Reading baseline
   - [x] Show publish date and tags.
-  - [x] Add placeholder/cover image fallback behavior.
+  - [x] Add placeholder/cover image fallbackHey, Cortana. Hey, Cortana. Hey, Cortana. Play my job. Hey, Cortana. Hey, Cortana. Cancel. My my management is still in student work OK so you want me to wear test test for another two weeks when I come back? Hey Cortana, play 600.  behavior.
 - [ ] Verification
   - [ ] Test at least 3 real slugs.
   - [ ] Confirm no hydration/runtime warnings.

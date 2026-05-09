@@ -45,7 +45,7 @@ export default function ContactPage() {
               name="message"
               rows={6}
               className="w-full px-4 py-3 bg-bg200 border border-accent2/20 rounded-lg text-paragraph focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
-              placeholder="Tell me about your project..."
+              placeholder="Hey! I wanted to know more about..."
             />
           </div>
 
@@ -66,7 +66,7 @@ export default function ContactPage() {
                 className="text-accent hover:underline"
                 eventName="Contact Click"
                 eventProps={{ surface: "contact_email", target: "mailto" }}>
-                hello@williameast.com
+                wjbetech@gmail.com
               </TrackedLink>
             </p>
             <p>
@@ -84,7 +84,7 @@ export default function ContactPage() {
             <p>
               LinkedIn:{" "}
               <TrackedLink
-                href="https://linkedin.com/in/williameast"
+                href="https://linkedin.com/in/wjbetech"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-accent hover:underline"

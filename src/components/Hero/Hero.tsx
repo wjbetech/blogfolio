@@ -25,7 +25,7 @@ export default function Hero() {
             </p>
             <h5 className="font-bold text-headline mt-6">Translation and Editing</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Korean & English</p>
-            <h5 className="font-bold text-headline mt-6">Professor of Interpretation and Culture</h5>
+            <h5 className="font-bold text-headline mt-6">Adjunct Professor</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Seoul University of Foreign Studies</p>
           </div>
         </div>

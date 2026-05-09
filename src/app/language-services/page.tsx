@@ -46,7 +46,7 @@ export default function LanguageServicesPage() {
           <section className="mt-8 pt-4">
             <div className="mb-4">
               <h1 className="text-3xl font-semibold font-serif text-headline">Experience</h1>
-              <p className="text-paragraph/70">(Not exhaustive, and some projects and clients are confidential)</p>
+              <p className="text-paragraph/70">(Not exhaustive; some projects and clients are confidential)</p>
             </div>
             <ul className="space-y-4">
               <li className="">

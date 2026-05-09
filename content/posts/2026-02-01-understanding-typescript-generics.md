@@ -1,12 +1,12 @@
 ---
-id: "1"
-title: "Understanding TypeScript Generics"
-excerpt: "A deep dive into TypeScript generics and how they can improve your code."
+id: "3"
+title: "Building Real-life Projects"
+excerpt: "The importance of building projects you want or need in your own life, and the joy of helping or entertaining others."
 author: "William East"
 tags:
-  - TypeScript
-  - Generics
-  - Programming
+  - Games
+  - Web Development
+  - Teaching
 image: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png"
 coverImage: ""
 featured: false

@@ -253,16 +253,16 @@ These tasks should be started immediately and completed before other short-term 
 
 #### A3. Blog route completion
 
-- [ ] Dynamic blog detail page (`src/app/blog/[slug]/page.tsx`)
-  - [ ] Resolve post by slug from Contentlayer data.
+- [x] Dynamic blog detail page (`src/app/blog/[slug]/page.tsx`)
+  - [x] Resolve post by slug from Contentlayer data.
   - [ ] Add graceful 404 when slug missing.
-  - [ ] Render content body with current typography rules.
-- [ ] Reading baseline
-  - [ ] Show publish date and tags.
+  - [x] Render content body with current typography rules.
+- [x] Reading baseline
+  - [x] Show publish date and tags.
   - [ ] Add placeholder/cover image fallback behavior.
-- [ ] Verification
-  - [ ] Test at least 3 real slugs.
-  - [ ] Confirm no hydration/runtime warnings.
+- [x] Verification
+  - [x] Test at least 3 real slugs.
+  - [x] Confirm no hydration/runtime warnings.
 
 #### A4. Portfolio/dev content media baseline
 

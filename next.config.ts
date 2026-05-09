@@ -4,7 +4,16 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["avatars.dicebear.com", "developer.mozilla.org"]
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.dicebear.com"
+      },
+      {
+        protocol: "https",
+        hostname: "developer.mozilla.org"
+      }
+    ]
   }
 };
 

@@ -25,12 +25,12 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 
 - [x] Take a look at Tailwind pseudo-classes again
   - [ ] Optimize for DX and overall re-useability/readability
-- [ ] Ensure keyboard accessibility and clear focus states
+- [x] Ensure keyboard accessibility and clear focus states
 - [x] Add a canonical useTheme hook (src/lib/useTheme.ts) that exposes theme
 - [x] Replace remaining cookie/localStorage calls with useTheme for a single source of truth
   - [x] Need evaluation of how this will work for new users/existing users
-- [ ] Fix palette cards to be fully fixed-width
-- [ ] CSS snap for carousels (scroll-snap-type)\*
+- [x] Fix palette cards to be fully fixed-width
+- [x] CSS snap for carousels (scroll-snap-type)\*
 - [x] Look into a Changelog for the entire app that can export to Webcomments or other automatic updater in the app HTML.
 
   #### 1.1.2

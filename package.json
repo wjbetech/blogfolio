@@ -5,7 +5,7 @@
   "scripts": {
     "contentlayer:generate": "node ./scripts/contentlayer-build.mjs",
     "contentlayer:dev": "node ./scripts/contentlayer-dev.mjs",
-    "dev": "concurrently -k \"npm run contentlayer:dev\" \"next dev --turbopack\"",
+    "dev": "npm exec concurrently -- -k \"npm run contentlayer:dev\" \"next dev --turbopack\"",
     "build": "npm run contentlayer:generate && next build",
     "start": "next start",
     "lint": "next lint",

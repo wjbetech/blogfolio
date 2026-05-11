@@ -60,7 +60,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
     });
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto pb-8">
       <header className="pb-10 space-y-3">
         <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
         <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>

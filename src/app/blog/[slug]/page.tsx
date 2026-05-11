@@ -45,11 +45,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const heroImage = post.coverImage || post.image || "";
-  const bodyContent = (post as any).body?.trim() || post.body?.raw?.trim() || "";
-  const contentBlocks = bodyContent
-    .split("\n\n")
-    .map((block: string) => block.trim())
-    .filter((block: string) => block.length > 0);
+
+  const contentBlocks = (post.body?.raw ?? "")
+    .replace(/\r\n/g, "\n")
+    .trim()
+    .split(/\n{2,}/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
 
   return (
     <article className="mx-auto w-full max-w-7xl">
@@ -57,7 +59,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <Link href="/blog">
           <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">
             <ArrowLeftIcon className="w-4 h-4" />
-            Back to all posts
+            Back to all blogs
           </Button>
         </Link>
       </div>
@@ -105,7 +107,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <Link href="/blog">
           <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline cursor-pointer">
             <ArrowLeftIcon className="w-4 h-4" />
-            Back to all posts
+            Back to all blogs
           </Button>
         </Link>
       </footer>

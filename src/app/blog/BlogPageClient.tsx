@@ -9,14 +9,21 @@ import { getPostReadingTime, getPostSnippet } from "@/lib/post";
 
 interface BlogPageClientProps {
   posts: Post[];
+  currentPage: number;
 }
 
-export default function BlogPageClient({ posts }: BlogPageClientProps) {
+export default function BlogPageClient({ posts, currentPage }: BlogPageClientProps) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
+  // sort posts by published date & extract their tags
   const sortedPosts = [...posts].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   const allTags = Array.from(new Set(sortedPosts.flatMap((p) => p.tags ?? [])));
+
+  // define pagination rules
+
+  const FIRST_PAGE_POST_COUNT = 4;
+  const PAGE_POST_COUNT = 5;
 
   if (sortedPosts.length === 0) {
     return (
@@ -31,9 +38,30 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
 
   const featuredPost = sortedPosts.find((p) => p.featured) ?? sortedPosts[0];
   const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id);
-  const displayPosts = selectedTag
+
+  const filteredPosts = selectedTag
     ? remainingPosts.filter((p) => (p.tags ?? []).includes(selectedTag))
     : remainingPosts;
+
+  const totalPages =
+    filteredPosts.length <= FIRST_PAGE_POST_COUNT
+      ? 1
+      : 1 + Math.ceil((filteredPosts.length - FIRST_PAGE_POST_COUNT) / PAGE_POST_COUNT);
+
+  const pageNumbers = Array.from(
+    {
+      length: totalPages
+    },
+    (_, i) => i + 1
+  );
+
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const isFirstPage = safeCurrentPage === 1;
+  const startIndex = isFirstPage ? 0 : FIRST_PAGE_POST_COUNT + (safeCurrentPage - 2) * PAGE_POST_COUNT;
+  const endIndex = isFirstPage ? FIRST_PAGE_POST_COUNT : startIndex + PAGE_POST_COUNT;
+  const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+  const createPageHref = (page: number) => `/blog${page === 1 ? "" : `?page=${page}`}`;
 
   const groupedByYear = sortedPosts.reduce(
     (acc, post) => {
@@ -68,48 +96,50 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
 
       <div className="flex gap-14 lg:gap-16">
         <section className="flex-1 min-w-0">
-          <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
-            <article className="bg-bg-200/60 border border-accent-100/10 transition-shadow duration-300 hover:shadow-lg p-6 md:p-8">
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-4 text-sm text-paragraph/70">
-                  <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
-                  <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-                    <IconClock className="h-4 w-4" /> {getPostReadingTime(featuredPost)} min read
-                  </span>
-                </div>
-
-                <div className="flex flex-row justify-between">
-                  <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
-                    {featuredPost.title}
-                  </h2>
-                  <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200">
-                    <IconArrowRight className="h-4 w-4 text-accent-200" />
-                  </div>
-                </div>
-
-                <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">
-                  {getPostSnippet(featuredPost, 400)}
-                </p>
-
-                <div className="flex items-center gap-2 flex-wrap mt-2">
-                  {(featuredPost.tags ?? []).slice(0, 4).map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[12px] px-3 py-1 rounded-full border border-accent-100/20 text-paragraph/70 bg-bg-100/50">
-                      {tag}
+          {safeCurrentPage === 1 && !selectedTag && (
+            <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
+              <article className="bg-bg-200/60 border border-accent-100/10 transition-shadow duration-300 hover:shadow-lg p-6 md:p-8">
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-4 text-sm text-paragraph/70">
+                    <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
+                    <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
+                      <IconClock className="h-4 w-4" /> {getPostReadingTime(featuredPost)} min read
                     </span>
-                  ))}
-                </div>
+                  </div>
 
-                <div className="mt-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-link font-medium">Read full article</span>
-                    <IconArrowRight className="h-4 w-4 text-accent-200" />
+                  <div className="flex flex-row justify-between">
+                    <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
+                      {featuredPost.title}
+                    </h2>
+                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200">
+                      <IconArrowRight className="h-4 w-4 text-accent-200" />
+                    </div>
+                  </div>
+
+                  <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">
+                    {getPostSnippet(featuredPost, 400)}
+                  </p>
+
+                  <div className="flex items-center gap-2 flex-wrap mt-2">
+                    {(featuredPost.tags ?? []).slice(0, 4).map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[12px] px-3 py-1 rounded-full border border-accent-100/20 text-paragraph/70 bg-bg-100/50">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-link font-medium">Read full article</span>
+                      <IconArrowRight className="h-4 w-4 text-accent-200" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          </Link>
+              </article>
+            </Link>
+          )}
 
           {selectedTag && (
             <div className="flex items-center gap-2 mb-6 text-xs text-paragraph">
@@ -125,13 +155,13 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           )}
 
           <div className="space-y-4">
-            {displayPosts.map((post, i) => {
+            {paginatedPosts.map((post, i) => {
               const dateLabel = formatDate(post.publishedAt);
               return (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block bg-bg-200 px-2">
                   <article
                     className={`flex items-start gap-5 py-6 transition-colors duration-200 ${
-                      i < displayPosts.length - 1 ? "border-b border-accent-100/15" : ""
+                      i < paginatedPosts.length - 1 ? "border-b border-accent-100/15" : ""
                     }`}>
                     <div className="hidden sm:block w-24 shrink-0 pl-4">
                       <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
@@ -172,7 +202,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
               );
             })}
 
-            {displayPosts.length === 0 && (
+            {paginatedPosts.length === 0 && (
               <p className="py-12 text-center text-sm text-paragraph/60">No posts found for this filter.</p>
             )}
           </div>
@@ -245,6 +275,41 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           </div>
         </aside>
       </div>
+
+      {totalPages > 1 && !selectedTag && (
+        <nav aria-label="Pagination" className="flex justify-center mt-12 gap-3 items-center">
+          {safeCurrentPage > 1 ? (
+            <Link
+              href={createPageHref(safeCurrentPage - 1)}
+              className="flex items-center gap-1 text-sm text-link hover:text-headline transition-colors">
+              ←
+            </Link>
+          ) : (
+            <span className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">←</span>
+          )}
+
+          <div>
+            {pageNumbers.map((pageNumber) => (
+              <Link
+                key={pageNumber}
+                href={createPageHref(pageNumber)}
+                className={`mx-1 px-3 border gap-2 border-button py-2 text-sm ${pageNumber === safeCurrentPage ? "bg-button/50 text-white" : "text-link hover:text-headline transition-colors"}`}>
+                {pageNumber}
+              </Link>
+            ))}
+          </div>
+
+          {safeCurrentPage < totalPages ? (
+            <Link
+              href={createPageHref(safeCurrentPage + 1)}
+              className="flex items-center gap-1 text-sm text-link hover:text-headline transition-colors">
+              →
+            </Link>
+          ) : (
+            <span className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">→</span>
+          )}
+        </nav>
+      )}
     </div>
   );
 }

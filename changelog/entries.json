@@ -1,6 +1,20 @@
 [
   {
-    "date": "2026-02-23",
+    "date": "2026-05-11",
+    "version": "0.3.3",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Fixed up typing issues between Contentlayer and the renderer in the blog post page."
+      },
+      {
+        "category": "Style",
+        "description": "Added h-20 to the Footer component to make it consistent with the Navbar."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-10",
     "version": "0.3.2",
     "changes": [
       {

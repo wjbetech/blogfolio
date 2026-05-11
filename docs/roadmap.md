@@ -43,7 +43,7 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 
 - [x] Create a blog list page at `src/app/blog/page.tsx`
 - [x] Create the BlogCard component
-- [ ] Create a dynamic blog detail page at `src/app/blog/[slug]/page.tsx`
+- [x] Create a dynamic blog detail page at `src/app/blog/[slug]/page.tsx`
 - [x] Build some mock data for testing purposes
 
 ## 1.3 Portfolio Page
@@ -58,7 +58,7 @@ Phase 2 - File-based Content (Contentlayer) Current Task - Consolidate posts/pro
 
 ## 2.1 Contentlayer + Markdown (.md/.mdx)
 
-- [ ] Add `@contentlayer/source-files` and configure `contentlayer.config.ts` to read `content/posts` and `content/projects` (already present in this repo).
+- [x] Add `@contentlayer/source-files` and configure `contentlayer.config.ts` to read `content/posts` and `content/projects` (already present in this repo).
 - [ ] Define Contentlayer document schemas and computed fields so `allPosts`/`allProjects` expose typed fields used across the app.
 - [ ] Commit example `.md` files under `content/` (frontmatter: `title`, `slug`, `date`, `tags`, `coverImage`, `status`, etc.) and document expected frontmatter shape.
 - [ ] Document build/dev workflow: run the Contentlayer generation step (`npm run contentlayer:generate`) and reference generated types in imports (e.g. `contentlayer/generated`).

@@ -56,11 +56,32 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     const target = container.querySelector<HTMLElement>(`[data-palette-id="${active}"]`);
     if (!target) return;
 
-    target.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest"
-    });
+    const targetCenter = target.offsetLeft + target.offsetWidth / 2;
+    const nextScrollLeft = targetCenter - container.clientWidth / 2;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+    const scrollLeftTo = Math.max(0, Math.min(nextScrollLeft, maxScrollLeft));
+
+    if (typeof target.scrollIntoView === "function") {
+      try {
+        target.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest"
+        });
+        return;
+      } catch (error) {
+        console.log("scrollIntoView failed, falling back to manual scroll. Error:", error);
+      }
+    }
+
+    if (typeof container.scrollTo === "function") {
+      container.scrollTo({
+        left: scrollLeftTo,
+        behavior: "smooth"
+      });
+    } else {
+      container.scrollLeft = scrollLeftTo;
+    }
   }, [active]);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -70,7 +91,6 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     dragStateRef.current.pointerId = event.pointerId;
     dragStateRef.current.startX = event.clientX;
     dragStateRef.current.startScrollLeft = element.scrollLeft;
-    dragStateRef.current.moved = false;
     dragStateRef.current.isDragging = false;
     dragStateRef.current.suppressClick = false;
   };
@@ -90,7 +110,6 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
       }
 
       dragStateRef.current.isDragging = true;
-      dragStateRef.current.moved = true;
       dragStateRef.current.suppressClick = true;
 
       element.setPointerCapture(event.pointerId);
@@ -111,6 +130,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
 
     dragStateRef.current.pointerId = null;
     dragStateRef.current.isDragging = false;
+    dragStateRef.current.suppressClick = false;
   };
 
   const handleClickCapture = (event: React.MouseEvent<HTMLDivElement>) => {

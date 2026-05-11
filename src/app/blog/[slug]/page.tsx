@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const heroImage = post.coverImage || post.image || "";
-  const bodyContent = (post as any).content?.trim() || post.body?.raw?.trim() || "";
+  const bodyContent = (post as any).body?.trim() || post.body?.raw?.trim() || "";
   const contentBlocks = bodyContent
     .split("\n\n")
     .map((block: string) => block.trim())
@@ -57,7 +57,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <Link href="/blog">
           <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">
             <ArrowLeftIcon className="w-4 h-4" />
-            Back to Blog
+            Back to all posts
           </Button>
         </Link>
       </div>

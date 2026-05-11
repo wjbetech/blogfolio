@@ -21,7 +21,6 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
   const allTags = Array.from(new Set(sortedPosts.flatMap((p) => p.tags ?? [])));
 
   // define pagination rules
-
   const FIRST_PAGE_POST_COUNT = 4;
   const PAGE_POST_COUNT = 5;
 
@@ -293,7 +292,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
               <Link
                 key={pageNumber}
                 href={createPageHref(pageNumber)}
-                className={`mx-1 px-3 border gap-2 border-button py-2 text-sm ${pageNumber === safeCurrentPage ? "bg-button/50 text-white" : "text-link hover:text-headline transition-colors"}`}>
+                className={`mx-1 px-3 border gap-2 border-button py-2 text-sm ${pageNumber === currentPage ? "bg-button/50 text-white" : "text-link hover:text-headline transition-colors"}`}>
                 {pageNumber}
               </Link>
             ))}

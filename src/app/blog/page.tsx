@@ -13,7 +13,8 @@ type BlogPageProps = {
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const resolvedSearchParams = await searchParams;
   const rawPage = resolvedSearchParams?.page ?? "1";
-  const requestedPage = Math.max(1, Number(rawPage) || 1);
+  const parsedPage = Number(rawPage);
+  const requestedPage = Math.max(1, Number.isFinite(parsedPage) ? Math.trunc(parsedPage) : 1);
 
   const sortedPosts = sortBlogPosts(allPosts);
   const { remainingPosts } = splitFeaturedPost(sortedPosts);

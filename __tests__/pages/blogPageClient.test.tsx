@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import BlogPageClient from "@/app/blog/BlogPageClient";
 import type { Post } from "contentlayer/generated";
 
@@ -134,5 +134,37 @@ describe("BlogPageClient", () => {
 
     // expect no featured post
     expect(screen.queryByRole("heading", { name: "Introductions" })).not.toBeInTheDocument();
+  });
+
+  it("shows the featured post only on page 1", () => {
+    const { rerender } = render(<BlogPageClient posts={posts} currentPage={1} />);
+
+    expect(screen.getByRole("heading", { name: "Introductions" })).toBeInTheDocument();
+    expect(screen.getByText("Featured article summary")).toBeInTheDocument();
+
+    // change to page 2 via rerender
+    rerender(<BlogPageClient posts={posts} currentPage={2} />);
+
+    expect(screen.queryByRole("heading", { name: "Introductions" })).not.toBeInTheDocument();
+    expect(screen.queryByText("Featured article summary")).not.toBeInTheDocument();
+  });
+
+  it("filters posts by tag when a tag is selected", () => {
+    render(<BlogPageClient posts={posts} currentPage={1} />);
+
+    // select the "Life" tag
+    fireEvent.click(screen.getByRole("button", { name: "Life" }));
+
+    expect(screen.getByText("Showing posts tagged")).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Introductions" })).not.toBeInTheDocument();
+    expect(screen.queryByText("Featured article summary")).not.toBeInTheDocument();
+
+    expect(screen.getByText("Summary for post 2")).toBeInTheDocument();
+    expect(screen.getByText("Summary for post 5")).toBeInTheDocument();
+
+    expect(screen.queryByText("Summary for post 1")).not.toBeInTheDocument();
+    expect(screen.queryByText("Summary for post 3")).not.toBeInTheDocument();
+    expect(screen.queryByText("Summary for post 4")).not.toBeInTheDocument();
+    expect(screen.queryByText("Summary for post 6")).not.toBeInTheDocument();
   });
 });

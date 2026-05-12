@@ -6,6 +6,13 @@ import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import type { Post } from "contentlayer/generated";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import { getPostReadingTime, getPostSnippet } from "@/lib/post";
+import {
+  sortBlogPosts,
+  splitFeaturedPost,
+  getBlogTotalPages,
+  clampBlogPage,
+  getPaginatedBlogPosts
+} from "@/lib/blogPagination";
 
 interface BlogPageClientProps {
   posts: Post[];
@@ -17,12 +24,21 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
   // sort posts by published date & extract their tags
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-  const allTags = Array.from(new Set(sortedPosts.flatMap((p) => p.tags ?? [])));
+  const sortedPosts = sortBlogPosts(posts);
+  const allTags = Array.from(new Set(sortedPosts.flatMap((post) => post.tags ?? [])));
 
-  // define pagination rules
-  const FIRST_PAGE_POST_COUNT = 4;
-  const PAGE_POST_COUNT = 5;
+  const { featuredPost, remainingPosts } = splitFeaturedPost(sortedPosts);
+
+  const filteredPosts = selectedTag
+    ? remainingPosts.filter((post) => (post.tags ?? []).includes(selectedTag))
+    : remainingPosts;
+
+  const totalPages = getBlogTotalPages(filteredPosts.length);
+  const safeCurrentPage = clampBlogPage(currentPage, totalPages);
+  const paginatedPosts = getPaginatedBlogPosts(filteredPosts, safeCurrentPage);
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  const createPageHref = (page: number) => `/blog${page === 1 ? "" : `?page=${page}`}`;
 
   if (sortedPosts.length === 0) {
     return (
@@ -34,33 +50,6 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
       </div>
     );
   }
-
-  const featuredPost = sortedPosts.find((p) => p.featured) ?? sortedPosts[0];
-  const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost.id);
-
-  const filteredPosts = selectedTag
-    ? remainingPosts.filter((p) => (p.tags ?? []).includes(selectedTag))
-    : remainingPosts;
-
-  const totalPages =
-    filteredPosts.length <= FIRST_PAGE_POST_COUNT
-      ? 1
-      : 1 + Math.ceil((filteredPosts.length - FIRST_PAGE_POST_COUNT) / PAGE_POST_COUNT);
-
-  const pageNumbers = Array.from(
-    {
-      length: totalPages
-    },
-    (_, i) => i + 1
-  );
-
-  const safeCurrentPage = Math.min(currentPage, totalPages);
-  const isFirstPage = safeCurrentPage === 1;
-  const startIndex = isFirstPage ? 0 : FIRST_PAGE_POST_COUNT + (safeCurrentPage - 2) * PAGE_POST_COUNT;
-  const endIndex = isFirstPage ? FIRST_PAGE_POST_COUNT : startIndex + PAGE_POST_COUNT;
-  const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
-
-  const createPageHref = (page: number) => `/blog${page === 1 ? "" : `?page=${page}`}`;
 
   const groupedByYear = sortedPosts.reduce(
     (acc, post) => {

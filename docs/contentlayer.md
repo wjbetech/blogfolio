@@ -37,7 +37,8 @@ Create a `contentlayer.config.ts` file at the root of the repo with document typ
 - Add the directories `content/posts/` and `content/projects/`
 - Create one `.mdx` file per existing entry for a migration test
 - Use frontmatter for fields:
-  - `title`, `slug`, `excerpt/description`, `author`, etc.
+  - Posts use fields such as `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`
+  - Projects use fields such as `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`
     - e.g. `content/posts/understanding-typescript-generics.mdx`
 
 ### 5. Add npm Script
@@ -69,7 +70,22 @@ Update or remove `src/app/types/` for the relevant Contentlayer items, and map o
 
 ### 10. Images & Assets
 
-Check the `coverImage`, `image` and `images` fields. If using local images in MDX, place them inside the `/public` directory or use `next/image` with allowed external domains configured in `next.config.ts`
+This application uses a local-first media strategy for both posts and projects, at least while it remains in infancy.
+
+#### Media Policy
+
+- Default to local assets under `public/images/...` whenever practical.
+- Remote images are allowed when they come from stable, trusted sources, and should be favored and moved towards long term.
+- The UI must always fail safely when an image is missing, blank, or invalid. 
+- Empty strings are valid in content, but they should default to the fallback instead of rendering a broken asset.
+
+#### Placement Rules
+
+- Post-related local media should live under `public/images/posts/...`.
+- Project-related local media should live under `public/images/projects/...`.
+- Filenames should indicate their position in the application.
+- When a post or project has multiple related visual elements, they can be grouped into a sub-directory.
+
 
 ### 11. Cleanup
 

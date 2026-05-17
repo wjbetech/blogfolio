@@ -122,14 +122,14 @@ describe("BlogPageClient", () => {
     expect(screen.queryByText("Summary for post 6")).not.toBeInTheDocument();
   });
 
-  it("renders five regular posts on page 2", () => {
+  it("renders remaining regular posts on page 2", () => {
     render(<BlogPageClient posts={posts} currentPage={2} />);
 
-    // expect the five normal posts (featured post should not appear)
+    // expect the remaining normal posts (featured post should not appear)
     expect(screen.getByText("Summary for post 5")).toBeInTheDocument();
     expect(screen.getByText("Summary for post 6")).toBeInTheDocument();
 
-    // expect no sixth post
+    // expect no first four posts
     expect(screen.queryByText("Summary for post 1")).not.toBeInTheDocument();
 
     // expect no featured post

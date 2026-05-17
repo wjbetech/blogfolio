@@ -33,9 +33,10 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
     ? remainingPosts.filter((post) => (post.tags ?? []).includes(selectedTag))
     : remainingPosts;
 
-  const totalPages = getBlogTotalPages(filteredPosts.length);
+  const totalPages = getBlogTotalPages(remainingPosts.length);
   const safeCurrentPage = clampBlogPage(currentPage, totalPages);
   const paginatedPosts = getPaginatedBlogPosts(filteredPosts, safeCurrentPage);
+  const visiblePosts = selectedTag ? filteredPosts : paginatedPosts;
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   const createPageHref = (page: number) => `/blog${page === 1 ? "" : `?page=${page}`}`;
@@ -84,7 +85,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
 
       <div className="flex gap-14 lg:gap-16">
         <section className="flex-1 min-w-0">
-          {safeCurrentPage === 1 && !selectedTag && (
+          {safeCurrentPage === 1 && !selectedTag && featuredPost && (
             <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
               <article className="bg-bg-200/60 border border-accent-100/10 transition-shadow duration-300 hover:shadow-lg p-6 md:p-8">
                 <div className="flex flex-col gap-4">
@@ -143,13 +144,13 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
           )}
 
           <div className="space-y-4">
-            {paginatedPosts.map((post, i) => {
+            {visiblePosts.map((post, i) => {
               const dateLabel = formatDate(post.publishedAt);
               return (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block bg-bg-200 px-2">
                   <article
                     className={`flex items-start gap-5 py-6 transition-colors duration-200 ${
-                      i < paginatedPosts.length - 1 ? "border-b border-accent-100/15" : ""
+                      i < visiblePosts.length - 1 ? "border-b border-accent-100/15" : ""
                     }`}>
                     <div className="hidden sm:block w-24 shrink-0 pl-4">
                       <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
@@ -190,7 +191,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
               );
             })}
 
-            {paginatedPosts.length === 0 && (
+            {visiblePosts.length === 0 && (
               <p className="py-12 text-center text-sm text-paragraph/60">No posts found for this filter.</p>
             )}
           </div>
@@ -268,12 +269,18 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
         <nav aria-label="Pagination" className="flex justify-center mt-12 gap-3 items-center">
           {safeCurrentPage > 1 ? (
             <Link
+              aria-label="Previous page"
               href={createPageHref(safeCurrentPage - 1)}
               className="flex items-center gap-1 text-sm text-link hover:text-headline transition-colors">
               ←
             </Link>
           ) : (
-            <span className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">←</span>
+            <span
+              aria-disabled="true"
+              aria-label="Previous page"
+              className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">
+              ←
+            </span>
           )}
 
           <div>
@@ -289,12 +296,18 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
 
           {safeCurrentPage < totalPages ? (
             <Link
+              aria-label="Next page"
               href={createPageHref(safeCurrentPage + 1)}
               className="flex items-center gap-1 text-sm text-link hover:text-headline transition-colors">
               →
             </Link>
           ) : (
-            <span className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">→</span>
+            <span
+              aria-disabled="true"
+              aria-label="Next page"
+              className="flex items-center gap-1 text-sm text-link/30 cursor-not-allowed">
+              →
+            </span>
           )}
         </nav>
       )}

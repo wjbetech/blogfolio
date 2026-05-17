@@ -28,7 +28,7 @@ Point readers back to [docs/todo.md](./todo.md) when your changes resolve a chec
 
 ### Review checklist for editors
 
-1. Confirm the content adheres to the schema defined in `contentlayer.config.ts`, especially mandatory frontmatter such as `title`, `date`, `status`, `tags`, and the body field.
+1. Confirm the content adheres to the schema defined in `contentlayer.config.ts`. Posts should include required frontmatter such as `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`; projects should include `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`.
 2. Verify slug consistency: either allow Contentlayer’s computed slug from the filename or provide a manual override that follows the `YYYY-MM-DD-title` convention. Do not introduce spaces or unexpected characters.
 3. Ensure slug/ID uniqueness across `allPosts` and `allProjects`. Update metadata or rename files if a collision is detected.
 4. Confirm referenced images live under `public/` (preferably `/public/images/...`) or on a trusted CDN, and include a fallback notice when external assets are fragile.
@@ -39,7 +39,7 @@ Point readers back to [docs/todo.md](./todo.md) when your changes resolve a chec
 
 Include this checklist under a **QA Checklist** heading inside the PR so both author and reviewer can quickly tick boxes before merging:
 
-- **Frontmatter complete and valid.** Posts require `title`, `date`, `status`, `tags`, `description`, and `coverImage`. Projects need `title`, `status`, `builtWith`, `callToActionLink`, and any required custom fields. Missing keys should block the merge.
+- **Frontmatter complete and valid.** Posts require `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`. Projects require `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`. Optional fields such as `coverImage`, `image`, `repo`, and `images` should be present only when they are genuinely used.
 - **Links work.** Manually click every new internal link (cross-check `src/app/pages` if needed), and verify outbound links resolve and use HTTPS when available. If you add lots of links, consider running a link-checker script (add the command to this section).
 - **Images resolve/fallback.** `coverImage` or project screenshots must point to existing files in `public/images` (projects or posts) or be hosted on reliable CDNs. Provide alt text and note any fallback shown when the asset is missing.
 - **Slugs are human-readable and unique.** Prefer the computed slug derived from the filename, but allow manual overrides when necessary. If you override, trim whitespace/prefixes and make sure the value matches `/posts/yyyy-mm-dd-slug` or `/projects/slug` patterns.
@@ -50,7 +50,7 @@ If any bullet does not apply (e.g., no new links), add a short justification in 
 
 Perform this sweep once per month (suggested first weekday) and log the results in `docs/changelog.md` and the adjacent entry in `docs/todo.md` so the team knows the last time the cadence ran.
 
-1. **Update stale project links.** Review `content/projects/*.md` for `callToActionLink`, demo URLs, and repo links. Replace any dead resources, repair redirects, or archive the project if it no longer applies.
+1. **Update stale project links.** Review `content/projects/*.md` for `link`, demo URLs, and `repo` links. Replace any dead resources, repair redirects, or archive the project if it no longer applies.
 2. **Refresh outdated post metadata.** Skim evergreen posts for stale dates, tags, or `status` fields; adjust `status` to `archived` when the content is obsolete, and note any author attribution changes.
 3. **Archive or revise obsolete content.** Tag guides that rely on deprecated frameworks/APIs with a short notice and link to fresher alternatives, or move them into an `archive/` folder if they should be hidden from lists.
 

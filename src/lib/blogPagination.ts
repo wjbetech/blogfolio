@@ -7,6 +7,17 @@ export function sortBlogPosts(posts: Post[]) {
   return [...posts].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 }
 
+export function parseBlogPageParam(value: string | string[] | undefined) {
+  const rawValue = Array.isArray(value) ? value[0] : value;
+  const rawNum = Number(rawValue);
+
+  if (!Number.isFinite(rawNum)) {
+    return 1;
+  }
+
+  return rawNum;
+}
+
 export function splitFeaturedPost(posts: Post[]) {
   if (posts.length === 0) {
     return { featuredPost: null, remainingPosts: [] as Post[] };
@@ -27,7 +38,10 @@ export function getBlogTotalPages(regularPostCount: number) {
 }
 
 export function clampBlogPage(page: number, totalPages: number) {
-  return Math.max(1, Math.min(page, totalPages));
+  const safePage = Number.isFinite(page) ? Math.trunc(page) : 1;
+  const safeTotalPages = Number.isFinite(totalPages) && totalPages > 0 ? Math.trunc(totalPages) : 1;
+
+  return Math.max(1, Math.min(safePage, safeTotalPages));
 }
 
 export function getPaginatedBlogPosts(posts: Post[], page: number) {

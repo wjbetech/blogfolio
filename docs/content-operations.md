@@ -26,12 +26,25 @@ Every content-focused PR should include a dedicated **Content Operations** secti
 
 Point readers back to [docs/todo.md](./todo.md) when your changes resolve a checkbox so the review has a single source of truth for the task status.
 
+### Media Authoring Rules
+
+Use these rules whenever a post or project adds, changes, or removes media:
+
+- Prefer local assets under `public/images/posts/...` for blog content, and `public/images/projects/...` for project content.
+- Remote images are allowed when they come from stable, trusted sources, and are unlikely to change or disappear.
+  - Remote images should be moved to a remote stable, guaranteed single source of content long term.
+- Local assets should prefer a folder structure that mirrors the content slug for DX.
+- For projects, `images[0]` should be the primary visual, and additional items should be treated as supporting screenshots or secondary visuals.
+- For posts, the `coverImage` is the dedicated hero override. The broader post-image model is expected to move towards ordered image arrays.
+- Empty strings are allowed but they should be treated as "no usable image", and default to a fallback image.
+- If a PR intentionally relies on fallback behavior, it should be noted in the PR notes so reviewers know.
+
 ### Review checklist for editors
 
 1. Confirm the content adheres to the schema defined in `contentlayer.config.ts`. Posts should include required frontmatter such as `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`; projects should include `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`.
 2. Verify slug consistency: either allow Contentlayer’s computed slug from the filename or provide a manual override that follows the `YYYY-MM-DD-title` convention. Do not introduce spaces or unexpected characters.
 3. Ensure slug/ID uniqueness across `allPosts` and `allProjects`. Update metadata or rename files if a collision is detected.
-4. Confirm referenced images live under `public/` (preferably `/public/images/...`) or on a trusted CDN, and include a fallback notice when external assets are fragile.
+4. Confirm referenced images live under either `public/images/posts/...` or `public/images/projects/...`, allow remote images from trusted sources or a trusted CDN, preserve image ordering via arrays, and note intentional fallback behavior.
 5. Validate every internal/external link in the content block, especially those pointing to the blog, portfolio, contact/demo, or external resources used in tutorials.
 6. Double-check that `docs/task-guidelines.md` or this playbook receives an update whenever the workflow changes, and add a note to the PR about the docs touched.
 
@@ -39,9 +52,9 @@ Point readers back to [docs/todo.md](./todo.md) when your changes resolve a chec
 
 Include this checklist under a **QA Checklist** heading inside the PR so both author and reviewer can quickly tick boxes before merging:
 
-- **Frontmatter complete and valid.** Posts require `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`. Projects require `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`. Optional fields such as `coverImage`, `image`, `repo`, and `images` should be present only when they are genuinely used.
+- **Frontmatter complete and valid.** Posts require `id`, `title`, `excerpt`, `author`, `tags`, `featured`, `publishedAt`, `updatedAt`, and `status`. Projects require `id`, `title`, `description`, `tech`, `link`, `featured`, `publishedAt`, `updatedAt`, and `status`. Optional media fields such as `coverImage`, `image`, `images`, and `repo` should only be present when they are intentionally used, and blank values should be explained when they rely on fallback behavior.
 - **Links work.** Manually click every new internal link (cross-check `src/app/pages` if needed), and verify outbound links resolve and use HTTPS when available. If you add lots of links, consider running a link-checker script (add the command to this section).
-- **Images resolve/fallback.** `coverImage` or project screenshots must point to existing files in `public/images` (projects or posts) or be hosted on reliable CDNs. Provide alt text and note any fallback shown when the asset is missing.
+- **Images resolve/fallback.** Local media should live under `public/images/posts/...` or `public/images/projects/...` unless a remote source is available. For ordered image arrays, verify the first image is the intended primary visual. If any image field is blank, missing or intentionally leans on fallback behavior, note it in the PR.
 - **Slugs are human-readable and unique.** Prefer the computed slug derived from the filename, but allow manual overrides when necessary. If you override, trim whitespace/prefixes and make sure the value matches `/posts/yyyy-mm-dd-slug` or `/projects/slug` patterns.
 
 If any bullet does not apply (e.g., no new links), add a short justification in the checklist so reviewers understand why the box is left unchecked.

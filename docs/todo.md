@@ -10,21 +10,24 @@ Key:
 
 - [x] Fix stale schema field names in the docs
 - [-] Define media conventions and image placement rules
-  - [ ] Document the media policy in docs/contentlayer.md:
+  - [x] Document the media policy in docs/contentlayer.md:
     - local-first image strategy, with remote images still allowed long-term
     - posts and projects both support multiple images
     - image field becomes images for blog content as well
     - image order is meaningful, with the first image treated as the primary visual
     - empty strings are allowed and should fall back to the default/fallback image behavior
-  - [ ] Document authoring rules in docs/content-operations.md:
+  - [x] Document authoring rules in docs/content-operations.md:
     - where local assets should live under public/images/posts and public/images/projects
     - when remote images are acceptable
     - how to choose the primary image versus supporting images
     - how fallback behavior should be described in PR QA notes
-  - [ ] Define cleanup follow-ups for existing content:
-    - identify posts still using single-image conventions
-    - identify empty-string media fields that rely on fallback behavior
-    - identify project entries whose image ordering should be preserved explicitly
+  - [-] Define cleanup follow-ups for existing content:
+    - [x] audit existing posts still using `image` + `coverImage`
+    - [ ] review blank post media fields that rely on fallback behavior
+    - [ ] decide which remote post images should stay remote versus move local
+    - [ ] establish the first `public/images/posts/...` structure for migrated content
+    - [ ] confirm current project image ordering should be preserved
+    - [ ] record which entries should wait for the later schema/validator tightening task
   - [ ] Create a follow-up task for schema and validator tightening:
     - migrate post image to images
     - keep coverImage semantics explicit

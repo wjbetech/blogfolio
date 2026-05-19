@@ -23,7 +23,7 @@ Key:
     - how fallback behavior should be described in PR QA notes
   - [-] Define cleanup follow-ups for existing content:
     - [x] audit existing posts still using `image` + `coverImage`
-    - [ ] review blank post media fields that rely on fallback behavior
+    - [x] review blank post media fields that rely on fallback behavior
     - [ ] decide which remote post images should stay remote versus move local
     - [ ] establish the first `public/images/posts/...` structure for migrated content
     - [ ] confirm current project image ordering should be preserved

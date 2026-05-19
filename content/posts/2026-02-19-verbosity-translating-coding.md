@@ -7,10 +7,7 @@ tags:
   - Teaching
   - Web Development
   - Translation
-images:
-  [
-    "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png"
-  ]
+images: []
 coverImage: ""
 featured: false
 publishedAt: 2026-02-19

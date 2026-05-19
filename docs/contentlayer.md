@@ -76,7 +76,7 @@ This application uses a local-first media strategy for both posts and projects, 
 
 - Default to local assets under `public/images/...` whenever practical.
 - Remote images are allowed when they come from stable, trusted sources, and should be favored and moved towards long term.
-- The UI must always fail safely when an image is missing, blank, or invalid. 
+- The UI must always fail safely when an image is missing, blank, or invalid.
 - Empty strings are valid in content, but they should default to the fallback instead of rendering a broken asset.
 
 #### Placement Rules
@@ -85,7 +85,6 @@ This application uses a local-first media strategy for both posts and projects, 
 - Project-related local media should live under `public/images/projects/...`.
 - Filenames should indicate their position in the application.
 - When a post or project has multiple related visual elements, they can be grouped into a sub-directory.
-
 
 ### 11. Cleanup
 
@@ -103,8 +102,8 @@ This application uses a local-first media strategy for both posts and projects, 
 | excerpt     | ✓        | Short summary displayed in previews.                                                       |
 | author      | ✓        | Display name for the author.                                                               |
 | tags        | ✓        | Array of string labels (at least one).                                                     |
-| image       |          | Optional hero image URL (remote or `/images`).                                             |
-| coverImage  |          | Optional fallback image path (can be empty).                                               |
+| images      |          | The images and optional coverImage (remote or `/images`).                                  |
+| coverImage  |          | Optional hero image path (can be empty).                                                   |
 | featured    | ✓        | Boolean used to highlight the post.                                                        |
 | publishedAt | ✓        | ISO date (`YYYY-MM-DD`).                                                                   |
 | updatedAt   | ✓        | ISO date (`YYYY-MM-DD`).                                                                   |

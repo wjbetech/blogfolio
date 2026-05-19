@@ -7,11 +7,8 @@ tags:
   - Life
   - Korea
   - Cafes
-image:
-  [
-    "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png"
-  ]
-coverImages: ""
+images: []
+coverImage: ""
 featured: false
 publishedAt: 2026-03-04
 updatedAt: 2026-03-04

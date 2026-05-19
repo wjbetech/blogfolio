@@ -8,7 +8,7 @@ tags:
   - Teaching
   - Korea
   - Life
-image: ""
+images: []
 coverImage: ""
 featured: true
 publishedAt: 2026-01-15

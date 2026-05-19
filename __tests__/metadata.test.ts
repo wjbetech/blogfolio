@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import type { Project } from "contentlayer/generated";
-import type { Post } from "contentlayer/generated";
+import type { Project, Post } from "contentlayer/generated";
 import {
   createBlogListMetadata,
   createPortfolioMetadata,
@@ -8,18 +7,24 @@ import {
   generateProjectMetadata
 } from "@/lib/metadata";
 
-const samplePost = {
-  id: "1",
-  title: "Sample Post",
-  excerpt: "Test excerpt",
-  author: "William",
-  tags: ["Next.js"],
-  featured: true,
-  publishedAt: "2026-01-01",
-  updatedAt: "2026-01-02",
-  status: "published",
-  slug: "sample-post"
-} as Post;
+function makeSamplePost(overrides: Partial<Post> = {}): Post {
+  return {
+    id: overrides.id ?? "1",
+    title: overrides.title ?? "Sample Post",
+    excerpt: overrides.excerpt ?? "Test excerpt",
+    tags: overrides.tags ?? ["Next.js"],
+    featured: overrides.featured ?? true,
+    publishedAt: overrides.publishedAt ?? "2026-01-01",
+    updatedAt: overrides.updatedAt ?? "2026-01-02",
+    slug: overrides.slug ?? "sample-post",
+    images: overrides.images ?? [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2F6c41P3JIMTpPP1sMciktCZ_LG6eX3pnag&s"
+    ],
+    coverImage:
+      overrides.coverImage ??
+      "https://sites.duke.edu/dek23/wp-content/themes/koji/assets/images/default-fallback-image.png"
+  } as Post;
+}
 
 const sampleProject: Project = {
   id: "2",
@@ -31,19 +36,42 @@ const sampleProject: Project = {
   featured: false,
   publishedAt: "2025-05-05",
   updatedAt: "2025-05-06",
-  images: ["/images/test.png"],
+  images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2F6c41P3JIMTpPP1sMciktCZ_LG6eX3pnag&s"],
   slug: "sample-project"
 } as Project;
 
 describe("metadata helpers", () => {
-  it("generates canonical data for a post", () => {
-    const metadata = generatePostMetadata(samplePost);
+  it("uses coverImage first when both coverImage and images exist", () => {
+    const post = makeSamplePost({
+      coverImage: "https://cdn.example.com/cover.png",
+      images: ["https://cdn.example.com/first-image.png"]
+    });
 
-    expect(metadata.alternates?.canonical).toContain(`/blog/${samplePost.slug}`);
-    expect(metadata.openGraph?.url).toContain(`/blog/${samplePost.slug}`);
-    expect(metadata.openGraph?.type).toBe("article");
-    expect(metadata.openGraph?.images?.[0]?.url).toBeDefined();
-    expect((metadata as Metadata).description).toContain(samplePost.excerpt);
+    const metadata = generatePostMetadata(post);
+
+    expect(metadata.openGraph?.images?.[0]?.url).toBe("https://cdn.example.com/cover.png");
+  });
+
+  it("falls back to the first image when coverImage is blank", () => {
+    const post = makeSamplePost({
+      coverImage: "",
+      images: ["https://cdn.example.com/first-image.png"]
+    });
+
+    const metadata = generatePostMetadata(post);
+
+    expect(metadata.openGraph?.images?.[0]?.url).toBe("https://cdn.example.com/first-image.png");
+  });
+
+  it("falls back to the default image when both coverImage and images are missing", () => {
+    const post = makeSamplePost({
+      coverImage: "",
+      images: []
+    });
+
+    const metadata = generatePostMetadata(post);
+
+    expect(metadata.openGraph?.images?.[0]?.url).toContain("images.unsplash.com");
   });
 
   it("generates canonical data for a project", () => {

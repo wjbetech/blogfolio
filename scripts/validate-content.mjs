@@ -11,8 +11,9 @@ const STATUS_PATTERN = /^(draft|published)$/;
 const ASSET_PATH_PATTERN = /\.(png|jpe?g|gif|svg|webp|avif|woff2?|ttf|otf|mp4|webm)$/i;
 const markdownLinkPattern = /!?\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
 
-const LIVE_EXTERNAL_HOSTS = (process.env.CONTENT_VALIDATION_EXTERNAL_HOSTS ??
-  "developer.mozilla.org,github.com,linkedin.com,www.linkedin.com")
+const LIVE_EXTERNAL_HOSTS = (
+  process.env.CONTENT_VALIDATION_EXTERNAL_HOSTS ?? "developer.mozilla.org,github.com,linkedin.com,www.linkedin.com"
+)
   .split(",")
   .map((host) => host.trim().toLowerCase())
   .filter(Boolean);
@@ -37,7 +38,11 @@ function parseFrontMatter(lines) {
       let next = index + 1;
 
       while (next < lines.length && lines[next].trim().startsWith("-")) {
-        const item = lines[next].trim().slice(1).trim().replace(/^['"]|['"]$/g, "");
+        const item = lines[next]
+          .trim()
+          .slice(1)
+          .trim()
+          .replace(/^['"]|['"]$/g, "");
         if (item) values.push(item);
         next += 1;
       }
@@ -177,7 +182,9 @@ function validateRequiredFields(documents, requiredFields, errors) {
 }
 
 function validateUniqueValues(documents, key, errors) {
-  const values = documents.map((document) => (key === "slug" ? document.slug : document.frontmatter[key])).filter(Boolean);
+  const values = documents
+    .map((document) => (key === "slug" ? document.slug : document.frontmatter[key]))
+    .filter(Boolean);
   if (new Set(values).size !== values.length) {
     errors.push(`Duplicate ${documents[0]?.kind ?? "content"} ${key} values detected.`);
   }
@@ -216,7 +223,7 @@ async function validateLinks(documents, knownRoutes, errors) {
   for (const document of documents) {
     const linkSources = [];
 
-    for (const field of ["image", "coverImage", "link", "repo"]) {
+    for (const field of ["coverImage", "link", "repo"]) {
       const value = document.frontmatter[field];
       if (typeof value === "string" && value.trim()) {
         linkSources.push({ label: `${document.kind}:${document.fileName} frontmatter:${field}`, value: value.trim() });

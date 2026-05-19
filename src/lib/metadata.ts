@@ -22,11 +22,11 @@ const buildMetadata = (options: {
   title: string;
   description?: string;
   path: string;
-  image?: string;
+  images?: string[];
   type?: "website" | "article";
 }): Metadata => {
   const canonical = `${SITE_URL}${options.path}`;
-  const imageUrl = toAbsoluteUrl(options.image);
+  const imageUrl = toAbsoluteUrl(options.images?.[0]);
 
   return {
     title: options.title,
@@ -60,7 +60,7 @@ const buildMetadata = (options: {
 };
 
 export const createSiteMetadata = (): Metadata =>
-  buildMetadata({ title: SITE_NAME, description: SITE_DESCRIPTION, path: "/", image: DEFAULT_OG_IMAGE });
+  buildMetadata({ title: SITE_NAME, description: SITE_DESCRIPTION, path: "/", images: [DEFAULT_OG_IMAGE] });
 
 export const createBlogListMetadata = (): Metadata =>
   buildMetadata({
@@ -76,19 +76,25 @@ export const createPortfolioMetadata = (): Metadata =>
     path: "/portfolio"
   });
 
-export const generatePostMetadata = (post: Post): Metadata =>
-  buildMetadata({
+export const generatePostMetadata = (post: Post): Metadata => {
+  const primaryImage = post.coverImage?.trim() || post.images?.[0]?.trim();
+
+  return buildMetadata({
     title: `${post.title} | BlogFolio`,
     description: post.excerpt,
-    image: post.coverImage ?? post.image,
+    images: primaryImage ? [primaryImage] : undefined,
     path: `/blog/${post.slug}`,
     type: "article"
   });
+};
 
-export const generateProjectMetadata = (project: Project): Metadata =>
-  buildMetadata({
+export const generateProjectMetadata = (project: Project): Metadata => {
+  const primaryImage = project.images?.[0]?.trim();
+
+  return buildMetadata({
     title: `${project.title} | BlogFolio Projects`,
     description: project.description,
-    image: project.images?.[0],
+    images: primaryImage ? [primaryImage] : undefined,
     path: `/portfolio/${project.slug}`
   });
+};

@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const heroImage = post.coverImage || post.image || "";
+  const heroImage = post.coverImage?.trim() || post.images?.[0]?.trim() || "";
 
   const contentBlocks = (post.body?.raw ?? "")
     .replace(/\r\n/g, "\n")

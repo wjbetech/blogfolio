@@ -89,7 +89,7 @@ function makePost(overrides: Partial<Post>): Post {
     excerpt: overrides.excerpt ?? "Post excerpt",
     author: overrides.author ?? "William East",
     tags: overrides.tags ?? ["tech"],
-    image: overrides.image ?? "",
+    images: overrides.images ?? [],
     coverImage: overrides.coverImage ?? "",
     publishedAt: overrides.publishedAt ?? "2026-01-04",
     updatedAt: overrides.updatedAt ?? "2026-01-04",

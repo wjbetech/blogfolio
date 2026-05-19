@@ -15,7 +15,7 @@ const Post = defineDocumentType(() => ({
     excerpt: { type: "string", required: false },
     author: { type: "string", required: true },
     tags: { type: "list", of: { type: "string" }, required: true },
-    image: { type: "string", required: false },
+    images: { type: "list", of: { type: "string" }, required: false },
     coverImage: { type: "string", required: false },
     featured: { type: "boolean", required: true },
     publishedAt: { type: "date", required: true },

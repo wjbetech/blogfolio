@@ -7,7 +7,10 @@ tags:
   - Tech
   - Web Dev
   - Programming
-image: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png"
+images:
+  [
+    "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_TypeScript/03-vscode-hints-in-main-ts.png"
+  ]
 coverImage: ""
 featured: false
 publishedAt: 2026-04-22

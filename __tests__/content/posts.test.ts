@@ -5,15 +5,15 @@ import { deriveSlugFromFile, readFrontMatter } from "../../tests/utils/frontmatt
 type PostMeta = {
   file: string;
   slug: string;
-  id?: string;
-  title?: string;
-  excerpt?: string;
-  author?: string;
-  tags?: string[];
-  featured?: boolean;
-  status?: string;
-  publishedAt?: string;
-  updatedAt?: string;
+  id: string | undefined;
+  title: string | undefined;
+  excerpt: string | undefined;
+  author: string | undefined;
+  tags: string[];
+  featured: boolean | undefined;
+  status: string | undefined;
+  publishedAt: string | undefined;
+  updatedAt: string | undefined;
 };
 
 function readPostMeta(): PostMeta[] {
@@ -40,7 +40,7 @@ function readPostMeta(): PostMeta[] {
         updatedAt: data.updatedAt as string | undefined
       };
     })
-    .filter((meta): meta is PostMeta => !!meta?.slug);
+    .filter((meta): meta is PostMeta => meta !== null);
 }
 
 describe("Blog post frontmatter", () => {

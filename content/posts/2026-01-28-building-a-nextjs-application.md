@@ -7,7 +7,7 @@ tags:
   - Keyboards
   - Tech
   - Korea
-image: "https://developer.mozilla.org/en-US/blog/static-site-generation-with-nextjs/featured.png"
+images: ["https://developer.mozilla.org/en-US/blog/static-site-generation-with-nextjs/featured.png"]
 coverImage: ""
 featured: false
 publishedAt: 2026-01-28

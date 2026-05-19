@@ -4,10 +4,10 @@ import type { Post } from "@/app/types/post";
 
 export default function TopBlog({ post }: { post: Post }) {
   return (
-    <article className="relative w-full rounded-lg overflow-hidden shadow-lg">
+    <article className="relative w-full rounded-lg overflow-hidden shadow-lg cursor-pointer">
       <Link href={`/blog/${post.slug}`} className="block">
-        {post.image ? (
-          <Image src={post.image} alt={post.title} width={1200} height={560} className="w-full h-80 object-cover" />
+        {post.images?.[0] ? (
+          <Image src={post.images[0]} alt={post.title} width={1200} height={560} className="w-full h-80 object-cover" />
         ) : (
           <div className="w-full h-80 bg-secondary/5" />
         )}

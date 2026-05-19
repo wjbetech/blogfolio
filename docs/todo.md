@@ -21,13 +21,10 @@ Key:
     - when remote images are acceptable
     - how to choose the primary image versus supporting images
     - how fallback behavior should be described in PR QA notes
-  - [-] Define cleanup follow-ups for existing content:
+  - [x] Define cleanup follow-ups for existing content:
     - [x] audit existing posts still using `image` + `coverImage`
     - [x] review blank post media fields that rely on fallback behavior
-    - [ ] decide which remote post images should stay remote versus move local
-    - [ ] establish the first `public/images/posts/...` structure for migrated content
-    - [ ] confirm current project image ordering should be preserved
-    - [ ] record which entries should wait for the later schema/validator tightening task
+    - [x] establish the plan for a CDN to keep all of the posts/projects images off-site cleanly. (use `imagekit.io`)
   - [ ] Create a follow-up task for schema and validator tightening:
     - migrate post image to images
     - keep coverImage semantics explicit

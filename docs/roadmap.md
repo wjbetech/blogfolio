@@ -37,8 +37,8 @@ Current focus:
 ## 1.1 Media Conventions
 
 - [ ] Define media conventions for posts and projects
-- [ ] Improve project and post image fallback documentation
-- [ ] Document where media should live under `public/`
+- [ ] Keep fallback behavior and media-field semantics documented clearly
+- [ ] Align content docs with the ImageKit-based media strategy
 
 ## 1.2 Content Workflow Maintenance
 
@@ -76,11 +76,14 @@ Current focus:
 - [ ] Set explicit Lighthouse targets for Performance, Accessibility, and Best Practices
 - [ ] Add periodic performance review checks for core routes
 
-## 4.2 Media Reliability
+## 4.2 Image Delivery via ImageKit
 
-- [ ] Define image conventions for `content/posts` and `content/projects`
-- [ ] Ensure missing or invalid image paths always fall back safely
-- [ ] Keep media documentation aligned with actual implementation
+- [ ] Configure ImageKit for long-term hosting of post and project media
+- [ ] Wire Next.js image rendering and metadata usage to ImageKit-hosted assets
+- [ ] Establish a clean ImageKit folder/path convention for posts and projects
+- [ ] Add a migration path from current image fields and existing remote placeholders
+- [ ] Use ImageKit transformations and optimization features where they improve delivery
+- [ ] Ensure fallback behavior, validation, and docs stay in sync with ImageKit usage
 
 # Phase 5: Governance & Maintenance [ ]
 

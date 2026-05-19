@@ -26,7 +26,7 @@ Key:
     - [x] review blank post media fields that rely on fallback behavior
     - [x] establish the plan for a CDN to keep all of the posts/projects images off-site cleanly. (use `imagekit.io`)
   - [-] Create a follow-up task for schema and validator tightening:
-    - [-] migrate post image to images
+    - [x] migrate post image to images
     - [ ] keep coverImage semantics explicit
     - [ ] validate ordered image arrays and fallback expectations
 - [ ] Add robots.txt

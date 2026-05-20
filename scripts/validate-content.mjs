@@ -20,6 +20,25 @@ const LIVE_EXTERNAL_HOSTS = (
 
 const dropDatePrefix = (value) => value.replace(/^\d{4}-\d{2}-\d{2}-/, "");
 
+function parseInlineStringArray(value) {
+  if (!value.startsWith("[") || !value.endsWith("]")) return null;
+
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed) && parsed.every((item) => typeof item === "string")) {
+      return parsed;
+    }
+
+    if (Array.isArray(parsed) && parsed.length === 0) {
+      return [];
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
 function parseFrontMatter(lines) {
   const data = {};
 
@@ -53,6 +72,13 @@ function parseFrontMatter(lines) {
     }
 
     const cleaned = rawValue.replace(/^['"]|['"]$/g, "");
+
+    const inlineArray = parseInlineStringArray(cleaned);
+
+    if (inlineArray !== null) {
+      data[key] = inlineArray;
+      continue;
+    }
 
     if (cleaned === "true" || cleaned === "false") {
       data[key] = cleaned === "true";
@@ -219,6 +245,25 @@ function validateLocalAsset(assetPath, sourceLabel, errors) {
   }
 }
 
+function validateImageArrays(documents, errors) {
+  for (const document of documents) {
+    const images = document.frontmatter.images;
+
+    if (images === undefined) continue;
+
+    if (!Array.isArray(images)) {
+      errors.push(`${document.kind}:${document.fileName} must set \`images\` to an array of strings.`);
+      continue;
+    }
+
+    const invalidEntries = images.filter((image) => typeof image !== "string" || image.trim().length === 0);
+
+    if (invalidEntries.length > 0) {
+      errors.push(`${document.kind}:${document.fileName} has invalid entries in \`images\`.`);
+    }
+  }
+}
+
 async function validateLinks(documents, knownRoutes, errors) {
   for (const document of documents) {
     const linkSources = [];
@@ -301,6 +346,8 @@ async function main() {
   validateUniqueValues(projectDocs, "slug", errors);
   validateDateFields([...postDocs, ...projectDocs], errors);
   validateStatusFields([...postDocs, ...projectDocs], errors);
+  validateImageArrays(postDocs, errors);
+  validateImageArrays(projectDocs, errors);
 
   const knownRoutes = new Set([
     "/",

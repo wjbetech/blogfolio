@@ -15,6 +15,26 @@ export function deriveSlugFromFile(filePath: string, override?: string) {
   return dropDatePrefix(base);
 }
 
+function parseInlineStringArray(value: string): string[] | null {
+  if (!value.startsWith("[") || !value.endsWith("]")) return null;
+
+  try {
+    const parsed = JSON.parse(value);
+
+    if (Array.isArray(parsed) && parsed.every((item) => typeof item === "string")) {
+      return parsed;
+    }
+
+    if (Array.isArray(parsed) && parsed.length === 0) {
+      return [];
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
 export function parseFrontMatter(lines: string[]): FrontMatter {
   const data: FrontMatter = {};
 
@@ -43,6 +63,15 @@ export function parseFrontMatter(lines: string[]): FrontMatter {
     }
 
     const cleaned = rawValue.replace(/^['"]|['"]$/g, "");
+
+    const inlineArray = parseInlineStringArray(cleaned);
+
+    if (inlineArray !== null) {
+      data[key] = inlineArray;
+      continue;
+    }
+
+    // frontmatter is a text file so everything comes as strings
     if (cleaned === "true" || cleaned === "false") {
       data[key] = cleaned === "true";
     } else {

@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "developer.mozilla.org"
+      },
+      {
+        protocol: "https",
+        hostname: "openlab.citytech.cuny.edu"
       }
     ]
   }

@@ -14,6 +14,8 @@ type PostMeta = {
   status: string | undefined;
   publishedAt: string | undefined;
   updatedAt: string | undefined;
+  images: string[] | undefined;
+  coverImage: string | undefined;
 };
 
 function readPostMeta(): PostMeta[] {
@@ -37,7 +39,9 @@ function readPostMeta(): PostMeta[] {
         featured: data.featured as boolean | undefined,
         status: data.status as string | undefined,
         publishedAt: data.publishedAt as string | undefined,
-        updatedAt: data.updatedAt as string | undefined
+        updatedAt: data.updatedAt as string | undefined,
+        images: Array.isArray(data.images) ? data.images : undefined,
+        coverImage: data.coverImage as string | undefined
       };
     })
     .filter((meta): meta is PostMeta => meta !== null);
@@ -83,5 +87,19 @@ describe("Blog post frontmatter", () => {
       .map((post) => post.id)
       .filter(Boolean) as string[];
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("uses ordered image arrays and only allows non-blank image entries", () => {
+    const posts = readPostMeta();
+    posts.forEach((post) => {
+      const images = post.images ?? [];
+
+      expect(Array.isArray(images)).toBe(true);
+      expect(images.every((src) => typeof src === "string" && src.trim().length > 0)).toBe(true);
+
+      if (post.coverImage !== undefined) {
+        expect(typeof post.coverImage).toBe("string");
+      }
+    });
   });
 });

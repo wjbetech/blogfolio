@@ -30,10 +30,10 @@ Key:
     - [x] keep coverImage semantics explicit
     - [x] validate ordered image arrays and fallback expectations
 - [x] Add robots.txt
-- [ ] Add RSS feed generation
-  - [ ] Add an App Router RSS route at `src/app/rss.xml/route.ts`
-  - [ ] Generate valid RSS XML for published blog posts only
-  - [ ] Map each post into feed items with title, link, guid, excerpt, and publish date
+- [-] Add RSS feed generation
+  - [x] Add an App Router RSS route at `src/app/rss.xml/route.ts`
+  - [x] Generate valid RSS XML for published blog posts only
+  - [x] Map each post into feed items with title, link, guid, excerpt, and publish date
   - [ ] Sort feed items by newest-first and sett the feed-level lastBuildDate
   - [ ] Reuse the `SITE_URL` from `src/lib/metadata.ts` for feed and item links
   - [ ] Add feed discovery so `/rss.xml` is easy to find

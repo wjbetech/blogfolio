@@ -38,7 +38,12 @@ Key:
   - [x] Reuse the `SITE_URL` from `src/lib/metadata.ts` for feed and item links
   - [x] Add feed discovery so `/rss.xml` is easy to find
   - [x] Manually verify the output in the browser with an RSS validator or reader
-- [ ] Add structured data for posts and projects
+- [-] Add structured data for posts and projects
+  - [ ] Add a shared JSON-LD helper for safe serialization and absolute URLs
+  - [ ] Render `BlogPosting` JSON-LD on blog post pages from existing post fields
+  - [ ] Render `CollectionPage` + `ItemList` JSON-LD on the portfolio page from published projects
+  - [ ] Add narrow tests for JSON-LD payload shape, image/date fallback, and script-safe escaping
+  - [ ] Manually validate one blog post and the portfolio page with structured-data validators
 
 ## After That
 

@@ -6,6 +6,7 @@ import {
   generatePostMetadata,
   generateProjectMetadata
 } from "@/lib/metadata";
+import { toAbsoluteStructuredDataUrl, toAbsoluteStructuredDataUrls, serializeJsonLd } from "@/lib/metadataHelper";
 
 function makeSamplePost(overrides: Partial<Post> = {}): Post {
   return {
@@ -88,5 +89,38 @@ describe("metadata helpers", () => {
 
     expect(blogMetadata.alternates?.canonical).toContain("/blog");
     expect(portfolioMetadata.alternates?.canonical).toContain("/portfolio");
+  });
+});
+
+describe("structured data helpers", () => {
+  it("converts relative URL to absolute URL", () => {
+    expect(toAbsoluteStructuredDataUrl("/blog/sample-post")).toBe("https://blogfolio.dev/blog/sample-post");
+  });
+
+  it("leaves absolute URLs unchaned", () => {
+    expect(toAbsoluteStructuredDataUrl("https://example.com/image.png")).toBe("https://example.com/image.png");
+  });
+
+  it("returns undefined for blank values", () => {
+    expect(toAbsoluteStructuredDataUrl("")).toBeUndefined();
+    expect(toAbsoluteStructuredDataUrl("   ")).toBeUndefined();
+    expect(toAbsoluteStructuredDataUrl(null)).toBeUndefined();
+    expect(toAbsoluteStructuredDataUrl(undefined)).toBeUndefined();
+  });
+
+  it("filters empty values out of URL arrays", () => {
+    expect(toAbsoluteStructuredDataUrls(["/one.png", " ", undefined, "https://example.com/two.png"])).toEqual([
+      "https://blogfolio.dev/one.png",
+      "https://example.com/two.png"
+    ]);
+  });
+
+  it("escapes less-than characters in serialized JSON-LD", () => {
+    const result = serializeJsonLd({
+      headline: "Test <script>alert('xss')</script>"
+    });
+
+    expect(result).toContain("\\u003cscript>");
+    expect(result).not.toContain("<script>");
   });
 });

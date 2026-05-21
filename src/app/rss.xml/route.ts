@@ -33,8 +33,11 @@ function createItemXml(post: (typeof allPosts)[number]) {
 }
 
 export async function GET() {
-  const publishedPosts = allPosts.filter((post) => post.status.trim() === "published");
+  const publishedPosts = allPosts
+    .filter((post) => post.status.trim() === "published")
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
+  const lastBuildDateSource = publishedPosts[0]?.updatedAt ?? publishedPosts[0]?.publishedAt;
   const itemsXml = publishedPosts.map(createItemXml).join("\n");
 
   const body = `${xmlHeader}
@@ -44,7 +47,7 @@ export async function GET() {
     <link>${SITE_URL}/blog</link>
     <description>Latest posts from Blogfolio</description>
     <language>en-us</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <lastBuildDate>${formatRssDate(lastBuildDateSource)}</lastBuildDate>
     ${itemsXml}
   </channel>
 </rss>`;

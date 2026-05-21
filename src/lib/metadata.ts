@@ -33,7 +33,10 @@ const buildMetadata = (options: {
     description: normalizeDescription(options.description),
     metadataBase,
     alternates: {
-      canonical
+      canonical,
+      types: {
+        "application/rss+xml": `${SITE_URL}/rss.xml`
+      }
     },
     openGraph: {
       title: options.title,

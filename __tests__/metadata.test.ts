@@ -6,7 +6,13 @@ import {
   generatePostMetadata,
   generateProjectMetadata
 } from "@/lib/metadata";
-import { toAbsoluteStructuredDataUrl, toAbsoluteStructuredDataUrls, serializeJsonLd } from "@/lib/metadataHelper";
+import {
+  createBlogPostingJsonLd,
+  createProjectsCollectionJsonLd,
+  toAbsoluteStructuredDataUrl,
+  toAbsoluteStructuredDataUrls,
+  serializeJsonLd
+} from "@/lib/metadataHelper";
 
 function makeSamplePost(overrides: Partial<Post> = {}): Post {
   return {
@@ -93,6 +99,70 @@ describe("metadata helpers", () => {
 });
 
 describe("structured data helpers", () => {
+  it("builds BlogPosting JSON-LD with image and date fallbacks", () => {
+    const jsonLd = createBlogPostingJsonLd(
+      makeSamplePost({
+        coverImage: "",
+        images: ["/images/posts/sample.png"],
+        updatedAt: ""
+      })
+    );
+
+    expect(jsonLd["@type"]).toBe("BlogPosting");
+    expect(jsonLd.image).toEqual(["https://blogfolio.dev/images/posts/sample.png"]);
+    expect(jsonLd.dateModified).toBe("2026-01-01");
+  });
+
+  it("builds CollectionPage JSON-LD for published projects using real current URLs", () => {
+    const jsonLd = createProjectsCollectionJsonLd({
+      pagePath: "/dev",
+      pageTitle: "Dev Portfolio | BlogFolio",
+      pageDescription: "Project listing",
+      projects: [
+        sampleProject,
+        {
+          ...sampleProject,
+          title: "Repo Only Project",
+          link: "",
+          repo: "https://github.com/example/repo-only",
+          images: [],
+          status: "published"
+        } as Project,
+        {
+          ...sampleProject,
+          title: "Draft Project",
+          link: "https://example.com/draft",
+          status: "draft"
+        } as Project
+      ]
+    });
+
+    expect(jsonLd["@type"]).toBe("CollectionPage");
+    expect(jsonLd.url).toBe("https://blogfolio.dev/dev");
+    expect(jsonLd.mainEntity.numberOfItems).toBe(2);
+    expect(jsonLd.mainEntity.itemListElement[0]).toEqual(
+      expect.objectContaining({
+        "@type": "ListItem",
+        position: 1,
+        item: expect.objectContaining({
+          "@type": "CreativeWork",
+          name: "Sample Project",
+          url: "https://example.com"
+        })
+      })
+    );
+    expect(jsonLd.mainEntity.itemListElement[1]).toEqual(
+      expect.objectContaining({
+        position: 2,
+        item: expect.objectContaining({
+          name: "Repo Only Project",
+          url: "https://github.com/example/repo-only",
+          image: undefined
+        })
+      })
+    );
+  });
+
   it("converts relative URL to absolute URL", () => {
     expect(toAbsoluteStructuredDataUrl("/blog/sample-post")).toBe("https://blogfolio.dev/blog/sample-post");
   });

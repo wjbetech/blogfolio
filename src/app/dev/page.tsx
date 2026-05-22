@@ -1,18 +1,29 @@
-import { getChangelogEntries, getChangelogSlice } from "@/lib/changelog/entryParser";
-import TrackedLink from "@/components/Analytics/TrackedLink";
-import ChangelogList from "@/components/Changelog/ChangelogList";
-import Link from "next/link";
-import Image from "next/image";
-import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
-import { allProjects } from "contentlayer/generated";
 import fs from "fs";
 import path from "path";
+import Image from "next/image";
+
+import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
+
+import { getChangelogSlice } from "@/lib/changelog/entryParser";
+import TrackedLink from "@/components/Analytics/TrackedLink";
+import ChangelogList from "@/components/Changelog/ChangelogList";
+import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
+import { allProjects } from "contentlayer/generated";
 
 export default function DevPage() {
   const entries = getChangelogSlice(0, 5);
 
+  const devProjectsJsonLd = createProjectsCollectionJsonLd({
+    pagePath: "/dev",
+    pageTitle: "Dev Portfolio | BlogFolio",
+    pageDescription: "My projects - apps and software I built for friends, coworkers, or myself.",
+    projects: allProjects
+  });
+
   return (
     <div className="max-w-7xl mx-auto ">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(devProjectsJsonLd) }} />
+
       {/* ── Hero header ── */}
       <header className="relative">
         <div className="relative pb-10 z-10 space-y-2">

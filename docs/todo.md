@@ -40,10 +40,10 @@ Key:
   - [x] Manually verify the output in the browser with an RSS validator or reader
 - [-] Add structured data for posts and projects
   - [x] Add a shared JSON-LD helper for safe serialization and absolute URLs
-  - [ ] Render `BlogPosting` JSON-LD on blog post pages from existing post fields
-  - [ ] Render `CollectionPage` + `ItemList` JSON-LD on the portfolio page from published projects
-  - [ ] Add narrow tests for JSON-LD payload shape, image/date fallback, and script-safe escaping
-  - [ ] Manually validate one blog post and the portfolio page with structured-data validators
+  - [x] Render `BlogPosting` JSON-LD on blog post pages from existing post fields
+  - [x] Render `CollectionPage` + `ItemList` JSON-LD on the `/dev` projects page from published projects using only real current URLs
+  - [x] Add narrow tests for JSON-LD payload shape, image/date fallback, and script-safe escaping
+  - [ ] Manually validate one blog post and the `/dev` projects page with structured-data validators
 
 ## After That
 

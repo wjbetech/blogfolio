@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 import { createBlogListMetadata, generatePostMetadata } from "@/lib/metadata";
+import { createBlogPostingJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -44,6 +45,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const blogPostingJsonLd = createBlogPostingJsonLd(post);
+
   const heroImage = post.coverImage?.trim() || post.images?.[0]?.trim() || "";
 
   const contentBlocks = (post.body?.raw ?? "")
@@ -55,6 +58,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <article className="mx-auto w-full max-w-7xl">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingJsonLd) }} />
       <div className="mb-6">
         <Link href="/blog">
           <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">

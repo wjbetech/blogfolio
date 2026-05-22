@@ -8,10 +8,10 @@ Key:
 
 [ ] Task not started [-] Task in progress [x] Task finished
 
-- [ ] Add heading anchors to blog post content
-  - [ ] Render markdown-style heading lines from `post.body.raw` as heading elements instead of plain paragraphs
-  - [ ] Generate stable slug IDs for rendered headings
-  - [ ] Add visible anchor links for headings that work on hover and keyboard focus
+- [-] Add heading anchors to blog post content
+  - [x] Render markdown-style heading lines from `post.body.raw` as heading elements instead of plain paragraphs
+  - [x] Generate stable slug IDs for rendered headings
+  - [x] Add visible anchor links for headings that work on hover and keyboard focus
   - [ ] Add narrow tests for heading parsing, slug generation, and heading-link rendering
   - [ ] Manually verify deep-linking on one blog post with headings
 

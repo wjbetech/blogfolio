@@ -28,9 +28,8 @@ Current focus:
 
 ## 0.2 Fix Stale Content Documentation
 
-- [ ] Update stale Contentlayer/content-operations field names
+- [x] Update stale Contentlayer/content-operations field names
 - [ ] Ensure content docs match the actual schema in `contentlayer.config.ts`
-- [ ] Add a lightweight docs audit cadence
 
 # Phase 1: Content & Publishing Polish [ ]
 

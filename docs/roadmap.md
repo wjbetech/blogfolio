@@ -22,9 +22,9 @@ Current focus:
 
 ## 0.1 Reconcile Planning Docs
 
-- [ ] Reconcile `docs/roadmap.md` and `docs/todo.md`
-- [ ] Remove stale or historical checklist items from planning docs
-- [ ] Keep roadmap high-level and todo execution-focused
+- [x] Reconcile `docs/roadmap.md` and `docs/todo.md`
+- [x] Remove stale or historical checklist items from planning docs
+- [x] Keep roadmap high-level and todo execution-focused
 
 ## 0.2 Fix Stale Content Documentation
 
@@ -74,6 +74,14 @@ Current focus:
 ## 4.1 Performance Baseline
 
 - [ ] Set explicit Lighthouse targets for Performance, Accessibility, and Best Practices
+- [ ] Set Lighthouse targets using local production-mode audits (`npm run build` + `npm run start`)
+- [ ] Measure `/`, `/blog`, one published `/blog/[slug]`, and `/dev`
+- [ ] Use Chrome DevTools Lighthouse in Navigation/Desktop mode and record the median of 3 runs per route
+- [ ] Set minimum targets:
+  - Performance: `>= 90` on `/`, `/blog`, and `/blog/[slug]`; `>= 85` on `/dev`
+  - Accessibility: `>= 95` on all measured routes
+  - Best Practices: `>= 95` on all measured routes
+- [ ] Add periodic performance review checks for the same routes and method
 - [ ] Add periodic performance review checks for core routes
 
 ## 4.2 Image Delivery via ImageKit
@@ -96,3 +104,12 @@ Current focus:
 
 - [ ] Evaluate a Git-backed CMS only if PR-based content editing stops scaling
 - [ ] Avoid introducing write APIs or an admin backend unless clearly needed
+
+## Deferred Tasks
+
+- [ ] Review whether a table of contents is needed for long posts
+  - [ ] Audit the current published posts for heading count and rough content length
+  - [ ] Define a concrete threshold for when a table of contents should appear
+  - [ ] Record whether any current posts meet that threshold
+  - [ ] If the threshold is met, add a follow-up implementation item for a conditional table of contents
+  - [ ] If the threshold is not met, move the table-of-contents work to `Deferred` with the threshold noted

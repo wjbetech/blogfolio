@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# blogfolio
 
-## Getting Started
+Personal blog, developer portfolio, and translation/proofreading resume -- all in one place.
+Built with Next.js, Tailwind CSS, and Contentlayer.
 
-First, run the development server:
+## About
+
+**blogfolio** is a statically-generated personal site for me, William East. It serves three purposes:
+- **Blog** -- writing on software, life, and working in Korea
+- **Dev** -- a portfolio of personal and professional software projects
+- **Language Services** -- translation, localization, and proofreading resume (Korean/English)
+
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router, static export) |
+| Content | Contentlayer + Markdown/MDX |
+| Styling | Tailwind CSS v4 + custom CSS-variable theme system |
+| UI primitives | Radix UI / Base UI |
+| Analytics | Custom (`src/lib/analytics.ts`) |
+| Fonts | Bricolage Grotesque, Inter, Geist Mono (Google Fonts) |
+| Hosting | Self-hosted |
+
+## Building for production
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build      # runs contentlayer:generate then next build
+npm run start      # starts the production server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project docs
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All architecture, workflow, and operational docs live in [`docs/`](./docs/README.md):
 
-This project uses `next/font` to load a local `Bricolage Grotesque` font (place the WOFF2 files in `public/fonts/`).
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Architecture](./docs/architecture.md) -- stack, routes, data flow
+- [Hosting](./docs/hosting.md) -- homelab setup (Proxmox + Docker + Cloudflare Tunnel)
+- [Deployment](./docs/deployment.md) -- GitHub Actions auto-deploy
+- [Media](./docs/media.md) -- image conventions
+- [SEO](./docs/seo.md) -- current state and checklist
+- [Design System](./docs/design-system.md) -- theme, typography, spacing
+- [Content](./docs/content.md) -- how to write and publish posts/projects
+- [Maintenance](./docs/maintenance.md) -- changelog, monthly sweep, docs audit
+- [Roadmap](./docs/roadmap.md) -- current status and planned phases

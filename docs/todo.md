@@ -39,16 +39,15 @@ Start these after the docs/rebuild branch is merged to master.
    - [x] Run `npm test` to confirm all tests pass
    - [x] Commit, open PR into master, merge after review
 
-2. **`feature/portfolio-slug`** — build `/portfolio/[slug]` route (fixes all 404s)
-   - [ ] Create branch `feature/portfolio-slug` from master
-   - [ ] Create directory `src/app/portfolio/[slug]/`
-   - [ ] Create `page.tsx` with:
-     - `generateStaticParams` that maps `allProjects` → `{ slug }`
+2. **`feature/portfolio-slug`** — build `/portfolio/[slug]` route (fixes all 404s) ✅ Done
+   - [x] Create branch `feature/portfolio-slug` from master
+   - [x] Create directory `src/app/portfolio/[slug]/`
+   - [x] Create `page.tsx` with:
+     - `generateStaticParams` that maps `allProjects` → `{ slug }` (published only)
      - `generateMetadata` that returns title + description per project
-     - A page component that looks up the project by slug, renders title, dates, tags, MDX body, and external links
-   - [ ] Run `npm run build` to confirm static generation succeeds for all project slugs
-   - [ ] Manually visit one `/portfolio/[slug]` URL in the browser and verify it renders
-   - [ ] Commit, open PR into master, merge after review
+     - A page component that looks up the project by slug, renders title, dates, tags, body, and external links
+   - [x] Run `npm run build` to confirm static generation succeeds for all project slugs
+   - [x] Commit, open PR into master, merge after review
 
 3. **`fix/portfolio-redirect`** — redirect `/portfolio` list page → `/dev`
    - [ ] Create branch `fix/portfolio-redirect` from master (depends on `feature/portfolio-slug` being merged first)

@@ -41,25 +41,21 @@ Complete rebuild of `docs/` to accurately reflect the current codebase and guide
 
 Targeted fixes for known bugs and missing infrastructure. Each item is its own branch.
 
-### `fix/site-url-env`
+### `fix/site-url-env` ✅
 
 Make `SITE_URL` environment-driven so it resolves to the real domain in production.
 
-> **Note:** This change can be made before `williameast.com` is purchased or live.
-> The site runs perfectly locally either way — the domain only matters once the site
-> is publicly deployed and being crawled by Google.
+- [x] Change `src/lib/metadata.ts` line 6 to: `export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";`
+- [x] Create `.env.example` documenting `NEXT_PUBLIC_SITE_URL`
+- [x] Update tests that assert against the hardcoded `blogfolio.dev` URL
 
-- [ ] Change `src/lib/metadata.ts` line 6 to: `export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";`
-- [ ] Create `.env.example` documenting `NEXT_PUBLIC_SITE_URL`
-- [ ] Update tests that assert against the hardcoded `blogfolio.dev` URL
-
-### `feature/portfolio-slug`
+### `feature/portfolio-slug` ✅
 
 Build the missing `/portfolio/[slug]` route. Currently the sitemap and all project links point to these URLs but they return 404.
 
-- [ ] Create `src/app/portfolio/[slug]/page.tsx` — project detail page
-- [ ] Model it on `blog/[slug]/page.tsx` (metadata, JSON-LD, cover image)
-- [ ] Add `generateStaticParams` to pre-render all published projects
+- [x] Create `src/app/portfolio/[slug]/page.tsx` — project detail page
+- [x] Model it on `blog/[slug]/page.tsx` (metadata, JSON-LD, cover image)
+- [x] Add `generateStaticParams` to pre-render all published projects
 
 ### `fix/portfolio-redirect`
 

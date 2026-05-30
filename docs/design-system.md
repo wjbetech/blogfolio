@@ -133,11 +133,7 @@ Card (w-92 shrink-0 h-110)
 **Planned card redesign goals (Phase C):**
 
 - Full card as a single click target (wrap entire card in `<Link>`)
-- Subtle lift effect on hover (`hover:shadow-md hover:-translate-y-0.5 transition`)
 - Replace bare "View" text with a styled CTA chip using `accent-100` background
-- Show one or two tag pills on blog cards
-- Show project status badge (in progress / shipped) on project cards
-- Keep fixed widths for carousel context but make them responsive-friendly
 
 ### Buttons
 

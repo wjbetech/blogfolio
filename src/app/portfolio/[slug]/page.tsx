@@ -14,12 +14,14 @@ import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 
 export function generateStaticParams() {
-  return allProjects.map((project) => ({ slug: project.slug }));
+  return allProjects
+    .filter((p) => p.status.trim() === "published")
+    .map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = allProjects.find((p) => p.slug === slug);
+  const project = allProjects.find((p) => p.slug === slug && p.status.trim() === "published");
   if (!project) return createPortfolioMetadata();
   return generateProjectMetadata(project);
 }
@@ -38,7 +40,7 @@ type ProjectPageProps = {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = allProjects.find((p) => p.slug === slug);
+  const project = allProjects.find((p) => p.slug === slug && p.status.trim() === "published");
 
   if (!project) notFound();
 
@@ -59,12 +61,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <article className="mx-auto w-full max-w-7xl">
       {/* Back link */}
       <div className="mb-6">
-        <Link href="/dev">
-          <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">
+        <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer" asChild>
+          <Link href="/dev">
             <ArrowLeftIcon className="w-4 h-4" />
             Back to all projects
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       {/* Header */}
@@ -105,14 +107,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* External links */}
         <div className="flex items-center gap-5 pt-2">
-          {(project.repo || project.link) && (
+          {project.repo && (
             <TrackedLink
-              href={project.repo || project.link}
+              href={project.repo}
               target="_blank"
               rel="noopener noreferrer"
               className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150"
               eventName="Project CTA Click"
-              eventProps={{ kind: project.repo ? "github" : "demo", slug: project.slug, surface: "portfolio_slug" }}>
+              eventProps={{ kind: "github", slug: project.slug, surface: "portfolio_slug" }}>
               <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
               View on GitHub
             </TrackedLink>
@@ -151,12 +153,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {/* Footer nav */}
       <footer className="mt-12 flex items-center">
-        <Link href="/dev">
-          <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline cursor-pointer">
+        <Button variant="ghost" className="gap-2 bg-bg-100 text-link hover:text-headline cursor-pointer" asChild>
+          <Link href="/dev">
             <ArrowLeftIcon className="w-4 h-4" />
             Back to all projects
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </footer>
     </article>
   );

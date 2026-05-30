@@ -14,6 +14,8 @@ import {
   serializeJsonLd
 } from "@/lib/metadataHelper";
 
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com").replace(/\/$/, "");
+
 function makeSamplePost(overrides: Partial<Post> = {}): Post {
   return {
     id: overrides.id ?? "1",
@@ -109,7 +111,7 @@ describe("structured data helpers", () => {
     );
 
     expect(jsonLd["@type"]).toBe("BlogPosting");
-    expect(jsonLd.image).toEqual(["https://blogfolio.dev/images/posts/sample.png"]);
+    expect(jsonLd.image).toEqual([`${BASE_URL}/images/posts/sample.png`]);
     expect(jsonLd.dateModified).toBe("2026-01-01");
   });
 
@@ -138,7 +140,7 @@ describe("structured data helpers", () => {
     });
 
     expect(jsonLd["@type"]).toBe("CollectionPage");
-    expect(jsonLd.url).toBe("https://blogfolio.dev/dev");
+    expect(jsonLd.url).toBe(`${BASE_URL}/dev`);
     expect(jsonLd.mainEntity.numberOfItems).toBe(2);
     expect(jsonLd.mainEntity.itemListElement[0]).toEqual(
       expect.objectContaining({
@@ -164,7 +166,7 @@ describe("structured data helpers", () => {
   });
 
   it("converts relative URL to absolute URL", () => {
-    expect(toAbsoluteStructuredDataUrl("/blog/sample-post")).toBe("https://blogfolio.dev/blog/sample-post");
+    expect(toAbsoluteStructuredDataUrl("/blog/sample-post")).toBe(`${BASE_URL}/blog/sample-post`);
   });
 
   it("leaves absolute URLs unchaned", () => {
@@ -180,7 +182,7 @@ describe("structured data helpers", () => {
 
   it("filters empty values out of URL arrays", () => {
     expect(toAbsoluteStructuredDataUrls(["/one.png", " ", undefined, "https://example.com/two.png"])).toEqual([
-      "https://blogfolio.dev/one.png",
+      `${BASE_URL}/one.png`,
       "https://example.com/two.png"
     ]);
   });

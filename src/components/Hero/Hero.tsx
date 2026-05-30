@@ -1,13 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import willImage from "./assets/wjbe.png";
 
 export default function Hero() {
   return (
     <section className="w-full pb-12">
       <div className="max-w-7xl mx-auto align-middle flex flex-col md:flex-row items-center gap-6">
         <div className="shrink-0">
-          <Image width={300} height={300} className="rounded-full" src={willImage} alt="Will" />
+          <Image width={300} height={300} className="rounded-full" src="/images/wjbe.png" alt="Will" />
         </div>
 
         <div className="flex-1 text-right">

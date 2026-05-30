@@ -30,14 +30,14 @@ Key: `[ ]` not started · `[-]` in progress · `[x]` done
 
 Start these after the docs/rebuild branch is merged to master.
 
-1. **`fix/site-url-env`** — make SITE_URL env-driven, add .env.example, update tests
-   - [ ] Create branch `fix/site-url-env` from master
-   - [ ] Open `src/lib/metadata.ts`; change line 6 hardcoded `"https://blogfolio.dev"` to `process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com"`
-   - [ ] Create `.env.example` at repo root with `NEXT_PUBLIC_SITE_URL=https://williameast.com`
-   - [ ] Check `__tests__/` and `__mocks__/` for any reference to the old hardcoded URL and update them
-   - [ ] Run `npm run build` to confirm no type errors
-   - [ ] Run `npm test` to confirm all tests pass
-   - [ ] Commit, open PR into master, merge after review
+1. **`fix/site-url-env`** — make SITE_URL env-driven, add .env.example, update tests ✅ Done
+   - [x] Create branch `fix/site-url-env` from master
+   - [x] Open `src/lib/metadata.ts`; change line 6 hardcoded `"https://blogfolio.dev"` to `process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com"`
+   - [x] Create `.env.example` at repo root with `NEXT_PUBLIC_SITE_URL=https://williameast.com`
+   - [x] Check `__tests__/` and `__mocks__/` for any reference to the old hardcoded URL and update them
+   - [x] Run `npm run build` to confirm no type errors
+   - [x] Run `npm test` to confirm all tests pass
+   - [x] Commit, open PR into master, merge after review
 
 2. **`feature/portfolio-slug`** — build `/portfolio/[slug]` route (fixes all 404s)
    - [ ] Create branch `feature/portfolio-slug` from master

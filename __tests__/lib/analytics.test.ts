@@ -1,5 +1,7 @@
 import { buildAnalyticsPath, trackAnalyticsEvent, trackPageView } from "@/lib/analytics";
 
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com").replace(/\/$/, "");
+
 describe("analytics helpers", () => {
   const originalPlausible = window.plausible;
 
@@ -9,7 +11,7 @@ describe("analytics helpers", () => {
   });
 
   it("builds absolute analytics URLs", () => {
-    expect(buildAnalyticsPath("/blog", "?tag=nextjs")).toBe("https://blogfolio.dev/blog?tag=nextjs");
+    expect(buildAnalyticsPath("/blog", "?tag=nextjs")).toBe(`${BASE_URL}/blog?tag=nextjs`);
   });
 
   it("sends manual page views when plausible is available", () => {
@@ -20,7 +22,7 @@ describe("analytics helpers", () => {
     trackPageView("/dev", "?filter=featured");
 
     expect(plausible).toHaveBeenCalledWith("pageview", {
-      u: "https://blogfolio.dev/dev?filter=featured"
+      u: `${BASE_URL}/dev?filter=featured`
     });
   });
 

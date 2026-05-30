@@ -8,7 +8,7 @@ Key: `[ ]` not started · `[-]` in progress · `[x]` done
 
 ## In progress — Phase A (docs/rebuild branch)
 
-- [-] Docs rebuild — 11 of 14 steps complete
+- [x] Docs rebuild — all 14 steps complete
   - [x] Rewrite README.md
   - [x] Create docs/README.md
   - [x] Create docs/architecture.md
@@ -21,18 +21,8 @@ Key: `[ ]` not started · `[-]` in progress · `[x]` done
   - [x] Create docs/maintenance.md
   - [x] Rewrite docs/roadmap.md
   - [x] Rewrite docs/todo.md (this file)
-  - [ ] Retire stale docs: `docs/styling.md`, `docs/task-guidelines.md`, `docs/changelog-guidance.md`
-    - [ ] Open each file and confirm its content is now covered in the new docs
-    - [ ] Delete `docs/styling.md`
-    - [ ] Delete `docs/task-guidelines.md`
-    - [ ] Delete `docs/changelog-guidance.md`
-    - [ ] Open `docs/README.md` and remove any index entries pointing to the deleted files
-    - [ ] Commit with message `docs: retire stale docs (styling, task-guidelines, changelog-guidance)`
-  - [ ] Move `content/posts_audit.md` out of the content source tree
-    - [ ] Decide destination: `docs/posts_audit.md` (recommended — keeps it with other docs)
-    - [ ] Move the file (git mv so history is preserved)
-    - [ ] Run `npm run build` and confirm Contentlayer no longer errors on the file
-    - [ ] Commit with message `chore: move posts_audit.md out of content source tree`
+  - [x] Retire stale docs (styling.md, task-guidelines.md, changelog-guidance.md, contentlayer.md, content-validation.md, content-operations.md)
+  - [x] Move content/posts_audit.md to docs/posts_audit.md
 
 ---
 

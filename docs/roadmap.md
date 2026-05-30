@@ -31,9 +31,9 @@ Complete rebuild of `docs/` to accurately reflect the current codebase and guide
 - [x] Create `docs/content.md` — frontmatter schema, publishing workflow
 - [x] Create `docs/maintenance.md` — monthly sweep, changelog flow
 - [x] Rewrite `docs/roadmap.md` (this file)
-- [ ] Rewrite `docs/todo.md`
-- [ ] Retire stale docs (`styling.md`, `task-guidelines.md`, `changelog-guidance.md`)
-- [ ] Move `content/posts_audit.md` out of the content source tree
+- [x] Rewrite `docs/todo.md`
+- [x] Retire stale docs (`styling.md`, `task-guidelines.md`, `changelog-guidance.md`)
+- [x] Move `content/posts_audit.md` out of the content source tree
 
 ---
 

@@ -14,7 +14,7 @@ Built with Next.js, Tailwind CSS, and Contentlayer.
 
 | Layer | Choice |
 |---|---|
-| Framework | Next.js 16 (App Router, static export) |
+| Framework | Next.js 16 (App Router, SSG) |
 | Content | Contentlayer + Markdown/MDX |
 | Styling | Tailwind CSS v4 + custom CSS-variable theme system |
 | UI primitives | Radix UI / Base UI |

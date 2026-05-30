@@ -125,17 +125,9 @@ Everything below ships today. No action needed.
 
 ## Gaps to fix
 
-### ⚠️ `SITE_URL` is hardcoded to `blogfolio.dev`
+### ✅ `SITE_URL` — fixed in `fix/site-url-env`
 
-**Problem:** `src/lib/metadata.ts` line 6 hardcodes `https://blogfolio.dev`. This means all canonical URLs, sitemap entries, and JSON-LD objects point to a domain that doesn't exist yet. Google will index the wrong domain.
-
-**Fix (Phase B):** Make it env-driven:
-
-```ts
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";
-```
-
-See `fix/site-url-env` in `roadmap.md`.
+`src/lib/metadata.ts` now reads `NEXT_PUBLIC_SITE_URL` env var with a `williameast.com` fallback. Trailing slashes are stripped to prevent double-slash canonicals. See `.env.example` for the variable name.
 
 ---
 

@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="w-full pb-12">
       <div className="max-w-7xl mx-auto align-middle flex flex-col md:flex-row items-center gap-6">
         <div className="shrink-0">
-          <Image width={300} height={300} className="rounded-full" src="/images/wjbe.png" alt="Will" />
+          <Image width={300} height={300} className="rounded-full" src="/images/assets/avatar.png" alt="Will" />
         </div>
 
         <div className="flex-1 text-right">

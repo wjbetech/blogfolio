@@ -1,114 +1,127 @@
-# Blogfolio Roadmap
+# Roadmap
 
-## Current Status
+Phased implementation plan for blogfolio. Items marked ✅ are complete. See `docs/todo.md` for the active short-term task list.
 
-Blogfolio now has:
+---
 
-- A working Next.js App Router frontend
-- File-based Contentlayer content for posts and projects
-- Typed metadata helpers for core routes and content pages
-- A working sitemap route
-- Core analytics and content validation in CI
-- A custom theme system and a mostly complete accessibility baseline
-- Tests covering major content, metadata, theme, and blog flows
+## Current state
 
-Current focus:
+- Next.js 16 App Router, TypeScript, Contentlayer, Tailwind CSS v4
+- 14-theme system with CSS custom properties — fully working
+- Blog with reading time, prev/next nav, heading anchors, Article JSON-LD
+- `/dev` project overview page with sticky sidebar and changelog
+- sitemap.xml, robots.txt, RSS feed, OG tags, Twitter cards — all ship
+- Content validation CI on every push and PR
+- Jest test suite covering content, metadata, themes, and blog flows
 
-- Simplify and reconcile the project documentation
-- Tighten publishing/docs conventions
-- Finish the next discovery and reading-experience improvements
+---
 
-# Phase 0: Documentation Reset [ ]
+## Phase A — Docs rebuild ✅
 
-## 0.1 Reconcile Planning Docs
+Complete rebuild of `docs/` to accurately reflect the current codebase and guide all future development.
 
-- [x] Reconcile `docs/roadmap.md` and `docs/todo.md`
-- [x] Remove stale or historical checklist items from planning docs
-- [x] Keep roadmap high-level and todo execution-focused
+- [x] Rewrite `README.md`
+- [x] Create `docs/README.md` — docs index
+- [x] Create `docs/architecture.md` — stack, routes, content pipeline
+- [x] Create `docs/hosting.md` — Proxmox + Docker + Cloudflare Tunnel
+- [x] Create `docs/deployment.md` — GitHub Actions CI/CD + self-hosted runner
+- [x] Create `docs/media.md` — image storage, naming, frontmatter conventions
+- [x] Create `docs/seo.md` — current coverage and gaps
+- [x] Create `docs/design-system.md` — tokens, typography, spacing, card spec
+- [x] Create `docs/content.md` — frontmatter schema, publishing workflow
+- [x] Create `docs/maintenance.md` — monthly sweep, changelog flow
+- [x] Rewrite `docs/roadmap.md` (this file)
+- [x] Rewrite `docs/todo.md`
+- [x] Retire stale docs (`styling.md`, `task-guidelines.md`, `changelog-guidance.md`)
+- [x] Move `content/posts_audit.md` out of the content source tree
 
-## 0.2 Fix Stale Content Documentation
+---
 
-- [x] Update stale Contentlayer/content-operations field names
-- [ ] Ensure content docs match the actual schema in `contentlayer.config.ts`
+## Phase B — Code fixes
 
-# Phase 1: Content & Publishing Polish [ ]
+Targeted fixes for known bugs and missing infrastructure. Each item is its own branch.
 
-## 1.1 Media Conventions
+### `fix/site-url-env`
 
-- [ ] Define media conventions for posts and projects
-- [ ] Keep fallback behavior and media-field semantics documented clearly
-- [ ] Align content docs with the ImageKit-based media strategy
+Make `SITE_URL` environment-driven so it resolves to the real domain in production.
 
-## 1.2 Content Workflow Maintenance
+> **Note:** This change can be made before `williameast.com` is purchased or live.
+> The site runs perfectly locally either way — the domain only matters once the site
+> is publicly deployed and being crawled by Google.
 
-- [ ] Keep editorial workflow, QA checklist, and maintenance docs aligned
-- [ ] Review content docs for outdated workflow references
+- [ ] Change `src/lib/metadata.ts` line 6 to: `export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";`
+- [ ] Create `.env.example` documenting `NEXT_PUBLIC_SITE_URL`
+- [ ] Update tests that assert against the hardcoded `blogfolio.dev` URL
 
-# Phase 2: SEO & Discovery [ ]
+### `feature/portfolio-slug`
 
-## 2.1 Discovery Features
+Build the missing `/portfolio/[slug]` route. Currently the sitemap and all project links point to these URLs but they return 404.
 
-- [x] Generate and verify `sitemap.xml`
-- [ ] Add `robots.txt`
-- [ ] Add RSS feed generation for blog posts
-- [ ] Add structured data for posts and projects
+- [ ] Create `src/app/portfolio/[slug]/page.tsx` — project detail page
+- [ ] Model it on `blog/[slug]/page.tsx` (metadata, JSON-LD, cover image)
+- [ ] Add `generateStaticParams` to pre-render all published projects
 
-# Phase 3: Reading Experience [ ]
+### `fix/portfolio-redirect`
 
-## 3.1 Blog Reading Improvements
+`/portfolio` currently duplicates the `/dev` project list. Convert it to a redirect.
 
-- [x] Add reading time estimates for blog posts
-- [x] Add previous/next post navigation on post detail pages
-- [ ] Add heading anchors for blog post content
-- [ ] Add an optional table of contents for long posts if needed
+- [ ] Replace `src/app/portfolio/page.tsx` with a `redirect("/dev")`
+- [ ] Verify sitemap no longer lists `/portfolio` as a standalone page
 
-## 3.2 Accessibility Final Pass
+### `fix/image-fallback`
 
-- [ ] Close remaining keyboard/focus/ARIA TODOs in navigation/theme UI
-- [ ] Define final accessibility acceptance checks
-- [ ] Add an accessibility regression checklist for UI changes
+Replace the external third-party fallback image with a local one.
 
-# Phase 4: Performance & Reliability [ ]
+- [ ] Create `public/images/og-default.png` (1200×630, branded)
+- [ ] Replace the Unsplash URL in `src/lib/metadata.ts` `DEFAULT_OG_IMAGE`
+- [ ] Replace the CUNY OpenLab URL in `BlogPostCard.tsx`
+- [ ] Remove `openlab.citytech.cuny.edu` from `next.config.ts` remotePatterns
 
-## 4.1 Performance Baseline
+### `feature/deployment-infrastructure`
 
-- [ ] Set explicit Lighthouse targets for Performance, Accessibility, and Best Practices
-- [ ] Set Lighthouse targets using local production-mode audits (`npm run build` + `npm run start`)
-- [ ] Measure `/`, `/blog`, one published `/blog/[slug]`, and `/dev`
-- [ ] Use Chrome DevTools Lighthouse in Navigation/Desktop mode and record the median of 3 runs per route
-- [ ] Set minimum targets:
-  - Performance: `>= 90` on `/`, `/blog`, and `/blog/[slug]`; `>= 85` on `/dev`
-  - Accessibility: `>= 95` on all measured routes
-  - Best Practices: `>= 95` on all measured routes
-- [ ] Add periodic performance review checks for the same routes and method
-- [ ] Add periodic performance review checks for core routes
+Add Docker + GitHub Actions deployment pipeline for the homelab.
 
-## 4.2 Image Delivery via ImageKit
+- [ ] Write `Dockerfile` (multi-stage Next.js standalone build)
+- [ ] Write `docker-compose.yml` (`app` + `cloudflared` services)
+- [ ] Write `.github/workflows/build-and-push.yml`
+- [ ] Write `.github/workflows/deploy.yml` (self-hosted runner)
+- [ ] Write `.github/workflows/monthly-maintenance.yml`
+- [ ] Add `output: "standalone"` to `next.config.ts`
 
-- [ ] Configure ImageKit for long-term hosting of post and project media
-- [ ] Wire Next.js image rendering and metadata usage to ImageKit-hosted assets
-- [ ] Establish a clean ImageKit folder/path convention for posts and projects
-- [ ] Add a migration path from current image fields and existing remote placeholders
-- [ ] Use ImageKit transformations and optimization features where they improve delivery
-- [ ] Ensure fallback behavior, validation, and docs stay in sync with ImageKit usage
+---
 
-# Phase 5: Governance & Maintenance [ ]
+## Phase C — UI polish
 
-## 5.1 Documentation Governance
+Visual improvements. Each item is its own branch. No changes to the colour theme system or token names.
 
-- [ ] Keep architecture and workflow decisions in sync across docs
-- [ ] Add a quarterly docs audit to remove stale references
+### `feature/homepage-cards`
 
-## 5.2 Optional Future Track
+Redesign `BlogPostCard` and `ProjectPostCard` to feel more interactive and inviting.
 
-- [ ] Evaluate a Git-backed CMS only if PR-based content editing stops scaling
-- [ ] Avoid introducing write APIs or an admin backend unless clearly needed
+Goals (see `docs/design-system.md` for full spec):
 
-## Deferred Tasks
+- [ ] Full card as a single click target (wrap entire card in `<Link>`)
+- [ ] Styled CTA chip replacing bare "View" text
 
-- [ ] Review whether a table of contents is needed for long posts
-  - [ ] Audit the current published posts for heading count and rough content length
-  - [ ] Define a concrete threshold for when a table of contents should appear
-  - [ ] Record whether any current posts meet that threshold
-  - [ ] If the threshold is met, add a follow-up implementation item for a conditional table of contents
-  - [ ] If the threshold is not met, move the table-of-contents work to `Deferred` with the threshold noted
+### `style/typography-pass`
+
+Standardise heading sizes and font assignments across all pages.
+
+- [ ] Audit all pages against the scale defined in `docs/design-system.md`
+- [ ] Apply consistent `font-serif` (Bricolage) to all h1/h2 display headings
+- [ ] Standardise `text-sm` / `text-base` / `text-lg` usage for body and meta text
+
+### `feature/person-jsonld`
+
+Add `Person` + `WebSite` JSON-LD to the home page for better Google attribution.
+
+- [ ] Add schema to `src/app/page.tsx` with name, URL, GitHub, LinkedIn
+
+---
+
+## Deferred / under consideration
+
+- **Table of contents** for long blog posts — revisit when posts regularly exceed 2000 words with 4+ headings
+- **Contact form submission handler** — `/contact` currently has a UI but no backend. Options: Resend, Formspree, or a simple email-forward serverless function
+- **Search** — full-text search across posts. Only worth adding once there are 20+ published posts. Options: Pagefind (static), Fuse.js (client-side)
+- **Git-backed CMS** — only if writing posts as raw Markdown files becomes a pain point

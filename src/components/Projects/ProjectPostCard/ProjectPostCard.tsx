@@ -8,7 +8,7 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imgError, setImgError] = useState(false);
-  const declared = project.images && project.images.length > 0 ? project.images[0] : "";
+  const declared = (project.images && project.images.length > 0 ? project.images[0] : "").trim();
   const showImage = !!declared && !imgError;
   const imageSrc = showImage ? declared : "/images/assets/placeholder.png";
 

@@ -12,9 +12,9 @@ const metadataBase = new URL(SITE_URL);
 const normalizeDescription = (value?: string) => value ?? SITE_DESCRIPTION;
 
 export const toAbsoluteUrl = (value?: string) => {
-  if (!value) return DEFAULT_OG_IMAGE;
-  if (value.startsWith("http://") || value.startsWith("https://")) return value;
-  const normalized = value.startsWith("/") ? value : `/${value}`;
+  const target = value || DEFAULT_OG_IMAGE;
+  if (target.startsWith("http://") || target.startsWith("https://")) return target;
+  const normalized = target.startsWith("/") ? target : `/${target}`;
   return `${SITE_URL}${normalized}`;
 };
 

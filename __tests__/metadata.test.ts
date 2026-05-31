@@ -80,7 +80,7 @@ describe("metadata helpers", () => {
 
     const metadata = generatePostMetadata(post);
 
-    expect(metadata.openGraph?.images?.[0]?.url).toContain("placeholder.png");
+    expect(metadata.openGraph?.images?.[0]?.url).toBe(`${BASE_URL}/images/assets/placeholder.png`);
   });
 
   it("generates canonical data for a project", () => {

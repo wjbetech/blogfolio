@@ -11,11 +11,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
   return (
     <Card className="w-92 shrink-0 h-110">
       <div className="h-48 rounded-md overflow-hidden">
-        {primaryImage ? (
-          <Image src={primaryImage} alt={post.title} width={320} height={192} className="w-full h-full object-cover" />
-        ) : (
-          ""
-        )}
+        <Image src={primaryImage} alt={post.title} width={320} height={192} className="w-full h-full object-cover" />
       </div>
 
       <div className="mt-4 flex-1">

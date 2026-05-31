@@ -57,12 +57,12 @@ Build the missing `/portfolio/[slug]` route. Currently the sitemap and all proje
 - [x] Model it on `blog/[slug]/page.tsx` (metadata, JSON-LD, cover image)
 - [x] Add `generateStaticParams` to pre-render all published projects
 
-### `fix/portfolio-redirect`
+### `fix/portfolio-redirect` ✅
 
 `/portfolio` currently duplicates the `/dev` project list. Convert it to a redirect.
 
-- [ ] Replace `src/app/portfolio/page.tsx` with a `redirect("/dev")`
-- [ ] Verify sitemap no longer lists `/portfolio` as a standalone page
+- [x] Replace `src/app/portfolio/page.tsx` with a `redirect("/dev")`
+- [x] Verify sitemap no longer lists `/portfolio` as a standalone page
 
 ### `fix/image-fallback`
 

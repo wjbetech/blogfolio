@@ -49,13 +49,12 @@ Start these after the docs/rebuild branch is merged to master.
    - [x] Run `npm run build` to confirm static generation succeeds for all project slugs
    - [x] Commit, open PR into master, merge after review
 
-3. **`fix/portfolio-redirect`** — redirect `/portfolio` list page → `/dev`
-   - [ ] Create branch `fix/portfolio-redirect` from master (depends on `feature/portfolio-slug` being merged first)
-   - [ ] Open `src/app/portfolio/page.tsx`
-   - [ ] Replace the page body with `import { redirect } from "next/navigation"; export default function PortfolioPage() { redirect("/dev"); }`
-   - [ ] Run `npm run build` to confirm no errors
-   - [ ] Manually visit `/portfolio` in the browser and confirm it redirects to `/dev`
-   - [ ] Commit, open PR into master, merge after review
+3. **`fix/portfolio-redirect`** — redirect `/portfolio` list page → `/dev` ✅ Done
+   - [x] Create branch `fix/portfolio-redirect` from master (depends on `feature/portfolio-slug` being merged first)
+   - [x] Open `src/app/portfolio/page.tsx`
+   - [x] Replace the page body with `import { redirect } from "next/navigation"; export default function PortfolioPage() { redirect("/dev"); }`
+   - [x] Run `npm run build` to confirm no errors
+   - [x] Commit, open PR into master, merge after review
 
 4. **`fix/image-fallback`** — replace external fallback URLs with a local image
    - [ ] Create branch `fix/image-fallback` from master

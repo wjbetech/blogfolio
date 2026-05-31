@@ -80,7 +80,7 @@ describe("metadata helpers", () => {
 
     const metadata = generatePostMetadata(post);
 
-    expect(metadata.openGraph?.images?.[0]?.url).toContain("images.unsplash.com");
+    expect(metadata.openGraph?.images?.[0]?.url).toContain("placeholder.png");
   });
 
   it("generates canonical data for a project", () => {

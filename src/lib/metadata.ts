@@ -6,8 +6,7 @@ const SITE_DESCRIPTION = "The combined blog // portfolio of William East";
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";
 export const SITE_URL = rawSiteUrl.replace(/\/$/, "");
 const DEFAULT_TWITTER_HANDLE = "@wjbetech";
-const DEFAULT_OG_IMAGE =
-  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80";
+const DEFAULT_OG_IMAGE = "/images/assets/placeholder.png";
 const metadataBase = new URL(SITE_URL);
 
 const normalizeDescription = (value?: string) => value ?? SITE_DESCRIPTION;

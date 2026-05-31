@@ -56,14 +56,15 @@ Start these after the docs/rebuild branch is merged to master.
    - [x] Run `npm run build` to confirm no errors
    - [x] Commit, open PR into master, merge after review
 
-4. **`fix/image-fallback`** — replace external fallback URLs with a local image
-   - [ ] Create branch `fix/image-fallback` from master
-   - [ ] Create (or confirm presence of) `public/images/og-default.png` — a simple 1200×630 branded fallback
-   - [ ] Open `src/lib/metadata.ts`; change `DEFAULT_OG_IMAGE` to `"/images/og-default.png"`
-   - [ ] Open `src/components/HomePageBlogs/BlogPostCard/BlogPostCard.tsx`; replace the CUNY fallback URL with `"/images/og-default.png"`
-   - [ ] Visually test that blog cards missing a cover image show the local fallback
-   - [ ] Run `npm run build` and `npm test` to confirm no regressions
-   - [ ] Commit, open PR into master, merge after review
+4. **`fix/image-fallback`** — replace external fallback URLs with a local image ✅ Done
+   - [x] Create branch `fix/image-fallback` from master
+   - [x] Create `public/images/assets/placeholder.png` — local fallback image
+   - [x] Open `src/lib/metadata.ts`; change `DEFAULT_OG_IMAGE` to local path, fix `toAbsoluteUrl()` to always return absolute URL
+   - [x] Open `src/components/HomePageBlogs/BlogPostCard/BlogPostCard.tsx`; use local placeholder, remove dead conditional
+   - [x] Update `src/components/Projects/ProjectPostCard/ProjectPostCard.tsx` and `src/app/dev/page.tsx` to use local placeholder
+   - [x] Update `__tests__/metadata.test.ts` to assert full absolute URL
+   - [x] Run `npm run build` and `npm test` — all 53 tests pass
+   - [x] Commit, open PR #38 into master, merge after review
 
 5. **`feature/deployment-infrastructure`** — Dockerfile, docker-compose, GitHub Actions workflows
    - [ ] Create branch `feature/deployment-infrastructure` from master

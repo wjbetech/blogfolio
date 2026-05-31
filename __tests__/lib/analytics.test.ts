@@ -43,4 +43,22 @@ describe("analytics helpers", () => {
       }
     });
   });
+
+  it("sends Project Card Click events when plausible is available", () => {
+    const plausible = jest.fn();
+
+    window.plausible = plausible;
+
+    trackAnalyticsEvent("Project Card Click", {
+      slug: "portfolio-website",
+      surface: "project_card"
+    });
+
+    expect(plausible).toHaveBeenCalledWith("Project Card Click", {
+      props: {
+        slug: "portfolio-website",
+        surface: "project_card"
+      }
+    });
+  });
 });

@@ -8,8 +8,7 @@ tech:
   - MongoDB
 link: "https://myecommerce.com"
 repo: ""
-images:
-  - "/images/projects/ecommerce-1.png"
+images: []
 featured: false
 publishedAt: 2025-09-15
 updatedAt: 2025-10-01

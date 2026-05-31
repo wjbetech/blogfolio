@@ -1,29 +1,48 @@
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "../../ui/card";
 import type { Post } from "@/app/types/post";
 import { getPostSnippet } from "@/lib/post";
 
+const FALLBACK = "/images/assets/placeholder.png";
+
 export default function BlogPostCard({ post }: { post: Post }) {
+  const [imgError, setImgError] = useState(false);
   const snippet = getPostSnippet(post, 120);
-  const primaryImage = post.coverImage?.trim() || post.images?.[0]?.trim() || "/images/assets/placeholder.png";
+  const declared = post.coverImage?.trim() || post.images?.[0]?.trim() || "";
+  const imageSrc = declared && !imgError ? declared : FALLBACK;
 
   return (
-    <Card className="w-92 shrink-0 h-110">
-      <div className="h-48 rounded-md overflow-hidden">
-        <Image src={primaryImage} alt={post.title} width={320} height={192} className="w-full h-full object-cover" />
-      </div>
+    <Link href={`/blog/${post.slug}`} className="block w-80 shrink-0">
+      <Card className="h-110">
+        <div className="h-48 rounded-md overflow-hidden">
+          <Image
+            src={imageSrc}
+            alt={post.title}
+            width={320}
+            height={192}
+            className="w-full h-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        </div>
 
-      <div className="mt-4 flex-1">
-        <h3 className="text-xl text-headline font-semibold line-clamp-2">{post.title}</h3>
-        {snippet ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{snippet}</p> : null}
-      </div>
+        <div className="mt-4 flex-1">
+          <h3 className="text-xl text-headline font-semibold line-clamp-2">{post.title}</h3>
+          {snippet ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{snippet}</p> : null}
+        </div>
 
-      <div className="mt-4">
-        <Link href={`/blog/${post.slug}`} className="text-link font-semibold hover:underline">
-          View
-        </Link>
-      </div>
-    </Card>
+        <div className="mt-4">
+          <span className="inline-flex items-center gap-1 text-link font-semibold">
+            View
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </div>
+      </Card>
+    </Link>
   );
 }

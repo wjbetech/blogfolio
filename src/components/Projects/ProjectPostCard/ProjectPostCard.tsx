@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import type { Project } from "@/app/types/project";
@@ -13,43 +14,41 @@ export default function ProjectCard({ project }: { project: Project }) {
   const imageSrc = showImage ? declared : "/images/assets/placeholder.png";
 
   return (
-    <Card className="w-92 shrink-0 mr-4 h-110">
-      <div className="h-40 rounded-md overflow-hidden bg-accent-100">
-        <Image
-          src={imageSrc}
-          alt={project.title}
-          width={280}
-          height={160}
-          className="w-full h-full object-cover"
-          onError={() => setImgError(true)}
-        />
-      </div>
+    <Link
+      href={`/portfolio/${project.slug}`}
+      className="block w-80 shrink-0"
+      onClick={() =>
+        trackAnalyticsEvent("Project Card Click", {
+          slug: project.slug,
+          surface: "project_card"
+        })
+      }>
+      <Card className="h-110">
+        <div className="h-40 rounded-md overflow-hidden bg-accent-100">
+          <Image
+            src={imageSrc}
+            alt={project.title}
+            width={280}
+            height={160}
+            className="w-full h-full object-cover"
+            onError={() => setImgError(true)}
+          />
+        </div>
 
-      <div className="mt-4 flex-1">
-        <h3 className="relative pb-1 text-lg font-semibold text-headline line-clamp-2 transition-colors duration-200 hover:text-accent-200 after:absolute after:bottom-px after:left-0 after:right-0 after:h-1 after:bg-accent-100/60 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 after:-z-10 hover:after:scale-x-100">
-          {project.title}
-        </h3>
-        {project.description ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p> : null}
-      </div>
+        <div className="mt-4 flex-1">
+          <h3 className="text-lg font-semibold text-headline line-clamp-2">{project.title}</h3>
+          {project.description ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p> : null}
+        </div>
 
-      <div className="mt-4">
-        {project.link ? (
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              trackAnalyticsEvent("Project CTA Click", {
-                kind: "demo",
-                slug: project.slug,
-                surface: "project_card"
-              })
-            }
-            className="text-md font-bold text-link hover:underline transition-none">
+        <div className="mt-4">
+          <span className="inline-flex items-center gap-1 text-md font-bold text-link">
             View
-          </a>
-        ) : null}
-      </div>
-    </Card>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </div>
+      </Card>
+    </Link>
   );
 }

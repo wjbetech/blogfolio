@@ -15,7 +15,7 @@ export type CarouselHandle = {
 };
 
 const Carousel = React.forwardRef<CarouselHandle, CarouselProps>(
-  ({ children, gap = 30, step = 400, hideControls = false }, ref: React.Ref<CarouselHandle>) => {
+  ({ children, gap = 56, step = 400, hideControls = false }, ref: React.Ref<CarouselHandle>) => {
     const scroller = useRef<HTMLDivElement>(null);
 
     const scrollBy = useCallback(

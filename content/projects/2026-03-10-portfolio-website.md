@@ -8,8 +8,7 @@ tech:
   - Tailwind CSS
 link: "https://myportfolio.com"
 repo: ""
-images:
-  - "/images/projects/portfolio-1.png"
+images: []
 featured: true
 publishedAt: 2024-12-01
 updatedAt: 2025-01-10

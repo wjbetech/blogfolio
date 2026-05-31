@@ -1,26 +1,26 @@
 # blogfolio
 
-Personal blog, developer portfolio, and translation/proofreading resume -- all in one place.
-Built with Next.js, Tailwind CSS, and Contentlayer.
+Personal blog, developer portfolio, and translation/proofreading resume -- all in one place. Built with Next.js, Tailwind CSS, and Contentlayer.
 
 ## About
 
 **blogfolio** is a statically-generated personal site for me, William East. It serves three purposes:
+
 - **Blog** -- writing on software, life, and working in Korea
 - **Dev** -- a portfolio of personal and professional software projects
 - **Language Services** -- translation, localization, and proofreading resume (Korean/English)
 
 ## Tech stack
 
-| Layer | Choice |
-|---|---|
-| Framework | Next.js 16 (App Router, SSG) |
-| Content | Contentlayer + Markdown/MDX |
-| Styling | Tailwind CSS v4 + custom CSS-variable theme system |
-| UI primitives | Radix UI / Base UI |
-| Analytics | Custom (`src/lib/analytics.ts`) |
-| Fonts | Bricolage Grotesque, Inter, Geist Mono (Google Fonts) |
-| Hosting | Self-hosted |
+| Layer         | Choice                                                |
+| ------------- | ----------------------------------------------------- |
+| Framework     | Next.js 16 (App Router, SSG)                          |
+| Content       | Contentlayer + Markdown/MDX                           |
+| Styling       | Tailwind CSS v4 + custom CSS-variable theme system    |
+| UI primitives | Radix UI / Base UI                                    |
+| Analytics     | Custom (`src/lib/analytics.ts`)                       |
+| Fonts         | Bricolage Grotesque, Inter, Geist Mono (Google Fonts) |
+| Hosting       | Self-hosted                                           |
 
 ## Building for production
 

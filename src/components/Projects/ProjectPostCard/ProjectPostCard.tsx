@@ -8,24 +8,21 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imgError, setImgError] = useState(false);
-  const declared = project.images && project.images.length > 0 ? project.images[0] : "";
+  const declared = (project.images && project.images.length > 0 ? project.images[0] : "").trim();
   const showImage = !!declared && !imgError;
+  const imageSrc = showImage ? declared : "/images/assets/placeholder.png";
 
   return (
     <Card className="w-92 shrink-0 mr-4 h-110">
       <div className="h-40 rounded-md overflow-hidden bg-accent-100">
-        {showImage ? (
-          <Image
-            src={declared}
-            alt={project.title}
-            width={280}
-            height={160}
-            className="w-full h-full object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="w-full h-full bg-linear-to-br from-accent-200 to-accent-300" />
-        )}
+        <Image
+          src={imageSrc}
+          alt={project.title}
+          width={280}
+          height={160}
+          className="w-full h-full object-cover"
+          onError={() => setImgError(true)}
+        />
       </div>
 
       <div className="mt-4 flex-1">

@@ -81,21 +81,15 @@ export default function DevPage() {
                     className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-shadow duration-300 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
                     {/* ── Visual side ── */}
                     <div className="relative w-full md:w-[42%] shrink-0 overflow-hidden">
-                      {hasImage ? (
-                        <div className="relative w-full h-80 md:h-full min-h-80">
-                          <Image
-                            src={project.images![0]}
-                            alt={project.title}
-                            fill
-                            className="object-cover transition-transform duration-700 ease-out group-hover/project:scale-[1.06]"
-                          />
-                          <div className="absolute inset-0 bg-bg-200/10 mix-blend-multiply" />
-                        </div>
-                      ) : (
-                        <div className="relative w-full h-80 md:h-full min-h-80">
-                          <div className="w-full h-full bg-linear-to-br from-accent-100 to-accent-200" />
-                        </div>
-                      )}
+                      <div className="relative w-full h-80 md:h-full min-h-80">
+                        <Image
+                          src={hasImage ? project.images![0] : "/images/assets/placeholder.png"}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-out group-hover/project:scale-[1.06]"
+                        />
+                        <div className="absolute inset-0 bg-bg-200/10 mix-blend-multiply" />
+                      </div>
                     </div>
 
                     {/* ── Content side ── */}

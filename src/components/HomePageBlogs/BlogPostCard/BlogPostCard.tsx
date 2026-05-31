@@ -6,19 +6,12 @@ import { getPostSnippet } from "@/lib/post";
 
 export default function BlogPostCard({ post }: { post: Post }) {
   const snippet = getPostSnippet(post, 120);
-  const primaryImage =
-    post.coverImage?.trim() ||
-    post.images?.[0]?.trim() ||
-    "https://openlab.citytech.cuny.edu/chenry-eportfolio/wp-content/themes/koji/assets/images/default-fallback-image.png";
-  
+  const primaryImage = post.coverImage?.trim() || post.images?.[0]?.trim() || "/images/assets/placeholder.png";
+
   return (
     <Card className="w-92 shrink-0 h-110">
       <div className="h-48 rounded-md overflow-hidden">
-        {primaryImage ? (
-          <Image src={primaryImage} alt={post.title} width={320} height={192} className="w-full h-full object-cover" />
-        ) : (
-          ""
-        )}
+        <Image src={primaryImage} alt={post.title} width={320} height={192} className="w-full h-full object-cover" />
       </div>
 
       <div className="mt-4 flex-1">

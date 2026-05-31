@@ -1,0 +1,28 @@
+name: Monthly Maintenance Reminder
+
+on:
+  schedule:
+    # First Monday of every month at 09:00 UTC
+    - cron: "0 9 1-7 * 1"
+  workflow_dispatch:
+
+jobs:
+  create-issue:
+    name: Open maintenance checklist issue
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Create issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().split('T')[0];
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              title: `🔧 Monthly Maintenance — ${date}`,
+              labels: ['maintenance'],
+              body: `## Monthly maintenance checklist\n\nSee [docs/maintenance.md](https://github.com/${{ github.repository }}/blob/master/docs/maintenance.md) for full guidance.\n\n### Checklist\n- [ ] Update npm dependencies (\`npm outdated\`, \`npm update\`)\n- [ ] Review Contentlayer content for broken links or stale posts\n- [ ] Check Docker image for base image updates\n- [ ] Review GitHub Actions for deprecated action versions\n- [ ] Audit SEO — check Search Console for crawl errors\n- [ ] Confirm Cloudflare Tunnel is healthy\n- [ ] Review and rotate any secrets/tokens if needed\n- [ ] Check disk/memory usage on homelab\n\nClose this issue when all items are done.`
+            });

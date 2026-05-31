@@ -1,0 +1,14 @@
+.git
+.github
+.next
+node_modules
+README.md
+docs/
+changelog/
+__tests__/
+tests/
+.env*
+!.env.example
+Dockerfile
+docker-compose.yml
+.dockerignore

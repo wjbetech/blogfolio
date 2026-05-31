@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ghcr.io/wjbetech/blogfolio:latest
+    container_name: blogfolio
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      # Override at runtime if needed; baked into image at build time by default.
+      - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://williameast.com}
+    ports:
+      # Expose only to localhost — cloudflared is the public entry point.
+      - "127.0.0.1:3000:3000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: blogfolio-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    environment:
+      # Generate a tunnel token at:
+      # https://one.dash.cloudflare.com > Zero Trust > Networks > Tunnels
+      # Then set CLOUDFLARE_TUNNEL_TOKEN in your .env.local or shell environment.
+      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      app:
+        condition: service_healthy

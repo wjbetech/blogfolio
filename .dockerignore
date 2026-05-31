@@ -1,0 +1,13 @@
+.git
+.github
+.next
+node_modules
+*.md
+docs/
+__tests__/
+tests/
+.env*
+!.env.example
+Dockerfile
+docker-compose.yml
+.dockerignore

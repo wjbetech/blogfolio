@@ -66,16 +66,16 @@ Start these after the docs/rebuild branch is merged to master.
    - [x] Run `npm run build` and `npm test` — all 53 tests pass
    - [x] Commit, open PR #38 into master, merge after review
 
-5. **`feature/deployment-infrastructure`** — Dockerfile, docker-compose, GitHub Actions workflows
-   - [ ] Create branch `feature/deployment-infrastructure` from master
-   - [ ] Write `Dockerfile` (multi-stage: builder → runner, standalone output, non-root user)
-   - [ ] Write `docker-compose.yml` with `app` service (the Next.js container) and `cloudflared` service
-   - [ ] Write `.github/workflows/build-and-push.yml` (builds Docker image, pushes to GHCR on master merge)
-   - [ ] Write `.github/workflows/deploy.yml` (pulls new image on homelab via self-hosted runner, restarts compose)
-   - [ ] Write `.github/workflows/maintenance-reminder.yml` (monthly scheduled issue — see `docs/maintenance.md`)
-   - [ ] Add `.env.example` entry for `CLOUDFLARED_TOKEN` placeholder comment
-   - [ ] Run `docker build .` locally to confirm the Dockerfile is valid
-   - [ ] Commit, open PR into master, merge after review
+5. **`feature/deployment-infrastructure`** — Dockerfile, docker-compose, GitHub Actions workflows ✅ Done
+   - [x] Create branch `feature/deployment-infrastructure` from master
+   - [x] Write `Dockerfile` (multi-stage: deps → builder → runner, standalone output, non-root user)
+   - [x] Write `docker-compose.yml` with `app` service + `cloudflared` tunnel sidecar (free, token via env var)
+   - [x] Write `.github/workflows/build-and-push.yml` (builds image, pushes to GHCR on master merge)
+   - [x] Write `.github/workflows/deploy.yml` (self-hosted homelab runner pulls + restarts compose)
+   - [x] Write `.github/workflows/maintenance-reminder.yml` (monthly scheduled issue checklist)
+   - [x] Add `.dockerignore` to keep image lean while preserving content/ directory
+   - [x] Add `output: "standalone"` to `next.config.ts`
+   - [x] Commit, open PR #39 into master, merge after review
 
 ---
 

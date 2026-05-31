@@ -2,8 +2,9 @@
 .github
 .next
 node_modules
-*.md
+README.md
 docs/
+changelog/
 __tests__/
 tests/
 .env*

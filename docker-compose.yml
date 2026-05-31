@@ -21,12 +21,12 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: blogfolio-tunnel
     restart: unless-stopped
-    command: tunnel --no-autoupdate run
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
     environment:
       # Generate a tunnel token at:
       # https://one.dash.cloudflare.com > Zero Trust > Networks > Tunnels
       # Then set CLOUDFLARE_TUNNEL_TOKEN in your .env.local or shell environment.
-      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     depends_on:
       app:
         condition: service_healthy

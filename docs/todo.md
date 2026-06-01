@@ -87,11 +87,4 @@ Start these after the docs/rebuild branch is merged to master.
 
 - `feature/person-jsonld` — Person + WebSite schema on home page ✅ Done (PR #43)
 
-- `feature/contact-form-resend` — wire /contact form to Resend backend
-  - [ ] Create branch `feature/contact-form-resend` from master
-  - [ ] Install `resend` package
-  - [ ] Create `src/app/api/contact/route.ts` — POST handler that sends email via Resend
-  - [ ] Update `src/app/contact/page.tsx` — client component with state, loading, success/error UI
-  - [ ] Update `.env.example` with `RESEND_API_KEY` and `CONTACT_TO_EMAIL`
-  - [ ] Run `npm run build` and `npm test`
-  - [ ] Commit, open PR into master, merge after review
+- `feature/contact-form-resend` — wire /contact form to Resend backend ✅ Done (PR #44)

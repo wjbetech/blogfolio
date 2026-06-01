@@ -10,6 +10,7 @@ Phased implementation plan for blogfolio. Items marked ✅ are complete. See `do
 - 14-theme system with CSS custom properties — fully working
 - Blog with reading time, prev/next nav, heading anchors, Article JSON-LD
 - `/dev` project overview page with sticky sidebar and changelog
+- `/contact` form wired to Resend backend (free tier, 100 emails/day)
 - sitemap.xml, robots.txt, RSS feed, OG tags, Twitter cards — all ship
 - Content validation CI on every push and PR
 - Jest test suite covering content, metadata, themes, and blog flows
@@ -64,25 +65,26 @@ Build the missing `/portfolio/[slug]` route. Currently the sitemap and all proje
 - [x] Replace `src/app/portfolio/page.tsx` with a `redirect("/dev")`
 - [x] Verify sitemap no longer lists `/portfolio` as a standalone page
 
-### `fix/image-fallback`
+### `fix/image-fallback` ✅
 
 Replace the external third-party fallback image with a local one.
 
-- [ ] Create `public/images/og-default.png` (1200×630, branded)
-- [ ] Replace the Unsplash URL in `src/lib/metadata.ts` `DEFAULT_OG_IMAGE`
-- [ ] Replace the CUNY OpenLab URL in `BlogPostCard.tsx`
-- [ ] Remove `openlab.citytech.cuny.edu` from `next.config.ts` remotePatterns
+- [x] Create `public/images/assets/placeholder.png` — local fallback image
+- [x] Replace the Unsplash URL in `src/lib/metadata.ts` `DEFAULT_OG_IMAGE`
+- [x] Update `src/components/HomePageBlogs/BlogPostCard/BlogPostCard.tsx` and `src/app/dev/page.tsx` to use local placeholder
+- [x] Update `__tests__/metadata.test.ts` to assert full absolute URL
 
-### `feature/deployment-infrastructure`
+### `feature/deployment-infrastructure` ✅
 
 Add Docker + GitHub Actions deployment pipeline for the homelab.
 
-- [ ] Write `Dockerfile` (multi-stage Next.js standalone build)
-- [ ] Write `docker-compose.yml` (`app` + `cloudflared` services)
-- [ ] Write `.github/workflows/build-and-push.yml`
-- [ ] Write `.github/workflows/deploy.yml` (self-hosted runner)
-- [ ] Write `.github/workflows/monthly-maintenance.yml`
-- [ ] Add `output: "standalone"` to `next.config.ts`
+- [x] Write `Dockerfile` (multi-stage Next.js standalone build)
+- [x] Write `docker-compose.yml` (`app` + `cloudflared` services)
+- [x] Write `.github/workflows/build-and-push.yml`
+- [x] Write `.github/workflows/deploy.yml` (self-hosted runner)
+- [x] Write `.github/workflows/maintenance-reminder.yml` (monthly scheduled issue checklist)
+- [x] Add `.dockerignore` to keep image lean while preserving content/ directory
+- [x] Add `output: "standalone"` to `next.config.ts`
 
 ---
 
@@ -113,13 +115,14 @@ Add `Person` + `WebSite` JSON-LD to the home page for better Google attribution.
 
 - [x] Add schema to `src/app/page.tsx` with name, URL, GitHub, LinkedIn
 
-### `feature/contact-form-resend`
+### `feature/contact-form-resend` ✅
 
 Wire the `/contact` form UI to a working backend using Resend.
 
-- [ ] Create `src/app/api/contact/route.ts` — POST handler that sends email via Resend
-- [ ] Update `src/app/contact/page.tsx` — client component with loading, success, and error states
-- [ ] Add `RESEND_API_KEY` and `CONTACT_TO_EMAIL` to `.env.example`
+- [x] Create `src/app/api/contact/route.ts` — POST handler that sends email via Resend
+- [x] Update `src/app/contact/page.tsx` — client component with loading, success, and error states
+- [x] Add `RESEND_API_KEY` and `CONTACT_TO_EMAIL` to `.env.example`
+- [x] Update deployment docs with required env vars
 
 ---
 
@@ -128,3 +131,11 @@ Wire the `/contact` form UI to a working backend using Resend.
 - **Table of contents** for long blog posts — revisit when posts regularly exceed 2000 words with 4+ headings
 - **Search** — full-text search across posts. Only worth adding once there are 20+ published posts. Options: Pagefind (static), Fuse.js (client-side)
 - **Git-backed CMS** — only if writing posts as raw Markdown files becomes a pain point
+
+---
+
+## Completed phases
+
+- **Phase A** — Docs rebuild ✅
+- **Phase B** — Code fixes and infrastructure ✅
+- **Phase C** — UI polish and enhancements ✅

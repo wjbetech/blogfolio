@@ -7,6 +7,8 @@ services:
       - NODE_ENV=production
       # Override at runtime if needed; baked into image at build time by default.
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://williameast.com}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL}
     ports:
       # Expose only to localhost — cloudflared is the public entry point.
       - "127.0.0.1:3000:3000"

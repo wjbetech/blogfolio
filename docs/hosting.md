@@ -47,6 +47,8 @@ services:
     restart: unless-stopped
     environment:
       - NEXT_PUBLIC_SITE_URL=https://williameast.com
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL}
     ports:
       - "3000:3000"
 
@@ -114,6 +116,8 @@ The tunnel will appear as "Healthy" in the dashboard when `cloudflared` is runni
 | ------------------------- | ---------------------------------------------- | ------------------------------- |
 | `NEXT_PUBLIC_SITE_URL`    | `.env` on server (and in `docker-compose.yml`) | `https://williameast.com`       |
 | `CLOUDFLARE_TUNNEL_TOKEN` | `.env` on server (never commit this)           | Token from Cloudflare dashboard |
+| `RESEND_API_KEY`          | `.env` on server (never commit this)           | API key from [resend.com](https://resend.com) |
+| `CONTACT_TO_EMAIL`        | `.env` on server (and in `docker-compose.yml`) | Email that receives contact form submissions |
 
 Never commit `.env` to the repository. See `.env.example` in the repo root for the expected variables (values omitted).
 
@@ -132,6 +136,7 @@ See [deployment.md](./deployment.md) for the GitHub Actions pipeline that builds
 - [ ] `Dockerfile` written and tested locally with `docker build .`
 - [ ] `docker-compose.yml` written with `app` + `cloudflared` services
 - [ ] `NEXT_PUBLIC_SITE_URL` set to `https://williameast.com` in server `.env`
+- [ ] `RESEND_API_KEY` and `CONTACT_TO_EMAIL` set in server `.env`
 - [ ] `next.config.ts` has `output: "standalone"` enabled
 - [ ] GitHub Actions workflow written and tested (see `deployment.md`)
 - [ ] Cloudflare SSL/TLS set to Full (strict)

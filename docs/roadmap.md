@@ -90,34 +90,41 @@ Add Docker + GitHub Actions deployment pipeline for the homelab.
 
 Visual improvements. Each item is its own branch. No changes to the colour theme system or token names.
 
-### `feature/homepage-cards`
+### `feature/homepage-cards` ✅
 
 Redesign `BlogPostCard` and `ProjectPostCard` to feel more interactive and inviting.
 
 Goals (see `docs/design-system.md` for full spec):
 
-- [ ] Full card as a single click target (wrap entire card in `<Link>`)
-- [ ] Styled CTA chip replacing bare "View" text
+- [x] Full card as a single click target (wrap entire card in `<Link>`)
+- [x] Styled CTA chip replacing bare "View" text
 
-### `style/typography-pass`
+### `style/typography-pass` ✅
 
 Standardise heading sizes and font assignments across all pages.
 
-- [ ] Audit all pages against the scale defined in `docs/design-system.md`
-- [ ] Apply consistent `font-serif` (Bricolage) to all h1/h2 display headings
-- [ ] Standardise `text-sm` / `text-base` / `text-lg` usage for body and meta text
+- [x] Audit all pages against the scale defined in `docs/design-system.md`
+- [x] Apply consistent `font-serif` (Bricolage) to all h1/h2 display headings
+- [x] Standardise `text-sm` / `text-base` / `text-lg` usage for body and meta text
 
-### `feature/person-jsonld`
+### `feature/person-jsonld` ✅
 
 Add `Person` + `WebSite` JSON-LD to the home page for better Google attribution.
 
-- [ ] Add schema to `src/app/page.tsx` with name, URL, GitHub, LinkedIn
+- [x] Add schema to `src/app/page.tsx` with name, URL, GitHub, LinkedIn
+
+### `feature/contact-form-resend`
+
+Wire the `/contact` form UI to a working backend using Resend.
+
+- [ ] Create `src/app/api/contact/route.ts` — POST handler that sends email via Resend
+- [ ] Update `src/app/contact/page.tsx` — client component with loading, success, and error states
+- [ ] Add `RESEND_API_KEY` and `CONTACT_TO_EMAIL` to `.env.example`
 
 ---
 
 ## Deferred / under consideration
 
 - **Table of contents** for long blog posts — revisit when posts regularly exceed 2000 words with 4+ headings
-- **Contact form submission handler** — `/contact` currently has a UI but no backend. Options: Resend, Formspree, or a simple email-forward serverless function
 - **Search** — full-text search across posts. Only worth adding once there are 20+ published posts. Options: Pagefind (static), Fuse.js (client-side)
 - **Git-backed CMS** — only if writing posts as raw Markdown files becomes a pain point

@@ -83,25 +83,15 @@ Start these after the docs/rebuild branch is merged to master.
 
 - `feature/homepage-cards` — full card as click target, styled CTA chip ✅ Done (PR #40)
 
-- `style/typography-pass` — standardise heading scale across all pages
-  - [ ] Create branch `style/typography-pass` from master
-  - [ ] Re-read the heading scale documented in `docs/design-system.md` as the target spec
-  - [ ] Audit `src/app/page.tsx` — confirm h1/h2/h3 classes match the scale
-  - [ ] Audit `src/app/dev/page.tsx` — same check
-  - [ ] Audit `src/app/blog/page.tsx` — same check
-  - [ ] Audit `src/app/blog/[slug]/page.tsx` — same check (MDX prose styles too)
-  - [ ] Audit `src/app/portfolio/page.tsx` and `src/app/portfolio/[slug]/page.tsx`
-  - [ ] Audit `src/app/about/page.tsx` and `src/app/translations/page.tsx`
-  - [ ] Apply any fixes so every page uses the documented scale consistently
-  - [ ] Check on mobile (375px) that heading sizes don't overflow
-  - [ ] Run `npm run build` and `npm test`
-  - [ ] Commit, open PR into master, merge after review
+- `style/typography-pass` — standardise heading scale across all pages ✅ Done (PR #41)
 
-- `feature/person-jsonld` — Person + WebSite schema on home page
-  - [ ] Create branch `feature/person-jsonld` from master
-  - [ ] Create (or extend) a JSON-LD helper in `src/lib/` for `Person` and `WebSite` schema types
-  - [ ] Add the `Person` schema (name, url, sameAs social links) as a `<script type="application/ld+json">` in `src/app/page.tsx`
-  - [ ] Add the `WebSite` schema (name, url, potentialAction SearchAction) alongside it
-  - [ ] Validate output using Google's Rich Results Test (paste the page HTML)
+- `feature/person-jsonld` — Person + WebSite schema on home page ✅ Done (PR #43)
+
+- `feature/contact-form-resend` — wire /contact form to Resend backend
+  - [ ] Create branch `feature/contact-form-resend` from master
+  - [ ] Install `resend` package
+  - [ ] Create `src/app/api/contact/route.ts` — POST handler that sends email via Resend
+  - [ ] Update `src/app/contact/page.tsx` — client component with state, loading, success/error UI
+  - [ ] Update `.env.example` with `RESEND_API_KEY` and `CONTACT_TO_EMAIL`
   - [ ] Run `npm run build` and `npm test`
   - [ ] Commit, open PR into master, merge after review

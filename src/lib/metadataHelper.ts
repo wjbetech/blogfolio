@@ -51,6 +51,37 @@ type ProjectsCollectionJsonLdOptions = {
   projects: Array<Pick<Project, "title" | "description" | "images" | "link" | "repo" | "status">>;
 };
 
+export function createPersonJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "William East",
+    url: SITE_URL,
+    sameAs: [
+      "https://github.com/wjbetech",
+      "https://linkedin.com/in/wjbetech",
+      "https://twitter.com/wjbetech"
+    ]
+  };
+}
+
+export function createWebSiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "BlogFolio",
+    url: SITE_URL,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+}
+
 export function createProjectsCollectionJsonLd({
   pagePath,
   pageTitle,

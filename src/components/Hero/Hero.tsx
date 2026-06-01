@@ -10,12 +10,12 @@ export default function Hero() {
         </div>
 
         <div className="flex-1 text-right">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-accent-100 leading-tight font-serif">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-accent-100 leading-tight font-serif">
             Hey, I&apos;m Will.
           </h1>
 
           <div className="mt-4 space-y-2 text-lg md:text-xl leading-relaxed">
-            <h5 className="font-bold text-headline">Fullstack Developer</h5>
+            <h5 className="text-base font-semibold text-headline">Fullstack Developer</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">
               Next.js, Node, TypeScript, Prisma, TailwindCSS, and{" "}
               <Link
@@ -24,9 +24,9 @@ export default function Hero() {
                 more
               </Link>
             </p>
-            <h5 className="font-bold text-headline mt-6">Translation and Editing</h5>
+            <h5 className="text-base font-semibold text-headline mt-6">Translation and Editing</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Korean & English</p>
-            <h5 className="font-bold text-headline mt-6">Adjunct Professor</h5>
+            <h5 className="text-base font-semibold text-headline mt-6">Adjunct Professor</h5>
             <p className="text-sm md:text-base text-paragraph leading-0">Seoul University of Foreign Studies</p>
           </div>
         </div>

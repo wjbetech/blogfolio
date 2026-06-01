@@ -23,7 +23,7 @@ export default function Blog({ post }: { post: Post }) {
           </time>
 
           {/* Title */}
-          <h3 className="text-headline text-xl font-medium leading-snug group-hover:text-main transition-colors">
+          <h3 className="text-xl font-semibold text-headline leading-snug group-hover:text-main transition-colors">
             {post.title}
           </h3>
         </div>

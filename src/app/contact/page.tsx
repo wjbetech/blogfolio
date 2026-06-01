@@ -4,7 +4,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-2xl mx-auto py-16">
-        <h1 className="text-5xl font-bold text-headline mb-6">Get in Touch</h1>
+        <h1 className="text-4xl font-bold font-serif text-headline mb-6">Get in Touch</h1>
         <p className="text-lg text-paragraph mb-12">
           Have a project in mind or want to collaborate? I&apos;d love to hear from you.
         </p>
@@ -57,7 +57,7 @@ export default function ContactPage() {
         </form>
 
         <div className="mt-12 pt-12 border-t border-accent2/20">
-          <h2 className="text-2xl font-semibold text-headline mb-4">Other Ways to Connect</h2>
+          <h2 className="text-2xl font-semibold font-serif text-headline mb-4">Other Ways to Connect</h2>
           <div className="space-y-3 text-paragraph">
             <p>
               Email:{" "}

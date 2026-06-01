@@ -27,7 +27,7 @@ export default function DevPage() {
       {/* ── Hero header ── */}
       <header className="relative">
         <div className="relative pb-10 z-10 space-y-2">
-          <h1 className="text-3xl font-serif font-semibold text-headline tracking-tight leading-[1.1]">Dev</h1>
+          <h1 className="text-4xl font-bold font-serif text-headline tracking-tight leading-[1.1]">Dev</h1>
           <p className="text-paragraph leading-relaxed">
             My own projects - apps and software I built both for my own use, for friends or for co-workers.
           </p>
@@ -98,7 +98,7 @@ export default function DevPage() {
                       <div className="space-y-6">
                         {/* Title (no decorative underline on /dev) */}
                         <div>
-                          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif cursor-pointer font-extrabold text-headline leading-[1.15] tracking-tight transition-colors duration-200 group-hover/project:text-accent-200 relative pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-2 after:bg-accent-100/60 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 after:-z-10 group-hover/project:after:scale-x-100">
+                          <h2 className="text-2xl font-semibold font-serif cursor-pointer text-headline leading-[1.15] tracking-tight transition-colors duration-200 group-hover/project:text-accent-200 relative pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-2 after:bg-accent-100/60 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 after:-z-10 group-hover/project:after:scale-x-100">
                             {project.title}
                           </h2>
                         </div>
@@ -172,9 +172,9 @@ export default function DevPage() {
           <div className="sticky top-24 space-y-10">
             {/* Project index */}
             <div>
-              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-5" style={{ transition: "none" }}>
+              <h4 className="text-base font-semibold font-mono uppercase tracking-[0.25em] text-accent-200 mb-5" style={{ transition: "none" }}>
                 Index
-              </h3>
+              </h4>
               <nav className="space-y-0.5">
                 {allProjects.map((project, i) => (
                   <a
@@ -199,9 +199,9 @@ export default function DevPage() {
 
             {/* Quick stats */}
             <div className="space-y-3">
-              <h3 className="font-mono uppercase tracking-[0.25em] text-accent-200 mb-3" style={{ transition: "none" }}>
+              <h4 className="text-base font-semibold font-mono uppercase tracking-[0.25em] text-accent-200 mb-3" style={{ transition: "none" }}>
                 At a glance
-              </h3>
+              </h4>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">{allProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>
@@ -230,7 +230,7 @@ export default function DevPage() {
         </div>
 
         <section className="pb-16 max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline mb-3 tracking-tight">
+          <h2 className="text-2xl font-semibold font-serif text-headline mb-3 tracking-tight">
             Changelog
           </h2>
           <p className="text-base text-paragraph/70 mb-10 max-w-lg leading-relaxed">

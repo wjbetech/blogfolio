@@ -14,9 +14,7 @@ import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
 
 export function generateStaticParams() {
-  return allProjects
-    .filter((p) => p.status.trim() === "published")
-    .map((project) => ({ slug: project.slug }));
+  return allProjects.filter((p) => p.status.trim() === "published").map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -81,9 +79,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           )}
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight tracking-tight">
-          {project.title}
-        </h1>
+        <h1 className="text-4xl font-bold font-serif text-headline leading-tight tracking-tight">{project.title}</h1>
 
         <p className="text-base md:text-lg text-paragraph/75 leading-relaxed max-w-2xl">{project.description}</p>
 

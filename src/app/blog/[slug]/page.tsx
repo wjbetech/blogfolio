@@ -78,7 +78,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
 
-        <h1 className="text-3xl font-serif text-headline leading-tight">{post.title}</h1>
+        <h1 className="text-4xl font-bold font-serif text-headline leading-tight">{post.title}</h1>
 
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">

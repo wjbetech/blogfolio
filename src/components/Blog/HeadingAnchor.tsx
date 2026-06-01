@@ -7,9 +7,9 @@ type HeadingAnchorProps = {
 };
 
 const headingClasses = {
-  2: "text-2xl font-serif text-headline scroll-mt-24",
-  3: "text-xl font-serif text-headline scroll-mt-24",
-  4: "text-lg font-serif text-headline scroll-mt-24"
+  2: "text-2xl font-semibold font-serif text-headline scroll-mt-24",
+  3: "text-xl font-semibold text-headline scroll-mt-24",
+  4: "text-base font-semibold text-headline scroll-mt-24"
 };
 
 const wrapperClasses = {

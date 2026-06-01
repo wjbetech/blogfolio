@@ -27,7 +27,7 @@ export default function DevPage() {
       {/* ── Hero header ── */}
       <header className="relative">
         <div className="relative pb-10 z-10 space-y-2">
-          <h1 className="text-3xl font-serif font-semibold text-headline tracking-tight leading-[1.1]">Dev</h1>
+          <h1 className="text-4xl font-bold font-serif text-headline tracking-tight leading-[1.1]">Dev</h1>
           <p className="text-paragraph leading-relaxed">
             My own projects - apps and software I built both for my own use, for friends or for co-workers.
           </p>

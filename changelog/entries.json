@@ -1,5 +1,109 @@
 [
   {
+    "date": "2026-06-01",
+    "version": "0.5.2",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Typography pass across all pages: standardised H1 to text-4xl font-bold font-serif on /blog, /blog/[slug], /dev, /portfolio/[slug], /language-services, and /contact."
+      },
+      {
+        "category": "Fix",
+        "description": "Fixed semantic HTML in /language-services: client name labels were incorrectly using <h1> tags; changed to <p> with font-bold styling. 'Experience' section heading changed from <h1> to <h2>."
+      },
+      {
+        "category": "Style",
+        "description": "Added font-semibold to all heading levels in HeadingAnchor component used in blog and portfolio post content."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-31",
+    "version": "0.5.1",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Redesigned blog post cards and project cards: each card is now fully clickable, slightly narrower (w-80), with increased gap between cards for a more spacious layout."
+      },
+      {
+        "category": "Style",
+        "description": "Added a right-arrow indicator to card CTAs to reinforce interactivity."
+      },
+      {
+        "category": "Fix",
+        "description": "Blog post cards now show a local placeholder image when no post image is available, matching the existing behaviour of project cards."
+      },
+      {
+        "category": "Fix",
+        "description": "Featured project cards on the home page now correctly show the placeholder image when no project image is declared, instead of a white box."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-31",
+    "version": "0.5.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added full CI/CD deployment pipeline: multi-stage Dockerfile (standalone output), docker-compose with Cloudflare Tunnel sidecar, and GitHub Actions workflows for build/push to GHCR and deploy to self-hosted homelab runner."
+      },
+      {
+        "category": "Feature",
+        "description": "Added a monthly maintenance reminder workflow that automatically opens a GitHub issue with a checklist of routine site maintenance tasks."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-31",
+    "version": "0.4.3",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Replaced Unsplash external fallback image with a local placeholder at /images/assets/placeholder.png used across all cards and as the default Open Graph image."
+      },
+      {
+        "category": "Fix",
+        "description": "Fixed toAbsoluteUrl() to always return a fully qualified URL, preventing relative paths in Open Graph metadata."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-31",
+    "version": "0.4.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added /portfolio/[slug] static route with full project detail pages, generated at build time for all published projects."
+      },
+      {
+        "category": "Fix",
+        "description": "Added redirect from /portfolio to /dev to avoid 404s on the old portfolio URL."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
+    "version": "0.4.1",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "SITE_URL is now driven by the NEXT_PUBLIC_SITE_URL environment variable with a fallback, making the app domain-agnostic and ready for deployment to any host."
+      },
+      {
+        "category": "Improvement",
+        "description": "Added .env.example documenting all required environment variables."
+      },
+      {
+        "category": "Fix",
+        "description": "Fixed .gitignore to allow .env.example to be committed while still ignoring all real .env files."
+      },
+      {
+        "category": "Fix",
+        "description": "Hero profile image now served from public/ directory instead of being bundled into the JavaScript output."
+      }
+    ]
+  },
+  {
     "date": "2026-05-19",
     "version": "0.4.0",
     "changes": [

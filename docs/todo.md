@@ -81,16 +81,7 @@ Start these after the docs/rebuild branch is merged to master.
 
 ## After Phase B — Phase C
 
-- `feature/homepage-cards` — full card as click target, styled CTA chip
-  - [ ] Create branch `feature/homepage-cards` from master
-  - [ ] Open `src/components/HomePageBlogs/BlogPostCard/BlogPostCard.tsx`
-  - [ ] Wrap the entire card body in a single `<Link href={post.url}>` so the whole surface is clickable
-  - [ ] Replace the bare "View" or "Read more" text with a styled CTA chip (e.g. `rounded-full px-3 py-1 text-sm font-medium bg-accent text-accent-fg`)
-  - [ ] Open `src/components/Projects/ProjectPostCard/ProjectPostCard.tsx`
-  - [ ] Apply the same full-card link and CTA chip pattern
-  - [ ] Test both card types in the browser across at least two themes
-  - [ ] Run `npm run build` and `npm test` to confirm no regressions
-  - [ ] Commit, open PR into master, merge after review
+- `feature/homepage-cards` — full card as click target, styled CTA chip ✅ Done (PR #40)
 
 - `style/typography-pass` — standardise heading scale across all pages
   - [ ] Create branch `style/typography-pass` from master

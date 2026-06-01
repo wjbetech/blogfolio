@@ -45,7 +45,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
     return (
       <div className="max-w-7xl mx-auto">
         <header className="pb-10 space-y-3">
-          <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
+          <h1 className="text-4xl font-bold font-serif text-headline tracking-tight">Blog</h1>
           <p className="text-base text-paragraph max-w-lg leading-relaxed">No posts yet — check back soon.</p>
         </header>
       </div>
@@ -79,7 +79,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
   return (
     <div className="max-w-7xl mx-auto pb-8">
       <header className="pb-10 space-y-3">
-        <h1 className="text-3xl font-semibold font-serif text-headline tracking-tight">Blog</h1>
+        <h1 className="text-4xl font-bold font-serif text-headline tracking-tight">Blog</h1>
         <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>
       </header>
 

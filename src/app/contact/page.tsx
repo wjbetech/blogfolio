@@ -57,7 +57,7 @@ export default function ContactPage() {
         </form>
 
         <div className="mt-12 pt-12 border-t border-accent2/20">
-          <h2 className="text-2xl font-semibold text-headline mb-4">Other Ways to Connect</h2>
+          <h2 className="text-2xl font-semibold font-serif text-headline mb-4">Other Ways to Connect</h2>
           <div className="space-y-3 text-paragraph">
             <p>
               Email:{" "}

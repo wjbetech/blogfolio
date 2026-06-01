@@ -101,7 +101,7 @@ export default function ThemeDrawer({
                 ‹
               </button>
 
-              <h3 id="theme-drawer-title" className="text-xl font-bold">
+              <h3 id="theme-drawer-title" className="text-xl font-semibold text-headline">
                 Themes
               </h3>
 

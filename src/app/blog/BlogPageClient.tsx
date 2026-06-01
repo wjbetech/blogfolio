@@ -97,7 +97,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                   </div>
 
                   <div className="flex flex-row justify-between">
-                    <h2 className="text-3xl md:text-4xl font-serif font-extrabold text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
+                    <h2 className="text-2xl font-semibold font-serif text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
                       {featuredPost.title}
                     </h2>
                     <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200">
@@ -159,7 +159,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                     </div>
 
                     <div className="flex-1 min-w-0 space-y-2">
-                      <h3 className="text-lg font-serif font-medium text-headline leading-snug group-hover:text-accent-200 transition-colors duration-200">
+                      <h3 className="text-xl font-semibold text-headline leading-snug group-hover:text-accent-200 transition-colors duration-200">
                         {post.title}
                       </h3>
                       <p className="text-sm text-paragraph/80 leading-relaxed line-clamp-2">
@@ -202,9 +202,9 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
         <aside className="hidden lg:block w-56 shrink-0">
           <div className="sticky top-24 space-y-8">
             <div>
-              <h3 className="text-xs font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+              <h4 className="text-base font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
                 Archive
-              </h3>
+              </h4>
               <nav className="space-y-1">
                 {Object.entries(groupedByYear)
                   .sort(([a], [b]) => Number(b) - Number(a))
@@ -243,9 +243,9 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
             </div>
 
             <div>
-              <h3 className="text-xs font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+              <h4 className="text-base font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
                 Topics
-              </h3>
+              </h4>
               <div className="flex flex-wrap gap-1.5">
                 {allTags.map((tag) => (
                   <button

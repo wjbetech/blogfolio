@@ -20,7 +20,12 @@ export default function ContactPage() {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      let data: { error?: string } = {};
+      try {
+        data = await response.json();
+      } catch {
+        // non-JSON response from server
+      }
 
       if (!response.ok) {
         throw new Error(data.error || "Something went wrong");
@@ -127,7 +132,7 @@ export default function ContactPage() {
                 className="text-accent-200 hover:underline"
                 eventName="Contact Click"
                 eventProps={{ surface: "contact_email", target: "mailto" }}>
-                wjbetech@gmail.com
+                hello@williameast.com
               </TrackedLink>
             </p>
             <p>

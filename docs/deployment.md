@@ -134,9 +134,10 @@ jobs:
 
 Set these in **GitHub → Settings → Secrets and variables → Actions**:
 
-| Secret         | Value                                             |
-| -------------- | ------------------------------------------------- |
-| `GITHUB_TOKEN` | Auto-provided by GitHub -- no manual setup needed |
+| Secret         | Required? | Value                                                                  |
+| -------------- | --------- | ---------------------------------------------------------------------- |
+| `GITHUB_TOKEN` | No        | Auto-provided by GitHub — no manual setup needed                       |
+| `DEPLOY_DIR`   | Yes       | Absolute path on the homelab where `docker-compose.yml` lives (e.g., `/opt/blogfolio` or `/home/user/blogfolio`) |
 
 The Docker image is pushed to GitHub Container Registry (ghcr.io) using the built-in `GITHUB_TOKEN`, so no Docker Hub account or separate registry token is needed.
 

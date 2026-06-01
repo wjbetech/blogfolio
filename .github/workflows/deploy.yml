@@ -32,6 +32,9 @@ jobs:
       - name: Pull latest image
         run: docker pull ghcr.io/${{ github.repository }}:latest
 
+      # Ensure a .env file exists in DEPLOY_DIR with the required variables:
+      #   RESEND_API_KEY, CONTACT_TO_EMAIL, CLOUDFLARE_TUNNEL_TOKEN
+      # The runner must be able to read these from the host environment.
       - name: Restart compose services
         working-directory: ${{ secrets.DEPLOY_DIR }}
         run: docker compose up -d --pull always

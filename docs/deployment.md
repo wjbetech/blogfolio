@@ -134,11 +134,25 @@ jobs:
 
 Set these in **GitHub → Settings → Secrets and variables → Actions**:
 
-| Secret         | Value                                             |
-| -------------- | ------------------------------------------------- |
-| `GITHUB_TOKEN` | Auto-provided by GitHub -- no manual setup needed |
+| Secret         | Required? | Value                                                                  |
+| -------------- | --------- | ---------------------------------------------------------------------- |
+| `GITHUB_TOKEN` | No        | Auto-provided by GitHub — no manual setup needed                       |
+| `DEPLOY_DIR`   | Yes       | Absolute path on the homelab where `docker-compose.yml` lives (e.g., `/opt/blogfolio` or `/home/user/blogfolio`) |
 
 The Docker image is pushed to GitHub Container Registry (ghcr.io) using the built-in `GITHUB_TOKEN`, so no Docker Hub account or separate registry token is needed.
+
+## Required environment variables on the homelab
+
+The self-hosted runner executes `docker compose up -d` on the homelab. The host must have these environment variables available (e.g., via a `.env` file next to `docker-compose.yml`, or exported in the shell before the runner starts):
+
+| Variable               | Required? | Description                                                   |
+| ---------------------- | --------- | ------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | No        | Public URL (default: `https://williameast.com`)               |
+| `CLOUDFLARE_TUNNEL_TOKEN` | Yes    | Cloudflare Tunnel token (see `hosting.md`)                    |
+| `RESEND_API_KEY`       | Yes       | Resend API key for the contact form                           |
+| `CONTACT_TO_EMAIL`     | Yes       | Email address that receives contact form submissions          |
+
+The `deploy.yml` workflow runs `docker compose up -d --pull always` from `secrets.DEPLOY_DIR`. The simplest approach is to place a `.env` file in that directory alongside `docker-compose.yml`, and ensure the runner process has access to it (e.g., `export $(cat .env | xargs)` before the runner starts, or use systemd service environment files).
 
 ---
 

@@ -8,12 +8,6 @@ jest.mock("@/lib/applyTheme", () => ({
   loadSavedThemeId: jest.fn(() => null)
 }));
 
-// Mock framer-motion to render children synchronously
-jest.mock("framer-motion", () => ({
-  AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
-  motion: { div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div {...props}>{children}</div> }
-}));
-
 // Mock next/navigation usePathname used by Navbar
 jest.mock("next/navigation", () => ({ usePathname: () => "/" }));
 

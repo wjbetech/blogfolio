@@ -7,12 +7,6 @@ jest.mock("@/lib/applyTheme", () => ({
   loadSavedThemeId: jest.fn(() => null)
 }));
 
-// Mock framer-motion to render children synchronously in tests
-jest.mock("framer-motion", () => ({
-  AnimatePresence: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
-  motion: { div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div {...props}>{children}</div> }
-}));
-
 // Mock the internal carousel component to avoid DOM scroll behaviors in tests
 const mockScrollToActive = jest.fn();
 jest.mock("@/components/ThemeSelector/ThemeCarousel/ThemeDrawerCarousel", () => {
@@ -48,10 +42,12 @@ describe("ThemeDrawer", () => {
     expect(screen.getByText("Themes")).toBeInTheDocument();
   });
 
-  it("should not render when closed", () => {
+  it("should be visually hidden when closed", () => {
     render(<ThemeDrawer open={false} onClose={mockOnClose} onSelect={mockOnSelect} active={null} />);
 
-    expect(screen.queryByText("Themes")).not.toBeInTheDocument();
+    const drawer = screen.getByRole("dialog");
+    expect(drawer).toHaveClass("grid-rows-[0fr]");
+    expect(drawer).toHaveClass("opacity-0");
   });
 
   it("should call onClose when close button is clicked", () => {

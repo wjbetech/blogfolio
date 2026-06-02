@@ -126,12 +126,6 @@ Wire the `/contact` form UI to a working backend using Resend.
 
 ---
 
-## Deferred / under consideration
-
-- **Table of contents** for long blog posts — revisit when posts regularly exceed 2000 words with 4+ headings
-- **Search** — full-text search across posts. Only worth adding once there are 20+ published posts. Options: Pagefind (static), Fuse.js (client-side)
-- **Git-backed CMS** — only if writing posts as raw Markdown files becomes a pain point
-
 ---
 
 ## Completed phases

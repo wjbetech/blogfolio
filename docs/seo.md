@@ -123,41 +123,11 @@ Everything below ships today. No action needed.
 
 ---
 
-## Gaps to fix
+## Previously fixed gaps
 
-### ✅ `SITE_URL` — fixed in `fix/site-url-env`
-
-`src/lib/metadata.ts` now reads `NEXT_PUBLIC_SITE_URL` env var with a `williameast.com` fallback. Trailing slashes are stripped to prevent double-slash canonicals. See `.env.example` for the variable name.
-
----
-
-### ⚠️ Default OG image is an external Unsplash photo
-
-**Problem:** When a page has no image, OG and Twitter cards fall back to a random Unsplash landscape photo. This looks unrelated and unprofessional when your posts are shared on social media.
-
-**Fix (Phase B/C):** Create a branded OG fallback image (`/images/og-default.png`) and replace the Unsplash URL in `src/lib/metadata.ts` with that local path. Ideal size: 1200 × 630 px.
-
----
-
-### ⚠️ `/portfolio/[slug]` pages don't exist yet
-
-**Problem:** The sitemap emits `/portfolio/{slug}` URLs for every project. Those URLs return 404. Google will penalise a sitemap that lists broken pages.
-
-**Fix (Phase B):** Build the `portfolio/[slug]` route. See `feature/portfolio-slug` in `roadmap.md`.
-
----
-
-### ⚠️ No `Person` or `WebSite` JSON-LD on the home page
-
-**What it is:** A `Person` schema tells Google that this site belongs to a named individual, links it to your social profiles (GitHub, LinkedIn), and can power a knowledge panel in search results. A `WebSite` schema enables the sitelinks search box.
-
-**Fix (Phase C):** Add a `Person` + `WebSite` JSON-LD block to `src/app/page.tsx`.
-
----
-
-## Priority order
-
-1. Fix `SITE_URL` env var (Phase B) — affects everything
-2. Build `/portfolio/[slug]` route (Phase B) — fixes broken sitemap entries
-3. Create branded OG fallback image (Phase B/C) — improves social sharing
-4. Add `Person` + `WebSite` JSON-LD to home page (Phase C) — nice to have
+| Gap | PR | Status |
+|-----|-----|--------|
+| `SITE_URL` hardcoded to wrong domain | `fix/site-url-env` | ✅ Fixed — now reads `NEXT_PUBLIC_SITE_URL` from env |
+| Default OG image was an external Unsplash URL | `fix/image-fallback` | ✅ Fixed — now uses local `/images/assets/placeholder.png` |
+| `/portfolio/[slug]` pages returned 404 | `feature/portfolio-slug` | ✅ Fixed — static project detail pages exist |
+| No `Person` or `WebSite` JSON-LD | `feature/person-jsonld` | ✅ Fixed — both schemas injected on home page |

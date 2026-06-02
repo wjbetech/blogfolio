@@ -14,7 +14,7 @@ export default function Page() {
 
       <Hero />
 
-      <div className="max-w-7xl mx-auto space-y-10">
+      <div className="max-w-7xl mx-auto space-y-10 md:space-y-14">
         <BlogCarousel />
         <ProjectCarousel />
       </div>

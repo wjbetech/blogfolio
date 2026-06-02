@@ -85,7 +85,7 @@ export default function Navbar({
     <header
       className="isolate z-50 px-4 sm:px-6 lg:px-8"
       style={{ contain: "paint", willChange: "transform", backfaceVisibility: "hidden" }}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between h-20 sm:h-32">
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
         </Link>
@@ -131,7 +131,7 @@ export default function Navbar({
             aria-controls={mobileNavId}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 w-6 h-6 cursor-pointer">
+            className="md:hidden flex flex-col items-center justify-center gap-1.5 w-6 h-6 cursor-pointer p-0">
             <span
               className={`block h-0.5 w-full bg-headline transition-transform ${
                 mobileMenuOpen ? "rotate-45 translate-y-2" : ""
@@ -154,8 +154,8 @@ export default function Navbar({
             aria-expanded={isDrawerOpen}
             aria-controls="theme-drawer"
             onClick={() => onToggle?.()}
-            className="rounded-full flex items-center justify-center cursor-pointer">
-            <ColorPaletteIcon className="text-accent-100" />
+            className="rounded-full w-6 h-6 flex items-center justify-center cursor-pointer p-0">
+            <ColorPaletteIcon className="text-accent-100 w-full h-full translate-y-[-1px]" />
           </button>
         </div>
       </div>

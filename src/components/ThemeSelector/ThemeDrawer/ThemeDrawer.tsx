@@ -82,44 +82,44 @@ export default function ThemeDrawer({
       role="dialog"
       aria-modal="true"
       aria-labelledby="theme-drawer-title"
-      className={`grid overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-300 ease-in-out ${
-        open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+      className={`overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-300 ease-in-out ${
+        open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
       }`}>
-      <div className="min-h-0">
-        <div className="max-w-7xl mx-auto py-2 flex items-center justify-between">
-          <div className="flex items-center gap-2 mx-auto max-w-7xl">
-            <button
-              type="button"
-              aria-label="Scroll themes left"
-              onClick={() => carouselRef.current?.scrollLeft()}
-              className="hidden md:inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80">
-              ‹
-            </button>
+      {/* Title bar — full width, explicitly centred, completely decoupled from carousel */}
+      <div className="relative w-full py-2 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center gap-2">
+          <button
+            type="button"
+            aria-label="Scroll themes left"
+            onClick={() => carouselRef.current?.scrollLeft()}
+            className="inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
+            ‹
+          </button>
 
-            <h3 id="theme-drawer-title" className="text-xl font-semibold text-headline">
-              Themes
-            </h3>
+          <h3 id="theme-drawer-title" className="text-xl font-semibold text-headline text-center shrink-0">
+            Themes
+          </h3>
 
-            <button
-              type="button"
-              aria-label="Scroll themes right"
-              onClick={() => carouselRef.current?.scrollRight()}
-              className="hidden md:inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80">
-              ›
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={onClose}
-              aria-label="Close theme drawer"
-              className="py-2 pr-6 cursor-pointer text-headline">
-              <UpArrowIcon />
-            </button>
-          </div>
+          <button
+            type="button"
+            aria-label="Scroll themes right"
+            onClick={() => carouselRef.current?.scrollRight()}
+            className="inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
+            ›
+          </button>
         </div>
 
-        <div className="max-w-7xl mx-auto">
+        <button
+          onClick={onClose}
+          aria-label="Close theme drawer"
+          className="absolute right-4 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 cursor-pointer text-headline shrink-0">
+          <UpArrowIcon />
+        </button>
+      </div>
+
+      {/* Carousel — constrained width, scrolls independently below title */}
+      <div className="w-full">
+        <div className="max-w-7xl mx-auto pb-4">
           <ThemeDrawerCarousel ref={carouselRef} active={active} onSelect={(id) => onSelect(id)} />
         </div>
       </div>

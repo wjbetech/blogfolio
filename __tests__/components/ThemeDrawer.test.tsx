@@ -46,7 +46,7 @@ describe("ThemeDrawer", () => {
     render(<ThemeDrawer open={false} onClose={mockOnClose} onSelect={mockOnSelect} active={null} />);
 
     const drawer = screen.getByRole("dialog");
-    expect(drawer).toHaveClass("grid-rows-[0fr]");
+    expect(drawer).toHaveClass("max-h-0");
     expect(drawer).toHaveClass("opacity-0");
   });
 

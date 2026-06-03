@@ -37,7 +37,7 @@ export function applyTheme(theme: ColorTheme) {
     try {
       localStorage.setItem("site:theme", theme.id);
     } catch (error) {
-      console.log(error, "applyTheme localStorage error");
+      console.error(error, "applyTheme localStorage error");
     }
 
     // cookie for SSR hydration parity
@@ -45,7 +45,7 @@ export function applyTheme(theme: ColorTheme) {
       const maxAge = 60 * 60 * 24 * 365;
       document.cookie = `site-theme=${encodeURIComponent(theme.id)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
     } catch (error) {
-      console.log(error, "applyTheme cookie error");
+      console.error(error, "applyTheme cookie error");
     }
   } catch (error) {
     console.error("applyTheme error", error);

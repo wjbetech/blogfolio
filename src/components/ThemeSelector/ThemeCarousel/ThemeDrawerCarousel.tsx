@@ -71,7 +71,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
         });
         return;
       } catch (error) {
-        console.log("scrollIntoView failed, falling back to manual scroll. Error:", error);
+        console.error("scrollIntoView failed, falling back to manual scroll. Error:", error);
       }
     }
 

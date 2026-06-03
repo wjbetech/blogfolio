@@ -13,7 +13,7 @@ import {
 function makePost(overrides: Partial<Post> = {}): Post {
   return {
     _id: "",
-    _raw: {} as any,
+    _raw: {} as Post["_raw"],
     type: "Post",
     id: overrides.id ?? "test",
     title: overrides.title ?? "Test",
@@ -23,7 +23,7 @@ function makePost(overrides: Partial<Post> = {}): Post {
     publishedAt: overrides.publishedAt ?? "2024-01-01",
     updatedAt: overrides.updatedAt ?? "2024-01-01",
     status: "published",
-    body: { raw: "" } as any,
+    body: { raw: "" } as Post["body"],
     slug: overrides.slug ?? "test",
     readingTime: 1,
     url: "/blog/test",

@@ -4,7 +4,7 @@ import { getPostSnippet, getPostReadingTime } from "@/lib/post";
 function makePost(bodyRaw: string, excerpt?: string): Post {
   return {
     _id: "",
-    _raw: {} as any,
+    _raw: {} as Post["_raw"],
     type: "Post",
     id: "test",
     title: "Test",
@@ -14,7 +14,7 @@ function makePost(bodyRaw: string, excerpt?: string): Post {
     publishedAt: "2024-01-01",
     updatedAt: "2024-01-01",
     status: "published",
-    body: { raw: bodyRaw } as any,
+    body: { raw: bodyRaw } as Post["body"],
     slug: "test",
     readingTime: 1,
     url: "/blog/test",

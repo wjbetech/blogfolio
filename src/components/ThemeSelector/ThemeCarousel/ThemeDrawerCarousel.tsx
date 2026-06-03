@@ -4,6 +4,7 @@ import React, { useRef, useImperativeHandle, forwardRef, useCallback } from "rea
 import PaletteItem, { PALETTE_CARD_WIDTH } from "../../Palettes/Palette";
 import { ColorThemes } from "@/lib/themes";
 import { themeToPalette } from "@/lib/themePalette";
+import useCarouselDrag from "@/hooks/useCarouselDrag";
 
 type Props = {
   active?: string | null;
@@ -18,15 +19,7 @@ export type ThemeDrawerCarouselHandle = {
 
 const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ active, onSelect }, ref) => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-
-  const dragStateRef = useRef({
-    pointerId: null as number | null,
-    startX: 0,
-    startScrollLeft: 0,
-    moved: false,
-    isDragging: false,
-    suppressClick: false
-  });
+  const dragHandlers = useCarouselDrag(scrollerRef);
 
   const cardGap = 16;
   const scrollDistance = PALETTE_CARD_WIDTH + cardGap;
@@ -85,63 +78,6 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     }
   }, [active]);
 
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    const element = scrollerRef.current;
-    if (!element) return;
-
-    dragStateRef.current.pointerId = event.pointerId;
-    dragStateRef.current.startX = event.clientX;
-    dragStateRef.current.startScrollLeft = element.scrollLeft;
-    dragStateRef.current.isDragging = false;
-    dragStateRef.current.suppressClick = false;
-  };
-
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const element = scrollerRef.current;
-    if (!element) return;
-
-    if (dragStateRef.current.pointerId !== event.pointerId) return;
-
-    const deltaX = event.clientX - dragStateRef.current.startX;
-    const dragThreshold = 8;
-
-    if (!dragStateRef.current.isDragging) {
-      if (Math.abs(deltaX) < dragThreshold) {
-        return;
-      }
-
-      dragStateRef.current.isDragging = true;
-      dragStateRef.current.suppressClick = true;
-
-      element.setPointerCapture(event.pointerId);
-    }
-
-    element.scrollLeft = dragStateRef.current.startScrollLeft - deltaX;
-  };
-
-  const handlePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
-    const element = scrollerRef.current;
-    if (!element) return;
-
-    if (dragStateRef.current.pointerId !== event.pointerId) return;
-
-    if (element.hasPointerCapture(event.pointerId)) {
-      element.releasePointerCapture(event.pointerId);
-    }
-
-    dragStateRef.current.pointerId = null;
-    dragStateRef.current.isDragging = false;
-    dragStateRef.current.suppressClick = false;
-  };
-
-  const handleClickCapture = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!dragStateRef.current.suppressClick) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    dragStateRef.current.suppressClick = false;
-  };
-
   useImperativeHandle(
     ref,
     () => ({
@@ -156,11 +92,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
     <div>
       <div
         ref={scrollerRef}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerEnd}
-        onPointerCancel={handlePointerEnd}
-        onClickCapture={handleClickCapture}
+        {...dragHandlers}
         className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6 px-6 cursor-grab active:cursor-grabbing select-none"
         style={{
           WebkitOverflowScrolling: "touch",

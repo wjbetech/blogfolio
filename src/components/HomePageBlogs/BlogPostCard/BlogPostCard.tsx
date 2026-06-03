@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card } from "../../ui/card";
 import type { Post } from "@/app/types/post";
+import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 import { getPostSnippet } from "@/lib/post";
 
 const FALLBACK = "/images/assets/placeholder.png";
@@ -37,9 +38,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
         <div className="mt-4">
           <span className="inline-flex items-center gap-1 text-link font-semibold">
             View
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
+            <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" />
           </span>
         </div>
       </Card>

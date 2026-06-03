@@ -21,7 +21,7 @@ export default function DevPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto ">
+    <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(devProjectsJsonLd) }} />
 
       {/* ── Hero header ── */}
@@ -49,7 +49,7 @@ export default function DevPage() {
               try {
                 hasImage = fs.existsSync(abs);
               } catch (e) {
-                console.log(e, "Error checking image file:", abs);
+                console.error(e, "Error checking image file:", abs);
                 hasImage = false;
               }
             }

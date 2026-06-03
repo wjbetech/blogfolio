@@ -14,9 +14,6 @@ export function getChangelogSlice(offset = 0, limit = 5): ChangelogEntry[] {
     const fileContent = fs.readFileSync(changelogPath, "utf-8");
     const parsedData = JSON.parse(fileContent);
 
-    // Log the actual data for debugging
-    console.log("Parsed changelog data:", JSON.stringify(parsedData, null, 2));
-
     const result = changelogSchema.safeParse(parsedData);
 
     if (!result.success) {

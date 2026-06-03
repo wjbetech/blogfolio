@@ -12,6 +12,7 @@ import TrackedLink from "@/components/Analytics/TrackedLink";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
+import { formatDate } from "@/lib/date";
 
 export function generateStaticParams() {
   return allProjects.filter((p) => p.status.trim() === "published").map((project) => ({ slug: project.slug }));
@@ -22,14 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = allProjects.find((p) => p.slug === slug && p.status.trim() === "published");
   if (!project) return createPortfolioMetadata();
   return generateProjectMetadata(project);
-}
-
-function formatDate(dateValue: string) {
-  return new Date(dateValue).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
 }
 
 type ProjectPageProps = {

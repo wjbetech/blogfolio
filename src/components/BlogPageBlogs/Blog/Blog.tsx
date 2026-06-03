@@ -1,12 +1,9 @@
 import Link from "next/link";
 import type { Post } from "@/app/types/post";
+import { formatMonthDay } from "@/lib/date";
 
 export default function Blog({ post }: { post: Post }) {
-  const date = new Date(post.publishedAt);
-  const formattedDate = date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric"
-  });
+  const formattedDate = formatMonthDay(post.publishedAt);
 
   return (
     <Link href={`/blog/${post.slug}`}>

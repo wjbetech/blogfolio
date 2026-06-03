@@ -7,6 +7,7 @@ import Link from "next/link";
 import { createBlogListMetadata, generatePostMetadata } from "@/lib/metadata";
 import { createBlogPostingJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 import { parsePostContent } from "@/lib/postContent";
+import { formatDate } from "@/lib/date";
 
 // component imports
 import CoverImage from "@/components/Blog/CoverImage";
@@ -35,14 +36,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
 };
-
-function formatPublishedDate(dateValue: string) {
-  return new Date(dateValue).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
-}
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
@@ -74,7 +67,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="flex flex-wrap items-center gap-x-4 text-sm text-paragraph/80">
           <div className="flex items-center gap-2">
             <CalendarIcon className="w-4 h-4" />
-            <time dateTime={post.publishedAt}>{formatPublishedDate(post.publishedAt)}</time>
+            <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           </div>
         </div>
 

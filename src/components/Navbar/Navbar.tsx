@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
+import HamburgerIcon from "../Icons/HamburgerIcon";
 
 export default function Navbar({
   onToggle,
@@ -131,20 +132,8 @@ export default function Navbar({
             aria-controls={mobileNavId}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col items-center justify-center gap-1.5 w-6 h-6 cursor-pointer p-0">
-            <span
-              className={`block h-0.5 w-full bg-headline transition-transform ${
-                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-headline transition-opacity ${mobileMenuOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-headline transition-transform ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
+            className="md:hidden cursor-pointer p-0">
+            <HamburgerIcon open={mobileMenuOpen} />
           </button>
 
           {/* Theme Toggle Button */}

@@ -6,6 +6,7 @@ export { default as ChevronLeftIcon } from "./ChevronLeftIcon";
 export { default as ChevronRightIcon } from "./ChevronRightIcon";
 export { default as ColorPaletteIcon } from "./ColorPaletteIcon";
 export { default as GitHubIcon } from "./GitHubIcon";
+export { default as HamburgerIcon } from "./HamburgerIcon";
 export { default as LinkedInIcon } from "./LinkedInIcon";
 export { default as UpArrowIcon } from "./UpArrowIcon";
 export { default as UserIcon } from "./UserIcon";

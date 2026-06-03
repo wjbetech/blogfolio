@@ -1,11 +1,8 @@
 import type { ChangelogEntry } from "@/app/types/changelog";
+import { formatDate } from "@/lib/date";
 
 export default function ChangelogEntry({ entry }: { entry: ChangelogEntry }) {
-  const formattedDate = new Date(entry.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
+  const formattedDate = formatDate(entry.date);
 
   return (
     <article className="border-l-4 border-accent-300/50 pl-4 py-2">

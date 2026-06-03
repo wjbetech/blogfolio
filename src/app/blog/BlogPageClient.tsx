@@ -6,6 +6,7 @@ import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import type { Post } from "contentlayer/generated";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import { getPostReadingTime, getPostSnippet } from "@/lib/post";
+import { formatShortDate } from "@/lib/date";
 import {
   sortBlogPosts,
   splitFeaturedPost,
@@ -69,12 +70,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
     setExpandedYears(next);
   };
 
-  const formatDate = (iso: string) =>
-    new Date(iso).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric"
-    });
+  const formatDate = (iso: string) => formatShortDate(iso);
 
   return (
     <div className="pb-8">

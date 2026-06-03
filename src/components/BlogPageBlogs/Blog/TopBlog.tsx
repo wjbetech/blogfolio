@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Post } from "@/app/types/post";
+import { formatDate } from "@/lib/date";
 
 export default function TopBlog({ post }: { post: Post }) {
   return (
@@ -25,7 +26,7 @@ export default function TopBlog({ post }: { post: Post }) {
           </Link>
         </h2>
         <div className="flex items-center gap-3 text-sm opacity-90">
-          <time className="text-xs mt-4">{new Date(post.publishedAt).toLocaleDateString()}</time>
+          <time className="text-xs mt-4">{formatDate(post.publishedAt)}</time>
         </div>
       </div>
     </article>

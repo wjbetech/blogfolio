@@ -3,6 +3,7 @@
 import React, { useRef, useImperativeHandle, forwardRef, useCallback } from "react";
 import PaletteItem, { PALETTE_CARD_WIDTH } from "../../Palettes/Palette";
 import { ColorThemes } from "@/lib/themes";
+import { themeToPalette } from "@/lib/themePalette";
 
 type Props = {
   active?: string | null;
@@ -169,20 +170,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
         }}>
         {ColorThemes.map((t) => (
           <div key={t.id} className="flex-none" data-palette-id={t.id} style={{ scrollSnapAlign: "center" }}>
-            <PaletteItem
-              palette={{
-                id: t.id,
-                name: t.name,
-                colors: [
-                  t["bg-100"],
-                  t["accent-100"],
-                  t["accent-200"] ?? t["accent-100"],
-                  t["accent-300"] ?? t["accent-100"]
-                ]
-              }}
-              onSelect={onSelect}
-              selected={active === t.id}
-            />
+            <PaletteItem palette={themeToPalette(t)} onSelect={onSelect} selected={active === t.id} />
           </div>
         ))}
       </div>

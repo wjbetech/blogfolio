@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="w-full pt-2 md:pt-4 pb-12 md:pb-16">
-      <div className="max-w-7xl mx-auto mt-8 align-middle flex flex-col md:flex-row items-center gap-6">
+      <div className="mt-8 align-middle flex flex-col md:flex-row items-center gap-6">
         <div className="shrink-0">
           <Image
             width={300}

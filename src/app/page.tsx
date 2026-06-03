@@ -8,16 +8,13 @@ export default function Page() {
   const webSiteJsonLd = createWebSiteJsonLd();
 
   return (
-    <main className="min-h-screen max-w-7xl">
+    <div className="min-h-screen space-y-10 md:space-y-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(personJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(webSiteJsonLd) }} />
 
       <Hero />
-
-      <div className="max-w-7xl mx-auto space-y-10 md:space-y-14">
-        <BlogCarousel />
-        <ProjectCarousel />
-      </div>
-    </main>
+      <BlogCarousel />
+      <ProjectCarousel />
+    </div>
   );
 }

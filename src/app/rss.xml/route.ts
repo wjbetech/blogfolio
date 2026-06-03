@@ -1,5 +1,6 @@
 import { allPosts } from "contentlayer/generated";
 import { SITE_URL } from "@/lib/metadata";
+import { sortBlogPosts } from "@/lib/blogPagination";
 
 export const dynamic = "force-static";
 
@@ -33,9 +34,9 @@ function createItemXml(post: (typeof allPosts)[number]) {
 }
 
 export async function GET() {
-  const publishedPosts = allPosts
-    .filter((post) => post.status.trim() === "published")
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  const publishedPosts = sortBlogPosts(
+    allPosts.filter((post) => post.status.trim() === "published")
+  );
 
   const lastBuildDateSource = publishedPosts[0]?.updatedAt ?? publishedPosts[0]?.publishedAt;
   const itemsXml = publishedPosts.map(createItemXml).join("\n");

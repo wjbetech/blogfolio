@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import type { Post } from "contentlayer/generated";
+import { sortBlogPosts } from "@/lib/blogPagination";
 
 type Props = {
   posts: Post[];
@@ -10,8 +11,7 @@ type Props = {
 export default function PostNav({ posts, slug }: Props) {
   if (!posts || posts.length === 0) return null;
 
-  // Sort posts by published date descending (newest first)
-  const sorted = [...posts].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  const sorted = sortBlogPosts(posts);
   const index = sorted.findIndex((p) => p.slug === slug);
 
   const prev = index < sorted.length - 1 ? sorted[index + 1] : null; // older

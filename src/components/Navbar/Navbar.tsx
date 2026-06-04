@@ -132,7 +132,8 @@ export default function Navbar({
             aria-controls={mobileNavId}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden cursor-pointer p-0">
+            className="md:hidden cursor-pointer p-0"
+            style={{ cursor: "pointer" }}>
             <HamburgerIcon open={mobileMenuOpen} />
           </button>
 

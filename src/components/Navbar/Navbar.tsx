@@ -165,6 +165,7 @@ export default function Navbar({
           id={mobileNavId}
           ref={mobileMenuRef}
           aria-label="Mobile navigation"
+          aria-hidden={!mobileMenuOpen}
           className="flex flex-col h-full justify-center items-start px-8 gap-8">
           {navLinks.map((link) => {
             const isBlogLink = link.href === "/blog";
@@ -178,6 +179,7 @@ export default function Navbar({
                 href={link.href}
                 onClick={() => handleLinkClick(link.href, "mobile")}
                 style={{ transition: "none" }}
+                tabIndex={mobileMenuOpen ? undefined : -1}
                 className={`flex items-baseline gap-4 text-xl font-bold relative pb-2 ${
                   active
                     ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-3 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"

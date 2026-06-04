@@ -18,6 +18,8 @@ export default function useCarouselDrag(scrollerRef: React.RefObject<HTMLDivElem
   });
 
   const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0 || !event.isPrimary) return;
+
     const element = scrollerRef.current;
     if (!element) return;
 
@@ -63,7 +65,6 @@ export default function useCarouselDrag(scrollerRef: React.RefObject<HTMLDivElem
 
     dragStateRef.current.pointerId = null;
     dragStateRef.current.isDragging = false;
-    dragStateRef.current.suppressClick = false;
   }, [scrollerRef]);
 
   const handleClickCapture = useCallback((event: React.MouseEvent<HTMLDivElement>) => {

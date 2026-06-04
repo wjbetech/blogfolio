@@ -84,8 +84,8 @@ export default function Navbar({
 
   return (
     <header
-      className="isolate z-50 px-4 sm:px-6 lg:px-8"
-      style={{ contain: "paint", willChange: "transform", backfaceVisibility: "hidden" }}>
+      className="relative isolate z-50 px-4 sm:px-6 lg:px-8"
+      style={{ willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
           William East
@@ -150,48 +150,51 @@ export default function Navbar({
       </div>
 
       {/* Mobile Menu Modal - full width, half screen height */}
-      {mobileMenuOpen && (
-        <div
-          className="md:hidden fixed inset-0 top-20 h-[50vh] z-50 bg-bg-100 border-b border-accent-200/20 shadow-xl"
-          role="presentation"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) {
-              setMobileMenuOpen(false);
-            }
-          }}>
-          <nav
-            id={mobileNavId}
-            ref={mobileMenuRef}
-            aria-label="Mobile navigation"
-            className="flex flex-col h-full justify-center items-start px-8 gap-8">
-            {navLinks.map((link) => {
-              const isBlogLink = link.href === "/blog";
-              const active = isBlogLink
-                ? pathname === "/blog" || pathname?.startsWith("/blog/")
-                : pathname === link.href;
+      <div
+        className={`md:hidden fixed inset-0 top-20 h-[50vh] z-40 bg-bg-100 border-b border-accent-200/20 transition duration-300 ease-out ${
+          mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+        role="presentation"
+        aria-hidden={!mobileMenuOpen}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            setMobileMenuOpen(false);
+          }
+        }}>
+        <nav
+          id={mobileNavId}
+          ref={mobileMenuRef}
+          aria-label="Mobile navigation"
+          aria-hidden={!mobileMenuOpen}
+          className="flex flex-col h-full justify-center items-start px-8 gap-8">
+          {navLinks.map((link) => {
+            const isBlogLink = link.href === "/blog";
+            const active = isBlogLink
+              ? pathname === "/blog" || pathname?.startsWith("/blog/")
+              : pathname === link.href;
 
-              return (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  onClick={() => handleLinkClick(link.href, "mobile")}
-                  style={{ transition: "none" }}
-                  className={`flex items-baseline gap-4 text-4xl font-bold relative pb-2 ${
-                    active
-                      ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                      : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-6 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                  }`}
-                  aria-current={active ? "page" : undefined}>
-                  <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
-                    0{link.id}
-                  </span>
-                  <span style={{ transition: "none" }}>{link.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
-      )}
+            return (
+              <Link
+                key={link.id}
+                href={link.href}
+                onClick={() => handleLinkClick(link.href, "mobile")}
+                style={{ transition: "none" }}
+                tabIndex={mobileMenuOpen ? undefined : -1}
+                className={`flex items-baseline gap-4 text-xl font-bold relative pb-2 ${
+                  active
+                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-3 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
+                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-3 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
+                }`}
+                aria-current={active ? "page" : undefined}>
+                <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
+                  0{link.id}
+                </span>
+                <span style={{ transition: "none" }}>{link.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
     </header>
   );
 }

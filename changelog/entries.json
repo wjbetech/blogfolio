@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-06-05",
+    "version": "0.5.3",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed mobile Navbar menu icons not displaying correctly in the hamburger menu."
+      },
+      {
+        "category": "Style",
+        "description": "Updated the Kharidian Dunes theme palette for improved contrast and visual consistency."
+      }
+    ]
+  },
+  {
     "date": "2026-06-01",
     "version": "0.5.2",
     "changes": [

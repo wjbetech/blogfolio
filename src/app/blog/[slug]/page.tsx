@@ -24,8 +24,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = allPosts.find((candidate) => candidate.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = allPosts.find((candidate) => candidate.slug === slug);
   if (!post) {
     return createBlogListMetadata();
   }

@@ -91,7 +91,7 @@ export default function Navbar({
           William East
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="relative z-50 flex items-center gap-4">
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
             {navLinks.map((link) => {
@@ -144,14 +144,14 @@ export default function Navbar({
             aria-controls="theme-drawer"
             onClick={() => onToggle?.()}
             className="rounded-full w-6 h-6 flex items-center justify-center cursor-pointer p-0">
-            <ColorPaletteIcon className="text-accent-100 w-full h-full translate-y-[-1px]" />
+            <ColorPaletteIcon className="text-accent-100 w-full h-full -translate-y-px" />
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Modal - full width, half screen height */}
       <div
-        className={`md:hidden fixed inset-0 top-20 h-[50vh] z-40 bg-bg-100 border-b border-accent-200/20 transition duration-300 ease-out ${
+        className={`md:hidden fixed left-0 right-0 top-20 h-[50vh] z-40 bg-bg-100 border-b border-accent-200/20 transition duration-300 ease-out ${
           mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
         role="presentation"
@@ -169,9 +169,7 @@ export default function Navbar({
           className="flex flex-col h-full justify-center items-start px-8 gap-8">
           {navLinks.map((link) => {
             const isBlogLink = link.href === "/blog";
-            const active = isBlogLink
-              ? pathname === "/blog" || pathname?.startsWith("/blog/")
-              : pathname === link.href;
+            const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
 
             return (
               <Link

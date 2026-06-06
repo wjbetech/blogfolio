@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-06-06",
+    "version": "0.6.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Redesigned the /language-services page with a bento-style services grid featuring icons, accent borders, and hover interactions."
+      },
+      {
+        "category": "Feature",
+        "description": "Added an interactive left-rail timeline to the /language-services Experience section with a scroll-tracking fill indicator and a floating year pill."
+      },
+      {
+        "category": "Style",
+        "description": "Grouped experience items by year in the /language-services timeline with proportional segment heights and visual gaps between years."
+      }
+    ]
+  },
+  {
     "date": "2026-06-05",
     "version": "0.5.3",
     "changes": [

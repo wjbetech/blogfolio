@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import Image from "next/image";
 
 import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 
@@ -9,6 +8,7 @@ import TrackedLink from "@/components/Analytics/TrackedLink";
 import ChangelogList from "@/components/Changelog/ChangelogList";
 import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
+import ProjectImageSlider from "./ProjectImageSlider";
 
 export default function DevPage() {
   const entries = getChangelogSlice(0, 5);
@@ -38,124 +38,114 @@ export default function DevPage() {
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
           {allProjects.map((project, i) => {
-            const isEven = i % 2 === 0;
-            // Prefer an explicit filesystem check so we don't attempt to render images
-            // that exist in frontmatter but are missing from `public/`.
-            const declared = project.images && project.images.length > 0 && project.images[0] !== "";
-            let hasImage = false;
-            if (declared) {
-              const rel = project.images![0].startsWith("/") ? project.images![0].slice(1) : project.images![0];
-              const abs = path.join(process.cwd(), "public", rel);
-              try {
-                hasImage = fs.existsSync(abs);
-              } catch (e) {
-                console.error(e, "Error checking image file:", abs);
-                hasImage = false;
+            const existingImages: string[] = [];
+            if (project.images && project.images.length > 0) {
+              for (const img of project.images) {
+                if (img === "" || !img) continue;
+                const rel = img.startsWith("/") ? img.slice(1) : img;
+                const abs = path.join(process.cwd(), "public", rel);
+                try {
+                  if (fs.existsSync(abs)) {
+                    existingImages.push(img.startsWith("/") ? img : "/" + img);
+                  }
+                } catch {
+                  // skip
+                }
               }
             }
             const num = String(i + 1).padStart(2, "0");
 
+            const isImageLeft = i % 2 === 0;
+
             return (
-              <article key={project.id} id={project.slug} className="scroll-mt-28 group/project mb-28 last:mb-12">
+              <article key={project.id} id={project.slug} className="scroll-mt-28 mb-28 last:mb-12">
                 {/* ── Project number + rule ── */}
-                <div className={`flex items-center gap-4 mb-6 ${isEven ? "" : "flex-row-reverse"}`}>
+                <div className={`flex items-center gap-4 mb-6 ${isImageLeft ? "" : "flex-row-reverse"}`}>
                   <span className="font-mono text-accent-200 tracking-widest" style={{ transition: "none" }}>
                     {num}
                   </span>
                   <div className="flex-1 h-px bg-accent-100/30" />
-                  {project.featured && i !== 0 && i !== 3 && (
-                    <span
-                      className="text-[10px] font-mono uppercase tracking-widest text-accent-200/70"
-                      style={{ transition: "none" }}>
-                      Featured
-                    </span>
-                  )}
                 </div>
 
-                {/* ── Card with accent edge ── */}
-                <div className="relative">
-                  {/* Accent edge stripe */}
-                  <div className={`absolute top-0 bottom-0 w-1 bg-accent-200 z-10 ${isEven ? "left-0" : "right-0"}`} />
+                {/* ── Card ── */}
+                <div
+                  className={`flex flex-col items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 ${
+                    isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
+                >
+                  {/* ── Visual side ── */}
+                  <div className="relative w-full md:w-[42%] shrink-0 p-4">
+                    <ProjectImageSlider
+                      images={existingImages}
+                      title={project.title}
+                      fallback="/images/assets/placeholder.png"
+                    />
+                  </div>
 
+                  {/* ── Content side ── */}
                   <div
-                    className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 transition-shadow duration-300 group-hover/project:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)]`}>
-                    {/* ── Visual side ── */}
-                    <div className="relative w-full md:w-[42%] shrink-0 overflow-hidden">
-                      <div className="relative w-full h-80 md:h-full min-h-80">
-                        <Image
-                          src={hasImage ? project.images![0] : "/images/assets/placeholder.png"}
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-transform duration-700 ease-out group-hover/project:scale-[1.06]"
-                        />
-                        <div className="absolute inset-0 bg-bg-200/10 mix-blend-multiply" />
+                    className={`flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 ${
+                      isImageLeft ? "md:pl-10" : "md:pr-10"
+                    }`}
+                  >
+                    <div className="space-y-6">
+                      {/* Title */}
+                      <div>
+                        <h2 className="text-3xl font-bold font-serif text-headline leading-[1.15] tracking-tight">
+                          {project.title}
+                        </h2>
                       </div>
+
+                      {/* Description */}
+                      <p className="text-base text-paragraph/80 leading-[1.7] max-w-lg">{project.description}</p>
+
+                      {/* Tech stack */}
+                      {project.tech && project.tech.length > 0 && (
+                        <div className="flex items-center gap-2 flex-wrap mt-4">
+                          {project.tech.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
 
-                    {/* ── Content side ── */}
-                    <div
-                      className={`flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 ${isEven ? "md:pl-10" : "md:pr-10"}`}>
-                      <div className="space-y-6">
-                        {/* Title (no decorative underline on /dev) */}
-                        <div>
-                          <h2 className="text-2xl font-semibold font-serif cursor-pointer text-headline leading-[1.15] tracking-tight transition-colors duration-200 group-hover/project:text-accent-200 relative pb-1 after:absolute after:bottom-px after:left-0 after:right-0 after:h-2 after:bg-accent-100/60 after:origin-left after:transform after:scale-x-0 after:transition-transform after:duration-200 after:-z-10 group-hover/project:after:scale-x-100">
-                            {project.title}
-                          </h2>
-                        </div>
-
-                        {/* Description — slightly larger for readability */}
-                        <p className="text-base text-paragraph/75 leading-[1.7] max-w-lg">{project.description}</p>
-
-                        {/* Tech stack — pills with subtle background */}
-                        {project.tech && project.tech.length > 0 && (
-                          <div className="space-y-2">
-                            <span className="text-sm uppercase tracking-[0.2em] text-paragraph/80 font-mono font-semibold block">
-                              Built with
-                            </span>
-                            <div className="flex items-center gap-2 flex-wrap">
-                              {project.tech.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono transition-colors duration-200">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Actions — separated with space, not a border */}
-                      <div className="flex items-center gap-5 mt-10">
-                        {(project.repo || project.link) && (
-                          <TrackedLink
-                            href={project.repo || project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150"
-                            eventName="Project CTA Click"
-                            eventProps={{
-                              kind: project.repo ? "github" : "demo",
-                              slug: project.slug,
-                              surface: "dev_primary"
-                            }}>
-                            <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
-                            View on GitHub
-                          </TrackedLink>
-                        )}
-                        {project.link && (
-                          <TrackedLink
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors"
-                            eventName="Project CTA Click"
-                            eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}>
-                            Live Demo
-                            <IconArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
-                          </TrackedLink>
-                        )}
-                      </div>
+                    {/* Actions */}
+                    <div className="flex items-center gap-5 mt-10">
+                      {project.repo && (
+                        <TrackedLink
+                          href={project.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150"
+                          eventName="Project CTA Click"
+                          eventProps={{
+                            kind: "github",
+                            slug: project.slug,
+                            surface: "dev_primary"
+                          }}
+                        >
+                          <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
+                          GitHub
+                        </TrackedLink>
+                      )}
+                      {project.link && (
+                        <TrackedLink
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors"
+                          eventName="Project CTA Click"
+                          eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}
+                        >
+                          Live Demo
+                          <IconArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
+                        </TrackedLink>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -172,7 +162,7 @@ export default function DevPage() {
           <div className="sticky top-24 space-y-10">
             {/* Project index */}
             <div>
-              <h4 className="text-base font-semibold font-mono uppercase tracking-[0.25em] text-accent-200 mb-5" style={{ transition: "none" }}>
+              <h4 className="text-sm font-semibold text-paragraph/60 mb-5">
                 Index
               </h4>
               <nav className="space-y-0.5">
@@ -181,15 +171,18 @@ export default function DevPage() {
                     key={project.id}
                     href={`#${project.slug}`}
                     className="group/nav flex items-center gap-3 py-2 cursor-pointer"
-                    style={{ transition: "none" }}>
+                    style={{ transition: "none" }}
+                  >
                     <span
-                      className="text-[11px] font-mono text-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
-                      style={{ transition: "none" }}>
+                      className="text-xs font-mono text-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
+                      style={{ transition: "none" }}
+                    >
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
-                      className="text-[13px] text-paragraph/60 group-hover/nav:text-headline truncate"
-                      style={{ transition: "none" }}>
+                      className="text-sm text-paragraph/60 group-hover/nav:text-headline truncate"
+                      style={{ transition: "none" }}
+                    >
                       {project.title}
                     </span>
                   </a>
@@ -199,7 +192,7 @@ export default function DevPage() {
 
             {/* Quick stats */}
             <div className="space-y-3">
-              <h4 className="text-base font-semibold font-mono uppercase tracking-[0.25em] text-accent-200 mb-3" style={{ transition: "none" }}>
+              <h4 className="text-sm font-semibold text-paragraph/60 mb-3">
                 At a glance
               </h4>
               <div className="flex items-baseline gap-2">

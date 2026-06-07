@@ -46,7 +46,7 @@ export default function DevPage() {
                 const abs = path.join(process.cwd(), "public", rel);
                 try {
                   if (fs.existsSync(abs)) {
-                    existingImages.push(img);
+                    existingImages.push(img.startsWith("/") ? img : "/" + img);
                   }
                 } catch {
                   // skip
@@ -116,15 +116,15 @@ export default function DevPage() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-5 mt-10">
-                      {(project.repo || project.link) && (
+                      {project.repo && (
                         <TrackedLink
-                          href={project.repo || project.link}
+                          href={project.repo}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="group/gh inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-lg bg-[#24292f] text-[#f6f8fa] border border-[#57606a]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_1px_3px_rgba(0,0,0,0.12)] hover:bg-[#32383f] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_6px_16px_rgba(0,0,0,0.18)] active:bg-[#1c2024] active:shadow-none transition-[background-color,box-shadow] duration-150"
                           eventName="Project CTA Click"
                           eventProps={{
-                            kind: project.repo ? "github" : "demo",
+                            kind: "github",
                             slug: project.slug,
                             surface: "dev_primary"
                           }}

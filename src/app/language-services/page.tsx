@@ -111,7 +111,7 @@ export default function LanguageServicesPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto py-16">
+      <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold font-serif text-headline mb-6">
           Language Services
         </h1>

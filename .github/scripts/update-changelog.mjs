@@ -28,6 +28,21 @@ if (entries.some((e) => e.sha === commitSha)) {
   process.exit(0);
 }
 
+// Skip CI/CD, merge, and bot commits
+const commitActor = process.env.GITHUB_ACTOR || "";
+if (commitActor === "github-actions[bot]") {
+  console.log("Skipping bot commit");
+  process.exit(0);
+}
+if (commitMessage.startsWith("Merge") || commitMessage.includes("[skip ci]")) {
+  console.log("Skipping merge or skipped CI commit");
+  process.exit(0);
+}
+if (/^(ci|chore\(ci|chore\(ci\/cd|chore\/ci|chore\/cicd)[\s:]/i.test(commitMessage)) {
+  console.log("Skipping CI-only commit");
+  process.exit(0);
+}
+
 // Detect release version in commit message.
 // Accept patterns like:
 // - "chore(release): v1.2.3"
@@ -85,7 +100,7 @@ for (const segment of segments) {
   if (separatorIndex === -1) continue;
 
   const rawCategory = segment.slice(0, separatorIndex).trim();
-  const description = segment.slice(separatorIndex + 1).trim();
+  const description = segment.slice(separatorIndex + 1).trim().replace(/\n+/g, " ");
   const normalizedCategory = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
 
   if (!allowedCategories.has(normalizedCategory)) continue;
@@ -100,7 +115,7 @@ for (const segment of segments) {
 if (changes.length === 0) {
   changes.push({
     category: "Chore",
-    description: commitMessage || "Update"
+    description: (commitMessage || "Update").replace(/\n+/g, " ")
   });
 }
 

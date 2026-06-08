@@ -1,35 +1,5 @@
 [
   {
-    "date": "2026-06-08",
-    "version": "0.6.0",
-    "changes": [
-      {
-        "category": "Chore",
-        "description": "Merge branch 'master' of https://github.com/wjbetech/blogfolio"
-      }
-    ]
-  },
-  {
-    "date": "2026-06-08",
-    "version": "0.6.0",
-    "changes": [
-      {
-        "category": "Chore",
-        "description": "Merge branch 'master' of https://github.com/wjbetech/blogfolio"
-      }
-    ]
-  },
-  {
-    "date": "2026-06-08",
-    "version": "0.6.0",
-    "changes": [
-      {
-        "category": "Chore",
-        "description": "ci: fix changelog permissions and action versions - update-changelog: add contents: write permission - deploy: bump docker/login-action v3 -> v4"
-      }
-    ]
-  },
-  {
     "date": "2026-06-06",
     "version": "0.6.0",
     "changes": [

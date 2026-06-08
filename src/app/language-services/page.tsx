@@ -111,16 +111,15 @@ export default function LanguageServicesPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold font-serif text-headline mb-6">
-          Language Services
-        </h1>
-        <p className="text-lg text-paragraph mb-8">
-          Professional language services including translation, localization,
-          proofreading, editing and consulting.
-        </p>
+      <h1 className="text-4xl font-bold font-serif text-headline mb-6">
+        Language Services
+      </h1>
+      <p className="text-lg text-paragraph mb-8">
+        Professional language services including translation, localization,
+        proofreading, editing and consulting.
+      </p>
 
-        <div className="space-y-12">
+      <div className="space-y-12">
           {/* description of available services */}
           <section className="my-8">
             <h2 className="text-2xl font-semibold font-serif text-headline my-8">
@@ -177,7 +176,7 @@ export default function LanguageServicesPage() {
           </section>
 
           {/* experience */}
-          <section className="mt-8 pt-4">
+          <section className="mt-8 pt-4 mb-20">
             <div className="mb-4">
               <h2 className="text-2xl font-semibold font-serif text-headline">
                 Experience
@@ -189,7 +188,6 @@ export default function LanguageServicesPage() {
             <ExperienceTimeline groups={experienceGroups} />
           </section>
         </div>
-      </div>
     </div>
   );
 }

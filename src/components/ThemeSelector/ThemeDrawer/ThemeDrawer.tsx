@@ -85,9 +85,9 @@ export default function ThemeDrawer({
       className={`overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-300 ease-in-out ${
         open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
       }`}>
-      {/* Title bar — full width, explicitly centred, completely decoupled from carousel */}
-      <div className="relative w-full py-2 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center gap-2">
+      {/* Title bar — aligned with carousel container */}
+      <div className="w-full py-2 px-6">
+        <div className="max-w-7xl mx-auto relative flex items-center justify-center gap-2">
           <button
             type="button"
             aria-label="Scroll themes left"
@@ -107,14 +107,14 @@ export default function ThemeDrawer({
             className="inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
             ›
           </button>
-        </div>
 
-        <button
-          onClick={onClose}
-          aria-label="Close theme drawer"
-          className="absolute right-4 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 cursor-pointer text-headline shrink-0">
-          <UpArrowIcon />
-        </button>
+          <button
+            onClick={onClose}
+            aria-label="Close theme drawer"
+            className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-headline shrink-0">
+            <UpArrowIcon />
+          </button>
+        </div>
       </div>
 
       {/* Carousel — constrained width, scrolls independently below title */}

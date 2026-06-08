@@ -84,7 +84,7 @@ export default function Navbar({
 
   return (
     <header
-      className="relative isolate z-50 px-4 sm:px-6 lg:px-8"
+      className="relative isolate z-50 px-6"
       style={{ willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
         <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">

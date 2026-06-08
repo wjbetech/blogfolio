@@ -4,6 +4,16 @@
     "version": "1.0.0",
     "changes": [
       {
+        "category": "Chore",
+        "description": "fix(docker): include changelog data in production image"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
+    "version": "1.0.0",
+    "changes": [
+      {
         "category": "Feature",
         "description": "Migrated to self-hosted deployment on a home lab server with automated CI/CD pipeline."
       },

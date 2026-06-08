@@ -25,7 +25,7 @@
     "changes": [
       {
         "category": "Chore",
-        "description": "ci: fix changelog permissions and action versions\n\n- update-changelog: add contents: write permission\n\n- deploy: bump docker/login-action v3 -> v4"
+        "description": "ci: fix changelog permissions and action versions - update-changelog: add contents: write permission - deploy: bump docker/login-action v3 -> v4"
       }
     ]
   },

@@ -85,7 +85,7 @@ for (const segment of segments) {
   if (separatorIndex === -1) continue;
 
   const rawCategory = segment.slice(0, separatorIndex).trim();
-  const description = segment.slice(separatorIndex + 1).trim();
+  const description = segment.slice(separatorIndex + 1).trim().replace(/\n+/g, " ");
   const normalizedCategory = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
 
   if (!allowedCategories.has(normalizedCategory)) continue;
@@ -100,7 +100,7 @@ for (const segment of segments) {
 if (changes.length === 0) {
   changes.push({
     category: "Chore",
-    description: commitMessage || "Update"
+    description: (commitMessage || "Update").replace(/\n+/g, " ")
   });
 }
 

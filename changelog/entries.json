@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-08",
+    "version": "1.0.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Migrated to self-hosted deployment on a home lab server with automated CI/CD pipeline."
+      },
+      {
+        "category": "Feature",
+        "description": "Implemented secure public exposure via Cloudflare Tunnel with no open inbound ports."
+      },
+      {
+        "category": "Feature",
+        "description": "Established GitHub Actions workflow for automatic Docker image builds and homelab deployments on every master push."
+      },
+      {
+        "category": "Improvement",
+        "description": "Containerized the application with Docker Compose, healthchecks, and a dedicated non-root runtime user."
+      }
+    ]
+  },
+  {
     "date": "2026-06-06",
     "version": "0.6.0",
     "changes": [

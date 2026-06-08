@@ -5,6 +5,16 @@
     "changes": [
       {
         "category": "Chore",
+        "description": "Merge branch 'master' of https://github.com/wjbetech/blogfolio"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
+    "version": "0.6.0",
+    "changes": [
+      {
+        "category": "Chore",
         "description": "ci: fix changelog permissions and action versions\n\n- update-changelog: add contents: write permission\n\n- deploy: bump docker/login-action v3 -> v4"
       }
     ]

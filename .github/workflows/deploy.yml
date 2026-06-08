@@ -36,5 +36,5 @@ jobs:
       #   RESEND_API_KEY, CONTACT_TO_EMAIL, CLOUDFLARE_TUNNEL_TOKEN
       # The runner must be able to read these from the host environment.
       - name: Restart compose services
-        working-directory: ${{ secrets.DEPLOY_DIR }}
+        working-directory: ${{ secrets.BLOGFOLIO_DEPLOY_DIR }}
         run: docker compose up -d --pull always

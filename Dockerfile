@@ -18,7 +18,7 @@ COPY . .
 
 # Build args are baked in at image-build time.
 # Override NEXT_PUBLIC_SITE_URL when building for production.
-ARG NEXT_PUBLIC_SITE_URL=https://williameast.com
+ARG NEXT_PUBLIC_SITE_URL=https://wjbeast.com
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
 # next.config.ts must have output: "standalone" for this to work.

@@ -5,6 +5,16 @@
     "changes": [
       {
         "category": "Chore",
+        "description": "fix(docker): remove changelog from dockerignore so data is included in image"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
+    "version": "1.0.0",
+    "changes": [
+      {
+        "category": "Chore",
         "description": "fix(docker): include changelog data in production image"
       }
     ]

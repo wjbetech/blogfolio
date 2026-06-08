@@ -5,6 +5,16 @@
     "changes": [
       {
         "category": "Chore",
+        "description": "ci: test runner permissions fix"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
+    "version": "0.6.0",
+    "changes": [
+      {
+        "category": "Chore",
         "description": "Merge branch 'master' of https://github.com/wjbetech/blogfolio"
       }
     ]

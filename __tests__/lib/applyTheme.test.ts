@@ -20,7 +20,7 @@ describe("applyTheme", () => {
     headline: "#000000",
     paragraph: "#333333",
     button: "#0066cc",
-    "button-text": "#ffffff",
+    buttonText: "#ffffff",
     link: "#0066cc",
     "accent-100": "#ff6600",
     "accent-200": "#ff9933",
@@ -36,7 +36,7 @@ describe("applyTheme", () => {
     expect(mockRoot.style.getPropertyValue("--headline")).toBe("#000000");
     expect(mockRoot.style.getPropertyValue("--paragraph")).toBe("#333333");
     expect(mockRoot.style.getPropertyValue("--button")).toBe("#0066cc");
-    expect(mockRoot.style.getPropertyValue("--button-text")).toBe("#ffffff");
+    expect(mockRoot.style.getPropertyValue("--buttonText")).toBe("#ffffff");
   });
 
   it("should set accent CSS variables", () => {

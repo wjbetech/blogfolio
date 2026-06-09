@@ -7,7 +7,7 @@ export type ColorTheme = {
   headline: string;
   paragraph: string;
   button: string;
-  "button-text"?: string;
+  buttonText?: string;
   link?: string;
   "accent-100": string;
   "accent-200"?: string;

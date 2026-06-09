@@ -9,7 +9,7 @@ export default function Hero() {
           <Image
             width={300}
             height={300}
-            className="rounded-full w-[270px] h-[270px] md:w-[300px] md:h-[300px]"
+            className="rounded-full w-67.5 h-67.5 md:w-75 md:h-75"
             src="/images/assets/avatar.png"
             alt="Will"
           />
@@ -33,9 +33,7 @@ export default function Hero() {
             <h5 className="text-base font-semibold text-headline mt-6">Translation and Editing</h5>
             <p className="text-sm md:text-base text-paragraph leading-normal">Korean & English</p>
             <h5 className="text-base font-semibold text-headline mt-6">Adjunct Professor</h5>
-            <p className="text-sm md:text-base text-paragraph leading-normal">
-              Seoul University of Foreign Studies
-            </p>
+            <p className="text-sm md:text-base text-paragraph leading-normal">Seoul University of Foreign Studies</p>
           </div>
         </div>
       </div>

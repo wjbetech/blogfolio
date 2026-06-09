@@ -15,7 +15,7 @@ export function applyTheme(theme: ColorTheme) {
 
     // button
     root.style.setProperty("--button", theme.button);
-    if (theme["button-text"]) root.style.setProperty("--button-text", theme["button-text"]);
+    if (theme["buttonText"]) root.style.setProperty("--buttonText", theme["buttonText"]);
 
     // link (primary link color) and hover/focus fallback
     if (theme.link) {

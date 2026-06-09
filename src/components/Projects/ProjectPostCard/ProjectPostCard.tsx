@@ -38,7 +38,9 @@ export default function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-4 flex-1">
           <h3 className="text-xl font-semibold text-headline line-clamp-2">{project.title}</h3>
-          {project.description ? <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p> : null}
+          {project.description ? (
+            <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p>
+          ) : null}
         </div>
 
         <div className="mt-4">

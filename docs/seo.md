@@ -126,7 +126,7 @@ Everything below ships today. No action needed.
 ## Previously fixed gaps
 
 | Gap | PR | Status |
-|-----|-----|--------|
+| --- | --- | --- |
 | `SITE_URL` hardcoded to wrong domain | `fix/site-url-env` | ✅ Fixed — now reads `NEXT_PUBLIC_SITE_URL` from env |
 | Default OG image was an external Unsplash URL | `fix/image-fallback` | ✅ Fixed — now uses local `/images/assets/placeholder.png` |
 | `/portfolio/[slug]` pages returned 404 | `feature/portfolio-slug` | ✅ Fixed — static project detail pages exist |

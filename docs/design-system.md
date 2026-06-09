@@ -29,7 +29,7 @@ Professional, clean, minimalistic — with character. The site serves three audi
 | `headline`       | `text-headline`                     | All headings (h1–h4), labels, primary emphasis        |
 | `paragraph`      | `text-paragraph`                    | Body text, descriptions, secondary content            |
 | `button`         | `bg-button`                         | Primary button background                             |
-| `button-text`    | `text-buttonText`                   | Primary button label                                  |
+| `buttonText`     | `text-buttonText`                   | Primary button label                                  |
 | `link`           | `text-link`                         | Inline text links                                     |
 | `accent-100`     | `text-accent-100` / `bg-accent-100` | Soft accent, tag backgrounds, image placeholder fills |
 | `accent-200`     | `text-accent-200` / `bg-accent-200` | Mid accent, hover states, highlights                  |

@@ -6,8 +6,7 @@ argument-hint: "optional PR number (defaults to current branch PR)"
 
 # Review PR Skill
 
-Analyze the GitHub Copilot review on the current open PR, apply valid fixes,
-and produce a clean follow-up commit with a brief human-readable summary.
+Analyze the GitHub Copilot review on the current open PR, apply valid fixes, and produce a clean follow-up commit with a brief human-readable summary.
 
 ## When to Use
 
@@ -20,13 +19,11 @@ and produce a clean follow-up commit with a brief human-readable summary.
 ### 1. Identify the PR
 
 - If a PR number is provided as an argument, use that.
-- Otherwise, check `git branch --show-current` to get the active branch,
-  then find the open PR for that branch via GitHub tools.
+- Otherwise, check `git branch --show-current` to get the active branch, then find the open PR for that branch via GitHub tools.
 
 ### 2. Fetch all review threads
 
-- Use `github-pull_request_read` with `method: "get_review_comments"` to retrieve
-  all review threads on the PR.
+- Use `github-pull_request_read` with `method: "get_review_comments"` to retrieve all review threads on the PR.
 - Ignore threads where `is_outdated: true` — the code has already moved past them.
 - Focus only on threads where `is_resolved: false` and `is_outdated: false`.
 
@@ -35,13 +32,12 @@ and produce a clean follow-up commit with a brief human-readable summary.
 For each unresolved, non-outdated comment, classify it as one of:
 
 | Decision | Criteria |
-|----------|----------|
+| --- | --- |
 | **Fix** | Valid bug, invalid HTML, accessibility issue, logic error, or security concern |
 | **Ignore** | Style preference, contradicts `docs/design-system.md` or `docs/roadmap.md`, or conflicts with the established architecture in `docs/architecture.md` |
 | **Defer** | Valid but out of scope for this PR (belongs in a future branch per `docs/todo.md`) |
 
-When in doubt, cross-reference `docs/` before deciding.
-Do NOT make changes to the color system, theme tokens, or anything in `docs/design-system.md` marked as intentional.
+When in doubt, cross-reference `docs/` before deciding. Do NOT make changes to the color system, theme tokens, or anything in `docs/design-system.md` marked as intentional.
 
 ### 4. Apply all "Fix" changes
 
@@ -52,14 +48,14 @@ Do NOT make changes to the color system, theme tokens, or anything in `docs/desi
 
 ### 5. Resolve all threads
 
-- For every thread actioned (Fixed, Ignored, or Deferred), call
-  `github-pull_request_review_write` with `method: "resolve_thread"` to mark it resolved.
+- For every thread actioned (Fixed, Ignored, or Deferred), call `github-pull_request_review_write` with `method: "resolve_thread"` to mark it resolved.
 - Do this for ALL threads — do not leave outdated or ignored ones open.
 
 ### 6. Commit and push
 
 - Stage only the files that were changed by the fixes.
 - Commit with a message in the format:
+
   ```
   fix(<scope>): address PR review comments
 
@@ -67,17 +63,18 @@ Do NOT make changes to the color system, theme tokens, or anything in `docs/desi
 
   Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
   ```
+
 - Push to the current branch.
 
 ### 7. Report summary to user
 
 Reply with a compact table:
 
-| # | Comment (short) | Decision | Reason |
-|---|-----------------|----------|--------|
-| 1 | Brief description | ✅ Fixed | one-line explanation |
-| 2 | Brief description | ⏭️ Deferred | belongs in fix/xyz |
-| 3 | Brief description | 🚫 Ignored | conflicts with design-system.md |
+| #   | Comment (short)   | Decision    | Reason                          |
+| --- | ----------------- | ----------- | ------------------------------- |
+| 1   | Brief description | ✅ Fixed    | one-line explanation            |
+| 2   | Brief description | ⏭️ Deferred | belongs in fix/xyz              |
+| 3   | Brief description | 🚫 Ignored  | conflicts with design-system.md |
 
 Then state: "Build ✅ · N/N tests pass · All threads resolved. PR is ready for your re-review."
 

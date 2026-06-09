@@ -1,17 +1,17 @@
 [
   {
     "date": "2026-06-09",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "changes": [
       {
         "category": "Chore",
-        "description": "fix/colors: updated some color themes, added three new themes to the app (#62) * fix/colors: updated some color themes, added three new themes to the app * fix/colors: fixed CodeRabbit suggestions and added two new themes"
+        "description": "fix/colors: updated some color themes, added five new themes to the app."
       }
     ]
   },
   {
     "date": "2026-06-08",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "changes": [
       {
         "category": "Chore",
@@ -21,7 +21,7 @@
   },
   {
     "date": "2026-06-08",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "changes": [
       {
         "category": "Chore",

@@ -78,23 +78,31 @@ After that, no further setup is needed. The workflow runs automatically.
 
 ## Changelog flow
 
-Every commit pushed to `master` is processed by the `update-changelog.yml` workflow, which appends an entry to `changelog/entries.json`. This file powers the changelog sidebar on the `/dev` page.
+The changelog is manually maintained in `changelog/entries.json`. This file powers the changelog sidebar on the `/dev` page.
 
-**You don't need to manually update the changelog.** Just write good commit messages.
+**Pull requests must update the changelog.** The `check-changelog.yml` workflow enforces that `changelog/entries.json` is modified in every PR. If your PR does not need a changelog entry, add the `no-changelog` label to skip the check.
 
-Commit message conventions for clear changelog entries:
+Changelog entry format:
 
-| Prefix      | Meaning                               |
-| ----------- | ------------------------------------- |
-| `feat:`     | New feature or page                   |
-| `fix:`      | Bug fix                               |
-| `docs:`     | Documentation changes                 |
-| `chore:`    | Tooling, config, dependencies         |
-| `refactor:` | Code restructure, no behaviour change |
-| `style:`    | Visual / CSS tweaks                   |
-| `content:`  | New or updated blog post / project    |
+```json
+{
+  "date": "2025-06-09",
+  "version": "1.2.3",
+  "changes": [
+    {
+      "category": "Feature",
+      "description": "Added dark mode toggle"
+    }
+  ]
+}
+```
 
-Example: `content: publish post "Cafe Hopping in South Korea"`
+Allowed categories: `Feature`, `Fix`, `Bug`, `Improvement`, `Chore`, `Removed`, `Test`, `Style`.
+
+Description rules:
+- Max 280 characters
+- Single line (no newlines)
+- Must not be empty
 
 ---
 

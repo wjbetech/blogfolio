@@ -12,8 +12,7 @@ git push origin master
         v
 GitHub Actions (GitHub-hosted runner)
   1. ci-content-validation  -- validate + test + build
-  2. update-changelog       -- auto-updates changelog/entries.json
-  3. build-and-push         -- build Docker image → push to ghcr.io  (to write)
+  2. build-and-push         -- build Docker image → push to ghcr.io  (to write)
         |
         | image pushed to ghcr.io/wjbetech/blogfolio:latest
         v
@@ -39,14 +38,6 @@ Steps:
 4. `npm run build` -- production Next.js build (catches type errors, missing pages, etc.)
 
 This is the quality gate. The deploy workflow should only run after this passes.
-
-### `update-changelog.yml`
-
-Triggers on: push to `master` (skips bot commits).
-
-Reads the commit message and SHA, appends an entry to `changelog/entries.json`, and commits the result back to master with `[skip ci]` to avoid a loop.
-
----
 
 ## Workflows to write (Phase B)
 

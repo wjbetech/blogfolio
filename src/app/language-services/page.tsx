@@ -46,7 +46,7 @@ export default function LanguageServicesPage() {
                     </h3>
                   </div>
 
-                  <p className="col-span-2 md:col-span-6 text-paragraph leading-relaxed md:pt-2">
+                  <p className="col-span-2 md:col-span-6 text-paragraph leading-relaxed md:pt-2 mx-4 px-6">
                     {service.description}
                   </p>
                 </div>

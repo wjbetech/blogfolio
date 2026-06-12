@@ -2,6 +2,49 @@ import { IconBriefcase, IconChecklist, IconLanguage, IconWorld } from "@tabler/i
 import ExperienceTimeline from "./ExperienceTimeline";
 
 export default function LanguageServicesPage() {
+  const services = [
+    {
+      index: "01",
+      title: "Translation",
+      icon: IconLanguage,
+      titleHover: "group-hover:text-accent-100",
+      iconHover: "group-hover:border-accent-100 group-hover:text-accent-100",
+      rowHover: "hover:border-accent-100/60",
+      description:
+        "5+ years of experience working with a diverse range of clients and industries providing translations for technical, academic and clients dealing with the arts and history."
+    },
+    {
+      index: "02",
+      title: "Localization",
+      icon: IconWorld,
+      titleHover: "group-hover:text-accent-200",
+      iconHover: "group-hover:border-accent-200 group-hover:text-accent-200",
+      rowHover: "hover:border-accent-200/60",
+      description:
+        "After 10 years of living in Korea and experience with a vast array of Korean content and media, I can provide effective localizations for the web, games, film and more."
+    },
+    {
+      index: "03",
+      title: "Proofreading & Editing",
+      icon: IconChecklist,
+      titleHover: "group-hover:text-accent-300",
+      iconHover: "group-hover:border-accent-300 group-hover:text-accent-300",
+      rowHover: "hover:border-accent-300/60",
+      description:
+        "Experienced freelance proofreader/editor, working with clients including LG, POSCO, POSTECH, and more."
+    },
+    {
+      index: "04",
+      title: "Consulting",
+      icon: IconBriefcase,
+      titleHover: "group-hover:text-accent-100",
+      iconHover: "group-hover:border-accent-100 group-hover:text-accent-100",
+      rowHover: "hover:border-accent-100/60",
+      description:
+        "I provide strategic guidance for individuals and organizations looking to expand their international reach."
+    }
+  ];
+
   const experienceItems = [
     {
       client: "Korea Atomic Industrial Forum",
@@ -115,44 +158,48 @@ export default function LanguageServicesPage() {
         <div className="space-y-12">
           {/* description of available services */}
           <section className="my-8">
-            <h2 className="text-2xl font-semibold font-serif text-headline my-8">Services</h2>
-            <div className="flex flex-col gap-6">
-              <div className="group bg-bg-200 rounded-lg p-6 border-l-4 border-accent-100 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <IconLanguage className="w-6 h-6 text-headline mb-2 group-hover:text-accent-100 transition-colors duration-300" />
-                <h3 className="text-xl font-semibold text-headline mb-2">Translation</h3>
-                <p className="text-paragraph">
-                  5+ years of experience working with a diverse range of clients and industries providing translations
-                  for technical, academic and clients dealing with the arts and history.
-                </p>
-              </div>
+            <div className="flex items-end justify-between gap-6">
+              <h2 className="font-serif text-headline">
+                <span className="block font-mono text-xs font-medium uppercase tracking-[0.4em] text-paragraph/70 mb-3">
+                  What I offer
+                </span>
+                <span className="block text-4xl md:text-5xl font-bold tracking-tight leading-none">Services</span>
+              </h2>
+              <span className="hidden md:block font-mono text-xs text-paragraph/60 tracking-widest pb-1">
+                ( 01 — 04 )
+              </span>
+            </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="group bg-bg-200 rounded-lg p-6 border-l-4 border-accent-200 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                  <IconWorld className="w-6 h-6 text-headline mb-2 group-hover:text-accent-200 transition-colors duration-300" />
-                  <h3 className="text-xl font-semibold text-headline mb-2">Localization</h3>
-                  <p className="text-paragraph">
-                    After 10 years of living in Korea and experience with a vast array of Korean content and media, I
-                    can provide effective localizations for the web, games, film and more.
+            <div className="mt-10">
+              {services.map((service, i) => (
+                <div
+                  key={service.title}
+                  className={`group relative border-t ${
+                    i === services.length - 1 ? "border-b" : ""
+                  } border-paragraph/15 ${
+                    service.rowHover
+                  } py-7 md:py-9 grid grid-cols-[auto_1fr] md:grid-cols-12 gap-x-5 gap-y-3 items-start transition-all duration-500 md:hover:pl-3 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] fill-mode-backwards`}
+                  style={{ animationDelay: `${150 + i * 150}ms` }}>
+                  <span className="font-mono text-xs text-paragraph/50 tracking-widest pt-2 md:pt-3 md:col-span-1">
+                    {service.index}
+                  </span>
+
+                  <div className="md:col-span-5 flex items-center gap-4">
+                    <span
+                      className={`hidden md:flex w-12 h-12 shrink-0 items-center justify-center rounded-full border border-paragraph/25 text-headline transition-all duration-500 group-hover:rotate-360 ${service.iconHover}`}>
+                      <service.icon className="w-5 h-5" stroke={1.5} />
+                    </span>
+                    <h3
+                      className={`font-serif text-2xl md:text-3xl font-semibold tracking-tight text-headline transition-colors duration-300 ${service.titleHover}`}>
+                      {service.title}
+                    </h3>
+                  </div>
+
+                  <p className="col-span-2 md:col-span-6 text-paragraph leading-relaxed md:pt-2">
+                    {service.description}
                   </p>
                 </div>
-                <div className="group bg-bg-200 rounded-lg p-6 border-l-4 border-accent-300 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                  <IconChecklist className="w-6 h-6 text-headline mb-2 group-hover:text-accent-300 transition-colors duration-300" />
-                  <h3 className="text-xl font-semibold text-headline mb-2">Proofreading & Editing</h3>
-                  <p className="text-paragraph">
-                    Experienced freelance proofreader/editor, working with clients including LG, POSCO, POSTECH, and
-                    more.
-                  </p>
-                </div>
-              </div>
-
-              <div className="group bg-bg-200 rounded-lg p-6 border-l-4 border-headline hover:-translate-y-1 hover:shadow-md transition-all duration-300">
-                <IconBriefcase className="w-6 h-6 text-headline mb-2 group-hover:text-accent-100 transition-colors duration-300" />
-                <h3 className="text-xl font-semibold text-headline mb-2">Consulting</h3>
-                <p className="text-paragraph">
-                  I provide strategic guidance for individuals and organizations looking to expand their international
-                  reach.
-                </p>
-              </div>
+              ))}
             </div>
           </section>
 

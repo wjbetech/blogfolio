@@ -101,3 +101,21 @@ export const generateProjectMetadata = (project: Project): Metadata => {
     path: `/portfolio/${project.slug}`
   });
 };
+
+export const generateDevProjectMetadata = (project: Project): Metadata => {
+  const primaryImage = project.images?.[0]?.trim();
+
+  return buildMetadata({
+    title: `${project.title} | BlogFolio Dev`,
+    description: project.description,
+    images: primaryImage ? [primaryImage] : undefined,
+    path: `/dev/${project.slug}`
+  });
+};
+
+export const createDevMetadata = (): Metadata =>
+  buildMetadata({
+    title: "Dev Portfolio | BlogFolio",
+    description: "My projects - apps and software I built for friends, coworkers, or myself.",
+    path: "/dev"
+  });

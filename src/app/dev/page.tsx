@@ -90,7 +90,14 @@ export default function DevPage() {
                       {/* Title */}
                       <div>
                         <h2 className="text-3xl font-bold font-serif text-headline leading-[1.15] tracking-tight">
-                          {project.title}
+                          <TrackedLink
+                            href={`/dev/${project.slug}`}
+                            className="group/title inline-flex items-start gap-1.5 transition-colors duration-300 hover:text-accent-100"
+                            eventName="Project Card Click"
+                            eventProps={{ slug: project.slug, surface: "dev_title" }}>
+                            {project.title}
+                            <IconArrowUpRight className="w-5 h-5 mt-1 shrink-0 opacity-0 -translate-x-1 translate-y-1 transition-all duration-300 group-hover/title:opacity-100 group-hover/title:translate-x-0 group-hover/title:translate-y-0" />
+                          </TrackedLink>
                         </h2>
                       </div>
 

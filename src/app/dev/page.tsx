@@ -61,7 +61,7 @@ export default function DevPage() {
               <article key={project.id} id={project.slug} className="scroll-mt-28 mb-28 last:mb-12">
                 {/* ── Project number + rule ── */}
                 <div className={`flex items-center gap-4 mb-6 ${isImageLeft ? "" : "flex-row-reverse"}`}>
-                  <span className="font-mono text-accent-200 tracking-widest" style={{ transition: "none" }}>
+                  <span className="font-accent-200 tracking-widest" style={{ transition: "none" }}>
                     {num}
                   </span>
                   <div className="flex-1 h-px bg-accent-100/30" />
@@ -71,8 +71,7 @@ export default function DevPage() {
                 <div
                   className={`flex flex-col items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 ${
                     isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
+                  }`}>
                   {/* ── Visual side ── */}
                   <div className="relative w-full md:w-[42%] shrink-0 p-4">
                     <ProjectImageSlider
@@ -86,8 +85,7 @@ export default function DevPage() {
                   <div
                     className={`flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 ${
                       isImageLeft ? "md:pl-10" : "md:pr-10"
-                    }`}
-                  >
+                    }`}>
                     <div className="space-y-6">
                       {/* Title */}
                       <div>
@@ -105,8 +103,7 @@ export default function DevPage() {
                           {project.tech.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono"
-                            >
+                              className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono">
                               {tag}
                             </span>
                           ))}
@@ -127,8 +124,7 @@ export default function DevPage() {
                             kind: "github",
                             slug: project.slug,
                             surface: "dev_primary"
-                          }}
-                        >
+                          }}>
                           <IconBrandGithub className="w-4.5 h-4.5 transition-transform duration-200 group-hover/gh:rotate-[-8deg]" />
                           GitHub
                         </TrackedLink>
@@ -140,8 +136,7 @@ export default function DevPage() {
                           rel="noopener noreferrer"
                           className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors"
                           eventName="Project CTA Click"
-                          eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}
-                        >
+                          eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}>
                           Live Demo
                           <IconArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
                         </TrackedLink>
@@ -162,27 +157,22 @@ export default function DevPage() {
           <div className="sticky top-24 space-y-10">
             {/* Project index */}
             <div>
-              <h4 className="text-sm font-semibold text-paragraph/60 mb-5">
-                Index
-              </h4>
+              <h4 className="text-sm font-semibold text-paragraph/60 mb-5">Index</h4>
               <nav className="space-y-0.5">
                 {allProjects.map((project, i) => (
                   <a
                     key={project.id}
                     href={`#${project.slug}`}
                     className="group/nav flex items-center gap-3 py-2 cursor-pointer"
-                    style={{ transition: "none" }}
-                  >
+                    style={{ transition: "none" }}>
                     <span
-                      className="text-xs font-mono text-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
-                      style={{ transition: "none" }}
-                    >
+                      className="text-xs font-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
+                      style={{ transition: "none" }}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
                       className="text-sm text-paragraph/60 group-hover/nav:text-headline truncate"
-                      style={{ transition: "none" }}
-                    >
+                      style={{ transition: "none" }}>
                       {project.title}
                     </span>
                   </a>
@@ -192,9 +182,7 @@ export default function DevPage() {
 
             {/* Quick stats */}
             <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-paragraph/60 mb-3">
-                At a glance
-              </h4>
+              <h4 className="text-sm font-semibold text-paragraph/60 mb-3">At a glance</h4>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">{allProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>
@@ -223,9 +211,7 @@ export default function DevPage() {
         </div>
 
         <section className="pb-16 max-w-3xl">
-          <h2 className="text-2xl font-semibold font-serif text-headline mb-3 tracking-tight">
-            Changelog
-          </h2>
+          <h2 className="text-2xl font-semibold font-serif text-headline mb-3 tracking-tight">Changelog</h2>
           <p className="text-base text-paragraph/70 mb-10 max-w-lg leading-relaxed">
             Track updates, improvements, and fixes to this blogfolio.
           </p>

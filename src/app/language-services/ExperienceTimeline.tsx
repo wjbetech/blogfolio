@@ -77,32 +77,27 @@ export default function ExperienceTimeline({ groups }: ExperienceTimelineProps) 
           {/* Year pill at the tip */}
           <div
             className="absolute left-3 bg-bg-200 text-headline text-sm font-bold px-2 py-0.5 rounded-full whitespace-nowrap z-10 -translate-y-1/2 transition-all duration-300 ease-out"
-            style={{ top: `${progress * 100}%` }}
-          >
+            style={{ top: `${progress * 100}%` }}>
             {activeYear}
           </div>
         </div>
 
         {/* Content */}
-        <div className="pl-20">
+        <div className="pl-30">
           {groups.map((group, groupIndex) => (
             <div
               key={group.year}
               ref={(el) => {
                 groupRefs.current[groupIndex] = el;
               }}
-              className="pb-12 last:pb-0"
-            >
+              className="pb-12 last:pb-0">
               <ul className="space-y-4">
                 {group.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="first:mt-8">
                     <p className="font-bold text-headline">
-                      {item.client}{" "}
-                      <span className="text-accent-100 text-sm ml-1">
-                        {item.yearLabel}
-                      </span>
+                      {item.client} <span className="text-accent-100 text-sm ml-1">{item.yearLabel}</span>
                     </p>
-                    <p>{item.description}</p>
+                    <p className="text-paragraph max-w-4xl">{item.description}</p>
                   </li>
                 ))}
               </ul>
@@ -121,13 +116,9 @@ export default function ExperienceTimeline({ groups }: ExperienceTimelineProps) 
                   <p className="font-bold text-headline">
                     {item.client}{" "}
                     {itemIndex === 0 ? (
-                      <span className="text-accent-100 text-sm ml-1">
-                        {group.year}
-                      </span>
+                      <span className="text-accent-100 text-sm ml-1">{group.year}</span>
                     ) : (
-                      <span className="text-accent-100 text-sm ml-1">
-                        {item.yearLabel}
-                      </span>
+                      <span className="text-accent-100 text-sm ml-1">{item.yearLabel}</span>
                     )}
                   </p>
                   <p>{item.description}</p>

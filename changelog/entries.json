@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-06-12",
+    "version": "1.2.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Created dynamic /dev/[slug] project detail pages with an editorial, magazine-style design featuring staggered entrance animations, hairline meta strips, and previous/next navigation."
+      },
+      {
+        "category": "Style",
+        "description": "Redesigned Hero component with orbiting rings around the avatar, dramatic typography hierarchy, and staggered fade-in animations using the editorial index pattern."
+      },
+      {
+        "category": "Style",
+        "description": "Redesigned /language-services services section as a numbered index list with hairline dividers, per-service accent color hovers, and consistent editorial styling."
+      },
+      {
+        "category": "Feature",
+        "description": "Added click-through navigation from project titles on /dev to their dedicated project detail pages."
+      },
+      {
+        "category": "Fix",
+        "description": "Fixed ThemeDrawer alignment so the close button stays flush with the carousel container edge across all breakpoints."
+      }
+    ]
+  },
+  {
     "date": "2026-06-09",
     "version": "1.1.0",
     "changes": [

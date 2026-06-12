@@ -1,13 +1,14 @@
 ---
-id: "2"
-title: "E-commerce Platform"
-description: "A full-featured e-commerce platform with shopping cart and payment integration."
+id: "1"
+title: "Atomology"
+description: "Atomology is a browser game for guessing the periodic elements, loosely based on the popular game Wordle."
 tech:
-  - Next.js
-  - Node.js
-  - MongoDB
-link: "https://myecommerce.com"
-repo: ""
+  - Vite
+  - TailwindCSS
+  - DaisyUI
+  - Zustand
+link: "atomology.vercel.app"
+repo: "https://github.com/wjbetech/Atomology"
 images: []
 featured: false
 publishedAt: 2025-09-15

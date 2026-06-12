@@ -1,13 +1,13 @@
 ---
-id: "1"
-title: "Portfolio Website"
-description: "A personal portfolio website to showcase my projects and skills."
+id: "2"
+title: "wowcomps"
+description: "wowcomps is an all-in-one, multi-expac raid configuration tool for all of the Classic World of Warcraft expansions."
 tech:
-  - React
-  - TypeScript
-  - Tailwind CSS
+  - Vite+
+  - TailwindCSS
+  - dnd-kit
 link: "https://myportfolio.com"
-repo: ""
+repo: "https://github.com/wjbetech/wowcomps"
 images: []
 featured: true
 publishedAt: 2024-12-01

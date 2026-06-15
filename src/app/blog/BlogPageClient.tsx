@@ -96,9 +96,6 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                     <h2 className="text-2xl font-semibold font-serif text-headline leading-tight group-hover:text-accent-200 transition-colors duration-200">
                       {featuredPost.title}
                     </h2>
-                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200">
-                      <IconArrowRight className="h-4 w-4 text-accent-200" />
-                    </div>
                   </div>
 
                   <p className="text-lg text-paragraph/85 leading-relaxed max-w-3xl">
@@ -179,9 +176,6 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                       </div>
                     </div>
 
-                    <div className="hidden sm:flex items-center pt-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[opacity,transform] duration-200 pr-4">
-                      <IconArrowRight className="h-4 w-4 text-accent-200" />
-                    </div>
                   </article>
                 </Link>
               );

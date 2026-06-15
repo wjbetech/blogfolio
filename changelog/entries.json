@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-06-15",
+    "version": "1.2.1",
+    "changes": [
+      {
+        "category": "Removed",
+        "description": "Removed on-hover slide-in arrow icons from blog post cards on /blog. The static arrow in the featured card's 'Read full article' link remains."
+      }
+    ]
+  },
+  {
     "date": "2026-06-12",
     "version": "1.2.0",
     "changes": [

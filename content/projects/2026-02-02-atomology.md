@@ -7,7 +7,7 @@ tech:
   - TailwindCSS
   - DaisyUI
   - Zustand
-link: "atomology.vercel.app"
+link: "https://atomology.vercel.app"
 repo: "https://github.com/wjbetech/Atomology"
 images: []
 featured: false

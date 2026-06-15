@@ -1,18 +1,50 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Hero() {
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const [blobOffset, setBlobOffset] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const el = avatarRef.current;
+    if (!el) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const x = (e.clientX - centerX) / (rect.width / 2);
+      const y = (e.clientY - centerY) / (rect.height / 2);
+
+      const clampedX = Math.max(-1, Math.min(1, x));
+      const clampedY = Math.max(-1, Math.min(1, y));
+
+      setBlobOffset({ x: clampedX * 14, y: clampedY * 14 });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
   return (
     <section className="w-full pt-2 md:pt-4 pb-12 md:pb-16">
       <div className="mt-8 align-middle flex flex-col md:flex-row items-center gap-6">
-        <div className="shrink-0">
+        <div ref={avatarRef} className="shrink-0 relative w-67.5 h-67.5 md:w-75 md:h-75">
+          <div
+            className="absolute -inset-2.5 rounded-full bg-accent-200/25 transition-transform duration-300 ease-out"
+            style={{ transform: `translate(${blobOffset.x}px, ${blobOffset.y}px)` }}
+          />
           <Image
             width={300}
             height={300}
-            className="rounded-full w-67.5 h-67.5 md:w-75 md:h-75"
+            className="relative rounded-full w-full h-full shadow-[0_0_40px_-8px_var(--accent-100)] hover:scale-[1.03] transition-transform duration-300"
             src="/images/assets/avatar.png"
             alt="Will"
           />
+          <div className="absolute inset-0 rounded-full bg-accent-300/10 mix-blend-multiply pointer-events-none" />
         </div>
 
         <div className="flex-1 text-center md:text-right">

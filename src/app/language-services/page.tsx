@@ -35,7 +35,7 @@ export default function LanguageServicesPage() {
               {services.map((service, i) => (
                 <div
                   key={service.title}
-                  className="group relative border-t border-paragraph/15 hover:border-accent-300/60 py-7 md:py-9 grid grid-cols-[auto_1fr] md:grid-cols-12 gap-x-5 gap-y-3 items-start transition-all duration-500 md:hover:pl-3 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] fill-mode-backwards"
+                  className="group relative border-t border-paragraph/15 hover:border-accent-300/60 py-7 md:py-9 grid grid-cols-[auto_1fr] md:grid-cols-12 gap-x-5 gap-y-3 items-start transition-colors duration-500 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] fill-mode-backwards"
                   style={{ animationDelay: `${150 + i * 150}ms` }}>
                   <div className="md:col-span-5 flex items-center gap-4">
                     <span className="hidden md:flex w-12 h-12 shrink-0 items-center justify-center rounded-full border border-paragraph/25 text-headline transition-all duration-500 group-hover:rotate-360 group-hover:border-accent-300 group-hover:text-accent-300">

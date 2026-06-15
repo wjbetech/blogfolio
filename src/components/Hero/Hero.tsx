@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Hero() {
   const avatarRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
   const [blobOffset, setBlobOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -13,21 +14,28 @@ export default function Hero() {
     if (!el) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
 
-      const x = (e.clientX - centerX) / (rect.width / 2);
-      const y = (e.clientY - centerY) / (rect.height / 2);
+        const x = (e.clientX - centerX) / (rect.width / 2);
+        const y = (e.clientY - centerY) / (rect.height / 2);
 
-      const clampedX = Math.max(-1, Math.min(1, x));
-      const clampedY = Math.max(-1, Math.min(1, y));
+        const clampedX = Math.max(-1, Math.min(1, x));
+        const clampedY = Math.max(-1, Math.min(1, y));
 
-      setBlobOffset({ x: clampedX * 14, y: clampedY * 14 });
+        const next = { x: clampedX * 14, y: clampedY * 14 };
+        setBlobOffset((prev) => (prev.x === next.x && prev.y === next.y ? prev : next));
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
   return (
     <section className="w-full pt-2 md:pt-4 pb-12 md:pb-16">

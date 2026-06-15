@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-06-15",
+    "version": "1.2.1",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Enhanced Hero avatar with glow shadow, mouse-tracking accent blob, hover scale, and warm color wash overlay."
+      },
+      {
+        "category": "Fix",
+        "description": "Fixed layout shifting in /language-services services section by removing hover padding transition that caused text reflow."
+      },
+      {
+        "category": "Chore",
+        "description": "Removed duplicate project markdown files that caused projects to appear twice on /dev."
+      }
+    ]
+  },
+  {
     "date": "2026-06-12",
     "version": "1.2.0",
     "changes": [

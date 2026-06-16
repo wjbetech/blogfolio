@@ -3,7 +3,7 @@ export const experienceItems = [
     client: "Korea National Pension Service Investment Management",
     yearLabel: "2026",
     description:
-      "Proofread and editor for the Korean-to-English translated brochure for the Korea National Pension Service Investment Management's Annual Report for 2025, ensuring accuracy, consistency and professional readability for international publication."
+      "Proofreader and editor for the Korean-to-English translated brochure for the Korea National Pension Service Investment Management's Annual Report for 2025, ensuring accuracy, consistency and professional readability for international publication."
   },
   {
     client: "Korea Atomic Industrial Forum",

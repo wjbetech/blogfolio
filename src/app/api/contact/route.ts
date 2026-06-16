@@ -33,6 +33,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  if (message.length > 500) {
+    return NextResponse.json({ error: "Message must be 500 characters or less" }, { status: 400 });
+  }
+
   const toEmail = process.env.CONTACT_TO_EMAIL;
   const apiKey = process.env.RESEND_API_KEY;
 

@@ -6,6 +6,10 @@
       {
         "category": "Style",
         "description": "Enhanced /contact form with inline email validation (check/X icons), character counter on message field, and animated paper-plane send button."
+      },
+      {
+        "category": "Chore",
+        "description": "Added Korea National Pension Service Investment Management to the /language-services experience section."
       }
     ]
   },

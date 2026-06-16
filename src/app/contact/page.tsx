@@ -93,6 +93,7 @@ export default function ContactPage() {
                   id="email"
                   name="email"
                   required
+                  aria-invalid={formData.email.length > 0 && !isValid.email}
                   value={formData.email}
                   onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                   className="peer w-full pl-4 pr-10 py-3 bg-bg-200 border border-accent-100/20 rounded-lg text-paragraph focus:outline-none focus:ring-2 focus:ring-accent-100 focus:border-transparent"
@@ -100,9 +101,9 @@ export default function ContactPage() {
                 />
                 {formData.email.length > 0 &&
                   (isValid.email ? (
-                    <IconCheck className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-100" stroke={2.5} />
+                    <IconCheck className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-accent-100" stroke={2.5} aria-hidden="true" />
                   ) : (
-                    <IconX className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-red-400" stroke={2.5} />
+                    <IconX className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-red-400" stroke={2.5} aria-hidden="true" />
                   ))}
               </div>
             </div>

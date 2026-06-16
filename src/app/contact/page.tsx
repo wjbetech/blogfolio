@@ -95,7 +95,7 @@ export default function ContactPage() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                  className="peer w-full px-4 py-3 bg-bg-200 border border-accent-100/20 rounded-lg text-paragraph focus:outline-none focus:ring-2 focus:ring-accent-100 focus:border-transparent"
+                  className="peer w-full pl-4 pr-10 py-3 bg-bg-200 border border-accent-100/20 rounded-lg text-paragraph focus:outline-none focus:ring-2 focus:ring-accent-100 focus:border-transparent"
                   placeholder="your@email.com"
                 />
                 {formData.email.length > 0 &&

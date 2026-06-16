@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-06-15",
+    "version": "1.2.2",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Enhanced /contact form with inline email validation (check/X icons), character counter on message field, and animated paper-plane send button."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-15",
     "version": "1.2.1",
     "changes": [
       {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, type KeyboardEvent } from "react";
 import { IconX } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
@@ -24,6 +24,9 @@ export default function ProjectImageSlider({
   variant = "card"
 }: ProjectImageSliderProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxState, setLightboxState] = useState<LightboxState>("closed");
@@ -47,7 +50,33 @@ export default function ProjectImageSlider({
     }
 
     setLightboxIndex(index);
+    lastFocusedRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setLightboxState("open");
+  }, []);
+
+  const trapFocus = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Tab" || !dialogRef.current) return;
+
+    const focusables = Array.from(
+      dialogRef.current.querySelectorAll<HTMLElement>(
+        'button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((element) => !element.hasAttribute("disabled"));
+
+    if (focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+
+    if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }, []);
 
   const closeLightbox = useCallback(() => {
@@ -104,6 +133,9 @@ export default function ProjectImageSlider({
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    requestAnimationFrame(() => {
+      closeButtonRef.current?.focus();
+    });
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -130,6 +162,7 @@ export default function ProjectImageSlider({
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      lastFocusedRef.current?.focus();
     };
   }, [closeLightbox, displayImages.length, lightboxMounted, lightboxState, stepLightboxImage]);
 
@@ -218,6 +251,8 @@ export default function ProjectImageSlider({
 
       {lightboxMounted && (
         <div
+          ref={dialogRef}
+          onKeyDown={trapFocus}
           className="fixed inset-0 z-50"
           role="dialog"
           aria-modal="true"
@@ -251,6 +286,7 @@ export default function ProjectImageSlider({
               lightboxState === "open" && "animate-in fade-in duration-200",
               lightboxState === "closing" && "animate-out fade-out duration-200"
             )}
+            ref={closeButtonRef}
             aria-label="Close image preview">
             <IconX className="h-5 w-5" stroke={2} aria-hidden="true" />
           </button>

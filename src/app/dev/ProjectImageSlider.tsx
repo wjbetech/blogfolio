@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect, useCallback, type KeyboardEvent } from "react";
+import { useRef, useState, useEffect, useCallback, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { IconX } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
@@ -55,7 +55,7 @@ export default function ProjectImageSlider({
     setLightboxState("open");
   }, []);
 
-  const trapFocus = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
+  const trapFocus = useCallback((event: ReactKeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Tab" || !dialogRef.current) return;
 
     const focusables = Array.from(

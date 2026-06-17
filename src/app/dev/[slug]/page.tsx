@@ -1,6 +1,3 @@
-import fs from "fs";
-import path from "path";
-
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -9,29 +6,14 @@ import { allProjects } from "contentlayer/generated";
 import { createDevMetadata, generateDevProjectMetadata } from "@/lib/metadata";
 import { serializeJsonLd, toAbsoluteStructuredDataUrl, toAbsoluteStructuredDataUrls } from "@/lib/metadataHelper";
 import { formatDate } from "@/lib/date";
+import { getExistingProjectImages } from "@/lib/projectImages.server";
 
 import TrackedLink from "@/components/Analytics/TrackedLink";
 import ProjectImageSlider from "../ProjectImageSlider";
+import { shouldShowLiveDemo } from "@/lib/projectLinks";
 import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 
 const publishedProjects = allProjects.filter((project) => project.status.trim() === "published");
-
-function getExistingImages(images?: string[]) {
-  const existing: string[] = [];
-  for (const img of images ?? []) {
-    if (!img) continue;
-    const rel = img.startsWith("/") ? img.slice(1) : img;
-    const abs = path.join(process.cwd(), "public", rel);
-    try {
-      if (fs.existsSync(abs)) {
-        existing.push(img.startsWith("/") ? img : "/" + img);
-      }
-    } catch {
-      // skip unreadable paths
-    }
-  }
-  return existing;
-}
 
 export function generateStaticParams() {
   return publishedProjects.map((project) => ({ slug: project.slug }));
@@ -56,7 +38,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
   if (!project) notFound();
 
   const num = String(projectIndex + 1).padStart(2, "0");
-  const images = getExistingImages(project.images);
+  const images = getExistingProjectImages(project.images);
   const year = new Date(project.publishedAt).getFullYear();
 
   const prevProject = projectIndex > 0 ? publishedProjects[projectIndex - 1] : null;
@@ -82,20 +64,14 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
       <nav className="pt-2 md:pt-4 animate-in fade-in animation-duration-[700ms] fill-mode-backwards">
         <Link
           href="/dev"
-          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-paragraph/70 hover:text-headline transition-colors duration-300">
+          className="group inline-flex items-center gap-2 font-sans text-sm text-paragraph hover:text-headline transition-colors duration-300">
           <IconArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-          All projects
+          Back to all projects
         </Link>
       </nav>
 
       {/* ── Editorial header ── */}
       <header className="mt-10 md:mt-16">
-        <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] fill-mode-backwards">
-          <span className="font-mono text-xs uppercase tracking-[0.35em] text-paragraph/60">Project — {num}</span>
-          <div className="flex-1 h-px bg-accent-100/30" />
-          <span className="font-mono text-xs tracking-[0.35em] text-paragraph/60">{year}</span>
-        </div>
-
         <h1 className="mt-8 md:mt-10 font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95] text-headline animate-in fade-in slide-in-from-bottom-6 animation-duration-[900ms] animation-delay-[100ms] fill-mode-backwards">
           {project.title}
         </h1>
@@ -108,7 +84,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
       {/* ── Meta strip ── */}
       <div className="mt-12 md:mt-16 border-y border-paragraph/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[400ms] fill-mode-backwards">
         <div className="py-6 px-1 sm:pr-6 border-b sm:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
+          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
             Published
           </span>
           <time dateTime={project.publishedAt} className="font-serif text-lg font-semibold text-headline">
@@ -117,7 +93,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
         </div>
 
         <div className="py-6 px-1 sm:pl-6 lg:px-6 border-b lg:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
+          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
             Last updated
           </span>
           <time dateTime={project.updatedAt} className="font-serif text-lg font-semibold text-headline">
@@ -126,12 +102,14 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
         </div>
 
         <div className="py-6 px-1 sm:pr-6 lg:px-6 border-b sm:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
+          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
             Stack
           </span>
-          <div className="flex flex-wrap gap-x-3 gap-y-1">
+          <div className="flex flex-wrap gap-2">
             {project.tech.map((tag) => (
-              <span key={tag} className="font-mono text-sm text-paragraph">
+              <span
+                key={tag}
+                className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono">
                 {tag}
               </span>
             ))}
@@ -139,9 +117,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
         </div>
 
         <div className="py-6 px-1 sm:pl-6 lg:px-6">
-          <span className="block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
-            Links
-          </span>
+          <span className="block font-sans text-[0.65rem] text-paragraph/60 mb-2">Links</span>
           <div className="flex flex-col items-start gap-1.5">
             {project.repo && (
               <TrackedLink
@@ -156,7 +132,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
                 <IconArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </TrackedLink>
             )}
-            {project.link && (
+            {shouldShowLiveDemo(project.link, project.repo) && (
               <TrackedLink
                 href={project.link}
                 target="_blank"
@@ -168,22 +144,21 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
                 <IconArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </TrackedLink>
             )}
-            {!project.repo && !project.link && <span className="text-sm text-paragraph/50">Private project</span>}
+            {!project.repo && !shouldShowLiveDemo(project.link, project.repo) && (
+              <span className="text-sm text-paragraph/50">Private project</span>
+            )}
           </div>
         </div>
       </div>
 
       {/* ── Gallery ── */}
       <section className="mt-12 md:mt-16 animate-in fade-in zoom-in-[0.98] animation-duration-[900ms] animation-delay-[500ms] fill-mode-backwards">
-        <div className="h-72 md:h-112 lg:h-136 overflow-hidden border border-accent-100/10 bg-bg-200">
-          <ProjectImageSlider images={images} title={project.title} fallback="/images/assets/placeholder.png" />
-        </div>
-        <div className="mt-3 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/50">
-          <span>{project.title}</span>
-          <span>
-            fig. {num} — {images.length || 1} {images.length === 1 ? "image" : "images"}
-          </span>
-        </div>
+        <ProjectImageSlider
+          variant="gallery"
+          images={images}
+          title={project.title}
+          fallback="/images/assets/placeholder.png"
+        />
       </section>
 
       {/* ── Body ── */}
@@ -191,7 +166,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
         <section className="mt-16 md:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[650ms] fill-mode-backwards">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-24">
-              <span className="font-mono text-xs uppercase tracking-[0.35em] text-paragraph/60">About</span>
+              <span className="font-sans text-xs uppercase tracking-[0.35em] text-paragraph/60">About</span>
               <div className="mt-4 w-12 h-px bg-accent-100/40" />
             </div>
           </div>
@@ -212,7 +187,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
             <Link
               href={`/dev/${prevProject.slug}`}
               className="group block py-8 sm:pr-8 transition-all duration-300 hover:bg-bg-200/50 sm:hover:pl-3">
-              <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60">
+              <span className="inline-flex items-center gap-2 font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60">
                 <IconArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
                 Previous
               </span>
@@ -228,7 +203,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
             <Link
               href={`/dev/${nextProject.slug}`}
               className="group block py-8 sm:pl-8 text-left sm:text-right border-t sm:border-t-0 border-paragraph/15 transition-all duration-300 hover:bg-bg-200/50 sm:hover:pr-3">
-              <span className="inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60">
+              <span className="inline-flex items-center gap-2 font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60">
                 Next
                 <IconArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
@@ -244,7 +219,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
       <footer className="mt-4 mb-16 border-t border-paragraph/15 pt-8">
         <Link
           href="/dev"
-          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-paragraph/70 hover:text-headline transition-colors duration-300">
+          className="group inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.25em] text-paragraph/70 hover:text-headline transition-colors duration-300">
           <IconArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
           Back to all projects
         </Link>

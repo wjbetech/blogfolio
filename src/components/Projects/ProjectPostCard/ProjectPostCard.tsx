@@ -7,10 +7,11 @@ import { Card } from "@/components/ui/card";
 import type { Project } from "@/app/types/project";
 import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 import { trackAnalyticsEvent } from "@/lib/analytics";
+import { getPrimaryProjectImage } from "@/lib/projectImages";
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [imgError, setImgError] = useState(false);
-  const declared = (project.images && project.images.length > 0 ? project.images[0] : "").trim();
+  const declared = getPrimaryProjectImage(project.images).trim();
   const showImage = !!declared && !imgError;
   const imageSrc = showImage ? declared : "/images/assets/placeholder.png";
 

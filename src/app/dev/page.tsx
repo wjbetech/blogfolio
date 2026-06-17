@@ -1,7 +1,5 @@
-import fs from "fs";
-import path from "path";
-
 import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
+import { getExistingProjectImages } from "@/lib/projectImages.server";
 
 import { getChangelogSlice } from "@/lib/changelog/entryParser";
 import TrackedLink from "@/components/Analytics/TrackedLink";
@@ -9,6 +7,7 @@ import ChangelogList from "@/components/Changelog/ChangelogList";
 import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
 import ProjectImageSlider from "./ProjectImageSlider";
+import { shouldShowLiveDemo } from "@/lib/projectLinks";
 
 export default function DevPage() {
   const entries = getChangelogSlice(0, 5);
@@ -38,21 +37,7 @@ export default function DevPage() {
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
           {allProjects.map((project, i) => {
-            const existingImages: string[] = [];
-            if (project.images && project.images.length > 0) {
-              for (const img of project.images) {
-                if (img === "" || !img) continue;
-                const rel = img.startsWith("/") ? img.slice(1) : img;
-                const abs = path.join(process.cwd(), "public", rel);
-                try {
-                  if (fs.existsSync(abs)) {
-                    existingImages.push(img.startsWith("/") ? img : "/" + img);
-                  }
-                } catch {
-                  // skip
-                }
-              }
-            }
+            const existingImages = getExistingProjectImages(project.images);
             const num = String(i + 1).padStart(2, "0");
 
             const isImageLeft = i % 2 === 0;
@@ -136,7 +121,7 @@ export default function DevPage() {
                           GitHub
                         </TrackedLink>
                       )}
-                      {project.link && (
+                      {shouldShowLiveDemo(project.link, project.repo) && (
                         <TrackedLink
                           href={project.link}
                           target="_blank"

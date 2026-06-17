@@ -1,5 +1,39 @@
 [
   {
+    "date": "2026-06-17",
+    "version": "1.3.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added Cabin Chat, picme, and wordweb. to /dev with project detail pages, screenshots, and content entries wired into the existing Contentlayer pipeline."
+      },
+      {
+        "category": "Feature",
+        "description": "Added a full-screen image lightbox to project carousels with fade transitions, backdrop click-to-close, Escape support, and left/right arrow navigation between screenshots."
+      },
+      {
+        "category": "Feature",
+        "description": "Introduced project image helpers to prefer 1.-prefixed screenshots for featured cards and sort gallery images in numeric order."
+      },
+      {
+        "category": "Style",
+        "description": "Redesigned /dev/[slug] gallery presentation with a 900×440 viewport: large images scale down to fit, smaller crops stay centered at native size, and dot controls sit below the image area."
+      },
+      {
+        "category": "Style",
+        "description": "Improved project carousel controls with larger dot pills, stable active/inactive sizing via transparent borders, cursor-pointer affordance, and removal of the bottom image fade overlay."
+      },
+      {
+        "category": "Style",
+        "description": "Updated /dev/[slug] metadata typography from mono to sans, matched stack tags to /dev card pill styling, and hid the Cabin Chat Live Demo button when no separate demo URL exists."
+      },
+      {
+        "category": "Chore",
+        "description": "Linked Atomology, wowcomps, and new project screenshots from public/images/assets/projects using numbered filenames and updated content frontmatter paths."
+      }
+    ]
+  },
+  {
     "date": "2026-06-15",
     "version": "1.2.2",
     "changes": [

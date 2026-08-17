@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-08-17",
+    "version": "1.3.3",
+    "changes": [
+      {
+        "category": "Chore",
+        "description": "Cleaned up blog post filenames and metadata, and moved unfinished posts to draft status."
+      }
+    ]
+  },
+  {
     "date": "2026-06-17",
     "version": "1.3.2",
     "changes": [

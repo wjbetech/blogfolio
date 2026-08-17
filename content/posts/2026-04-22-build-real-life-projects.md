@@ -12,7 +12,7 @@ coverImage: ""
 featured: false
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
-status: published
+status: draft
 ---
 
 Building projects that you want to use yourself is one of the greatest ways to elevate everyday baseline motivation to making you your own hype man.

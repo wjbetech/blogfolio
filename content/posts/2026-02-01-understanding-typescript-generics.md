@@ -1,18 +1,18 @@
 ---
 id: "3"
-title: "Building Real-life Projects"
-excerpt: "The importance of building projects you want or need in your own life, and the joy of helping or entertaining others."
+title: "Understanding TypeScript Generics"
+excerpt: "A practical introduction to writing reusable, type-safe code with TypeScript generics."
 author: "William East"
 tags:
-  - Games
+  - TypeScript
   - Web Development
-  - Teaching
+  - Programming
 images: []
 coverImage: ""
 featured: false
 publishedAt: 2026-02-01
 updatedAt: 2026-02-01
-status: published
+status: draft
 ---
 
 TypeScript generics are a powerful feature that allows you to write reusable, type-safe code. They enable you to create components that work with a variety of types rather than a single one.

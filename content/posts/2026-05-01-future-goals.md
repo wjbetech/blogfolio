@@ -1,18 +1,17 @@
 ---
 id: "7"
-title: "Cafe Hopping in South Korea"
-excerpt: "An art form in and of itself, Korea's cafe culture is stunning, but is there a dark truth behind it all?"
+title: "Future Goals"
+excerpt: "A look at the goals and direction I want to pursue next."
 author: "William East"
 tags:
   - Life
-  - Korea
-  - Cafes
+  - Goals
 images: []
 coverImage: ""
 featured: false
 publishedAt: 2026-05-01
 updatedAt: 2026-05-01
-status: published
+status: draft
 ---
 
 WIP.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { trackAnalyticsEvent } from "@/lib/analytics";
@@ -17,6 +17,9 @@ export default function Navbar({
 }) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLElement>(null);
+  const mobileNavId = useId();
   const currentPath = pathname ?? "";
   const isActiveLink = (href: string) =>
     href === "/blog" ? currentPath === "/blog" || currentPath.startsWith("/blog/") : currentPath === href;

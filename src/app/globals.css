@@ -70,3 +70,15 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+/* Editorial drop cap: first letter of the first paragraph in an article body */
+.article-body > p:first-of-type::first-letter {
+  font-size: 3.5em;
+  line-height: 0.8;
+  float: left;
+  padding-right: 0.1em;
+  padding-top: 0.05em;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--accent-100);
+}

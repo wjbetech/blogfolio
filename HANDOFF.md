@@ -35,18 +35,14 @@ The blog is not the primary product or a high-volume publishing platform.
 
 ## Implementation status
 
-Phase 1 (route and publication consolidation) is merged (PR #94) and Phase 2 (controlled Markdown/MDX article renderer) is merged (PR #95):
+Phase 1 (route/publication consolidation) is merged (PR #94), Phase 2 (controlled Markdown/MDX renderer) is merged (PR #95), Phase 3 (conversion surfaces) is merged (PR #96), and Phase 4 (blog visual redesign) is implemented:
 
 - `/dev/[slug]` is the canonical project-detail route; drafts are excluded from all public surfaces.
 - Blog bodies render through a controlled `PostContent` component map (headings/anchors, lists, links, code, blockquotes, dividers, images) with a `max-w-3xl` reading measure.
+- Placeholder project copy and links have been replaced with accurate content; contact paths are consistent; both audiences are reachable from the home hero.
+- Blog post pages now have an editorial drop cap, responsive title sizing, reading time badge, and richer blockquote styling.
 
-Phase 3 (conversion surfaces), pending review/merge:
-
-- Replaced placeholder project copy/links (`wowcomps`, `atomology`) and fixed a dev `wowcomps` link/tech typo.
-- Contact email is now the real recipient `wjbetech@gmail.com`.
-- Added a `/language-services` CTA in the home hero.
-
-Phase 4 editorial embellishments (drop caps, pull quotes, figures/captions, callouts, TOC, related posts) are not implemented.
+Not done: figures/captions, callouts, table of contents, related posts, and a dedicated mobile reading experience pass remain for a future follow-up. Phase 5 targeted cleanup (lint, typecheck, dead code, deployment gating) is still open.
 
 ## Verification snapshot
 
@@ -63,4 +59,4 @@ At the Phase 3 pass, the repository has:
 
 ## Next engineering task
 
-Phase 4: the professional blog post redesign (see `docs/roadmap.md`). After that, targeted cleanup (Phase 5).
+Phase 5: targeted cleanup and performance decisions (see `docs/roadmap.md`). Items include repairing the lint script, making standalone typecheck clean, gating image publication on validation success, removing obsolete Prisma/dependency remnants, deciding what unused UI primitives should keep, and revisiting dynamic rendering.

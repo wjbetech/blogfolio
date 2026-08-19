@@ -16,6 +16,7 @@ import { allPosts } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
+import { IconClock } from "@tabler/icons-react";
 import PostContent from "@/components/Blog/PostContent";
 
 export async function generateStaticParams() {
@@ -68,9 +69,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <CalendarIcon className="w-4 h-4" />
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
           </div>
+          {post.readingTime > 0 && (
+            <div className="flex items-center gap-2">
+              <IconClock className="w-4 h-4" />
+              <span>{post.readingTime} min read</span>
+            </div>
+          )}
         </div>
 
-        <h1 className="text-4xl font-bold font-serif text-headline leading-tight">{post.title}</h1>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-headline leading-tight tracking-tight">{post.title}</h1>
 
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">

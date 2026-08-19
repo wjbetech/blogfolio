@@ -83,7 +83,7 @@ GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` t
 
 ## Phase 3 — Development and language-service conversion surfaces
 
-**Status: implemented and verified (pending review/merge).**
+**Status: complete (merged via PR #96).**
 
 ### Goal
 
@@ -105,33 +105,28 @@ A larger homepage-hierarchy redesign (section ordering, dedicated service CTAs) 
 
 ## Phase 4 — Professional blog post redesign
 
-**Status: planned.**
+**Status: implemented and verified (pending review/merge).**
 
 ### Goal
 
 Make the blog a polished credibility and personality surface without turning it into the site's primary product.
 
-### Possible scope
+### Delivered
 
-- article hero and metadata treatment
-- enlarged paragraph first letters
-- pull quotes and richer blockquote treatments
-- figures with captions
-- callouts
-- article-specific font variation
-- table of contents and related posts if justified
-- mobile reading experience
+- editorial drop cap on the first paragraph (serif accent letter)
+- refined article header: responsive title sizing (text-4xl → text-5xl → text-6xl), added reading time badge using Contentlayer's computed `readingTime` field
+- richer blockquote styling (accent background, rounded right corner)
+- `article-body` class on PostContent root for the drop-cap CSS selector
 
-The Phase 2 component system is the base these build on; they are not implemented yet.
-- code-block presentation
-- table of contents and related posts if justified
-- mobile reading experience
+### Not done (product decisions, left for a follow-up)
 
-These ideas are not requirements until scoped against the Phase 2 component system.
+- enlarged first letters beyond the drop cap (typographic scale refinement)
+- pull quotes / richer blockquote treatments
+- figures with captions and callouts
+- table of contents and related posts
+- mobile reading experience pass
 
-### Done means
-
-The blog looks intentionally designed, reads professionally, supports the documented content system, and strengthens the site's development/language-service goals.
+These are refinements scoped against Phase 2's component system and can be revisited later.
 
 ## Phase 5 — Targeted cleanup and performance decisions
 

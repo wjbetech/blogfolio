@@ -1,6 +1,7 @@
 import { allPosts } from "contentlayer/generated";
 import { redirect } from "next/navigation";
 import { createBlogListMetadata } from "@/lib/metadata";
+import { getPublishedPosts } from "@/lib/content";
 import {
   sortBlogPosts,
   splitFeaturedPost,
@@ -22,7 +23,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   const requestedPage = parseBlogPageParam(rawPage);
 
-  const sortedPosts = sortBlogPosts(allPosts);
+  const sortedPosts = sortBlogPosts(getPublishedPosts(allPosts));
   const { remainingPosts } = splitFeaturedPost(sortedPosts);
   const totalPages = getBlogTotalPages(remainingPosts.length);
   const safeCurrentPage = clampBlogPage(requestedPage, totalPages);

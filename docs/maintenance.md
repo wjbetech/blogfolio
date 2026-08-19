@@ -1,154 +1,102 @@
 # Maintenance
 
-Routine tasks to keep blogfolio healthy, accurate, and up to date.
+Maintenance keeps the content, public URLs, production automation, and documentation aligned. The repository has an automated monthly reminder and a manually maintained changelog.
 
----
+## Monthly reminder
 
-## Monthly sweep (automated reminder)
+`.github/workflows/maintenance-reminder.yml` runs on the first Monday of each month and opens a GitHub issue. It can also be triggered manually.
 
-A GitHub Actions workflow runs on the 1st of every month and opens a GitHub Issue on this repository. GitHub emails you a notification for new issues automatically, so you don't need to remember — the reminder comes to your inbox.
+The issue currently prompts review of:
 
-**Workflow file:** `.github/workflows/monthly-maintenance.yml` (to create in Phase B)
+- content and stale posts
+- dependencies
+- Docker base images
+- GitHub Actions versions
+- SEO and search visibility
+- Cloudflare Tunnel health
+- secrets and tokens
+- homelab disk and memory usage
 
-```yaml
-# .github/workflows/monthly-maintenance.yml  (target -- not yet written)
-name: Monthly maintenance reminder
+The workflow name is `maintenance-reminder.yml`; do not refer to the obsolete `monthly-maintenance.yml` filename.
 
-on:
-  schedule:
-    - cron: "0 9 1 * *" # 09:00 UTC on the 1st of every month
+## Content sweep
 
-jobs:
-  remind:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - name: Open maintenance issue
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { data: issue } = await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🗓️ Monthly maintenance sweep — ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}`,
-              body: [
-                "## Monthly maintenance checklist",
-                "",
-                "Work through each item and check it off.",
-                "",
-                "### Content",
-                "- [ ] Review `docs/todo.md` — are all items still accurate?",
-                "- [ ] Check for any draft posts or projects that are ready to publish",
-                "- [ ] Update `updatedAt` on any posts that received meaningful edits",
-                "",
-                "### Dependencies",
-                "- [ ] Run `npm outdated` — note any major version bumps",
-                "- [ ] Run `npm audit` — fix any high/critical vulnerabilities",
-                "- [ ] Check for a new Contentlayer release (known issue: stuck on 0.3.x)",
-                "",
-                "### SEO & health",
-                "- [ ] Open `https://williameast.com/sitemap.xml` — verify no 404s in the list",
-                "- [ ] Check Google Search Console for crawl errors (once site is live)",
-                "- [ ] Confirm `robots.txt` and RSS feed resolve correctly",
-                "",
-                "### Docs",
-                "- [ ] Scan `docs/` — is anything stale or inaccurate after this month's changes?",
-                "- [ ] Update `docs/roadmap.md` if any Phase items were completed",
-                "",
-                "### Hosting (once live)",
-                "- [ ] Check homelab uptime / Cloudflare Tunnel health",
-                "- [ ] Review disk usage in `public/images/` — remove unused assets",
-                "",
-                "Close this issue when done.",
-              ].join("\\n"),
-              labels: ["maintenance"]
-            });
-            console.log(`Created issue #${issue.number}: ${issue.html_url}`);
+Review:
+
+- posts or projects still marked `draft`
+- unfinished bodies such as the current `Future Goals` post
+- project descriptions and links
+- `publishedAt` and `updatedAt`
+- referenced local images
+- public route changes
+- whether the blog is supporting development and language-service goals
+
+Run:
+
+```bash
+npm run validate:content
+npm test
+npm run build
 ```
 
-**Setup required (one-time):**
+Standalone typecheck should also be run while the current test typing errors remain unresolved:
 
-1. Create a `maintenance` label on the GitHub repo (Settings → Labels → New label → name: `maintenance`, colour of your choice)
-2. GitHub notifications for new issues must be enabled on your account (GitHub → Settings → Notifications → Issues → check "Email")
-
-After that, no further setup is needed. The workflow runs automatically.
-
----
-
-## Changelog flow
-
-The changelog is manually maintained in `changelog/entries.json`. This file powers the changelog sidebar on the `/dev` page.
-
-**Pull requests must update the changelog.** The `check-changelog.yml` workflow enforces that `changelog/entries.json` is modified in every PR. If your PR does not need a changelog entry, add the `no-changelog` label to skip the check.
-
-Changelog entry format:
-
-```json
-{
-  "date": "2025-06-09",
-  "version": "1.2.3",
-  "changes": [
-    {
-      "category": "Feature",
-      "description": "Added dark mode toggle"
-    }
-  ]
-}
+```bash
+npx tsc --noEmit
 ```
 
-Allowed categories: `Feature`, `Fix`, `Bug`, `Improvement`, `Chore`, `Removed`, `Test`, `Style`.
+## Changelog
 
-Description rules:
-- Max 280 characters
-- Single line (no newlines)
-- Must not be empty
+`changelog/entries.json` powers the changelog displayed on `/dev` and is validated with Zod by `src/lib/changelog/entryParser.ts`.
 
----
+Normal pull requests should add a changelog entry. `check-changelog.yml` enforces this for pull requests targeting `master`, unless the `no-changelog` label is present.
+
+Entries use:
+
+- a `YYYY-MM-DD` date
+- a semver version
+- one or more allowed categories
+- a non-empty single-line description of 280 characters or fewer
 
 ## Dependency updates
 
-Do not update dependencies mid-feature. Do it on a dedicated branch:
+Dependency updates should be isolated from feature work and verified with content validation, tests, build, and typecheck. Contentlayer is currently pinned to the 0.3 line; do not replace it merely because it is old. Reconsider that dependency only if it becomes a concrete compatibility or maintenance problem.
 
-```bash
-git checkout master
-git pull
-git checkout -b chore/dependency-updates-YYYY-MM
-npm outdated          # see what's behind
-npm update            # update within semver ranges
-npm audit fix         # fix known vulnerabilities
-npm run ci            # validate + test + build must pass before committing
-git add package.json package-lock.json
-git commit -m "chore: update dependencies YYYY-MM"
+## Production review
+
+The homelab is operational. Review the actual systems, not only repository files:
+
+- self-hosted runner availability
+- Docker Compose service health
+- deployed GHCR image tag
+- Cloudflare Tunnel status
+- public `https://wjbeast.com` response
+- Resend contact delivery
+
+The repository's image-publishing workflow currently runs independently of the content-validation workflow. This is a known risk and future engineering task, not a reason to assume a failed CI run stopped deployment.
+
+## Documentation audit
+
+After a meaningful architectural or route change, check:
+
+1. `docs/architecture.md`
+2. `docs/content.md`
+3. `docs/seo.md`
+4. `docs/media.md`
+5. `docs/deployment.md`
+6. `docs/hosting.md`
+7. `docs/design-system.md`
+8. `docs/roadmap.md` and `docs/todo.md`
+
+Search for stale route and publication references, especially:
+
+```text
+/portfolio/[slug]
+accessible drafts
+williameast.com
+Framer Motion
+14 themes
+planned deployment infrastructure
 ```
 
-**Known constraint:** Contentlayer is currently stuck at `0.3.x`. Do not attempt to upgrade it until the ecosystem catches up with Next.js App Router / React 19. Watch [contentlayerdev/contentlayer](https://github.com/contentlayerdev/contentlayer) for release notes.
-
----
-
-## Docs audit
-
-Run this whenever a significant code change is made:
-
-1. Open `docs/architecture.md` — are all routes still accurate?
-2. Open `docs/content.md` — does the frontmatter schema match `contentlayer.config.ts`?
-3. Open `docs/seo.md` — are all "gaps to fix" items still open, or have some been resolved?
-4. Open `docs/roadmap.md` — mark any newly completed items as done
-
-The monthly issue checklist includes a docs review item as a reminder.
-
----
-
-## Image housekeeping
-
-Over time `public/images/` will accumulate unused assets. Periodically:
-
-```bash
-# Find all image paths referenced in content frontmatter
-grep -r "images:" content/ | grep -oP '(?<=- ).*'
-
-# Compare against files in public/images/
-# Delete anything in public/images/ that isn't referenced in content/
-```
-
-The content validation script (`npm run validate:content`) catches the opposite problem (frontmatter references a file that doesn't exist) but does not catch orphaned files.
+Do not rewrite documentation for stylistic reasons. Correct it when code, product decisions, or operational behavior changes.

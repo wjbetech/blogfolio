@@ -18,8 +18,8 @@ For EVERY prompt:
 
 ## 1. Task Selection
 
-1. Locate the next unfinished item in `todo.md`.
-2. Confirm it aligns with `roadmap.md`.
+1. Locate the next unfinished item in `docs/todo.md`.
+2. Confirm it aligns with `docs/roadmap.md`.
 3. If misaligned, STOP and ask for clarification.
 4. Present the exact task and ask for approval before proceeding.
 

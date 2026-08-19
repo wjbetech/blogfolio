@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import type { Post } from "contentlayer/generated";
 import { sortBlogPosts } from "@/lib/blogPagination";
+import { getPublishedPosts } from "@/lib/content";
 
 type Props = {
   posts: Post[];
@@ -11,7 +12,7 @@ type Props = {
 export default function PostNav({ posts, slug }: Props) {
   if (!posts || posts.length === 0) return null;
 
-  const sorted = sortBlogPosts(posts);
+  const sorted = sortBlogPosts(getPublishedPosts(posts));
   const index = sorted.findIndex((p) => p.slug === slug);
 
   const prev = index < sorted.length - 1 ? sorted[index + 1] : null; // older

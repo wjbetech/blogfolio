@@ -1,44 +1,66 @@
 # blogfolio
 
-Personal blog, developer portfolio, and translation/proofreading resume -- all in one place. Built with Next.js, Tailwind CSS, and Contentlayer.
+Personal website, developer portfolio, and translation/proofreading résumé — all in one place. Built with Next.js, Tailwind CSS, and Contentlayer.
 
 ## About
 
-**blogfolio** is a statically-generated personal site for me, William East. It serves three purposes:
+**blogfolio** is a build-time content-driven personal site for William East. Its near-term purpose is to attract:
 
-- **Blog** -- writing on software, life, and working in Korea
-- **Dev** -- a portfolio of personal and professional software projects
-- **Language Services** -- translation, localization, and proofreading resume (Korean/English)
+- development work through the `/dev` project portfolio
+- translation, localization, proofreading, editing, and consulting work through `/language-services`
+- supporting credibility through the blog
+
+The blog covers software, life, and working in Korea, but Blogfolio is not primarily a high-volume publishing platform.
+
+## Important routes
+
+- `/dev` — project index
+- `/dev/[slug]` — canonical project detail route
+- `/portfolio` — legacy redirect to `/dev`
+- `/portfolio/[slug]` — legacy redirect to `/dev/[slug]`
+- `/blog` — published blog posts
+- `/language-services` — language-service résumé and experience
+- `/contact` — contact form
+
+Draft content is not publicly generated or listed.
 
 ## Tech stack
 
-| Layer         | Choice                                                |
-| ------------- | ----------------------------------------------------- |
-| Framework     | Next.js 16 (App Router, SSG)                          |
-| Content       | Contentlayer + Markdown/MDX                           |
-| Styling       | Tailwind CSS v4 + custom CSS-variable theme system    |
-| UI primitives | Radix UI / Base UI                                    |
-| Analytics     | Custom (`src/lib/analytics.ts`)                       |
-| Fonts         | Bricolage Grotesque, Inter, Geist Mono (Google Fonts) |
-| Hosting       | Self-hosted                                           |
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js 16 App Router |
+| Language | TypeScript 5 |
+| Content | Contentlayer + Markdown/MDX |
+| Styling | Tailwind CSS v4 + custom CSS-variable themes |
+| UI primitives | Radix UI / small shadcn-style component set |
+| Analytics | Opt-in Plausible integration (`src/lib/analytics.ts`) |
+| Fonts | Bricolage Grotesque, Inter, Geist Mono |
+| Email | Resend contact endpoint |
+| Hosting | Operational self-hosted homelab with Docker and Cloudflare Tunnel |
 
-## Building for production
+## Building for development and production
 
 ```bash
-npm run build      # runs contentlayer:generate then next build
-npm run start      # starts the production server
+npm run dev
+npm run validate:content
+npm test
+npm run build
+npm run start
 ```
+
+`npm run ci` runs content validation, tests, and the production build. The current `npm run lint` script needs repair because it invokes the removed `next lint` command.
 
 ## Project docs
 
-All architecture, workflow, and operational docs live in [`docs/`](./docs/README.md):
+All architecture, workflow, content, operational, and roadmap docs live in [`docs/`](./docs/README.md):
 
-- [Architecture](./docs/architecture.md) -- stack, routes, data flow
-- [Hosting](./docs/hosting.md) -- homelab setup (Proxmox + Docker + Cloudflare Tunnel)
-- [Deployment](./docs/deployment.md) -- GitHub Actions auto-deploy
-- [Media](./docs/media.md) -- image conventions
-- [SEO](./docs/seo.md) -- current state and checklist
-- [Design System](./docs/design-system.md) -- theme, typography, spacing
-- [Content](./docs/content.md) -- how to write and publish posts/projects
-- [Maintenance](./docs/maintenance.md) -- changelog, monthly sweep, docs audit
-- [Roadmap](./docs/roadmap.md) -- current status and planned phases
+- [Architecture](./docs/architecture.md)
+- [Content](./docs/content.md)
+- [Design system](./docs/design-system.md)
+- [Media](./docs/media.md)
+- [SEO](./docs/seo.md)
+- [Hosting](./docs/hosting.md)
+- [Deployment](./docs/deployment.md)
+- [Maintenance](./docs/maintenance.md)
+- [Roadmap](./docs/roadmap.md)
+- [Engineering handoff](./docs/todo.md)

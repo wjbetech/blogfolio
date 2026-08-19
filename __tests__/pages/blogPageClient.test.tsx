@@ -149,6 +149,21 @@ describe("BlogPageClient", () => {
     expect(screen.queryByText("Featured article summary")).not.toBeInTheDocument();
   });
 
+  it("does not render draft posts", () => {
+    const draft = makePost({
+      id: "draft",
+      title: "Unfinished post",
+      excerpt: "This should stay hidden",
+      slug: "unfinished-post",
+      status: "draft"
+    });
+
+    render(<BlogPageClient posts={[...posts, draft]} currentPage={1} />);
+
+    expect(screen.queryByRole("heading", { name: "Unfinished post" })).not.toBeInTheDocument();
+    expect(screen.queryByText("This should stay hidden")).not.toBeInTheDocument();
+  });
+
   it("filters posts by tag when a tag is selected", () => {
     render(<BlogPageClient posts={posts} currentPage={1} />);
 

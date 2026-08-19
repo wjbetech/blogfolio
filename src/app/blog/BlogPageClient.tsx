@@ -6,6 +6,7 @@ import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import type { Post } from "contentlayer/generated";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import { getPostReadingTime, getPostSnippet } from "@/lib/post";
+import { getPublishedPosts } from "@/lib/content";
 import { formatShortDate } from "@/lib/date";
 import {
   sortBlogPosts,
@@ -25,7 +26,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set());
 
   // sort posts by published date & extract their tags
-  const sortedPosts = sortBlogPosts(posts);
+  const sortedPosts = sortBlogPosts(getPublishedPosts(posts));
   const allTags = Array.from(new Set(sortedPosts.flatMap((post) => post.tags ?? [])));
 
   const { featuredPost, remainingPosts } = splitFeaturedPost(sortedPosts);

@@ -8,15 +8,17 @@ import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
 import ProjectImageSlider from "./ProjectImageSlider";
 import { shouldShowLiveDemo } from "@/lib/projectLinks";
+import { getPublishedProjects } from "@/lib/content";
 
 export default function DevPage() {
+  const publishedProjects = getPublishedProjects(allProjects);
   const entries = getChangelogSlice(0, 5);
 
   const devProjectsJsonLd = createProjectsCollectionJsonLd({
     pagePath: "/dev",
     pageTitle: "Dev Portfolio | BlogFolio",
     pageDescription: "My projects - apps and software I built for friends, coworkers, or myself.",
-    projects: allProjects
+    projects: publishedProjects
   });
 
   return (
@@ -36,7 +38,7 @@ export default function DevPage() {
       <div className="flex gap-14 lg:gap-16">
         {/* ════════════════ Main column ════════════════ */}
         <section className="flex-1 min-w-0">
-          {allProjects.map((project, i) => {
+          {publishedProjects.map((project, i) => {
             const existingImages = getExistingProjectImages(project.images);
             const num = String(i + 1).padStart(2, "0");
 
@@ -151,7 +153,7 @@ export default function DevPage() {
             <div>
               <h4 className="text-sm font-semibold text-paragraph/60 mb-5">Index</h4>
               <nav className="space-y-0.5">
-                {allProjects.map((project, i) => (
+                {publishedProjects.map((project, i) => (
                   <a
                     key={project.id}
                     href={`#${project.slug}`}
@@ -176,18 +178,18 @@ export default function DevPage() {
             <div className="space-y-3">
               <h4 className="text-sm font-semibold text-paragraph/60 mb-3">At a glance</h4>
               <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-serif font-bold text-headline">{allProjects.length}</span>
+                <span className="text-2xl font-serif font-bold text-headline">{publishedProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
-                  {new Set(allProjects.flatMap((p) => p.tech)).size}
+                  {new Set(publishedProjects.flatMap((p) => p.tech)).size}
                 </span>
                 <span className="text-sm text-paragraph/50">technologies</span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">
-                  {allProjects.filter((p) => p.featured).length}
+                  {publishedProjects.filter((p) => p.featured).length}
                 </span>
                 <span className="text-sm text-paragraph/50">featured</span>
               </div>

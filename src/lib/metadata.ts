@@ -76,7 +76,7 @@ export const createPortfolioMetadata = (): Metadata =>
   buildMetadata({
     title: "Projects | BlogFolio",
     description: "Featured projects that showcase product design, DevOps, and engineering work.",
-    path: "/portfolio"
+    path: "/dev"
   });
 
 export const generatePostMetadata = (post: Post): Metadata => {
@@ -98,7 +98,7 @@ export const generateProjectMetadata = (project: Project): Metadata => {
     title: `${project.title} | BlogFolio Projects`,
     description: project.description,
     images: primaryImage ? [primaryImage] : undefined,
-    path: `/portfolio/${project.slug}`
+    path: `/dev/${project.slug}`
   });
 };
 

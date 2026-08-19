@@ -1,216 +1,172 @@
 # Content
 
-How to create, edit, and publish blog posts and portfolio projects. Covers the frontmatter schema, file naming, image conventions, and the full workflow from draft to live.
+Blog posts and projects are authored as files in `content/`. Contentlayer compiles them into typed build-time collections. There is no CMS, database, or runtime content API.
 
----
+## Directories and filenames
 
-## How content works
-
-Blog posts and portfolio projects are plain Markdown files stored in the `content/` directory. At build time, Contentlayer reads every file, validates the frontmatter against the schema defined in `contentlayer.config.ts`, and produces fully-typed TypeScript arrays (`allPosts`, `allProjects`) that are imported directly by page components.
-
-There is no database. There is no CMS dashboard. Writing a post = creating a `.md` file.
-
----
-
-## Directory structure
-
-```
-content/
-  posts/      blog posts    -- .md or .mdx files
-  projects/   portfolio projects -- .md files only
+```text
+content/posts/      .md and .mdx blog posts
+content/projects/   .md project entries
 ```
 
----
+Use a date-prefixed, lowercase, hyphenated filename:
 
-## File naming
-
-Use this format for both posts and projects:
-
-```
+```text
 YYYY-MM-DD-slug-goes-here.md
 ```
 
-Examples:
+The date prefix is removed from the computed slug. The frontmatter `publishedAt` remains the content date used by the UI; keep the filename date and metadata date deliberately aligned when possible.
 
+Project URLs use the canonical `/dev/[slug]` route. `/portfolio` is legacy compatibility only.
+
+## Publication states
+
+`status` is required and accepts:
+
+- `draft` — work in progress; not public and not generated as a public detail page
+- `published` — eligible for public rendering
+
+Draft content must not appear in:
+
+- `/blog` or homepage blog sections
+- `/dev` or homepage project sections
+- yearly archives and tag filters
+- previous/next navigation
+- RSS
+- sitemap
+- JSON-LD collections
+- generated public detail pages
+
+The current unfinished blog post is:
+
+```text
+content/posts/2026-05-01-future-goals.md
 ```
-2026-05-01-cafe-hopping-in-korea.md
-2026-03-10-portfolio-website.md
+
+Its body is `WIP.` and it should remain `draft` until it is complete. Do not make drafts reachable merely because a visitor knows the slug.
+
+The publication boundary is enforced centrally through `src/lib/content.ts` and applied to every public surface (pages, carousels, archives, navigation, RSS, sitemap, JSON-LD, generated static params). Phase 1 implemented this; see `docs/roadmap.md`.
+
+## Blog frontmatter
+
+Defined in `contentlayer.config.ts`:
+
+| Field | Contentlayer type | Required by project policy | Purpose |
+| --- | --- | --- | --- |
+| `id` | string | yes | Stable unique content ID |
+| `title` | string | yes | Display title |
+| `excerpt` | string | yes for validation/publishing | Cards, metadata, RSS, and snippets |
+| `author` | string | yes | Author name |
+| `tags` | string list | yes | Filtering and JSON-LD keywords |
+| `images` | string list | no | Ordered article images |
+| `coverImage` | string | no | Primary article/card/metadata image |
+| `featured` | boolean | yes | Candidate for homepage/featured presentation |
+| `publishedAt` | date | yes | Publication date |
+| `updatedAt` | date | yes | Last meaningful update |
+| `status` | enum | yes | `draft` or `published` |
+
+Contentlayer currently marks `excerpt` optional, while `scripts/validate-content.mjs` requires it. Until that discrepancy is resolved, follow the stricter publishing policy and provide an excerpt for every post.
+
+## Project frontmatter
+
+| Field | Contentlayer type | Required | Purpose |
+| --- | --- | --- | --- |
+| `id` | string | yes | Stable unique project ID |
+| `title` | string | yes | Project title |
+| `description` | string | yes | Card, metadata, and detail summary |
+| `tech` | string list | yes | Technologies used |
+| `link` | string | yes | Live project URL; use `""` if there is no separate live URL |
+| `repo` | string | no | Repository or source link |
+| `images` | string list | no | Ordered screenshots |
+| `featured` | boolean | yes | Featured-project flag |
+| `publishedAt` | date | yes | Listing date |
+| `updatedAt` | date | yes | Last meaningful update |
+| `status` | enum | yes | `draft` or `published` |
+
+Project body content is Markdown and appears on `/dev/[slug]`.
+
+## Markdown and MDX
+
+Posts use Contentlayer's `contentType: "mdx"`, so `.md` posts are compiled through the MDX pipeline and `.mdx` files are supported.
+
+The committed baseline renderer reliably handled:
+
+- paragraphs
+- Markdown headings
+- stable heading IDs and visible anchor links
+
+The current working tree includes an uncommitted renderer experiment that additionally renders ordinary compiled Markdown structures such as:
+
+- ordered and unordered lists
+- inline code
+- fenced code blocks
+- links
+- heading levels mapped to Blogfolio heading anchors
+
+That experiment is not yet the completed editorial system. There is currently no documented, stable custom MDX component library, no completed table/task-list styling contract, and no finished article redesign. Future work must test the actual Contentlayer output before claiming support for additional Markdown/MDX features.
+
+The agreed future architecture is:
+
+```text
+Markdown/MDX source
+→ Contentlayer compilation
+→ controlled Blogfolio article components
+→ rendered article
 ```
 
-The date prefix is stripped automatically when computing the `slug` field -- so `2026-05-01-cafe-hopping-in-korea.md` becomes slug `cafe-hopping-in-korea` and URL `/blog/cafe-hopping-in-korea`.
+The future blog phase may add professional treatments such as dividers, enlarged first letters, font variation, quotes, figures, callouts, and refined code blocks. Those are planned capabilities, not current guarantees.
 
-Keep slugs lowercase, hyphen-separated, no special characters.
+## Images in content
 
----
-
-## Blog post schema
-
-File location: `content/posts/YYYY-MM-DD-your-slug.md`
-
-### Required fields
-
-| Field         | Type                   | Notes                                                               |
-| ------------- | ---------------------- | ------------------------------------------------------------------- |
-| `id`          | string                 | Unique numeric string — increment from the highest existing post ID |
-| `title`       | string                 | Displayed as the page title and in cards                            |
-| `author`      | string                 | Your name — `"William East"`                                        |
-| `tags`        | list of strings        | One or more topic tags — used for filtering and JSON-LD             |
-| `featured`    | boolean                | `true` to include in the homepage carousel                          |
-| `publishedAt` | date (`YYYY-MM-DD`)    | Publication date                                                    |
-| `updatedAt`   | date (`YYYY-MM-DD`)    | Last updated — set same as publishedAt on first publish             |
-| `status`      | `draft` or `published` | Only `published` posts appear in RSS and are indexed                |
-
-### Optional fields
-
-| Field        | Type            | Notes                                                                |
-| ------------ | --------------- | -------------------------------------------------------------------- |
-| `excerpt`    | string          | Short summary — used in cards, OG description, RSS                   |
-| `coverImage` | string          | Path to a single cover image, e.g. `/images/posts/my-post-cover.png` |
-| `images`     | list of strings | Additional images, e.g. `/images/posts/my-post-diagram.png`          |
-
-### Image resolution order
-
-`coverImage` → `images[0]` → fallback placeholder. See [media.md](./media.md).
-
-### Full example
+Use root-relative paths without `public/`:
 
 ```yaml
----
-id: "8"
-title: "My Post Title"
-excerpt: "A one or two sentence summary of what this post covers."
-author: "William East"
-tags:
-  - Development
-  - TypeScript
-coverImage: /images/posts/my-post-title-cover.png
 images:
-  - /images/posts/my-post-title-diagram.png
-featured: false
-publishedAt: 2026-06-01
-updatedAt: 2026-06-01
-status: draft
----
-
-Your post content starts here. Standard Markdown applies.
-
-## Section heading
-
-Paragraphs, lists, code blocks, images -- all standard Markdown.
+  - /images/assets/example.png
 ```
 
----
+The repository's current assets are primarily under:
 
-## Project schema
-
-File location: `content/projects/YYYY-MM-DD-your-slug.md`
-
-### Required fields
-
-| Field         | Type                   | Notes                                                              |
-| ------------- | ---------------------- | ------------------------------------------------------------------ |
-| `id`          | string                 | Unique numeric string — increment from highest existing project ID |
-| `title`       | string                 | Displayed as the project name                                      |
-| `description` | string                 | One-sentence description — shown in cards and JSON-LD              |
-| `tech`        | list of strings        | Technologies used, e.g. `React`, `TypeScript`, `PostgreSQL`        |
-| `link`        | string                 | Live URL of the project (use `""` if not yet deployed)             |
-| `featured`    | boolean                | `true` to include in the homepage project carousel                 |
-| `publishedAt` | date (`YYYY-MM-DD`)    | When you first listed the project                                  |
-| `updatedAt`   | date (`YYYY-MM-DD`)    | Last update to the project listing                                 |
-| `status`      | `draft` or `published` | Only `published` projects appear on the site                       |
-
-### Optional fields
-
-| Field    | Type            | Notes                                                            |
-| -------- | --------------- | ---------------------------------------------------------------- |
-| `repo`   | string          | GitHub URL — shown as secondary link                             |
-| `images` | list of strings | Screenshots, e.g. `/images/projects/my-project-screenshot-1.png` |
-
-### Full example
-
-```yaml
----
-id: "3"
-title: "My Project"
-description: "A short one-sentence description of what this project is."
-tech:
-  - Next.js
-  - TypeScript
-  - Tailwind CSS
-link: "https://myproject.com"
-repo: "https://github.com/wjbetech/my-project"
-images:
-  - /images/projects/my-project-screenshot-1.png
-featured: true
-publishedAt: 2026-06-01
-updatedAt: 2026-06-01
-status: draft
----
-Longer description, background, technical decisions, and notes about the project. This content appears on the `/portfolio/[slug]` detail page (Phase B).
+```text
+public/images/assets/
+public/images/assets/projects/
 ```
 
----
+See [media.md](./media.md) for project image ordering and fallback behavior.
 
-## Publishing workflow
+## Authoring workflow
 
-### New blog post
+1. Create the correctly named file.
+2. Add complete frontmatter.
+3. Start with `status: draft`.
+4. Write and preview the content locally.
+5. Validate local assets and metadata.
+6. Review the rendered result.
+7. Change to `status: published` only when the content is ready.
+8. Update `updatedAt` for meaningful edits.
+9. Run validation, tests, build, and typecheck before submitting the work.
 
-1. Create `content/posts/YYYY-MM-DD-your-slug.md` with `status: draft`
-2. Write the content — run `npm run dev` to preview at `localhost:3000/blog/your-slug`
-3. Add any images to `public/images/posts/` and reference them in frontmatter
-4. When ready: change `status: draft` → `status: published`
-5. Run `npm run validate:content` to catch any missing images or broken links
-6. Commit and push to master → CI runs → site rebuilds and deploys
-
-### New project
-
-1. Create `content/projects/YYYY-MM-DD-your-slug.md` with `status: draft`
-2. Add screenshots to `public/images/projects/`
-3. Fill in frontmatter — `link` is required (use `""` if not deployed yet)
-4. When ready: change `status: draft` → `status: published`
-5. Commit and push
-
-### Updating existing content
-
-- Update the body and/or frontmatter as needed
-- Always update `updatedAt` to today's date when publishing a meaningful change
-- The sitemap will pick up the new `updatedAt` automatically at next build
-
----
-
-## Content validation
-
-Run before committing:
+Useful commands:
 
 ```bash
+npm run dev
 npm run validate:content
+npm test
+npm run build
 ```
 
-This checks:
+## Validation behavior
 
-- All required frontmatter fields are present and correctly typed
-- All `id` values are unique within each content type
-- All local image paths (`/images/...`) actually exist in `public/`
-- No blank entries in `images` arrays
-- Slugs are valid and unique
+`scripts/validate-content.mjs` currently checks:
 
-The same checks run automatically in GitHub Actions on every push and PR.
+- required frontmatter fields
+- unique IDs
+- unique slugs within each content type
+- normalized dates
+- valid publication statuses
+- non-blank image entries
+- local asset existence
+- selected internal route references
+- selected external links
 
----
-
-## MDX in posts
-
-Blog posts support MDX (`.mdx` extension) as well as plain Markdown (`.md`). MDX lets you embed React components directly in post content. Use sparingly — keep posts readable as plain text wherever possible.
-
-Projects use plain Markdown only (`.md`).
-
----
-
-## Status field behaviour
-
-| `status` value | Blog list  | Homepage carousel   | RSS feed    | Sitemap     | `/blog/[slug]`         |
-| -------------- | ---------- | ------------------- | ----------- | ----------- | ---------------------- |
-| `published`    | ✅ visible | if `featured: true` | ✅ included | ✅ included | ✅ accessible          |
-| `draft`        | ❌ hidden  | ❌ hidden           | ❌ excluded | ❌ excluded | ✅ accessible (by URL) |
-
-Draft posts are not listed anywhere but are still accessible if you know the URL. Do not link to draft posts from anywhere public.
+Its handwritten parser and route list must remain aligned with `contentlayer.config.ts` and the canonical `/dev` route. Project entries are validated against `/dev/[slug]`; `/portfolio` remains listed as a known legacy redirect target.

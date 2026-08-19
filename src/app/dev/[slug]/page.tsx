@@ -11,9 +11,10 @@ import { getExistingProjectImages } from "@/lib/projectImages.server";
 import TrackedLink from "@/components/Analytics/TrackedLink";
 import ProjectImageSlider from "../ProjectImageSlider";
 import { shouldShowLiveDemo } from "@/lib/projectLinks";
+import { getPublishedProjects } from "@/lib/content";
 import { IconArrowLeft, IconArrowRight, IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 
-const publishedProjects = allProjects.filter((project) => project.status.trim() === "published");
+const publishedProjects = getPublishedProjects(allProjects);
 
 export function generateStaticParams() {
   return publishedProjects.map((project) => ({ slug: project.slug }));

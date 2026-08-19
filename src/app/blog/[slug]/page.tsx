@@ -6,7 +6,7 @@ import Link from "next/link";
 // lib imports
 import { createBlogListMetadata, generatePostMetadata } from "@/lib/metadata";
 import { createBlogPostingJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
-import { parsePostContent } from "@/lib/postContent";
+import { getPublishedPosts } from "@/lib/content";
 import { formatDate } from "@/lib/date";
 
 // component imports
@@ -16,17 +16,17 @@ import { allPosts } from "contentlayer/generated";
 import { Button } from "@/components/ui/button";
 import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import CalendarIcon from "@/components/Icons/CalendarIcon";
-import HeadingAnchor from "@/components/Blog/HeadingAnchor";
+import PostContent from "@/components/Blog/PostContent";
 
 export async function generateStaticParams() {
-  return allPosts.map((post) => ({
+  return getPublishedPosts(allPosts).map((post) => ({
     slug: post.slug
   }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = allPosts.find((candidate) => candidate.slug === slug);
+  const post = getPublishedPosts(allPosts).find((candidate) => candidate.slug === slug);
   if (!post) {
     return createBlogListMetadata();
   }
@@ -40,7 +40,7 @@ type BlogPostPageProps = {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = allPosts.find((p) => p.slug === slug);
+  const post = getPublishedPosts(allPosts).find((p) => p.slug === slug);
 
   if (!post) {
     notFound();
@@ -49,8 +49,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const blogPostingJsonLd = createBlogPostingJsonLd(post);
 
   const heroImage = post.coverImage?.trim() || post.images?.[0]?.trim() || "";
-
-  const contentBlocks = parsePostContent(post.body?.raw ?? "");
 
   return (
     <article className="mx-auto w-full max-w-7xl">
@@ -93,23 +91,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       <section className="rounded-xl">
-        <div className="space-y-4 text-base leading-8 text-paragraph sm:text-lg">
-          {contentBlocks.map((block, idx) => {
-            if (block.kind === "heading") {
-              const safeLevel = block.level <= 2 ? 2 : block.level === 3 ? 3 : 4;
-
-              return <HeadingAnchor key={`${post.id}-${idx}`} level={safeLevel} id={block.id} text={block.text} />;
-            }
-
-            return (
-              <p key={`${post.id}-${idx}`} className="whitespace-pre-wrap">
-                {block.text}
-              </p>
-            );
-          })}
-        </div>
+        <PostContent code={post.body.code} />
       </section>
-      <PostNav posts={allPosts} slug={post.slug} />
+      <PostNav posts={getPublishedPosts(allPosts)} slug={post.slug} />
 
       <footer className="mt-8 sm:mt-10 flex items-center">
         <Link href="/blog">

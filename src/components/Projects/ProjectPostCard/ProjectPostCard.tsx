@@ -17,7 +17,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link
-      href={`/portfolio/${project.slug}`}
+      href={`/dev/${project.slug}`}
       className="block w-80 shrink-0"
       onClick={() =>
         trackAnalyticsEvent("Project Card Click", {

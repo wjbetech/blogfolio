@@ -1,0 +1,63 @@
+# Blogfolio transition handoff
+
+This file is temporary transition context for the next coding agent. The repository code and `docs/` are the authorities for current behavior. Do not treat this file as a substitute for reading `docs/architecture.md`, `docs/content.md`, `docs/roadmap.md`, and `docs/todo.md`.
+
+## Product
+
+Blogfolio is William East's personal website with three connected purposes:
+
+1. attract development work through `/dev`
+2. attract translation, proofreading, editing, and language-service work through `/language-services`
+3. use the blog as supporting evidence of expertise and personality
+
+The blog is not the primary product or a high-volume publishing platform.
+
+## Settled decisions
+
+- Canonical project detail route: `/dev/[slug]`.
+- Legacy `/portfolio` route: redirect to `/dev`.
+- Legacy `/portfolio/[slug]` route: redirect to `/dev/[slug]`.
+- `draft` is a real publication state.
+- Drafts must not be publicly generated, listed, navigable, included in RSS, included in the sitemap, or included in JSON-LD collections.
+- `content/posts/2026-05-01-future-goals.md` is unfinished and remains `draft` while its body is `WIP.`.
+- The eventual blog system should use Markdown/MDX through Contentlayer and a controlled Blogfolio article component system.
+- The homelab deployment is operational.
+- Canonical domain: `https://wjbeast.com`.
+
+## Verified architecture summary
+
+- Next.js 16 App Router, TypeScript, React 19.
+- Contentlayer 0.3 compiles `content/posts` and `content/projects` to typed build-time collections.
+- No Blogfolio database, ORM, CMS, authentication, authorization, or shared state library.
+- Tailwind CSS v4 with CSS-variable theme tokens and 20 themes.
+- Resend contact API, opt-in Plausible integration, RSS, sitemap, robots, metadata, JSON-LD, Docker, GHCR, Docker Compose, and Cloudflare Tunnel.
+- Project screenshots are local assets under `public/images/assets/projects` and are numerically ordered.
+
+## Implementation status
+
+Phase 1 (route and publication consolidation) is implemented and verified in the working tree, pending review and merge:
+
+- `/dev/[slug]` is the canonical project-detail route.
+- `/portfolio` and `/portfolio/[slug]` redirect to their `/dev` equivalents.
+- Draft posts and projects are excluded from all public surfaces and are not statically generated.
+- The publication boundary is centralized in `src/lib/content.ts`.
+- Content validation, tests, and the production build pass.
+
+Not yet done: the Contentlayer MDX body rendering work is an experiment and remains Phase 2. The complete editorial component vocabulary is not implemented. Planned capabilities such as enlarged first letters, dividers, font variation, polished quotes, figures/captions, callouts, tables/task lists, and related-post features must not be documented as current behavior.
+
+## Verification snapshot
+
+At the Phase 1 pass, the repository has:
+
+- 7 posts and 5 projects
+- 6 published posts and 1 draft post
+- 20 themes
+- passing content validation
+- 111 passing Jest tests (including new route tests)
+- passing production build
+- failing standalone typecheck due pre-existing test typing errors
+- a failing `npm run lint` script because it invokes `next lint`
+
+## Next engineering task
+
+Phase 2: the controlled Markdown/MDX article system (see `docs/roadmap.md`). Only after that, proceed to conversion improvements and the full blog visual redesign.

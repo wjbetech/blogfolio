@@ -2,6 +2,17 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
 const dropDatePrefix = (value: string) => value.replace(/^\d{4}-\d{2}-\d{2}-/, "");
 
+const getDocumentSlug = (document: any) => {
+  const raw = document._raw || {};
+  const candidate = [
+    document.slug,
+    raw.flattenedPath?.split("/").pop(),
+    raw.sourceFileName?.replace(/\.[^.]+$/, "")
+  ].find(Boolean);
+
+  return candidate ? dropDatePrefix(candidate) : "";
+};
+
 const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: "posts/**/*.{md,mdx}",
@@ -29,20 +40,7 @@ const Post = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: "string",
-      resolve: (post) => {
-        // Prefer an explicit frontmatter `slug`, otherwise derive from the
-        // source filename (without extension) or flattenedPath.
-        // Use `_raw.flattenedPath` when available (works for nested files).
-        // Fallback to the source file name.
-        const raw = (post as any)._raw || {};
-        const fallbackSlugs = [
-          post.slug,
-          raw.flattenedPath?.split("/").pop(),
-          raw.sourceFileName?.replace(/\.[^.]+$/, "")
-        ];
-        const candidate = fallbackSlugs.find(Boolean);
-        return candidate ? dropDatePrefix(candidate) : "";
-      }
+      resolve: getDocumentSlug
     },
     readingTime: {
       type: "number",
@@ -57,7 +55,7 @@ const Post = defineDocumentType(() => ({
     },
     url: {
       type: "string",
-      resolve: (post) => `/blog/${(post as any).slug}`
+      resolve: (post) => `/blog/${getDocumentSlug(post)}`
     }
   }
 }));
@@ -87,20 +85,11 @@ const Project = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: "string",
-      resolve: (project) => {
-        // @ts-ignore
-        const raw = (project as any)._raw || {};
-        const candidate = [
-          (project as any).slug,
-          raw.flattenedPath?.split("/").pop(),
-          raw.sourceFileName?.replace(/\.[^.]+$/, "")
-        ].find(Boolean);
-        return candidate ? dropDatePrefix(candidate) : "";
-      }
+      resolve: getDocumentSlug
     },
     url: {
       type: "string",
-      resolve: (project) => `/portfolio/${(project as any).slug}`
+      resolve: (project) => `/dev/${getDocumentSlug(project)}`
     }
   }
 }));
@@ -108,5 +97,8 @@ const Project = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Post, Project],
+  mdx: {
+    mdxOptions: (options) => ({ ...options, development: false })
+  },
   disableImportAliasWarning: true
 });

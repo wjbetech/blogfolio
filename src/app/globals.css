@@ -71,14 +71,48 @@
   }
 }
 
-/* Editorial drop cap: first letter of the first paragraph in an article body */
-.article-body > p:first-of-type::first-letter {
-  font-size: 3.5em;
-  line-height: 0.8;
-  float: left;
-  padding-right: 0.1em;
-  padding-top: 0.05em;
+/* B+C Hybrid: lede + editorial drop cap (fixed contrast) */
+.article-body > p:first-of-type {
+  font-size: 1.08em;
+  line-height: 1.9;
+  color: var(--paragraph);
+}
+
+@media (min-width: 640px) {
+  .article-body > p:first-of-type::first-letter {
+    font-size: 3.4em;
+    line-height: 0.82;
+    float: left;
+    padding-right: 0.14em;
+    padding-top: 0.06em;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--headline);
+  }
+}
+
+/* Fallback: small screens no float to avoid collision */
+@media (max-width: 639px) {
+  .article-body > p:first-of-type::first-letter {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--headline);
+  }
+}
+
+/* Pull-quote style for blockquotes that are short & centered - coexists with left-border */
+.article-body blockquote.pull {
+  border-left: 0;
+  border-top: 1px solid color-mix(in srgb, var(--accent-200) 22%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-200) 22%, transparent);
+  background: transparent;
+  text-align: center;
   font-family: var(--font-serif);
-  font-weight: 700;
-  color: var(--accent-100);
+  font-size: 1.35em;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--headline);
+  padding: 2rem 1.5rem;
+  margin: 2.5rem auto;
+  max-width: 32rem;
 }

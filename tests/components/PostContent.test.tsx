@@ -96,8 +96,9 @@ describe("PostContent", () => {
     const quote = container.querySelector("blockquote");
     expect(quote).not.toBeNull();
     expect(quote?.textContent).toBe("A quoted line");
-    expect(container.querySelector("hr")).not.toBeNull();
-    expect(container.querySelector("hr")?.className).toContain("bg-gradient-to-r");
+    // B+C hybrid: hr renders as centered * * * divider (div with aria-hidden)
+    expect(container.textContent).toContain("* * *");
+    expect(container.querySelector('div[aria-hidden="true"]')).not.toBeNull();
   });
 
   it("distinguishes inline code from fenced code blocks", () => {

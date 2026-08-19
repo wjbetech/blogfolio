@@ -50,7 +50,7 @@ export default function PostContent({ code }: PostContentProps) {
     h6: renderHeading(6),
 
     p: (props: Record<string, unknown>) => (
-      <p className="my-6 leading-8 text-paragraph" {...props} />
+      <p className="my-6 leading-8 text-pretty text-paragraph" {...props} />
     ),
 
     a: (props: Record<string, unknown>) => (
@@ -89,34 +89,45 @@ export default function PostContent({ code }: PostContentProps) {
     },
 
     pre: (props: Record<string, unknown>) => (
-      <pre
-        className="my-6 overflow-x-auto rounded-lg border border-accent-100/10 bg-bg-200 p-4 font-mono text-sm leading-6 [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-sm"
-        {...props}
-      />
+      <div className="my-8 overflow-hidden rounded-xl border border-accent-100/10 bg-bg-200">
+        <div className="flex items-center justify-between border-b border-accent-100/10 bg-bg-300/50 px-4 py-2 text-xs text-paragraph/60">
+          <span className="font-mono lowercase tracking-wide">code</span>
+          <span className="h-2 w-2 rounded-full bg-accent-200/60" aria-hidden="true" />
+        </div>
+        <pre className="overflow-x-auto p-4 font-mono text-sm leading-6 [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-sm" {...props} />
+      </div>
     ),
 
     blockquote: (props: Record<string, unknown>) => (
       <blockquote
-        className="my-10 border-l-4 border-accent-200 bg-accent-100/10 pl-6 pr-4 py-4 rounded-r-lg italic text-paragraph/90"
+        className="my-10 border-l-4 border-accent-200 bg-accent-100/8 pl-6 pr-4 py-5 rounded-r-lg italic leading-relaxed text-paragraph/90"
         {...props}
       />
     ),
 
     hr: () => (
-      <hr
-        aria-hidden="true"
-        className="my-12 h-px border-0 bg-gradient-to-r from-transparent via-accent-200/40 to-transparent"
-      />
+      <div aria-hidden="true" className="my-12 flex items-center justify-center gap-3 text-accent-200/50">
+        <span className="h-px w-8 bg-accent-200/25" />
+        <span className="text-sm tracking-[0.35em]">* * *</span>
+        <span className="h-px w-8 bg-accent-200/25" />
+      </div>
     ),
 
-    img: ({ alt = "", ...props }: Record<string, unknown>) => (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        alt={String(alt)}
-        className="my-8 h-auto w-full max-w-full rounded-lg border border-accent-100/10"
-        {...props}
-      />
-    )
+    img: ({ alt = "", ...props }: Record<string, unknown>) => {
+      const caption = String(alt).trim();
+      const showCaption = caption.length > 0 && caption !== "";
+      return (
+        <figure className="my-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt={caption}
+            className="h-auto w-full max-w-full rounded-lg border border-accent-100/10 object-cover"
+            {...props}
+          />
+          {showCaption && <figcaption className="mt-3 text-center text-sm italic leading-relaxed text-paragraph/60">{caption}</figcaption>}
+        </figure>
+      );
+    }
   };
 
   return (

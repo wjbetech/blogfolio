@@ -19,27 +19,23 @@ export default function PostNav({ posts, slug }: Props) {
   const next = index > 0 ? sorted[index - 1] : null; // newer
 
   return (
-    <nav className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 border-2 border-accent-200/25 rounded-md bg-bg-200/50 hover:bg-bg-100 transition-colors">
+    <nav className="mt-10 border-t border-accent-100/15 pt-8 flex flex-col sm:flex-row justify-between gap-6">
       {prev ? (
-        <Link
-          href={`/blog/${prev.slug}`}
-          className="group block rounded-lg border border-accent-100/10 p-4 transition-colors">
-          <div className="text-xs text-paragraph/70">Previous</div>
-          <div className="mt-1 font-medium text-link group-hover:text-headline">{prev.title}</div>
+        <Link href={`/blog/${prev.slug}`} className="group flex-1 min-w-0">
+          <div className="text-xs uppercase tracking-widest text-paragraph/40">← Older</div>
+          <div className="mt-1.5 font-serif font-medium leading-snug text-link group-hover:text-headline line-clamp-2">{prev.title}</div>
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
 
       {next ? (
-        <Link
-          href={`/blog/${next.slug}`}
-          className="group block text-right rounded-lg border border-accent-100/10 p-4 hover:bg-bg-100 transition-colors">
-          <div className="text-xs text-paragraph/70">Next</div>
-          <div className="mt-1 font-medium text-link group-hover:text-headline">{next.title}</div>
+        <Link href={`/blog/${next.slug}`} className="group flex-1 min-w-0 text-right">
+          <div className="text-xs uppercase tracking-widest text-paragraph/40">Newer →</div>
+          <div className="mt-1.5 font-serif font-medium leading-snug text-link group-hover:text-headline line-clamp-2">{next.title}</div>
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
     </nav>
   );

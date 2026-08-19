@@ -1,5 +1,5 @@
 ---
-id: "5"
+id: "6"
 title: "Cabin Chat"
 description: "Cabin Chat is a self-hosted mini Discord for friends — real-time chat, reactions, and photo sharing, built in Go."
 tech:

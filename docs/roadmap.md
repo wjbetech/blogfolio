@@ -18,6 +18,7 @@ Implemented foundations include:
 
 - Next.js App Router with TypeScript
 - Contentlayer-backed Markdown/MDX source content
+- a controlled, tested Markdown/MDX article renderer for blog posts (Phase 2)
 - `/dev` project index and editorial project detail experience
 - legacy `/portfolio` routes
 - language-services page and experience timeline
@@ -29,16 +30,14 @@ Implemented foundations include:
 
 The following are not complete:
 
-- Phase 1 (route/publication consolidation) is implemented and verified; see below
-- the complete professional MDX/article component system does not exist yet (Phase 2)
 - project and service conversion content needs review (Phase 3)
-- the blog redesign is not implemented (Phase 4)
+- the blog visual redesign and editorial embellishments are not implemented (Phase 4)
 - deployment publishing is not currently gated on the separate validation workflow
 - lint and standalone typecheck are not clean
 
 ## Phase 1 — Route and publication consolidation
 
-**Status: implemented and verified (pending review/merge).**
+**Status: complete (merged via PR #94).**
 
 ### Goal
 
@@ -64,26 +63,23 @@ Make the public content boundary and project URL model unambiguous.
 
 ## Phase 2 — Controlled Markdown/MDX article system
 
-**Status: planned.**
+**Status: implemented and verified (pending review/merge).**
 
 ### Goal
 
-Turn the current partial Markdown/MDX rendering into a reliable, tested Blogfolio article system.
+Turn the partial Markdown/MDX rendering into a reliable, controlled Blogfolio article system.
 
-### Scope
+### Delivered
 
-- preserve Markdown/MDX as the authoring format
-- define the supported Markdown/GFM elements
-- define a controlled MDX component vocabulary
-- render headings, anchors, paragraphs, lists, links, code, quotes, dividers, images, and other deliberately supported elements
-- establish article typography, spacing, and responsive behavior
-- test actual Contentlayer-compiled output
+- `PostContent` renders compiled output through a full, styled component map (headings with anchors, paragraphs, ordered/unordered lists, links, `strong`/emphasis, inline and fenced code, blockquotes, thematic-break dividers, and images).
+- A body `#` is treated as a level-2 section (the page `<h1>` is the article title); `HeadingAnchor` supports levels 2–6 and preserves inline formatting inside headings.
+- Article body uses a `max-w-3xl` reading measure.
+- Verified against real Contentlayer-compiled output (inline vs fenced code distinguished via the `language-` class; GFM tables/task lists/strikethrough do not compile and are not claimed).
+- Tests cover the supported component map (`tests/components/PostContent.test.tsx`).
 
-The current working tree contains an MDX rendering experiment. It must not be treated as the finished Phase 2 system.
+### Deliberately not supported
 
-### Done means
-
-Representative real posts render all documented supported structures correctly, and the article component system is easy to reuse without one-off styling in every post.
+GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` through Contentlayer's pipeline), and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
 
 ## Phase 3 — Development and language-service conversion surfaces
 
@@ -117,11 +113,15 @@ Make the blog a polished credibility and personality surface without turning it 
 ### Possible scope
 
 - article hero and metadata treatment
-- reading width and typography
 - enlarged paragraph first letters
-- dividers and thematic-break styling
-- font variation for editorial roles
-- polished quotes, figures, and captions
+- pull quotes and richer blockquote treatments
+- figures with captions
+- callouts
+- article-specific font variation
+- table of contents and related posts if justified
+- mobile reading experience
+
+The Phase 2 component system is the base these build on; they are not implemented yet.
 - code-block presentation
 - table of contents and related posts if justified
 - mobile reading experience

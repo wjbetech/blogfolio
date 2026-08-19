@@ -18,13 +18,13 @@ This file is the short handoff for the next coding agent. It records decisions a
 
 ## Current implementation cautions
 
-- The working tree still contains uncommitted changes from before Phase 1; review the final diff before merging. Phase 1 itself is implemented and verified; the MDX rendering work remains Phase 2 and is not considered complete.
-- The committed baseline's blog renderer was paragraph/heading-oriented and did not provide the complete Markdown presentation system desired for the future blog.
+- Phase 1 (route/publication consolidation) is merged and the working tree is clean.
+- The committed baseline's blog renderer was paragraph/heading-oriented; Phase 2 delivers the controlled Markdown/MDX article system.
 - Do not reintroduce `/portfolio/[slug]` as a project page.
 - Do not make drafts accessible simply because a slug is known.
 - Do not document planned editorial features as already implemented.
 
-## Phase 1 — Route and publication consolidation ✅ (implemented and verified, pending review/merge)
+## Phase 1 — Route and publication consolidation ✅ (complete, merged via PR #94)
 
 The canonical route and publication contract is now in place:
 
@@ -35,12 +35,34 @@ The canonical route and publication contract is now in place:
 - `scripts/validate-content.mjs` validates project routes against `/dev/[slug]`.
 - Tests added in `tests/routes/` cover sitemap/RSS draft exclusion and legacy redirects; the JSON-LD collection fixtures use `/dev`.
 
-## Next task — Phase 2: Controlled Markdown/MDX article system
+## Phase 2 — Controlled Markdown/MDX article system ✅ (implemented and verified, pending review/merge)
 
-Start by reading `docs/roadmap.md` Phase 2. Scope the supported Markdown/GFM element vocabulary and a controlled MDX component list before building. The current `PostContent`/`mdx` working-tree experiment is the starting point but is not a completed Phase 2.
+The blog body now renders through a controlled component map in `PostContent`:
 
-## After Phase 1
+- headings with anchors (levels 2–6; a body `#` is treated as a level-2 section)
+- paragraphs, ordered/unordered lists, links, strong/emphasis
+- inline and fenced code (distinguished via the `language-` class)
+- blockquotes, thematic-break dividers, and images
+- `max-w-3xl` article reading measure
 
-Proceed to Phase 2 (the controlled Markdown/MDX article system) only after this branch is reviewed and merged. Phase 3 addresses development and language-service conversion surfaces. Phase 4 is the visual blog redesign. Phase 5 is targeted cleanup.
+Not supported / not claimed: GFM tables/task lists/strikethrough (no `remark-gfm` in the pipeline) and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
+
+Tests: `tests/components/PostContent.test.tsx`. Verified against real compiled Contentlayer output and the production build.
+
+## Next task — Phase 3: Development and language-service conversion surfaces
+
+Start by reading `docs/roadmap.md` Phase 3. Goal: make the site more effective at attracting both development and language-service work.
+
+Relevant starting points:
+
+- replace placeholder project copy and links in `content/projects/`
+- review the `/language-services` page for clarity and credibility
+- make contact paths consistent and reliable
+- improve relevant calls to action and cross-links
+- review homepage hierarchy for both target audiences
+
+## After Phase 2
+
+Phases 1 and 2 are done. Phase 3 (conversion surfaces) is the current task. Phase 4 is the visual blog redesign. Phase 5 is targeted cleanup.
 
 Read [roadmap.md](./roadmap.md) for scope and done criteria. Do not implement all phases in one change.

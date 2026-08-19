@@ -89,23 +89,28 @@ Project body content is Markdown and appears on `/dev/[slug]`.
 
 Posts use Contentlayer's `contentType: "mdx"`, so `.md` posts are compiled through the MDX pipeline and `.mdx` files are supported.
 
-The committed baseline renderer reliably handled:
+`PostContent` renders the compiled output through a **controlled Blogfolio component map** (`src/components/Blog/PostContent.tsx` + `HeadingAnchor`). Every supported element maps to a styled component; posts remain authorable as plain Markdown.
 
+Supported, natively compiled elements:
+
+- headings (`#` through `######`), rendered as sections with stable anchor links; a body `#` is treated as a level-2 section because the page `<h1>` is the article title
 - paragraphs
-- Markdown headings
-- stable heading IDs and visible anchor links
-
-The current working tree includes an uncommitted renderer experiment that additionally renders ordinary compiled Markdown structures such as:
-
-- ordered and unordered lists
-- inline code
-- fenced code blocks
+- unordered and ordered lists
 - links
-- heading levels mapped to Blogfolio heading anchors
+- `strong` and emphasis
+- inline code and fenced code blocks (`language-*` fenced blocks are styled as blocks, inline code is styled inline)
+- blockquotes
+- thematic breaks / dividers (`---`)
+- images (`![alt](src)`, rendered responsively)
 
-That experiment is not yet the completed editorial system. There is currently no documented, stable custom MDX component library, no completed table/task-list styling contract, and no finished article redesign. Future work must test the actual Contentlayer output before claiming support for additional Markdown/MDX features.
+Not supported by the current pipeline (verified against real compiled Contentlayer output):
 
-The agreed future architecture is:
+- GFM tables and task lists (requiring `remark-gfm`, which is not enabled)
+- strikethrough (`~~`) and GFM autolinks
+
+These are intentionally not claimed as supported. Adding them would require installing and verifying `remark-gfm` through Contentlayer's MDX pipeline.
+
+The article architecture is:
 
 ```text
 Markdown/MDX source
@@ -114,7 +119,9 @@ Markdown/MDX source
 → rendered article
 ```
 
-The future blog phase may add professional treatments such as dividers, enlarged first letters, font variation, quotes, figures, callouts, and refined code blocks. Those are planned capabilities, not current guarantees.
+### Editorial embellishments (future, not implemented)
+
+Polished treatment such as enlarged paragraph first letters, pull quotes, figures with captions, callouts, table-of-contents, and related posts are planned for the blog redesign (Phase 4), not current behavior. Do not document them as available.
 
 ## Images in content
 

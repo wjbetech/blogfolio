@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-19",
+    "version": "1.5.0",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Replaced the partial blog renderer with a controlled Markdown/MDX article component system covering headings with anchors, lists, links, emphasis, inline and fenced code, blockquotes, thematic dividers, and images."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-19",
     "version": "1.4.0",
     "changes": [
       {

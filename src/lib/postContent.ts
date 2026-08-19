@@ -1,3 +1,5 @@
+import { isValidElement, type ReactNode } from "react";
+
 export type ParsedPostBlock =
   | { kind: "heading"; level: number; text: string; id: string }
   | { kind: "paragraph"; text: string };
@@ -49,4 +51,16 @@ export function parsePostContent(raw: string): ParsedPostBlock[] {
         id
       };
     });
+}
+
+/**
+ * Extracts the plain text from a React tree (e.g. heading children that may
+ * contain inline elements such as `<code>` or `<em>`). Used to derive stable
+ * heading slugs and anchor labels from compiled Markdown/MDX output.
+ */
+export function getTextContent(children: ReactNode): string {
+  if (typeof children === "string" || typeof children === "number") return String(children);
+  if (Array.isArray(children)) return children.map(getTextContent).join("");
+  if (isValidElement<{ children?: ReactNode }>(children)) return getTextContent(children.props.children);
+  return "";
 }

@@ -35,29 +35,28 @@ The blog is not the primary product or a high-volume publishing platform.
 
 ## Implementation status
 
-Phase 1 (route and publication consolidation) is implemented and verified in the working tree, pending review and merge:
+Phase 1 (route and publication consolidation) is merged (PR #94):
 
 - `/dev/[slug]` is the canonical project-detail route.
 - `/portfolio` and `/portfolio/[slug]` redirect to their `/dev` equivalents.
 - Draft posts and projects are excluded from all public surfaces and are not statically generated.
 - The publication boundary is centralized in `src/lib/content.ts`.
-- Content validation, tests, and the production build pass.
 
-Not yet done: the Contentlayer MDX body rendering work is an experiment and remains Phase 2. The complete editorial component vocabulary is not implemented. Planned capabilities such as enlarged first letters, dividers, font variation, polished quotes, figures/captions, callouts, tables/task lists, and related-post features must not be documented as current behavior.
+Current task: Phase 2, the controlled Markdown/MDX article system, is implemented and verified (pending review/merge): `PostContent` renders compiled output through a full styled component map (headings/anchor, lists, links, strong/em, inline & fenced code, blockquotes, dividers, images) with a `max-w-3xl` reading measure. GFM tables/task lists/strikethrough are not supported by the pipeline. The Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, TOC, related posts) are not implemented.
 
 ## Verification snapshot
 
-At the Phase 1 pass, the repository has:
+At the Phase 2 pass, the repository has:
 
 - 7 posts and 5 projects
 - 6 published posts and 1 draft post
 - 20 themes
 - passing content validation
-- 111 passing Jest tests (including new route tests)
+- 116 passing Jest tests
 - passing production build
 - failing standalone typecheck due pre-existing test typing errors
 - a failing `npm run lint` script because it invokes `next lint`
 
 ## Next engineering task
 
-Phase 2: the controlled Markdown/MDX article system (see `docs/roadmap.md`). Only after that, proceed to conversion improvements and the full blog visual redesign.
+Phase 3: development and language-service conversion surfaces (see `docs/roadmap.md`). After that, proceed to the blog visual redesign (Phase 4) and targeted cleanup (Phase 5).

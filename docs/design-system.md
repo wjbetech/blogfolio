@@ -76,22 +76,32 @@ Preserve these interaction/accessibility behaviors when changing surrounding lay
 
 ## Current blog styling
 
-The current/working-tree blog renderer provides only a partial styling contract. It includes styling for some links, lists, inline code, and fenced code, and maps headings to the existing `HeadingAnchor` component.
+The blog body renders through a controlled component map in `PostContent`, producing consistent styling for:
 
-It does not yet constitute the professional editorial system you want. In particular, the following are planned rather than guaranteed current capabilities:
+- headings with anchors (level-2 through level-6)
+- paragraphs
+- unordered/ordered lists
+- links
+- strong and emphasis
+- inline and fenced code
+- blockquotes
+- thematic breaks (dividers)
+- images
 
-- enlarged first letters
-- section dividers and thematic-break treatments
+The article body uses a `max-w-3xl` reading measure. See [content.md](./content.md) for the exact list of supported elements.
+
+The following editorial embellishments are **planned for Phase 4**, not current capabilities:
+
+- enlarged paragraph first letters
+- pull quotes and more elaborate blockquote treatments
 - article-specific font variation
-- polished blockquotes and pull quotes
-- figures and captions
+- figures with captions
 - callouts
-- tables and task lists
 - table of contents
 - related posts
 - fully refined responsive article rhythm
 
-These should be designed as controlled Blogfolio components, not scattered one-off classes in individual posts.
+When these are added, they should be designed as controlled Blogfolio article components, not scattered one-off classes in individual posts.
 
 ## Component conventions
 

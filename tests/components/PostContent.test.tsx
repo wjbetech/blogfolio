@@ -97,7 +97,7 @@ describe("PostContent", () => {
     expect(quote).not.toBeNull();
     expect(quote?.textContent).toBe("A quoted line");
     expect(container.querySelector("hr")).not.toBeNull();
-    expect(container.querySelector("hr")?.className).toContain("bg-gradient-to-r");
+    expect(container.querySelector("hr")?.className).toContain("bg-linear-to-r");
   });
 
   it("distinguishes inline code from fenced code blocks", () => {

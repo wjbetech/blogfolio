@@ -13,15 +13,19 @@ export type UseThemeResult = {
 };
 
 export default function useTheme(): UseThemeResult {
-  const [themeId, setThemeId] = useState<string | null>(() => {
-    try {
-      const saved = loadSavedThemeId();
-      if (saved) return saved;
-    } catch {
-      /* ignore */
+  const [themeId, setThemeId] = useState<string | null>(
+    ColorThemes.length > 0 ? ColorThemes[0].id : null
+  );
+
+  // Hydrate saved theme from localStorage after mount (avoids SSR hydration mismatch)
+  useEffect(() => {
+    const saved = loadSavedThemeId();
+    if (saved && saved !== themeId) {
+      setThemeId(saved);
     }
-    return ColorThemes.length > 0 ? ColorThemes[0].id : null;
-  });
+    // Only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // derive current theme from id
   const theme = useMemo(() => {

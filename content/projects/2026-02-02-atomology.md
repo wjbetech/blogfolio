@@ -1,5 +1,5 @@
 ---
-id: "1"
+id: "2"
 title: "Atomology"
 description: "Atomology is a browser game for guessing the periodic elements, loosely based on the popular game Wordle."
 tech:

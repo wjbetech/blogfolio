@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-19",
+    "version": "1.4.0",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Consolidated project-detail routing so /dev/[slug] is canonical, with /portfolio and /portfolio/[slug] preserved as redirects."
+      },
+      {
+        "category": "Fix",
+        "description": "Draft posts and projects are now excluded from all public surfaces (indexes, carousels, navigation, RSS, sitemap, JSON-LD) and are not statically generated."
+      }
+    ]
+  },
+  {
     "date": "2026-08-17",
     "version": "1.3.5",
     "changes": [

@@ -1,120 +1,84 @@
 # Media
 
-How images are stored, named, referenced in frontmatter, and resolved at render time.
+Blogfolio currently stores static media in the repository and serves it through Next.js. There is no external image CDN or media CMS.
 
----
+## Repository locations
 
-## Storage location
-
-All images are committed to the repository and served as Next.js static assets:
-
-```
-public/
-  images/
-    posts/        cover images and inline images for blog posts
-    projects/     screenshots and previews for portfolio projects
-    wjbe.png      site author photo (used in hero / about sections)
+```text
+public/images/assets/avatar.png
+public/images/assets/placeholder.png
+public/images/assets/projects/<project-slug>/...
 ```
 
-There is no external image CDN. Images are part of the repository and deploy with the app.
+The current blog content does not yet use post images. `docs/posts_audit.md` records that audit.
 
----
-
-## Frontmatter fields
-
-Both `Post` and `Project` content types support two image fields:
-
-| Field        | Type       | Required | Used for                                  |
-| ------------ | ---------- | -------- | ----------------------------------------- |
-| `coverImage` | `string`   | No       | Primary image for a post (OG, hero, card) |
-| `images`     | `string[]` | No       | Ordered array of additional images        |
-
-### Resolution priority
-
-The app resolves which image to display using this waterfall:
-
-```
-coverImage (if non-empty)
-  → images[0] (if array is non-empty)
-    → fallback
-```
-
-This applies in:
-
-- `blog/[slug]/page.tsx` -- hero image via `CoverImage` component
-- `BlogPostCard.tsx` -- card thumbnail
-- `TopBlog.tsx` -- featured post image
-- `dev/page.tsx` -- project card image (with filesystem existence check)
-- `ProjectPostCard.tsx` -- project card thumbnail
-- `metadata.ts` / `metadataHelper.ts` -- OG image + JSON-LD image
-
-### Current fallback
-
-The default fallback is currently an external URL (a placeholder image hosted on a third-party site). **This should be replaced with a local fallback image** (`/images/fallback.png`) as part of Phase B cleanup, so the site has no runtime dependency on external image hosts.
-
----
-
-## Naming conventions
-
-Use lowercase kebab-case. Prefix with the post or project slug for easy tracing:
-
-```
-/images/posts/my-post-title-cover.png
-/images/posts/my-post-title-diagram.png
-/images/projects/project-slug-screenshot-1.png
-/images/projects/project-slug-screenshot-2.png
-```
-
-Avoid spaces, uppercase, and special characters in filenames.
-
----
-
-## Referencing images in frontmatter
-
-Use root-relative paths (starting with `/`). Do not include `public/` in the path -- Next.js serves `public/` at the root automatically.
+Use paths relative to the public root in frontmatter. Do not include `public/`:
 
 ```yaml
-# Blog post
-coverImage: /images/posts/my-post-title-cover.png
 images:
-  - /images/posts/my-post-title-diagram.png
-  - /images/posts/my-post-title-screenshot.png
-
-# Project
-images:
-  - /images/projects/project-slug-screenshot-1.png
-  - /images/projects/project-slug-screenshot-2.png
+  - /images/assets/projects/wordweb/1.default-style.png
 ```
 
----
+## Post image behavior
+
+For a post, the intended priority is:
+
+```text
+coverImage
+→ images[0]
+→ local placeholder or no-cover presentation
+```
+
+`src/lib/metadata.ts` and `src/lib/metadataHelper.ts` use the cover image, first article image, and local placeholder for metadata fallbacks. The blog detail page uses `CoverImage` for the hero presentation.
+
+The article redesign may introduce richer figures, captions, inline images, and image layouts. Those are planned; do not assume they are currently implemented.
+
+## Project image behavior
+
+Project screenshots live under:
+
+```text
+public/images/assets/projects/<project-slug>/
+```
+
+The current conventions are:
+
+- prefix screenshots with a number to define order, such as `1.home.png`
+- use `getExistingProjectImages` to discard missing or unsafe local paths
+- use `sortProjectImages` for numeric ordering
+- prefer the image with order prefix `1.` for project-card imagery
+- use the local placeholder when no valid image exists
+
+The `/dev` project index and `/dev/[slug]` detail page use the project image slider/lightbox. The detail page can display a larger gallery; project cards use the primary image.
+
+## Naming
+
+Prefer lowercase kebab-case and a project or post-specific name. For ordered project screenshots:
+
+```text
+1.home.png
+2.settings.png
+3.mobile-view.png
+```
+
+Avoid spaces and ambiguous generic filenames.
 
 ## Validation
 
-The content validation script (`npm run validate:content`) and the Jest test suite both check that any image path beginning with `/` actually exists on disk under `public/`.
+`npm run validate:content` checks local asset references from frontmatter and Markdown links. Project tests also check that referenced local project images exist.
 
-If you add a frontmatter image path and forget to commit the file, the CI build will catch it via the `ci-content-validation` GitHub Actions workflow.
+When adding a local asset:
 
----
+1. place it below `public/`
+2. reference it with a root-relative path
+3. run content validation
+4. run the relevant tests and production build
 
-## next.config.ts remotePatterns
+`next.config.ts` currently has no allowed remote image patterns. Prefer local assets unless a deliberate future decision adds and documents an external image host.
 
-If you ever reference an image from an external hostname with `next/image`, that hostname must be added to the `remotePatterns` list in `next.config.ts`. Currently allowed:
+## Current limitations
 
-- `avatars.dicebear.com`
-- `developer.mozilla.org`
-- `openlab.citytech.cuny.edu` ← fallback placeholder; remove once local fallback exists
-
-For fully self-hosted images, no remote patterns are needed.
-
----
-
-## Recommended image formats and sizes
-
-| Use case           | Format           | Recommended size      |
-| ------------------ | ---------------- | --------------------- |
-| Cover / OG image   | `.png` or `.jpg` | 1200 × 630 px         |
-| Project screenshot | `.png`           | 1200 × 800 px         |
-| Author photo       | `.png`           | 400 × 400 px (square) |
-| Inline post image  | `.png` or `.jpg` | max 1200 px wide      |
-
-Optimise images before committing (tools: Squoosh, ImageMagick, `sharp` CLI). Next.js will handle responsive resizing at request time via its built-in image optimiser.
+- Posts currently have no committed cover or inline images.
+- There is no dedicated blog figure/caption component system.
+- Image optimization and size discipline remain manual repository responsibilities.
+- The content validator and Contentlayer schema should remain aligned when image fields evolve.

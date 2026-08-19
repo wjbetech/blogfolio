@@ -1,143 +1,80 @@
 # Hosting
 
-Planned production infrastructure for blogfolio. The app is still in active development and has not yet been deployed to the homelab. This document describes the target architecture to implement when ready.
+Blogfolio is hosted on an operational self-hosted homelab. The repository contains the application image and Compose configuration; the host supplies secrets and runs the deployment workflow.
 
----
+## Production topology
 
-## Infrastructure overview
-
-```
+```text
 Internet
-    |
-    | HTTPS (443) -- no open ports on your router
-    v
-Cloudflare Edge  (williameast.com)
-    |
-    | Cloudflare Tunnel (outbound-only, encrypted)
-    v
-Ubuntu LXC on Proxmox (ThinkCentre homelab)
-    |
-    | Docker network (internal)
-    v
-blogfolio container  :3000
+   |
+   v
+Cloudflare Edge: wjbeast.com
+   |
+   | outbound Cloudflare Tunnel
+   v
+Ubuntu LXC on Proxmox homelab
+   |
+   v
+Docker Compose
+   |-- blogfolio app, localhost:3000
+   `-- cloudflared sidecar
 ```
 
-Key point: **Cloudflare Tunnel creates an outbound connection from your server to Cloudflare**. Your router never has any ports forwarded. The homelab initiates the tunnel; Cloudflare's edge routes traffic in through it. This is secure by default.
+The app is bound to `127.0.0.1:3000` in Compose. Cloudflare Tunnel is the public entry point, so the router does not need an inbound port-forward for Blogfolio.
 
----
+## Components
 
-## Layer by layer
+### Proxmox/LXC
 
-### 1. Proxmox / LXC
+The production host is an Ubuntu LXC running inside the homelab's Proxmox environment. Docker and Docker Compose run inside that environment.
 
-- Proxmox VE running on the ThinkCentre homelab
-- Ubuntu 24.04 LXC container dedicated to blogfolio
-- Docker and Docker Compose installed inside the LXC
-- Static local IP assigned (e.g., `192.168.1.x`) -- note it for `cloudflared` config
+The exact host networking, storage, backup, and runner-service configuration are operational details of the homelab and are not defined by this repository. Do not invent them in application documentation.
 
-### 2. Docker Compose
+### Docker Compose
 
-Two services: the Next.js app, and the Cloudflare Tunnel daemon (`cloudflared`).
+`docker-compose.yml` runs:
 
-```yaml
-# docker-compose.yml (target -- not yet written)
-services:
-  app:
-    build: .
-    restart: unless-stopped
-    environment:
-      - NEXT_PUBLIC_SITE_URL=https://williameast.com
-      - RESEND_API_KEY=${RESEND_API_KEY}
-      - CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL}
-    ports:
-      - "3000:3000"
+- `ghcr.io/wjbetech/blogfolio:latest` as the app
+- `cloudflare/cloudflared:latest` as the tunnel sidecar
 
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    restart: unless-stopped
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
-    environment:
-      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+The app has a healthcheck. The tunnel depends on the app becoming healthy.
+
+### Cloudflare Tunnel
+
+The tunnel token is supplied through `CLOUDFLARE_TUNNEL_TOKEN`. Cloudflare routes the public hostname to the app service on the internal Compose network.
+
+The public domain is:
+
+```text
+https://wjbeast.com
 ```
 
-`cloudflared` connects to Cloudflare using the tunnel token and forwards `williameast.com` traffic to `http://app:3000` on the internal Docker network. No ports need to be exposed externally.
+### Container runtime
 
-### 3. Dockerfile
+The Dockerfile builds a Next.js standalone application and runs it as a non-root user on Node 22. The production image includes the public assets, standalone server, static build output, and changelog data.
 
-A multi-stage Next.js Dockerfile:
+## Environment and secrets
 
-```dockerfile
-# Dockerfile (target -- not yet written)
-FROM node:20-alpine AS deps
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+Secrets are not committed. The host-side deployment environment must provide:
 
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN npm run build
+- `CLOUDFLARE_TUNNEL_TOKEN`
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL`
 
-FROM node:20-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
-EXPOSE 3000
-CMD ["node", "server.js"]
-```
+`NEXT_PUBLIC_SITE_URL` should be set to `https://wjbeast.com` unless an intentional deployment-specific override is being tested.
 
-Requires `output: "standalone"` in `next.config.ts`.
+The repository's `.env.example` documents the variable names. Host-side secret storage and runner-service injection are operational concerns; this document does not prescribe an unverified mechanism for them.
 
-### 4. Cloudflare Tunnel setup (one-time)
+## Production ownership boundary
 
-1. Log into [dash.cloudflare.com](https://dash.cloudflare.com) → Zero Trust → Networks → Tunnels
-2. Create a tunnel → name it `blogfolio`
-3. Copy the tunnel token → save to `.env` on the server as `CLOUDFLARE_TUNNEL_TOKEN`
-4. Add a public hostname: `williameast.com` → `http://app:3000`
-5. Start the stack: `docker compose up -d`
+The homelab is already operational. This is not a future hosting tutorial or a checklist for creating the infrastructure from scratch.
 
-The tunnel will appear as "Healthy" in the dashboard when `cloudflared` is running.
+The repository can document the intended topology and automation, but only the homelab and Cloudflare systems can confirm:
 
-### 5. Domain
+- whether the runner is online
+- whether the app container is healthy
+- whether the tunnel is connected
+- which image is currently deployed
+- whether the public domain resolves correctly
 
-- Domain: `williameast.com`
-- DNS managed by Cloudflare (nameservers pointed at Cloudflare)
-- The tunnel connector adds the CNAME record automatically
-- SSL/TLS: Full (strict) in Cloudflare SSL settings
-
----
-
-## Environment variables
-
-| Variable                  | Where set                                      | Value                           |
-| ------------------------- | ---------------------------------------------- | ------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`    | `.env` on server (and in `docker-compose.yml`) | `https://williameast.com`       |
-| `CLOUDFLARE_TUNNEL_TOKEN` | `.env` on server (never commit this)           | Token from Cloudflare dashboard |
-| `RESEND_API_KEY`          | `.env` on server (never commit this)           | API key from [resend.com](https://resend.com) |
-| `CONTACT_TO_EMAIL`        | `.env` on server (and in `docker-compose.yml`) | Email that receives contact form submissions |
-
-Never commit `.env` to the repository. See `.env.example` in the repo root for the expected variables (values omitted).
-
----
-
-## Deployment flow (planned)
-
-See [deployment.md](./deployment.md) for the GitHub Actions pipeline that builds and pushes a new Docker image whenever `master` receives a push.
-
----
-
-## Checklist before going live
-
-- [ ] `williameast.com` nameservers pointed at Cloudflare
-- [ ] Cloudflare Tunnel created and token saved to server `.env`
-- [ ] `Dockerfile` written and tested locally with `docker build .`
-- [ ] `docker-compose.yml` written with `app` + `cloudflared` services
-- [ ] `NEXT_PUBLIC_SITE_URL` set to `https://williameast.com` in server `.env`
-- [ ] `RESEND_API_KEY` and `CONTACT_TO_EMAIL` set in server `.env`
-- [ ] `next.config.ts` has `output: "standalone"` enabled
-- [ ] GitHub Actions workflow written and tested (see `deployment.md`)
-- [ ] Cloudflare SSL/TLS set to Full (strict)
-- [ ] Test full round-trip: `https://williameast.com` → Cloudflare → tunnel → app
+See [deployment.md](./deployment.md) for the repository's workflow behavior.

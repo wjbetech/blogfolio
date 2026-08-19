@@ -1,133 +1,101 @@
-# SEO
+# SEO and public discovery
 
-A plain-English explanation of what SEO is, what blogfolio already does, what gaps remain, and what each piece actually does for you.
+Blogfolio's SEO surfaces are generated from the application and Contentlayer content. The canonical public domain is:
 
----
+```text
+https://wjbeast.com
+```
 
-## What is SEO and why does it matter?
+The `NEXT_PUBLIC_SITE_URL` environment variable controls absolute URL generation. The code fallback default is currently `https://williameast.com`; production builds override it to `https://wjbeast.com` (Docker build arg and Compose environment). Aligning the fallback default with the canonical domain is a known cleanup item.
 
-SEO (Search Engine Optimisation) is the practice of making your site readable by machines — Google, Bing, and social media platforms like LinkedIn and X/Twitter — as well as humans.
+## Current mechanisms
 
-When Google crawls your site, it reads special tags and files to understand:
+### Metadata
 
-- What each page is about
-- What image to show when the page is shared on social media
-- What order to index your pages in
-- Whether it's allowed to index the page at all
+`src/lib/metadata.ts` provides shared metadata builders for:
 
-When you share a blog post link on LinkedIn and it shows a title, description, and preview image automatically — that's your OG (Open Graph) tags working.
+- the site
+- the blog index
+- the `/dev` project index
+- blog posts
+- project detail pages
 
-When your post shows up on Google with the right title and summary — that's your `<title>` tag and `description` meta tag working.
+Metadata includes titles, descriptions, canonical URLs, Open Graph data, Twitter card data, and RSS autodiscovery.
 
-When a podcast app or RSS reader like Feedly picks up your new posts automatically — that's your RSS feed working.
+Project detail metadata must use:
 
----
+```text
+/dev/[slug]
+```
 
-## What blogfolio already has
+`/portfolio/[slug]` is a legacy redirect and must not be emitted as a canonical URL.
 
-Everything below ships today. No action needed.
+### Robots
 
-### ✅ `robots.txt`
+`src/app/robots.ts` allows crawling and points crawlers to:
 
-**What it is:** A plain text file that tells search engine crawlers whether they're allowed to index your site, and where to find the sitemap.
+```text
+https://wjbeast.com/sitemap.xml
+```
 
-**What it does here:** Allows all crawlers on all pages, and points to the sitemap.
+### Sitemap
 
-**File:** `src/app/robots.ts`
+`src/app/sitemap.xml/route.ts` emits the home page, blog index, `/dev`, published blog posts, and published project detail URLs.
 
----
+The intended publication contract is that drafts are excluded. Draft URLs must not be added to the sitemap.
 
-### ✅ XML Sitemap
+The project URL form is:
 
-**What it is:** A file that lists every public URL on your site with a priority score and last-modified date. Google uses this to discover and re-index your pages.
+```text
+https://wjbeast.com/dev/[slug]
+```
 
-**What it does here:** Lists the home page (priority 1.0), blog list (0.8), all blog post URLs, and all project URLs. Updated automatically at build time from Contentlayer data.
+### RSS
 
-**File:** `src/app/sitemap.xml/route.ts`
+`/rss.xml` emits published blog posts sorted newest first. Draft posts must not appear in the feed.
 
----
+### Structured data
 
-### ✅ RSS Feed
+`src/lib/metadataHelper.ts` creates:
 
-**What it is:** A machine-readable feed of your latest posts. RSS readers (Feedly, NetNewsWire, etc.) and some podcast/newsletter tools poll this to show your new content to subscribers automatically.
+- `BlogPosting` data for blog posts
+- `Person` data for the site owner
+- `WebSite` data for the homepage
+- `CollectionPage`/`ItemList` data for the `/dev` project collection
 
-**What it does here:** Returns an RSS 2.0 XML feed of all published posts, sorted newest first. Only posts with `status: published` are included.
+Project structured-data URLs must use `/dev/[slug]`, and draft projects must be excluded from collections.
 
-**URL:** `/rss.xml`
+JSON-LD is serialized with `<` escaped before insertion into the page.
 
-**File:** `src/app/rss.xml/route.ts`
+### Images
 
----
+The default metadata image is the local:
 
-### ✅ Open Graph tags (OG)
+```text
+/images/assets/placeholder.png
+```
 
-**What they are:** HTML `<meta>` tags in the `<head>` of every page that tell social media platforms what title, description, and image to show when someone shares your URL. Without these, LinkedIn and Twitter will just pick random text and images from the page, and it will look unprofessional.
+A post uses its non-empty `coverImage` first, then its first `images` entry, then the default fallback. Project metadata uses the first project image when available.
 
-**What they do here:** Every page gets `og:title`, `og:description`, `og:image`, and `og:url`. Blog posts also get `og:type: article`.
+## Publication boundary
 
-**File:** `src/lib/metadata.ts` → `buildMetadata()`
+Public discovery must be derived from published content only. A draft must not be exposed through:
 
----
+- list pages
+- homepage sections
+- archive or tag navigation
+- previous/next navigation
+- RSS
+- sitemap
+- JSON-LD collections
+- generated public detail routes
 
-### ✅ Twitter/X card tags
+The publication boundary is enforced centrally through `src/lib/content.ts` and covered by tests (`tests/lib/content.test.ts`, `tests/routes/sitemap.test.ts`, `tests/routes/rss.test.ts`).
 
-**What they are:** A Twitter-specific set of meta tags. When you paste a link into a tweet, Twitter reads these to show a large image preview card (`summary_large_image`).
+## Known limitations and future work
 
-**What they do here:** Every page gets a large image card attributed to `@wjbetech`.
-
-**File:** `src/lib/metadata.ts`
-
----
-
-### ✅ Canonical URLs
-
-**What they are:** A `<link rel="canonical">` tag that tells Google "this is the definitive URL for this content". Prevents duplicate-content penalties if your site is ever accessible via multiple URLs (e.g., `www.` vs non-`www.`).
-
-**What they do here:** Every page sets its canonical to `SITE_URL + path`.
-
-**File:** `src/lib/metadata.ts` → `buildMetadata()`
-
----
-
-### ✅ RSS autodiscovery link
-
-**What it is:** A `<link>` tag in every page's `<head>` pointing to the RSS feed. RSS readers use this to discover your feed automatically when someone pastes your homepage URL into them.
-
-**What it does here:** Added to every page via `alternates.types` in `buildMetadata()`.
-
----
-
-### ✅ Article JSON-LD (structured data)
-
-**What it is:** A block of JSON embedded in the page that describes the content in a format Google understands at a deeper level than just reading text. It can unlock "rich results" — things like article dates, author names, and breadcrumbs appearing directly in Google search results.
-
-**What it does here:** Blog post pages emit a `BlogPosting` schema object containing title, description, publish date, updated date, image URLs, and tags.
-
-**File:** `src/lib/metadataHelper.ts` → `createBlogPostingJsonLd()`
-
----
-
-### ✅ Projects collection JSON-LD
-
-**What it does:** The `/dev` and `/portfolio` pages emit a `CollectionPage` + `ItemList` schema describing all projects with names, descriptions, images, and links.
-
-**File:** `src/lib/metadataHelper.ts` → `createProjectsCollectionJsonLd()`
-
----
-
-### ✅ Heading anchors
-
-**What they are:** Stable `#id` links on every heading in a blog post, so readers can link directly to a specific section. Google also uses heading structure to understand what a page covers.
-
-**Status:** Already implemented and merged (`feat/blog-heading-anchors`).
-
----
-
-## Previously fixed gaps
-
-| Gap | PR | Status |
-| --- | --- | --- |
-| `SITE_URL` hardcoded to wrong domain | `fix/site-url-env` | ✅ Fixed — now reads `NEXT_PUBLIC_SITE_URL` from env |
-| Default OG image was an external Unsplash URL | `fix/image-fallback` | ✅ Fixed — now uses local `/images/assets/placeholder.png` |
-| `/portfolio/[slug]` pages returned 404 | `feature/portfolio-slug` | ✅ Fixed — static project detail pages exist |
-| No `Person` or `WebSite` JSON-LD | `feature/person-jsonld` | ✅ Fixed — both schemas injected on home page |
+- The repository has no automated crawler or deployed-route smoke test.
+- The production domain and homelab are operational, but runtime search-engine indexing cannot be verified from the repository.
+- Blog structured data can be improved once the article renderer and author/image model are settled.
+- Project content and links need a content-quality review before treating every project as polished portfolio evidence.
+- `/portfolio` redirects should remain available for legacy links, but `/dev` is the only canonical project section.

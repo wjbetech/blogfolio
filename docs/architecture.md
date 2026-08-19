@@ -1,125 +1,157 @@
 # Architecture
 
-A description of the blogfolio tech stack, app routes, content pipeline, and how data flows from Markdown files through to rendered pages.
-
----
+Blogfolio is a personal website for William East. Its near-term purpose is to attract development work and language-service work; the blog supports those goals by demonstrating expertise, communication, and personality.
 
 ## Stack
 
-| Layer         | Choice                             | Notes                                                    |
-| ------------- | ---------------------------------- | -------------------------------------------------------- |
-| Framework     | Next.js 16 (App Router)            | Server components by default; client components opt-in   |
-| Language      | TypeScript 5                       | Strict mode                                              |
-| Content       | Contentlayer 0.3 + Markdown/MDX    | Build-time type generation from `.md`/`.mdx` files       |
-| Styling       | Tailwind CSS v4                    | Utility-first; theme delivered via CSS custom properties |
-| UI primitives | Radix UI, Base UI, shadcn          | Component primitives only; no shadcn visual presets      |
-| Icons         | Tabler Icons React                 | `@tabler/icons-react`                                    |
-| Animations    | Framer Motion                      | Used selectively in carousels/transitions                |
-| Fonts         | Google Fonts (Next.js font loader) | Bricolage Grotesque, Inter, Geist Mono                   |
-| Analytics     | Custom (`src/lib/analytics.ts`)    | Event tracking via `TrackedLink` component               |
-| Testing       | Jest + Testing Library             | Unit and integration tests under `__tests__/`            |
+| Layer | Choice | Current role |
+| --- | --- | --- |
+| Framework | Next.js 16 App Router | Routing, server components, route handlers, metadata |
+| Language | TypeScript 5 | Strict application typing |
+| Content | Contentlayer 0.3 + Markdown/MDX | Build-time typed content from `content/` |
+| Styling | Tailwind CSS v4 + CSS variables | Utility classes backed by the custom theme tokens |
+| UI primitives | Small set of shadcn-style components using Radix UI | Primarily `Button` and `Card`; many generated components are unused |
+| Icons | `@tabler/icons-react` plus small local SVG wrappers | UI and navigation icons |
+| Fonts | Next.js Google font loader | Inter, Bricolage Grotesque, Geist Mono |
+| Animation | `tw-animate-css` and CSS transitions | UI transitions and editorial entrance effects |
+| Email | Resend | Public contact form submission |
+| Analytics | Plausible, loaded manually when configured | Opt-in page views and selected events |
+| Testing | Jest + Testing Library | Unit and component/integration tests |
+| Production | Docker standalone image, GHCR, Docker Compose, Cloudflare Tunnel | Homelab deployment |
 
----
+There is no Blogfolio database, ORM, CMS, authentication system, authorization layer, or runtime content store.
 
-## App routes
+## Repository structure
 
-| Route | File | Type | Purpose |
-| --- | --- | --- | --- |
-| `/` | `src/app/page.tsx` | Server | Home -- Hero + BlogCarousel + ProjectCarousel |
-| `/blog` | `src/app/blog/page.tsx` | Server + Client | Blog list with pagination; delegates to `BlogPageClient.tsx` |
-| `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | Server | Blog post detail -- content, metadata, JSON-LD, prev/next nav |
-| `/dev` | `src/app/dev/page.tsx` | Server | Project overview/index -- all projects + sticky sidebar + Changelog |
-| `/portfolio` | `src/app/portfolio/page.tsx` | Server | Project carousel (to be redirected to `/dev` in Phase B) |
-| `/portfolio/[slug]` | -- | -- | **Does not exist yet** -- Phase B work item |
-| `/language-services` | `src/app/language-services/page.tsx` | Server | Translation/proofreading resume -- services + client history |
-| `/contact` | `src/app/contact/page.tsx` | Server | Contact form UI (no submission handler wired yet) |
-| `/rss.xml` | `src/app/rss.xml/route.ts` | Route handler | RSS 2.0 feed of published posts |
-| `/sitemap.xml` | `src/app/sitemap.xml/route.ts` | Route handler | XML sitemap for all pages, posts, and projects |
-| `/robots.txt` | `src/app/robots.ts` | Next.js metadata | robots.txt pointing to sitemap |
+```text
+content/
+  posts/             Markdown/MDX blog sources
+  projects/          Markdown project sources
 
-> **Note:** The sitemap and `/dev` page JSON-LD currently emit `/portfolio/{slug}` URLs that return 404 until the `/portfolio/[slug]` route is built (Phase B).
+src/app/             App Router pages, layouts, route handlers, metadata routes
+src/components/      Feature-oriented React components
+src/components/ui/   shadcn-style primitives; only a subset is used
+src/hooks/           Client hooks for themes and carousel interaction
+src/lib/             Content, metadata, themes, analytics, changelog, and pure helpers
+public/              Static assets, including images/assets/
+scripts/             Content generation and validation wrappers
+changelog/           entries.json used by the /dev changelog
+__tests__/           Existing Jest suites
+tests/               Additional Jest suites and test helpers
+.github/workflows/   CI, image publishing, deployment, and maintenance workflows
+```
 
----
+## Routes
+
+| Route | Implementation | Role |
+| --- | --- | --- |
+| `/` | `src/app/page.tsx` | Hero, featured blog carousel, featured project carousel |
+| `/blog` | `src/app/blog/page.tsx` and `BlogPageClient.tsx` | Published posts, pagination, tags, yearly archive |
+| `/blog/[slug]` | `src/app/blog/[slug]/page.tsx` | Published post detail, metadata, JSON-LD, post navigation |
+| `/dev` | `src/app/dev/page.tsx` | Published project index, galleries, sidebar, changelog |
+| `/dev/[slug]` | `src/app/dev/[slug]/page.tsx` | **Canonical** project detail route |
+| `/portfolio` | `src/app/portfolio/page.tsx` | Legacy redirect to `/dev` |
+| `/portfolio/[slug]` | `src/app/portfolio/[slug]/page.tsx` | Legacy redirect to `/dev/[slug]` |
+| `/language-services` | `src/app/language-services/page.tsx` | Translation/editing services and experience |
+| `/contact` | `src/app/contact/page.tsx` | Client-side contact form and contact links |
+| `/rss.xml` | `src/app/rss.xml/route.ts` | Published-post RSS feed |
+| `/sitemap.xml` | `src/app/sitemap.xml/route.ts` | Published public URL sitemap |
+| `/robots.txt` | `src/app/robots.ts` | Crawler rules and sitemap location |
+| `/api/contact` | `src/app/api/contact/route.ts` | Resend-backed POST endpoint |
+| `/api/changelog/entries` | `src/app/api/changelog/entries/route.ts` | Changelog pagination endpoint |
+
+`/dev/[slug]` is the only canonical project-detail URL. Do not reintroduce `/portfolio/[slug]` as a project page. Preserve the legacy route only as a redirect.
 
 ## Content pipeline
 
-```
-content/
-  posts/        *.md / *.mdx   -- blog posts
-  projects/     *.md           -- portfolio projects
+```text
+content/posts and content/projects
         |
-        | contentlayer:generate / contentlayer:dev
+        | npm run contentlayer:generate
         v
-.contentlayer/generated/
-  allPosts[]     -- typed Post objects
-  allProjects[]  -- typed Project objects
+.contentlayer/generated
         |
-        | imported in server components
+        | typed allPosts and allProjects imports
         v
-  src/app/blog/page.tsx          -- allPosts (sorted, paginated)
-  src/app/blog/[slug]/page.tsx   -- allPosts.find(slug)
-  src/app/dev/page.tsx           -- allProjects
-  src/app/portfolio/page.tsx     -- allProjects (filtered to published)
-  src/app/rss.xml/route.ts       -- allPosts (published, sorted)
-  src/app/sitemap.xml/route.ts   -- allPosts + allProjects
-  src/components/HomePageBlogs/  -- allPosts (featured slice)
-  src/components/Projects/       -- allProjects (featured slice)
+Next.js routes, components, RSS, sitemap, metadata, and JSON-LD
 ```
 
-Contentlayer reads frontmatter and body, validates required fields against the schema in `contentlayer.config.ts`, and outputs fully-typed arrays at build time. No database, no runtime fetching.
+`contentlayer.config.ts` defines the Post and Project document types. `scripts/validate-content.mjs` performs additional repository checks for fields, IDs, slugs, local assets, routes, and selected external links.
 
----
+Content is build-time data. The root layout currently declares `force-dynamic`, so the application is not configured as a purely static Next.js deployment even though its content is generated at build time. Do not describe the site as fully static without revisiting that layout decision.
 
-## Computed fields (contentlayer.config.ts)
+## Publication boundary
 
-Both `Post` and `Project` have these computed at build time:
+`draft` and `published` are real content states.
 
-| Field         | How it's derived                                                  |
-| ------------- | ----------------------------------------------------------------- |
-| `slug`        | Stripped from the filename -- date prefix (`YYYY-MM-DD-`) removed |
-| `url`         | `/blog/{slug}` for posts; `/portfolio/{slug}` for projects        |
-| `readingTime` | Word count of body divided by 200 (posts only)                    |
+The publication contract is:
 
----
+- only `published` content is public
+- drafts do not appear in indexes, carousels, archives, navigation, RSS, sitemap, or JSON-LD collections
+- drafts must not receive generated public detail pages
+- changing a draft to published is an explicit publishing action
 
-## Theme system
+The publication boundary is enforced centrally through `src/lib/content.ts` (`getPublishedPosts`/`getPublishedProjects`) and applied across pages, carousels, archives, navigation, RSS, sitemap, and JSON-LD. Draft slugs are not statically generated and return 404 on detail routes. Phase 1 (route and publication consolidation) is implemented; see `docs/roadmap.md`.
 
-Themes are delivered as CSS custom property sets applied to the `data-theme` attribute on `<html>`. The full token map lives in `src/lib/themes.ts`; the CSS variable declarations live in `src/app/globals.css`. Switching a theme writes `data-theme` to the DOM -- no CSS class toggling, no re-render.
+## Blog rendering boundary
 
-Token groups: `bg-100`, `bg-200`, `bg-300`, `headline`, `paragraph`, `button`, `buttonText`, `link`, `accent-100`, `accent-200`, `accent-300`, `palette-border`.
+The intended content architecture is:
 
-See [design-system.md](./design-system.md) for the full token reference.
-
----
-
-## Build and dev commands
-
-| Command                         | What it does                                                         |
-| ------------------------------- | -------------------------------------------------------------------- |
-| `npm run dev`                   | Runs `contentlayer:dev` + `next dev --turbopack` concurrently        |
-| `npm run build`                 | Runs `contentlayer:generate` then `next build`                       |
-| `npm run start`                 | Starts the production Next.js server                                 |
-| `npm run contentlayer:generate` | One-off Contentlayer type generation (run after frontmatter changes) |
-| `npm run validate:content`      | Validates all content frontmatter, slugs, links, and local assets    |
-| `npm run ci`                    | Full CI pipeline: validate:content + tests + build                   |
-| `npm test`                      | Jest unit/integration tests                                          |
-
----
-
-## Key source directories
-
+```text
+Markdown/MDX source
+        |
+        v
+Contentlayer compilation
+        |
+        v
+Controlled Blogfolio article components
+        |
+        v
+Rendered article
 ```
-src/
-  app/          Next.js App Router routes and layouts
-  components/   All React components (co-located with their styles where applicable)
-  lib/          Pure utility modules (analytics, metadata, themes, post helpers, etc.)
-  hooks/        Custom React hooks
-content/
-  posts/        Markdown source for blog posts
-  projects/     Markdown source for portfolio projects
-public/
-  images/       Static image assets (posts/ and projects/ subdirectories)
-  fonts/        Local font files (if any)
-scripts/        Build and validation scripts (Node.js / MJS)
-__tests__/      Jest test suites
+
+At the committed baseline, blog bodies were rendered through `src/lib/postContent.ts`, which recognizes paragraphs and headings and creates heading anchors. It does not provide a complete Markdown presentation system for lists, code blocks, links, images, tables, or editorial components.
+
+The current working tree contains an uncommitted `PostContent`/`mdx` implementation that evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and adds styling for links, lists, inline code, and fenced code. It is an active experiment, not a completed blog redesign or a stable promise of full Markdown/MDX support.
+
+The future blog-rendering phase must define and test the supported Markdown/MDX component vocabulary before adding visual features. Do not assume that a Markdown element is professionally styled merely because Contentlayer can compile it.
+
+## State and client boundaries
+
+Most pages are server components. Client components are used where browser state or interaction is required:
+
+- theme drawer and theme selection
+- mobile navigation
+- carousels and drag interaction
+- project image gallery/lightbox
+- blog filtering and pagination controls
+- contact form state
+- changelog incremental loading
+- Plausible script and page-view tracking
+
+There is no shared client state store. Theme selection is persisted in `localStorage` and a `site-theme` cookie. The server currently does not read that cookie; the initial server theme remains the welcome palette.
+
+## Architectural conventions
+
+- Import content from `contentlayer/generated`; do not fetch content at runtime.
+- Use the shared published-content predicate when exposing posts or projects publicly.
+- Use `/dev/[slug]` for all new project links and metadata.
+- Use `TrackedLink` for links that should emit analytics events.
+- Use theme tokens rather than adding arbitrary site colors where a token exists.
+- Use local project assets from `public/images/assets/projects/` and preserve numeric image ordering.
+- Keep route handlers small and validate external input at the boundary.
+- Update `changelog/entries.json` for normal pull requests unless the `no-changelog` exception is intentionally used.
+- Run content validation, tests, build, and typecheck before handing work to the next agent.
+
+## Build commands
+
+```bash
+npm run dev                 # Contentlayer watch plus Next dev server
+npm run contentlayer:generate
+npm run validate:content
+npm test
+npm run build
+npm run ci                  # validation, tests, and build
 ```
+
+`npm run lint` currently needs repair because it invokes the removed `next lint` command. Standalone `npx tsc --noEmit` also currently reports errors in test typing and should be made clean in the future cleanup phase.

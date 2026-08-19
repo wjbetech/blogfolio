@@ -16,6 +16,19 @@ import {
 
 const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com").replace(/\/$/, "");
 
+
+/** Normalize Next.js OGImage union (OGImage | OGImage[]) to extract the first URL. */
+function getOgImageUrl(metadata: Metadata): string | undefined {
+  const images = metadata.openGraph?.images;
+  if (!images) return undefined;
+  const first = Array.isArray(images) ? images[0] : images;
+  if (typeof first === "string") return first;
+  if (first instanceof URL) return first.href;
+  const url = first?.url;
+  if (typeof url === "string") return url;
+  if (url instanceof URL) return url.href;
+  return undefined;
+}
 function makeSamplePost(overrides: Partial<Post> = {}): Post {
   return {
     id: overrides.id ?? "1",
@@ -58,7 +71,7 @@ describe("metadata helpers", () => {
 
     const metadata = generatePostMetadata(post);
 
-    expect(metadata.openGraph?.images?.[0]?.url).toBe("https://cdn.example.com/cover.png");
+    expect(getOgImageUrl(metadata)).toBe("https://cdn.example.com/cover.png");
   });
 
   it("falls back to the first image when coverImage is blank", () => {
@@ -69,7 +82,7 @@ describe("metadata helpers", () => {
 
     const metadata = generatePostMetadata(post);
 
-    expect(metadata.openGraph?.images?.[0]?.url).toBe("https://cdn.example.com/first-image.png");
+    expect(getOgImageUrl(metadata)).toBe("https://cdn.example.com/first-image.png");
   });
 
   it("falls back to the default image when both coverImage and images are missing", () => {
@@ -80,14 +93,14 @@ describe("metadata helpers", () => {
 
     const metadata = generatePostMetadata(post);
 
-    expect(metadata.openGraph?.images?.[0]?.url).toBe(`${BASE_URL}/images/assets/placeholder.png`);
+    expect(getOgImageUrl(metadata)).toBe(`${BASE_URL}/images/assets/placeholder.png`);
   });
 
   it("generates canonical data for a project", () => {
     const metadata = generateProjectMetadata(sampleProject);
 
     expect(metadata.alternates?.canonical).toContain(`/dev/${sampleProject.slug}`);
-    expect(metadata.openGraph?.images?.[0]?.url).toBeDefined();
+    expect(getOgImageUrl(metadata)).toBeDefined();
     expect((metadata as Metadata).description).toBe(sampleProject.description);
   });
 

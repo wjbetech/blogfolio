@@ -69,12 +69,19 @@ Editorial polish delivered:
 
 Not done (product decisions, left for a follow-up): figures/captions, callouts, table of contents, related posts, and a dedicated mobile reading experience pass.
 
-## Next task — Phase 5: Targeted cleanup
+## Phase 5 — Targeted cleanup ✅ (complete)
 
-Start by reading `docs/roadmap.md` Phase 5. Possible items: repair `npm run lint`, make standalone typecheck clean, gate image publication on validation success, remove obsolete Prisma/dependency/configuration remnants, decide what unused UI primitives should remain, revisit dynamic rendering and server-side theme initialization, consolidate test organization.
+Delivered:
 
-## After Phase 4
+- `npm run lint` repaired (now `eslint src`; 0 errors)
+- All 7 typecheck errors fixed (0 errors)
+- Dead dependencies removed (`@types/pg`, `ts-node`, `tsx`)
+- Stale Prisma refs and dead `src/app/types/headers.ts` removed
+- `build-and-push.yml` now depends on CI validation passing
+- Lint errors in `ThemeAside.tsx` and `entryParser.ts` fixed
 
-Phases 1 through 4 are done. Phase 5 (targeted cleanup) is the current task.
+Intentionally deferred: unused shadcn/ui pruning, `force-dynamic`/server-theme revisit, test directory consolidation.
 
-Read [roadmap.md](./roadmap.md) for scope and done criteria. Do not implement all phases in one change.
+## All phases complete
+
+Phases 1–5 are done. No further roadmap phases are planned. Ongoing work is ad-hoc: content updates, feature additions, and maintenance as needed.

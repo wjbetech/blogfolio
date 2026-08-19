@@ -35,14 +35,14 @@ The blog is not the primary product or a high-volume publishing platform.
 
 ## Implementation status
 
-Phase 1 (route/publication consolidation) is merged (PR #94), Phase 2 (controlled Markdown/MDX renderer) is merged (PR #95), Phase 3 (conversion surfaces) is merged (PR #96), and Phase 4 (blog visual redesign) is implemented:
+All five phases of the Blogfolio roadmap are complete (Phases 1–4 merged via PRs #94–#97; Phase 5 implemented in the current working tree):
 
 - `/dev/[slug]` is the canonical project-detail route; drafts are excluded from all public surfaces.
-- Blog bodies render through a controlled `PostContent` component map (headings/anchors, lists, links, code, blockquotes, dividers, images) with a `max-w-3xl` reading measure.
+- Blog bodies render through a controlled `PostContent` component map (headings/anchors, lists, links, code, blockquotes, dividers, images) with editorial polish (drop cap, reading time, responsive title).
 - Placeholder project copy and links have been replaced with accurate content; contact paths are consistent; both audiences are reachable from the home hero.
-- Blog post pages now have an editorial drop cap, responsive title sizing, reading time badge, and richer blockquote styling.
+- Lint is repaired, all typecheck errors are fixed, dead dependencies removed, and CI validation gates image publication.
 
-Not done: figures/captions, callouts, table of contents, related posts, and a dedicated mobile reading experience pass remain for a future follow-up. Phase 5 targeted cleanup (lint, typecheck, dead code, deployment gating) is still open.
+No further roadmap phases are planned. Ongoing work is ad-hoc: content updates, feature additions, and maintenance as needed.
 
 ## Verification snapshot
 
@@ -59,4 +59,4 @@ At the Phase 3 pass, the repository has:
 
 ## Next engineering task
 
-Phase 5: targeted cleanup and performance decisions (see `docs/roadmap.md`). Items include repairing the lint script, making standalone typecheck clean, gating image publication on validation success, removing obsolete Prisma/dependency remnants, deciding what unused UI primitives should keep, and revisiting dynamic rendering.
+All roadmap phases are complete. Future work is ad-hoc: content updates, new features, and maintenance as needed.

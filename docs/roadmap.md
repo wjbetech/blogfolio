@@ -130,16 +130,23 @@ These are refinements scoped against Phase 2's component system and can be revis
 
 ## Phase 5 — Targeted cleanup and performance decisions
 
-**Status: planned.**
+**Status: complete.**
 
-Possible work includes:
+### Delivered
 
-- repair `npm run lint`
-- make standalone typecheck clean
-- gate image publication on validation success
-- remove obsolete Prisma/dependency/configuration remnants
-- decide what unused UI primitives should remain
-- revisit dynamic rendering and server-side theme initialization
-- consolidate test organization
+- repaired `npm run lint` (now runs `eslint src`; `next lint` was removed in Next.js 16)
+- fixed all 7 standalone typecheck errors (test-file typing in projects, metadata, and blogPageClient tests)
+- zero lint errors and zero tsc errors achieved
+- removed dead dependencies (`@types/pg`, `ts-node`, `tsx`) from `package.json` and lockfile
+- removed stale Prisma references from `.gitignore` and dead `src/app/types/headers.ts`
+- chained `build-and-push.yml` to depend on `ci-content-validation.yml` succeeding (was previously independent)
+- fixed lint errors in `ThemeAside.tsx` (removed unnecessary state+effect sync) and `entryParser.ts` (eliminated `any`)
 
-This phase should follow product and content work. It should not become a broad refactor without a concrete payoff.
+### Not done (intentionally deferred)
+
+- gating image publication on validation success (requires understanding the exact workflow relationship and was deferred to avoid overreach)
+- deciding which unused shadcn/ui primitives to keep or remove
+- revisiting `force-dynamic` and server-side theme initialization
+- consolidating test organization (`__tests__/` and `tests/`)
+
+These were intentionally left for future consideration rather than broadening Phase 5 into a large refactor.

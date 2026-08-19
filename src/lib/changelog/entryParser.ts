@@ -22,7 +22,10 @@ export function getChangelogSlice(offset = 0, limit = 5): ChangelogEntry[] {
         console.error(`Path: ${err.path.join(".")}`);
         console.error(`Error: ${err.message}`);
         // Log the actual value at that path
-        const actualValue = err.path.reduce((obj: any, key) => obj?.[key], parsedData);
+        const actualValue = err.path.reduce<unknown>((obj, key) => {
+          if (typeof key === "symbol") return undefined;
+          return (obj as Record<string | number, unknown>)?.[key];
+        }, parsedData);
         console.error(`Received value:`, actualValue);
       });
       return [];

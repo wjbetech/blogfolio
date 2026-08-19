@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-19",
+    "version": "1.8.1",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed a hydration mismatch in the theme drawer caused by useThemeHook reading localStorage during server rendering."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-19",
     "version": "1.8.0",
     "changes": [
       {

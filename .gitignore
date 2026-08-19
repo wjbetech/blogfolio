@@ -35,19 +35,12 @@ yarn-error.log*
 .env.*
 !.env.example
 
-# prisma DB items
-/dev.db
-
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/src/generated/prisma
-
-/app/generated/prisma
 
 
 # Contentlayer

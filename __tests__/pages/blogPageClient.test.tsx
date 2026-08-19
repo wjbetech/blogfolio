@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import BlogPageClient from "@/app/blog/BlogPageClient";
 import type { Post } from "contentlayer/generated";
 
-type MockLinkProps = React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>> & {
+type MockLinkProps = React.PropsWithChildren<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">> & {
   href: string | { pathname?: string };
 };
 

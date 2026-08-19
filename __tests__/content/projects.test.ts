@@ -42,7 +42,7 @@ function readProjectMeta(): ProjectMeta[] {
         images: (data.images as string[] | undefined) ?? []
       };
     })
-    .filter((meta): meta is ProjectMeta => !!meta?.slug);
+    .filter((meta) => meta !== null) as ProjectMeta[];
 }
 
 describe("Portfolio project data", () => {

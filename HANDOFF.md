@@ -35,28 +35,32 @@ The blog is not the primary product or a high-volume publishing platform.
 
 ## Implementation status
 
-Phase 1 (route and publication consolidation) is merged (PR #94):
+Phase 1 (route and publication consolidation) is merged (PR #94) and Phase 2 (controlled Markdown/MDX article renderer) is merged (PR #95):
 
-- `/dev/[slug]` is the canonical project-detail route.
-- `/portfolio` and `/portfolio/[slug]` redirect to their `/dev` equivalents.
-- Draft posts and projects are excluded from all public surfaces and are not statically generated.
-- The publication boundary is centralized in `src/lib/content.ts`.
+- `/dev/[slug]` is the canonical project-detail route; drafts are excluded from all public surfaces.
+- Blog bodies render through a controlled `PostContent` component map (headings/anchors, lists, links, code, blockquotes, dividers, images) with a `max-w-3xl` reading measure.
 
-Current task: Phase 2, the controlled Markdown/MDX article system, is implemented and verified (pending review/merge): `PostContent` renders compiled output through a full styled component map (headings/anchor, lists, links, strong/em, inline & fenced code, blockquotes, dividers, images) with a `max-w-3xl` reading measure. GFM tables/task lists/strikethrough are not supported by the pipeline. The Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, TOC, related posts) are not implemented.
+Phase 3 (conversion surfaces), pending review/merge:
+
+- Replaced placeholder project copy/links (`wowcomps`, `atomology`) and fixed a dev `wowcomps` link/tech typo.
+- Contact email is now the real recipient `wjbetech@gmail.com`.
+- Added a `/language-services` CTA in the home hero.
+
+Phase 4 editorial embellishments (drop caps, pull quotes, figures/captions, callouts, TOC, related posts) are not implemented.
 
 ## Verification snapshot
 
-At the Phase 2 pass, the repository has:
+At the Phase 3 pass, the repository has:
 
 - 7 posts and 5 projects
 - 6 published posts and 1 draft post
 - 20 themes
 - passing content validation
-- 116 passing Jest tests
+- 117 passing Jest tests
 - passing production build
 - failing standalone typecheck due pre-existing test typing errors
 - a failing `npm run lint` script because it invokes `next lint`
 
 ## Next engineering task
 
-Phase 3: development and language-service conversion surfaces (see `docs/roadmap.md`). After that, proceed to the blog visual redesign (Phase 4) and targeted cleanup (Phase 5).
+Phase 4: the professional blog post redesign (see `docs/roadmap.md`). After that, targeted cleanup (Phase 5).

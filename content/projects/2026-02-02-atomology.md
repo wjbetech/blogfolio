@@ -17,8 +17,8 @@ images:
   - /images/assets/projects/atomology/5.HUD.png
 featured: false
 publishedAt: 2025-09-15
-updatedAt: 2025-10-01
+updatedAt: 2026-08-19
 status: published
 ---
 
-The e-commerce platform coordinates inventory, checkout flows, and analytics. Document how you structured the API and performance optimizations.
+Atomology is a Wordle-inspired game about the periodic table: guess the element from the clues, with a hangman-style mode and a few toggles to vary the challenge. Built with Vite, styled with TailwindCSS and DaisyUI, and with game state managed in Zustand.

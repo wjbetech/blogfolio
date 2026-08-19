@@ -30,7 +30,7 @@ Implemented foundations include:
 
 The following are not complete:
 
-- project and service conversion content needs review (Phase 3)
+- project and service conversion surfacing is improved (Phase 3); remaining polish is noted below
 - the blog visual redesign and editorial embellishments are not implemented (Phase 4)
 - deployment publishing is not currently gated on the separate validation workflow
 - lint and standalone typecheck are not clean
@@ -63,7 +63,7 @@ Make the public content boundary and project URL model unambiguous.
 
 ## Phase 2 — Controlled Markdown/MDX article system
 
-**Status: implemented and verified (pending review/merge).**
+**Status: complete (merged via PR #95).**
 
 ### Goal
 
@@ -83,24 +83,25 @@ GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` t
 
 ## Phase 3 — Development and language-service conversion surfaces
 
-**Status: planned.**
+**Status: implemented and verified (pending review/merge).**
 
 ### Goal
 
 Make the site more effective at attracting both development and language-service work.
 
-### Scope
+### Delivered
 
-- replace placeholder project copy and links
-- present project capabilities and outcomes accurately
-- review the language-services page for clarity and credibility
-- make contact paths consistent and reliable
-- improve relevant calls to action and cross-links
-- review homepage hierarchy for both target audiences
+- Replaced placeholder project copy and links:
+  - `wowcomps`: removed the placeholder `myportfolio.com` live link (now points to the GitHub repo, matching the Cabin Chat pattern so no broken "Live Demo" shows); fixed the `"Vite+"` tech typo; rewrote the placeholder body with accurate copy.
+  - `atomology`: replaced the e-commerce boilerplate body with accurate copy about the Wordle-inspired periodic-table game.
+  - Updated `updatedAt` on both for the meaningful edits.
+- Made contact paths consistent: the displayed contact email is now the real recipient `wjbetech@gmail.com` instead of the stale `hello@williameast.com` address.
+- Added a `/language-services` call-to-action link from the home hero (mirroring the existing `/dev` link) so both target audiences are reachable from the home screen.
+- Fixed a grammar typo in the language-services experience copy.
 
-### Done means
+### Note
 
-A new visitor can quickly understand the development services, language services, supporting evidence, and next contact action.
+A larger homepage-hierarchy redesign (section ordering, dedicated service CTAs) was intentionally not done here to avoid inventing product decisions; it can be revisited as a follow-up. The Resend recipient/sender setup itself was left untouched.
 
 ## Phase 4 — Professional blog post redesign
 

@@ -35,7 +35,7 @@ The canonical route and publication contract is now in place:
 - `scripts/validate-content.mjs` validates project routes against `/dev/[slug]`.
 - Tests added in `tests/routes/` cover sitemap/RSS draft exclusion and legacy redirects; the JSON-LD collection fixtures use `/dev`.
 
-## Phase 2 — Controlled Markdown/MDX article system ✅ (implemented and verified, pending review/merge)
+## Phase 2 — Controlled Markdown/MDX article system ✅ (complete, merged via PR #95)
 
 The blog body now renders through a controlled component map in `PostContent`:
 
@@ -47,22 +47,26 @@ The blog body now renders through a controlled component map in `PostContent`:
 
 Not supported / not claimed: GFM tables/task lists/strikethrough (no `remark-gfm` in the pipeline) and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
 
-Tests: `tests/components/PostContent.test.tsx`. Verified against real compiled Contentlayer output and the production build.
+## Phase 3 — Development and language-service conversion surfaces ✅ (implemented and verified, pending review/merge)
 
-## Next task — Phase 3: Development and language-service conversion surfaces
+Conversion-surface improvements delivered:
 
-Start by reading `docs/roadmap.md` Phase 3. Goal: make the site more effective at attracting both development and language-service work.
+- Replaced placeholder project copy and links:
+  - `wowcomps`: removed the placeholder `myportfolio.com` live link (now the GitHub repo URL, so no broken "Live Demo" shows); fixed the `"Vite+"` tech typo; rewrote the placeholder body with accurate copy.
+  - `atomology`: replaced the e-commerce boilerplate body with accurate copy.
+  - Updated `updatedAt` for the meaningful edits.
+- Contact email is now the real recipient `wjbetech@gmail.com` (was the stale `hello@williameast.com`).
+- Added a `/language-services` call-to-action link in the home hero, mirroring the existing `/dev` link.
+- Fixed a grammar typo in the language-services experience copy.
 
-Relevant starting points:
+Not done (product decisions, left for a follow-up): a broader homepage-hierarchy redesign; any Resend recipient/sender changes.
 
-- replace placeholder project copy and links in `content/projects/`
-- review the `/language-services` page for clarity and credibility
-- make contact paths consistent and reliable
-- improve relevant calls to action and cross-links
-- review homepage hierarchy for both target audiences
+## Next task — Phase 4: Professional blog post redesign
+
+Start by reading `docs/roadmap.md` Phase 4. The Phase 2 component system is the base; editorial embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts) and article-hero/metadata treatment are planned there.
 
 ## After Phase 2
 
-Phases 1 and 2 are done. Phase 3 (conversion surfaces) is the current task. Phase 4 is the visual blog redesign. Phase 5 is targeted cleanup.
+Phases 1, 2, and 3 are done. Phase 4 (the visual blog redesign) is the next task; Phase 5 is targeted cleanup.
 
 Read [roadmap.md](./roadmap.md) for scope and done criteria. Do not implement all phases in one change.

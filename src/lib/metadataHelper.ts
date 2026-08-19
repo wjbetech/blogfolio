@@ -1,5 +1,6 @@
 import type { Post, Project } from "contentlayer/generated";
 import { SITE_URL } from "@/lib/metadata";
+import { getPublishedProjects } from "@/lib/content";
 
 // cleanly handle a single URL
 export function toAbsoluteStructuredDataUrl(value?: string | null) {
@@ -88,7 +89,7 @@ export function createProjectsCollectionJsonLd({
   pageDescription,
   projects
 }: ProjectsCollectionJsonLdOptions) {
-  const publishedProjects = projects.filter((project) => project.status.trim() === "published");
+  const publishedProjects = getPublishedProjects(projects);
 
   const itemListElement = publishedProjects.map((project, index) => ({
     "@type": "ListItem",

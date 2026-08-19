@@ -6,6 +6,7 @@ import CarouselControls from "@/components/Carousel/CarouselControls";
 import BlogPostCard from "../BlogPostCard/BlogPostCard";
 import { allPosts } from "contentlayer/generated";
 import Link from "next/link";
+import { getPublishedPosts } from "@/lib/content";
 
 const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, ref) {
   const innerRef = useRef<CarouselHandle | null>(null);
@@ -36,7 +37,7 @@ const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, r
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {allPosts.map((post) => (
+        {getPublishedPosts(allPosts).map((post) => (
           <BlogPostCard key={post.slug} post={post} />
         ))}
       </Carousel>

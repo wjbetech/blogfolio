@@ -358,7 +358,7 @@ async function main() {
     "/portfolio",
     "/sitemap.xml",
     ...postDocs.map((document) => `/blog/${document.slug}`),
-    ...projectDocs.map((document) => `/portfolio/${document.slug}`)
+    ...projectDocs.map((document) => `/dev/${document.slug}`)
   ]);
 
   await validateLinks([...postDocs, ...projectDocs], knownRoutes, errors);

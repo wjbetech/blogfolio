@@ -86,7 +86,7 @@ describe("metadata helpers", () => {
   it("generates canonical data for a project", () => {
     const metadata = generateProjectMetadata(sampleProject);
 
-    expect(metadata.alternates?.canonical).toContain(`/portfolio/${sampleProject.slug}`);
+    expect(metadata.alternates?.canonical).toContain(`/dev/${sampleProject.slug}`);
     expect(metadata.openGraph?.images?.[0]?.url).toBeDefined();
     expect((metadata as Metadata).description).toBe(sampleProject.description);
   });
@@ -96,7 +96,7 @@ describe("metadata helpers", () => {
     const portfolioMetadata = createPortfolioMetadata();
 
     expect(blogMetadata.alternates?.canonical).toContain("/blog");
-    expect(portfolioMetadata.alternates?.canonical).toContain("/portfolio");
+    expect(portfolioMetadata.alternates?.canonical).toContain("/dev");
   });
 });
 

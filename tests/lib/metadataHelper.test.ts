@@ -115,7 +115,7 @@ describe("createProjectsCollectionJsonLd", () => {
     ] as unknown as Project[];
 
     const result = createProjectsCollectionJsonLd({
-      pagePath: "/portfolio",
+      pagePath: "/dev",
       pageTitle: "Projects",
       pageDescription: "My projects",
       projects
@@ -128,7 +128,7 @@ describe("createProjectsCollectionJsonLd", () => {
 
   it("handles empty projects array", () => {
     const result = createProjectsCollectionJsonLd({
-      pagePath: "/portfolio",
+      pagePath: "/dev",
       pageTitle: "Projects",
       pageDescription: "My projects",
       projects: []

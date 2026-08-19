@@ -47,7 +47,7 @@ The blog body now renders through a controlled component map in `PostContent`:
 
 Not supported / not claimed: GFM tables/task lists/strikethrough (no `remark-gfm` in the pipeline) and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
 
-## Phase 3 — Development and language-service conversion surfaces ✅ (implemented and verified, pending review/merge)
+## Phase 3 — Development and language-service conversion surfaces ✅ (complete, merged via PR #96)
 
 Conversion-surface improvements delivered:
 
@@ -59,14 +59,22 @@ Conversion-surface improvements delivered:
 - Added a `/language-services` call-to-action link in the home hero, mirroring the existing `/dev` link.
 - Fixed a grammar typo in the language-services experience copy.
 
-Not done (product decisions, left for a follow-up): a broader homepage-hierarchy redesign; any Resend recipient/sender changes.
+## Phase 4 — Professional blog post redesign ✅ (implemented and verified, pending review/merge)
 
-## Next task — Phase 4: Professional blog post redesign
+Editorial polish delivered:
 
-Start by reading `docs/roadmap.md` Phase 4. The Phase 2 component system is the base; editorial embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts) and article-hero/metadata treatment are planned there.
+- editorial drop cap on the first paragraph (serif accent letter)
+- refined article header: responsive title sizing (text-4xl → text-5xl → text-6xl), reading time badge
+- richer blockquote styling (accent background, rounded corner)
 
-## After Phase 2
+Not done (product decisions, left for a follow-up): figures/captions, callouts, table of contents, related posts, and a dedicated mobile reading experience pass.
 
-Phases 1, 2, and 3 are done. Phase 4 (the visual blog redesign) is the next task; Phase 5 is targeted cleanup.
+## Next task — Phase 5: Targeted cleanup
+
+Start by reading `docs/roadmap.md` Phase 5. Possible items: repair `npm run lint`, make standalone typecheck clean, gate image publication on validation success, remove obsolete Prisma/dependency/configuration remnants, decide what unused UI primitives should remain, revisit dynamic rendering and server-side theme initialization, consolidate test organization.
+
+## After Phase 4
+
+Phases 1 through 4 are done. Phase 5 (targeted cleanup) is the current task.
 
 Read [roadmap.md](./roadmap.md) for scope and done criteria. Do not implement all phases in one change.

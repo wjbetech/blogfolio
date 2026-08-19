@@ -97,7 +97,7 @@ export default function PostContent({ code }: PostContentProps) {
 
     blockquote: (props: Record<string, unknown>) => (
       <blockquote
-        className="my-8 border-l-4 border-accent-200/50 pl-5 italic text-paragraph/90"
+        className="my-10 border-l-4 border-accent-200 bg-accent-100/10 pl-6 pr-4 py-4 rounded-r-lg italic text-paragraph/90"
         {...props}
       />
     ),
@@ -120,7 +120,7 @@ export default function PostContent({ code }: PostContentProps) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl text-base text-paragraph">
+    <div className="article-body mx-auto w-full max-w-3xl text-base text-paragraph">
       {/* Compiled MDX components are intentionally created from trusted build output. */}
       {/* eslint-disable-next-line react-hooks/static-components */}
       <Content components={components} />

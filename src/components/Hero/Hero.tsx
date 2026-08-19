@@ -71,7 +71,14 @@ export default function Hero() {
               </Link>
             </p>
             <h5 className="text-base font-semibold text-headline mt-6">Translation and Editing</h5>
-            <p className="text-sm md:text-base text-paragraph leading-normal">Korean & English</p>
+            <p className="text-sm md:text-base text-paragraph leading-normal">
+              Korean &amp; English, and{" "}
+              <Link
+                href="/language-services"
+                className="inline relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
+                more
+              </Link>
+            </p>
             <h5 className="text-base font-semibold text-headline mt-6">Adjunct Professor</h5>
             <p className="text-sm md:text-base text-paragraph leading-normal">Seoul University of Foreign Studies</p>
           </div>

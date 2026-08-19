@@ -159,11 +159,11 @@ export default function ContactPage() {
             <p>
               Email:{" "}
               <TrackedLink
-                href="mailto:hello@williameast.com"
+                href="mailto:wjbetech@gmail.com"
                 className="text-accent-200 hover:underline"
                 eventName="Contact Click"
                 eventProps={{ surface: "contact_email", target: "mailto" }}>
-                hello@williameast.com
+                wjbetech@gmail.com
               </TrackedLink>
             </p>
             <p>

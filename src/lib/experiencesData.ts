@@ -63,7 +63,7 @@ export const experienceItems = [
     client: "Songpa Festival",
     yearLabel: "2025",
     description:
-      "Provided the translations for the Songpa Festival brochure and promotional materials for the 2025 Songpa Festival, a local cultural event in Seoul. I also translated the Seoul Festival Poem Competition winner's poem from Korean in to English."
+      "Provided the translations for the Songpa Festival brochure and promotional materials for the 2025 Songpa Festival, a local cultural event in Seoul. I also translated the Seoul Festival Poem Competition winner's poem from Korean into English."
   },
   {
     client: "Jeju National University Marine Litter",

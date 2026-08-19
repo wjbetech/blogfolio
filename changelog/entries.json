@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-08-19",
+    "version": "1.6.0",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Replaced placeholder project copy and links for wowcomps and atomology, fixed a wowcomps tech typo and a stale language-services grammar typo."
+      },
+      {
+        "category": "Improvement",
+        "description": "Made the contact email consistent (now the real recipient) and added a /language-services call-to-action in the home hero for both target audiences."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-19",
     "version": "1.5.0",
     "changes": [
       {

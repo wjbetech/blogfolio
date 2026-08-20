@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-08-20",
+    "version": "1.10.0",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Extracted the blog post layout into a dedicated BlogPostView component and added a sticky scroll-spy table of contents (B+C warm/hybrid design)."
+      },
+      {
+        "category": "Fix",
+        "description": "Updated the Orbit project link to the live application and removed the private repository reference."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-19",
+    "version": "1.9.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added Orbit project entry (draft) as the first project slot, bumping existing project IDs."
+      }
+    ]
+  },
+  {
     "date": "2026-08-19",
     "version": "1.8.1",
     "changes": [

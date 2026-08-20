@@ -1,7 +1,7 @@
 ---
 id: "1"
 title: "Introductions"
-excerpt: "Who I am and what I do."
+excerpt: "A Brit in Seoul who went from Korean linguistics to shipping code. Here's the short version of how I got here."
 author: "William East"
 tags:
   - Web Development
@@ -12,16 +12,40 @@ images: []
 coverImage: ""
 featured: true
 publishedAt: 2026-01-15
-updatedAt: 2026-01-15
+updatedAt: 2026-08-20
 status: published
 ---
 
-Hey, I'm Will 👋
+Hey, I'm Will. I'm a native Brit who's called Korea home since 2016.
 
-I'm a native Brit who has lived in South Korea since 2016. My time here has taken me through the dreaded hagwons, a master's degree in Korean Linguistics from SNU, through to teaching myself how to code and teaching graduate students cross-cultural communication.
+My journey started with teenage me deciding I didn't want a life at a desk, then spending the next decade proving it, before realising I actually do want a life at a desk, just a different kind of desk than the one I'd pictured.
 
-I got into languages in my teens, after doing work experience at a bank in London and deciding I firmly did not want to pursue office life (oh how wrong I may have been!), mixed with an increasing interest in Japanese and Korean media. I ended up studying Japanese at undergrad and teaching myself Korean, doing a summer session at Hankuk University of Foreign Studies before doing a year abroad at Akita International University in the colder, northern reaches of Japan. After graduating, I set my sights on Korea and moved here as soon as I could, before pursuing a masters in Korean linguistics from SNU.
+Let's rewind a bit.
 
-Around 2020, deep in the miserable pits my masters course, struggling to stay awake long enough to read all of my course materials, I was increasingly exposed to the world of coding, web development, UX/UI, and more. I jumped in head first and I haven't looked back. I have built games for my students (which they loved), helped a non-profit both with the frontend development and inter-org translation, built a hundred or more dead applications that now sit in my GitHub as a reminder of how far I have come, and more recently looked in to commercial EdTech. I am always looking for work, opportunities to contribute, people to talk software (and hardware!) with, and more.
+## How a bank in London sent me toward languages
 
-These days my time is split between working out, playing guitar, teaching at Seoul University of Foreign Studies, building my side-projects, freelance coding, translation, proofreading, editing and more. Oh, and an almost crippling love of WoW and OSRS!
+My first taste of working life came in my teens, on a work experience stint at a bank in London. I left sure of one thing: office life wasn't for me. What rushed in to fill the space was a yearning for travel, languages, and getting to see the world.
+
+We'll take the quick route through that part of my life, because it's a winding one. I studied Japanese for my undergrad and taught myself Korean on the side. That meant a summer session at Hankuk University of Foreign Studies in Seoul, a year abroad at Akita International University up in the snow country of northern Japan, and eventually a one-way move to Korea as soon as I could swing it.
+
+I wound up staying. I taught in English academies, finished a master's in Korean linguistics at SNU, and recently helped graduate students navigate cross-cultural communication at Seoul University of Foreign Studies, among other things. I love the country, the language, the people, and the work I have gotten to do.
+
+## Discovering software and code
+
+Let me preface this chapter by saying this: I've always loved computers, tech, games, music, anything digital.
+
+Around 2020, stuck in the miserable middle of my masters, I kept nodding off over my reading and waking up to videos about web development, UX, and code. I don't think I made a conscious decision to pivot so much as I followed what actually held my attention.
+
+So I started building - small hobby projects things at first. I built a guide for one of my favorite games, Oldschool Runescape. I went through the pipeline of learning how to use APIs by building a really nice weather app. I worked through Colt Steele's Web Dev bootcamp and took the MOOC course from the University of Helsinki. I would go on to build browser-based games for my students (they loved them, and my co-teachers asked for this-and-that improvements, which helped me keep going), I lended a hand with frontend work and interpreting for a non-profit organisation here in Korea, and built a lot half-baked dud projects that never saw the light of day. If you scroll far enough back in my GitHub you'll find a hundred odd little apps that quietly chart how far I've come.
+
+That tinkering turned into something more serious. I've since been poking at commercial EdTech, shipping projects I actually want to use myself, and saying yes to freelance work where I can be useful. I haven't really looked back, and I've found that the same thing I liked about language sticks around in code. I'm still turning something fuzzy and human into something precise enough that somebody can hopefully gain satisfaction and use out of it.
+
+If you've got something you're building and you want a hand, or you just want to talk software and hardware for a bit, I'm always up for it.
+
+## What I'm up to now
+
+These days you'll find me splitting time between the gym, banging my head playing some guitar, teaching at the Seoul University of Foreign Studies, freelancing as a translator and editor, and building my next big idea.
+
+And, admittedly, my almost crippling love of WoW and OSRS persists. Some things don't change.
+
+If anything here sounds like your kind of overlap, whether it's dev, language services, or some odd mix of the two, I'd love to hear what you're working on. Let's figure out if we can build something together.

@@ -90,14 +90,20 @@ The blog body renders through a controlled component map in `PostContent`, produ
 
 The article body uses a `max-w-3xl` reading measure. See [content.md](./content.md) for the exact list of supported elements.
 
-The following editorial embellishments are **planned for Phase 4**, not current capabilities:
+Phase 4 (PR #97) added editorial polish on top of this system:
 
-- enlarged paragraph first letters
+- drop cap on the first paragraph of an article
+- responsive article title sizing and a reading-time badge
+- richer blockquote treatment (accent background, rounded corner)
+
+A scroll-spy table of contents (`BlogToc`) renders beside the article on `xl`+ viewports (PRs #101/#102).
+
+The following editorial embellishments remain **future work**, not current capabilities:
+
 - pull quotes and more elaborate blockquote treatments
 - article-specific font variation
 - figures with captions
 - callouts
-- table of contents
 - related posts
 - fully refined responsive article rhythm
 
@@ -123,4 +129,4 @@ The blog is a supporting credibility surface for development and language-servic
 4. authoring simplicity
 5. consistency across posts
 
-The full blog redesign is planned in `docs/roadmap.md`; it is not complete.
+The blog redesign phases (controlled renderer, editorial polish) are complete per `docs/roadmap.md`; remaining embellishments above are deferred refinements, not a pending redesign.

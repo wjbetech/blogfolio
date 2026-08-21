@@ -23,8 +23,7 @@ The workflow name is `maintenance-reminder.yml`; do not refer to the obsolete `m
 
 Review:
 
-- posts or projects still marked `draft`
-- unfinished bodies such as the current `Future Goals` post
+- posts or projects still marked `draft` (currently `2026-05-01-state-of-models-agentic-coding.md`)
 - project descriptions and links
 - `publishedAt` and `updatedAt`
 - referenced local images
@@ -39,7 +38,7 @@ npm test
 npm run build
 ```
 
-Standalone typecheck should also be run while the current test typing errors remain unresolved:
+Standalone typecheck is part of the standard gate:
 
 ```bash
 npx tsc --noEmit
@@ -73,7 +72,7 @@ The homelab is operational. Review the actual systems, not only repository files
 - public `https://wjbeast.com` response
 - Resend contact delivery
 
-The repository's image-publishing workflow currently runs independently of the content-validation workflow. This is a known risk and future engineering task, not a reason to assume a failed CI run stopped deployment.
+Image publication is gated on the content-validation workflow succeeding. Manual workflow dispatch and the mutable `:latest` deploy tag remain accepted residual risks, not reasons to assume a failed CI run stopped deployment.
 
 ## Documentation audit
 

@@ -28,12 +28,7 @@ Implemented foundations include:
 - Docker/GHCR/Cloudflare Tunnel homelab deployment
 - content validation, Jest/Testing Library tests, and production build
 
-The following are not complete:
-
-- project and service conversion surfacing is improved (Phase 3); remaining polish is noted below
-- the blog visual redesign and editorial embellishments are not implemented (Phase 4)
-- deployment publishing is not currently gated on the separate validation workflow
-- lint and standalone typecheck are not clean
+All five roadmap phases are complete (Phases 1–5, PRs #94–#98), followed by ad-hoc improvements: hydration fix (#99), blog layout with scroll-spy TOC (#101), syntax highlighting and TOC scroll-spy rework (#102), content refresh (#104). Ongoing work is maintenance and content as needed.
 
 ## Phase 1 — Route and publication consolidation
 
@@ -144,9 +139,10 @@ These are refinements scoped against Phase 2's component system and can be revis
 
 ### Not done (intentionally deferred)
 
-- gating image publication on validation success (requires understanding the exact workflow relationship and was deferred to avoid overreach)
 - deciding which unused shadcn/ui primitives to keep or remove
 - revisiting `force-dynamic` and server-side theme initialization
 - consolidating test organization (`__tests__/` and `tests/`)
+
+Note: image publication *is* gated on validation success (see Delivered above); the residual accepted risks are manual `workflow_dispatch` bypassing CI and the mutable `:latest` deploy tag.
 
 These were intentionally left for future consideration rather than broadening Phase 5 into a large refactor.

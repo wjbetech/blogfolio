@@ -18,7 +18,7 @@ This file is the short handoff for the next coding agent. It records decisions a
 
 ## Current implementation cautions
 
-- Phase 1 (route/publication consolidation) is merged and the working tree is clean.
+- Phase 1 (route/publication consolidation) is merged (PR #94).
 - The committed baseline's blog renderer was paragraph/heading-oriented; Phase 2 delivers the controlled Markdown/MDX article system.
 - Do not reintroduce `/portfolio/[slug]` as a project page.
 - Do not make drafts accessible simply because a slug is known.

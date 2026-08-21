@@ -1,9 +1,5 @@
 import { isValidElement, type ReactNode } from "react";
 
-export type ParsedPostBlock =
-  | { kind: "heading"; level: number; text: string; id: string }
-  | { kind: "paragraph"; text: string };
-
 export function createHeadingSlug(text: string) {
   return (
     text
@@ -16,41 +12,6 @@ export function createHeadingSlug(text: string) {
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "") || "section"
   );
-}
-
-export function parsePostContent(raw: string): ParsedPostBlock[] {
-  const headingCounts = new Map<string, number>();
-
-  return raw
-    .replace(/\r\n/g, "\n")
-    .trim()
-    .split(/\n{2,}/)
-    .map((segment) => segment.trim())
-    .filter(Boolean)
-    .map((segment) => {
-      const headingMatch = segment.match(/^(#{1,6})\s+(.*)$/);
-
-      if (!headingMatch) {
-        return { kind: "paragraph", text: segment };
-      }
-
-      const [, hashes, text] = headingMatch;
-      const cleanedText = text.trim();
-      const level = Math.min(hashes.length + 1, 6);
-
-      const baseSlug = createHeadingSlug(cleanedText);
-      const seenCount = (headingCounts.get(baseSlug) ?? 0) + 1;
-      headingCounts.set(baseSlug, seenCount);
-
-      const id = seenCount === 1 ? baseSlug : `${baseSlug}-${seenCount}`;
-
-      return {
-        kind: "heading",
-        level,
-        text: cleanedText,
-        id
-      };
-    });
 }
 
 /**

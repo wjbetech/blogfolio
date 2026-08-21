@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.12.4",
+    "changes": [
+      {
+        "category": "Removed",
+        "description": "Deleted dead code: unused shadcn primitives (keeping button and card), orphaned BlogPageBlogs and PostNav components, and the divergent parsePostContent renderer; dropped the @base-ui/react dependency."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.12.3",
     "changes": [
       {

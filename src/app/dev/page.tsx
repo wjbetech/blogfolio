@@ -1,4 +1,5 @@
 import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
+import { createDevMetadata } from "@/lib/metadata";
 import { getExistingProjectImages } from "@/lib/projectImages.server";
 
 import { getChangelogSlice } from "@/lib/changelog/entryParser";
@@ -9,6 +10,8 @@ import { allProjects } from "contentlayer/generated";
 import ProjectImageSlider from "./ProjectImageSlider";
 import { shouldShowLiveDemo } from "@/lib/projectLinks";
 import { getPublishedProjects } from "@/lib/content";
+
+export const metadata = createDevMetadata();
 
 export default function DevPage() {
   const publishedProjects = getPublishedProjects(allProjects);

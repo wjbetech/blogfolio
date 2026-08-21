@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import type { Project, Post } from "contentlayer/generated";
 import {
   createBlogListMetadata,
-  createPortfolioMetadata,
-  generatePostMetadata,
-  generateProjectMetadata
+  createDevMetadata,
+  createLanguageServicesMetadata,
+  generateDevProjectMetadata,
+  generatePostMetadata
 } from "@/lib/metadata";
 import {
   createBlogPostingJsonLd,
@@ -97,7 +98,7 @@ describe("metadata helpers", () => {
   });
 
   it("generates canonical data for a project", () => {
-    const metadata = generateProjectMetadata(sampleProject);
+    const metadata = generateDevProjectMetadata(sampleProject);
 
     expect(metadata.alternates?.canonical).toContain(`/dev/${sampleProject.slug}`);
     expect(getOgImageUrl(metadata)).toBeDefined();
@@ -106,10 +107,12 @@ describe("metadata helpers", () => {
 
   it("provides canonical entries for list pages", () => {
     const blogMetadata = createBlogListMetadata();
-    const portfolioMetadata = createPortfolioMetadata();
+    const devMetadata = createDevMetadata();
+    const languageServicesMetadata = createLanguageServicesMetadata();
 
     expect(blogMetadata.alternates?.canonical).toContain("/blog");
-    expect(portfolioMetadata.alternates?.canonical).toContain("/dev");
+    expect(devMetadata.alternates?.canonical).toContain("/dev");
+    expect(languageServicesMetadata.alternates?.canonical).toContain("/language-services");
   });
 });
 

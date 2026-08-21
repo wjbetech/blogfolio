@@ -11,11 +11,21 @@ const metadataBase = new URL(SITE_URL);
 
 const normalizeDescription = (value?: string) => value ?? SITE_DESCRIPTION;
 
-export const toAbsoluteUrl = (value?: string) => {
-  const target = value || DEFAULT_OG_IMAGE;
-  if (target.startsWith("http://") || target.startsWith("https://")) return target;
-  const normalized = target.startsWith("/") ? target : `/${target}`;
+/**
+ * Core URL absoluter: trims, passes absolute URLs through, normalizes the
+ * leading slash, and prepends SITE_URL. Returns undefined for blank input.
+ */
+export const toSiteUrl = (value?: string | null): string | undefined => {
+  const cleaned = value?.trim();
+  if (!cleaned) return undefined;
+  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) return cleaned;
+  const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
   return `${SITE_URL}${normalized}`;
+};
+
+/** Like toSiteUrl, but falls back to the default OG image instead of undefined. */
+export const toAbsoluteUrl = (value?: string) => {
+  return toSiteUrl(value) ?? toSiteUrl(DEFAULT_OG_IMAGE)!;
 };
 
 const buildMetadata = (options: {
@@ -72,13 +82,6 @@ export const createBlogListMetadata = (): Metadata =>
     path: "/blog"
   });
 
-export const createPortfolioMetadata = (): Metadata =>
-  buildMetadata({
-    title: "Projects | BlogFolio",
-    description: "Featured projects that showcase product design, DevOps, and engineering work.",
-    path: "/dev"
-  });
-
 export const generatePostMetadata = (post: Post): Metadata => {
   const primaryImage = post.coverImage?.trim() || post.images?.[0]?.trim();
 
@@ -88,17 +91,6 @@ export const generatePostMetadata = (post: Post): Metadata => {
     images: primaryImage ? [primaryImage] : undefined,
     path: `/blog/${post.slug}`,
     type: "article"
-  });
-};
-
-export const generateProjectMetadata = (project: Project): Metadata => {
-  const primaryImage = project.images?.[0]?.trim();
-
-  return buildMetadata({
-    title: `${project.title} | BlogFolio Projects`,
-    description: project.description,
-    images: primaryImage ? [primaryImage] : undefined,
-    path: `/dev/${project.slug}`
   });
 };
 
@@ -118,4 +110,12 @@ export const createDevMetadata = (): Metadata =>
     title: "Dev Portfolio | BlogFolio",
     description: "My projects - apps and software I built for friends, coworkers, or myself.",
     path: "/dev"
+  });
+
+export const createLanguageServicesMetadata = (): Metadata =>
+  buildMetadata({
+    title: "Language Services | BlogFolio",
+    description:
+      "Korean-English translation, proofreading, and editing by a native Brit with a master's in Korean linguistics and a decade in Korea.",
+    path: "/language-services"
   });

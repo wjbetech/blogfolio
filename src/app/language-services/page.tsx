@@ -1,6 +1,9 @@
 import { services } from "@/lib/servicesData";
 import ExperienceTimeline from "./ExperienceTimeline";
 import { experienceItems } from "@/lib/experiencesData";
+import { createLanguageServicesMetadata } from "@/lib/metadata";
+
+export const metadata = createLanguageServicesMetadata();
 
 export default function LanguageServicesPage() {
   const experienceGroups = [

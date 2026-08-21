@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.5",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Aligned the NEXT_PUBLIC_SITE_URL code fallback with the canonical domain wjbeast.com, so canonicals, sitemap, and JSON-LD stay correct even when the variable is unset."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.4",
     "changes": [
       {

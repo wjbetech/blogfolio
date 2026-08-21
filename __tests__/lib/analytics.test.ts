@@ -1,6 +1,6 @@
 import { buildAnalyticsPath, trackAnalyticsEvent, trackPageView } from "@/lib/analytics";
 
-const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com").replace(/\/$/, "");
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://wjbeast.com").replace(/\/$/, "");
 
 describe("analytics helpers", () => {
   const originalPlausible = window.plausible;

@@ -3,7 +3,7 @@ import type { Post, Project } from "contentlayer/generated";
 
 const SITE_NAME = "BlogFolio";
 const SITE_DESCRIPTION = "The combined blog // portfolio of William East";
-const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com";
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://wjbeast.com";
 export const SITE_URL = rawSiteUrl.replace(/\/$/, "");
 const DEFAULT_TWITTER_HANDLE = "@wjbetech";
 const DEFAULT_OG_IMAGE = "/images/assets/placeholder.png";

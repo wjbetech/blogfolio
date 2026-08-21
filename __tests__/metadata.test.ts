@@ -14,7 +14,7 @@ import {
   serializeJsonLd
 } from "@/lib/metadataHelper";
 
-const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://williameast.com").replace(/\/$/, "");
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://wjbeast.com").replace(/\/$/, "");
 
 
 /** Normalize Next.js OGImage union (OGImage | OGImage[]) to extract the first URL. */

@@ -6,7 +6,7 @@ Blogfolio's SEO surfaces are generated from the application and Contentlayer con
 https://wjbeast.com
 ```
 
-The `NEXT_PUBLIC_SITE_URL` environment variable controls absolute URL generation. The code fallback default is currently `https://williameast.com`; production builds override it to `https://wjbeast.com` (Docker build arg and Compose environment). Aligning the fallback default with the canonical domain is a known cleanup item.
+The `NEXT_PUBLIC_SITE_URL` environment variable controls absolute URL generation. The code fallback default is the canonical domain `https://wjbeast.com`, matching the Docker build arg and Compose environment.
 
 ## Current mechanisms
 

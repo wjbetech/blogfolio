@@ -2,9 +2,11 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 
-// Mock applyTheme and loadSavedThemeId
+// Mock applyTheme side-effect helpers
 jest.mock("@/lib/applyTheme", () => ({
-  applyTheme: jest.fn(),
+  setThemeAttribute: jest.fn(),
+  removeThemeAttribute: jest.fn(),
+  saveThemeId: jest.fn(),
   loadSavedThemeId: jest.fn(() => null)
 }));
 
@@ -33,6 +35,9 @@ describe("Theme interaction", () => {
 
     fireEvent.click(paletteButton);
 
-    await waitFor(() => expect(lib.applyTheme).toHaveBeenCalledWith(expect.objectContaining({ id: "welcome" })));
+    await waitFor(() => {
+      expect(lib.setThemeAttribute).toHaveBeenCalledWith("welcome");
+      expect(lib.saveThemeId).toHaveBeenCalledWith("welcome");
+    });
   });
 });

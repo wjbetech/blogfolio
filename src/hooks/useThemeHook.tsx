@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { applyTheme, loadSavedThemeId } from "@/lib/applyTheme";
+import { loadSavedThemeId, saveThemeId, setThemeAttribute } from "@/lib/applyTheme";
 import { ColorThemes } from "@/lib/themes";
 import type { ColorTheme } from "@/app/types/themes";
 
@@ -12,15 +12,25 @@ export type UseThemeResult = {
   themes: ColorTheme[];
 };
 
-export default function useTheme(): UseThemeResult {
-  const [themeId, setThemeId] = useState<string | null>(
-    ColorThemes.length > 0 ? ColorThemes[0].id : null
-  );
+const DEFAULT_THEME_ID = ColorThemes.length > 0 ? ColorThemes[0].id : null;
 
-  // Hydrate saved theme from localStorage after mount (avoids SSR hydration mismatch)
+function isKnownThemeId(id: string | null): boolean {
+  return id !== null && ColorThemes.some((theme) => theme.id === id);
+}
+
+export default function useTheme(): UseThemeResult {
+  const [themeId, setThemeId] = useState<string | null>(DEFAULT_THEME_ID);
+
+  // Hydrate saved theme after mount (avoids SSR hydration mismatch). The
+  // pre-paint script in the layout has already restored the visual theme.
   useEffect(() => {
     const saved = loadSavedThemeId();
-    if (saved && saved !== themeId) {
+    if (saved !== null && !isKnownThemeId(saved)) {
+      // Self-heal: drop selections for themes that no longer exist
+      saveThemeId(null);
+      return;
+    }
+    if (isKnownThemeId(saved) && saved !== themeId) {
       setThemeId(saved);
     }
     // Only run on mount
@@ -33,28 +43,26 @@ export default function useTheme(): UseThemeResult {
     return ColorThemes.find((t) => t.id === themeId) ?? null;
   }, [themeId]);
 
-  // set by id
   const setThemeById = useCallback((id: string) => {
-    const found = ColorThemes.find((t) => t.id === id) ?? null;
-    if (found) {
-      setThemeId(found.id);
+    if (isKnownThemeId(id)) {
+      setThemeId(id);
     }
   }, []);
 
-  // set by theme object
   const setTheme = useCallback((t: ColorTheme) => {
     setThemeId(t.id);
   }, []);
 
+  // Clearing reverts to the welcome default rather than leaving stale styles
   const clearTheme = useCallback(() => {
-    setThemeId(null);
+    setThemeId(DEFAULT_THEME_ID);
   }, []);
 
-  // apply theme whenever themeId changes (keeps DOM in sync)
+  // Keep the DOM attribute and storage in sync with the selected theme
   useEffect(() => {
     if (!themeId) return;
-    const found = ColorThemes.find((t) => t.id === themeId) ?? null;
-    if (found) applyTheme(found);
+    setThemeAttribute(themeId);
+    saveThemeId(themeId);
   }, [themeId]);
 
   return {

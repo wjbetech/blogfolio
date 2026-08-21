@@ -4,16 +4,16 @@ Blogfolio is a personal editorial site with two practical goals: communicate dev
 
 ## Theme system
 
-Themes are defined as data in `src/lib/themes.ts`. There are currently **20 themes**.
+Themes are defined as data in `src/lib/themes.ts` — the single source of truth. There are currently **20 themes**.
 
 The runtime mechanism is:
 
-1. `useThemeHook` loads the saved theme ID in the browser.
-2. `applyTheme` writes the selected token values as inline CSS variables on `document.documentElement`.
-3. The selection is stored in `localStorage` and in a `site-theme` cookie.
+1. The root layout renders `<ThemeStyles />`, a server-generated `<style>` block containing one `[data-theme="<id>"]` rule per theme, generated directly from `themes.ts` (a `:root` rule mirrors welcome as the fallback default).
+2. A tiny pre-paint script at the top of `<body>` reads the saved theme id from `localStorage` (`site:theme`) and sets the `data-theme` attribute on `<html>` before first paint, so there is no theme flash.
+3. Selecting a theme (`useThemeHook` → `applyTheme.ts`) sets the `data-theme` attribute and persists the id to `localStorage`. Clearing reverts to the welcome default.
 4. Components use Tailwind utilities whose colors resolve through the CSS variables.
 
-The `data-theme` attribute exists on `<html>` but is not the mechanism that supplies all theme values. The server does not currently read the theme cookie, so the server-rendered initial palette is the welcome theme until the client applies the saved choice.
+The server does not participate in theme selection; `<html data-theme="welcome">` is the SSR default and carries `suppressHydrationWarning` because the pre-paint script may change it before hydration. There is no theme cookie. Do not add palette variables to `globals.css`; edit `themes.ts` instead.
 
 ## Color tokens
 

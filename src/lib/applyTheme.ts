@@ -1,54 +1,28 @@
-import { ColorTheme } from "@/app/types/themes";
-
-export function applyTheme(theme: ColorTheme) {
+export function setThemeAttribute(id: string): void {
   try {
-    const root = document.documentElement;
+    document.documentElement.setAttribute("data-theme", id);
+  } catch (error) {
+    console.error("setThemeAttribute error", error);
+  }
+}
 
-    // backgrounds
-    root.style.setProperty("--bg-100", theme["bg-100"]);
-    root.style.setProperty("--bg-200", theme["bg-200"]);
-    root.style.setProperty("--bg-300", theme["bg-300"]);
+export function removeThemeAttribute(): void {
+  try {
+    document.documentElement.removeAttribute("data-theme");
+  } catch (error) {
+    console.error("removeThemeAttribute error", error);
+  }
+}
 
-    // text
-    root.style.setProperty("--headline", theme.headline);
-    root.style.setProperty("--paragraph", theme.paragraph);
-
-    // button
-    root.style.setProperty("--button", theme.button);
-    if (theme["buttonText"]) root.style.setProperty("--buttonText", theme["buttonText"]);
-
-    // link (primary link color) and hover/focus fallback
-    if (theme.link) {
-      root.style.setProperty("--link", theme.link);
+export function saveThemeId(id: string | null): void {
+  try {
+    if (id === null) {
+      localStorage.removeItem("site:theme");
     } else {
-      // fallback to headline if no explicit link color
-      root.style.setProperty("--link", theme.headline);
-    }
-
-    // accents (numeric scale)
-    root.style.setProperty("--accent-100", theme["accent-100"]);
-    if (theme["accent-200"]) root.style.setProperty("--accent-200", theme["accent-200"]);
-    if (theme["accent-300"]) root.style.setProperty("--accent-300", theme["accent-300"]);
-
-    // palette border
-    root.style.setProperty("--palette-border", theme["palette-border"] || theme["accent-200"] || theme["accent-100"]);
-
-    // persist selection
-    try {
-      localStorage.setItem("site:theme", theme.id);
-    } catch (error) {
-      console.error(error, "applyTheme localStorage error");
-    }
-
-    // cookie for SSR hydration parity
-    try {
-      const maxAge = 60 * 60 * 24 * 365;
-      document.cookie = `site-theme=${encodeURIComponent(theme.id)}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
-    } catch (error) {
-      console.error(error, "applyTheme cookie error");
+      localStorage.setItem("site:theme", id);
     }
   } catch (error) {
-    console.error("applyTheme error", error);
+    console.error("saveThemeId localStorage error", error);
   }
 }
 

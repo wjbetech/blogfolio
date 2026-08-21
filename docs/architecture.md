@@ -127,7 +127,7 @@ Most pages are server components. Client components are used where browser state
 - changelog incremental loading
 - Plausible script and page-view tracking
 
-There is no shared client state store. Theme selection is persisted in `localStorage` and a `site-theme` cookie. The server currently does not read that cookie; the initial server theme remains the welcome palette.
+There is no shared client state store. Theme selection is persisted in `localStorage` (`site:theme`); a pre-paint script restores the `data-theme` attribute on `<html>` before first paint and all palette CSS is generated server-side from `src/lib/themes.ts` (see `docs/design-system.md`). The initial SSR theme is the welcome palette.
 
 ## Architectural conventions
 

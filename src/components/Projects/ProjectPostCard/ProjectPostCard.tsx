@@ -4,16 +4,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
-import type { Project } from "@/app/types/project";
+import type { ProjectCardData } from "@/lib/homeCards";
 import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 import { trackAnalyticsEvent } from "@/lib/analytics";
-import { getPrimaryProjectImage } from "@/lib/projectImages";
 
-export default function ProjectCard({ project }: { project: Project }) {
+const FALLBACK = "/images/assets/placeholder.png";
+
+export default function ProjectCard({ project }: { project: ProjectCardData }) {
   const [imgError, setImgError] = useState(false);
-  const declared = getPrimaryProjectImage(project.images).trim();
-  const showImage = !!declared && !imgError;
-  const imageSrc = showImage ? declared : "/images/assets/placeholder.png";
+  const imageSrc = project.image && !imgError ? project.image : FALLBACK;
 
   return (
     <Link

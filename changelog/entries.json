@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.13.4",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Extracted the contact form into a client component so the /contact page renders as a server component with its own metadata and canonical URL."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.13.3",
     "changes": [
       {

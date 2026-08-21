@@ -52,7 +52,7 @@ tests/               All Jest suites (lib, components, hooks, pages, routes, con
 | `/portfolio` | `src/app/portfolio/page.tsx` | Legacy redirect to `/dev` |
 | `/portfolio/[slug]` | `src/app/portfolio/[slug]/page.tsx` | Legacy redirect to `/dev/[slug]` |
 | `/language-services` | `src/app/language-services/page.tsx` | Translation/editing services and experience |
-| `/contact` | `src/app/contact/page.tsx` | Client-side contact form and contact links |
+| `/contact` | `src/app/contact/page.tsx` + `ContactForm.tsx` | Server page with metadata; client-side contact form |
 | `/rss.xml` | `src/app/rss.xml/route.ts` | Published-post RSS feed |
 | `/sitemap.xml` | `src/app/sitemap.xml/route.ts` | Published public URL sitemap |
 | `/robots.txt` | `src/app/robots.ts` | Crawler rules and sitemap location |

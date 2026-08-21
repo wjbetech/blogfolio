@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-21",
+    "version": "1.11.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added build-time syntax highlighting for fenced code blocks via rehype-pretty-code (github-light theme)."
+      },
+      {
+        "category": "Fix",
+        "description": "Reworked the blog table of contents scroll-spy: resets on client navigation, tracks the active section to the page bottom, honors anchor hashes, and cleans up observers and frames."
+      }
+    ]
+  },
+  {
     "date": "2026-08-20",
     "version": "1.10.0",
     "changes": [

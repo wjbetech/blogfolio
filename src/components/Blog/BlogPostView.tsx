@@ -105,7 +105,7 @@ export default function BlogPostView({ post, allPosts }: Props) {
         </div>
         <aside className="hidden xl:block flex-1">
           <div className="sticky top-40 w-52 ml-auto">
-            <BlogToc />
+            <BlogToc key={post.slug} />
           </div>
         </aside>
       </div>

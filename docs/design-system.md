@@ -36,7 +36,7 @@ The active custom token groups are:
 
 Use the custom tokens for site-level styling. Platform-specific controls, such as the GitHub action button and dark lightbox backdrop, currently use deliberate raw colors; they are not evidence that a general new color system is needed.
 
-There is a likely `bg-300` registration typo in `globals.css` and several standard shadcn tokens are not defined by Blogfolio. Treat those as known cleanup work, not as a reason to introduce a second design system.
+Several standard shadcn tokens are not defined by Blogfolio. Treat those as known cleanup work, not as a reason to introduce a second design system.
 
 ## Typography
 

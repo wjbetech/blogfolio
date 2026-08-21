@@ -1,6 +1,8 @@
 services:
   app:
-    image: ghcr.io/wjbetech/blogfolio:latest
+    # BLOGFOLIO_IMAGE_TAG is set by deploy.yml to the exact built commit;
+    # unset it (or run manually) to fall back to the latest image.
+    image: ghcr.io/wjbetech/blogfolio:${BLOGFOLIO_IMAGE_TAG:-latest}
     container_name: blogfolio
     restart: unless-stopped
     environment:

@@ -143,6 +143,6 @@ These are refinements scoped against Phase 2's component system and can be revis
 - revisiting `force-dynamic` and server-side theme initialization
 - consolidating test organization (`__tests__/` and `tests/`)
 
-Note: image publication *is* gated on validation success (see Delivered above); the residual accepted risks are manual `workflow_dispatch` bypassing CI and the mutable `:latest` deploy tag.
+Note: image publication *is* gated on validation success (see Delivered above); deploys pin the exact built commit since 2026-08. The remaining accepted risk is manual `workflow_dispatch` bypassing CI and falling back to `latest`.
 
 These were intentionally left for future consideration rather than broadening Phase 5 into a large refactor.

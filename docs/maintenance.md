@@ -72,7 +72,7 @@ The homelab is operational. Review the actual systems, not only repository files
 - public `https://wjbeast.com` response
 - Resend contact delivery
 
-Image publication is gated on the content-validation workflow succeeding. Manual workflow dispatch and the mutable `:latest` deploy tag remain accepted residual risks, not reasons to assume a failed CI run stopped deployment.
+Image publication is gated on the content-validation workflow succeeding, and deploys pin the exact built commit. Manual workflow dispatch (which falls back to `:latest`) remains an accepted residual risk, not a reason to assume a failed CI run stopped deployment. Dependabot opens Actions-update PRs weekly; they skip the changelog check automatically.
 
 ## Documentation audit
 

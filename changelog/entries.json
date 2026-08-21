@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.3",
+    "changes": [
+      {
+        "category": "Chore",
+        "description": "Added agent configuration (AGENTS.md, docs/agents) and corrected stale documentation about CI gating, lint/typecheck status, Phase 4 delivery, and the posts media audit."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.2",
     "changes": [
       {

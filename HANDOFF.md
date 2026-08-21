@@ -35,7 +35,7 @@ The blog is not the primary product or a high-volume publishing platform.
 
 ## Implementation status
 
-All five phases of the Blogfolio roadmap are complete (Phases 1–4 merged via PRs #94–#97; Phase 5 implemented in the current working tree):
+All five phases of the Blogfolio roadmap are complete (merged via PRs #94–#98), followed by ad-hoc improvements through PR #104:
 
 - `/dev/[slug]` is the canonical project-detail route; drafts are excluded from all public surfaces.
 - Blog bodies render through a controlled `PostContent` component map (headings/anchors, lists, links, code, blockquotes, dividers, images) with editorial polish (drop cap, reading time, responsive title).
@@ -46,16 +46,16 @@ No further roadmap phases are planned. Ongoing work is ad-hoc: content updates, 
 
 ## Verification snapshot
 
-At the Phase 3 pass, the repository has:
+As of 2026-08-21, the repository has:
 
-- 7 posts and 5 projects
-- 6 published posts and 1 draft post
+- 6 posts and 6 projects
+- 5 published posts and 1 draft post
 - 20 themes
 - passing content validation
 - 117 passing Jest tests
 - passing production build
-- failing standalone typecheck due pre-existing test typing errors
-- a failing `npm run lint` script because it invokes `next lint`
+- clean standalone typecheck (`npx tsc --noEmit`)
+- `npm run lint` running `eslint src` with 0 errors
 
 ## Next engineering task
 

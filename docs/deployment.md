@@ -18,14 +18,11 @@ Runs on a GitHub-hosted runner with Node 20 and performs:
 3. `npm test -- --runInBand`
 4. `npm run build`
 
-This is the repository's quality gate, although it is not currently configured as an upstream dependency of the image-publishing workflow.
+This is the repository's quality gate. Since Phase 5, `build-and-push.yml` triggers on this workflow's successful completion (`workflow_run` with `conclusion == "success"`), so a failed validation run blocks image publication.
 
 ### `build-and-push.yml`
 
-Triggers independently on:
-
-- pushes to `master`
-- manual workflow dispatch
+Triggers when `ci-content-validation.yml` completes successfully on `master`, or on manual workflow dispatch. The build job is skipped unless the validation workflow concluded with `success`.
 
 It:
 
@@ -35,7 +32,7 @@ It:
 4. builds and pushes `ghcr.io/<repository>` using Docker Buildx
 5. passes `NEXT_PUBLIC_SITE_URL` as a Docker build argument, defaulting to `https://wjbeast.com`
 
-The workflow currently runs independently of `ci-content-validation.yml`. Do not describe it as waiting for CI unless that workflow relationship is changed.
+The workflow waits for the validation workflow rather than running fully independently, but two residual risks remain: manual `workflow_dispatch` bypasses CI entirely, and the homelab deploy pulls the mutable `:latest` tag. Treat an unexpected production image as a reason to check both.
 
 ### `deploy.yml`
 
@@ -106,8 +103,6 @@ The homelab and public deployment are operational according to the project owner
 
 When diagnosing production issues, inspect the actual homelab runner, Docker Compose state, container health, GHCR image tag, and Cloudflare Tunnel dashboard rather than relying on this document alone.
 
-## Important deployment risk
+## Deployment gating
 
-The validation workflow and image-publishing workflow are separate push-triggered workflows. A failed content validation or test run does not currently prevent `build-and-push.yml` from attempting to publish an image if the Docker build succeeds.
-
-This is a known future engineering task. Until corrected, treat the CI workflow result and the image-publishing result as separate signals.
+Image publication is gated on the validation workflow succeeding (Phase 5). A failed content validation or test run prevents `build-and-push.yml` from publishing. Residual risks that remain by design: manual dispatch skips CI, and deployment tracks the mutable `:latest` tag rather than an immutable digest.

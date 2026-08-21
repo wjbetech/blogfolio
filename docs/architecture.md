@@ -110,11 +110,9 @@ Controlled Blogfolio article components
 Rendered article
 ```
 
-At the committed baseline, blog bodies were rendered through `src/lib/postContent.ts`, which recognizes paragraphs and headings and creates heading anchors. It does not provide a complete Markdown presentation system for lists, code blocks, links, images, tables, or editorial components.
+Blog bodies render through `src/components/Blog/PostContent.tsx`, the controlled component map delivered in Phase 2 (PR #95) and extended since: editorial drop cap, reading-time badge, and blockquote styling (Phase 4, PR #97), hybrid layout with scroll-spy TOC (PR #101), and build-time syntax highlighting via `rehype-pretty-code` with the `github-light` theme (PR #102). It evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and styles links, lists, inline code, and fenced code.
 
-The current working tree contains an uncommitted `PostContent`/`mdx` implementation that evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and adds styling for links, lists, inline code, and fenced code. It is an active experiment, not a completed blog redesign or a stable promise of full Markdown/MDX support.
-
-The future blog-rendering phase must define and test the supported Markdown/MDX component vocabulary before adding visual features. Do not assume that a Markdown element is professionally styled merely because Contentlayer can compile it.
+The supported Markdown/MDX component vocabulary is defined and tested (`tests/components/PostContent.test.tsx`). Do not assume a Markdown element is professionally styled merely because Contentlayer can compile it; GFM tables, task lists, and strikethrough are not enabled.
 
 ## State and client boundaries
 
@@ -154,4 +152,4 @@ npm run build
 npm run ci                  # validation, tests, and build
 ```
 
-`npm run lint` currently needs repair because it invokes the removed `next lint` command. Standalone `npx tsc --noEmit` also currently reports errors in test typing and should be made clean in the future cleanup phase.
+`npm run lint` runs `eslint src` (the removed `next lint` command was replaced in Phase 5) and standalone `npx tsc --noEmit` is clean. Both are part of the standard pre-handoff gate alongside content validation, tests, and build.

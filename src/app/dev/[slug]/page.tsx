@@ -38,9 +38,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
 
   if (!project) notFound();
 
-  const num = String(projectIndex + 1).padStart(2, "0");
   const images = getExistingProjectImages(project.images);
-  const year = new Date(project.publishedAt).getFullYear();
 
   const prevProject = projectIndex > 0 ? publishedProjects[projectIndex - 1] : null;
   const nextProject = projectIndex < publishedProjects.length - 1 ? publishedProjects[projectIndex + 1] : null;

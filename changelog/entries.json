@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.6",
+    "changes": [
+      {
+        "category": "Chore",
+        "description": "Cleared all remaining lint warnings: removed dead variables on the project page, simplified the analytics page-view effect, and stabilized the mobile menu focus restore."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.5",
     "changes": [
       {

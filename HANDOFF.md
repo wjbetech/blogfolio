@@ -19,7 +19,7 @@ The blog is not the primary product or a high-volume publishing platform.
 - Legacy `/portfolio/[slug]` route: redirect to `/dev/[slug]`.
 - `draft` is a real publication state.
 - Drafts must not be publicly generated, listed, navigable, included in RSS, included in the sitemap, or included in JSON-LD collections.
-- `content/posts/2026-05-01-future-goals.md` is unfinished and remains `draft` while its body is `WIP.`.
+- `content/posts/2026-05-01-state-of-models-agentic-coding.md` is drafted but remains `draft` pending review.
 - The eventual blog system should use Markdown/MDX through Contentlayer and a controlled Blogfolio article component system.
 - The homelab deployment is operational.
 - Canonical domain: `https://wjbeast.com`.

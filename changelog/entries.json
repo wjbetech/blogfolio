@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.2",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Rewrote the verbosity and cafe-hopping posts with clearer titles, section structure, and updated copy."
+      },
+      {
+        "category": "Removed",
+        "description": "Retired the TypeScript generics post; its former URL now returns 404."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.1",
     "changes": [
       {

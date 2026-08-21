@@ -47,6 +47,7 @@ export default function Navbar({
     if (!mobileMenuOpen) return;
 
     const menu = mobileMenuRef.current;
+    const mobileButton = mobileButtonRef.current;
     const focusableSelector =
       'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
     const firstFocusable = menu?.querySelector<HTMLElement>(focusableSelector);
@@ -81,7 +82,7 @@ export default function Navbar({
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      mobileButtonRef.current?.focus();
+      mobileButton?.focus();
     };
   }, [mobileMenuOpen]);
 

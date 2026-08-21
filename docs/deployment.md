@@ -32,7 +32,7 @@ It:
 4. builds and pushes `ghcr.io/<repository>` using Docker Buildx
 5. passes `NEXT_PUBLIC_SITE_URL` as a Docker build argument, defaulting to `https://wjbeast.com`
 
-The workflow waits for the validation workflow rather than running fully independently, but two residual risks remain: manual `workflow_dispatch` bypasses CI entirely, and the homelab deploy pulls the mutable `:latest` tag. Treat an unexpected production image as a reason to check both.
+The workflow waits for the validation workflow rather than running fully independently, but one residual risk remains: manual `workflow_dispatch` bypasses CI entirely and deploys the mutable `:latest` tag. Treat an unexpected production image as a reason to check for a manual dispatch.
 
 ### `deploy.yml`
 
@@ -46,9 +46,12 @@ It runs on:
 
 The runner:
 
-1. logs into GHCR
-2. pulls `ghcr.io/<repository>:latest`
-3. runs `docker compose up -d --pull always` from `/home/will/blogfolio`
+1. resolves the image tag — the short SHA of the commit the build produced (`workflow_run.head_sha`), or `latest` on manual dispatch
+2. logs into GHCR
+3. pulls `ghcr.io/<repository>:<tag>`
+4. runs `docker compose up -d --pull always` from `/home/will/blogfolio` with `BLOGFOLIO_IMAGE_TAG=<tag>`, which pins the Compose app service to that exact image
+
+The host's `docker-compose.yml` reads `${BLOGFOLIO_IMAGE_TAG:-latest}`, so manual deploys without the variable fall back to `latest`.
 
 The working directory and runner labels are repository configuration, not generic placeholders. Do not invent a different deployment path in documentation or automation.
 
@@ -105,4 +108,4 @@ When diagnosing production issues, inspect the actual homelab runner, Docker Com
 
 ## Deployment gating
 
-Image publication is gated on the validation workflow succeeding (Phase 5). A failed content validation or test run prevents `build-and-push.yml` from publishing. Residual risks that remain by design: manual dispatch skips CI, and deployment tracks the mutable `:latest` tag rather than an immutable digest.
+Image publication is gated on the validation workflow succeeding (Phase 5), and deploys pin the exact built commit instead of tracking `:latest` (2026-08). Residual risks that remain by design: manual dispatch skips CI and falls back to `latest`, and Dependabot PRs skip the changelog check automatically.

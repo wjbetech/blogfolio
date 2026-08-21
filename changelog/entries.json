@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.13.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Hardened CI/CD: all GitHub Actions pinned to commit SHAs with Dependabot weekly updates, deploys now pin the exact built commit instead of :latest, and workflows declare least-privilege permissions."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.13.1",
     "changes": [
       {

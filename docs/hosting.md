@@ -34,7 +34,7 @@ The exact host networking, storage, backup, and runner-service configuration are
 
 `docker-compose.yml` runs:
 
-- `ghcr.io/wjbetech/blogfolio:latest` as the app
+- `ghcr.io/wjbetech/blogfolio` as the app, pinned by deploy automation to the exact built commit (`BLOGFOLIO_IMAGE_TAG`; falls back to `latest` on manual deploys)
 - `cloudflare/cloudflared:latest` as the tunnel sidecar
 
 The app has a healthcheck. The tunnel depends on the app becoming healthy.

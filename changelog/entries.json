@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.12.3",
+    "changes": [
+      {
+        "category": "Improvement",
+        "description": "Consolidated duplicated URL logic into one shared helper, removed two dead metadata factories, and added real metadata to the /dev and /language-services pages."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.12.2",
     "changes": [
       {

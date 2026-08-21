@@ -1,17 +1,10 @@
 import type { Post, Project } from "contentlayer/generated";
-import { SITE_URL } from "@/lib/metadata";
+import { SITE_URL, toSiteUrl } from "@/lib/metadata";
 import { getPublishedProjects } from "@/lib/content";
 
 // cleanly handle a single URL
 export function toAbsoluteStructuredDataUrl(value?: string | null) {
-  const cleaned = value?.trim();
-
-  if (!cleaned) return undefined;
-
-  if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) return cleaned;
-
-  const normalized = cleaned.startsWith("/") ? cleaned : `/${cleaned}`;
-  return `${SITE_URL}${normalized}`;
+  return toSiteUrl(value);
 }
 
 // handle the image arrays

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import type { Post } from "contentlayer/generated";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
-import { getPostReadingTime, getPostSnippet } from "@/lib/post";
+import { getPostSnippet } from "@/lib/post";
 import { getPublishedPosts } from "@/lib/content";
 import { formatShortDate } from "@/lib/date";
 import {
@@ -89,7 +89,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                   <div className="flex items-center gap-4 text-sm text-paragraph/70">
                     <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                     <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
-                      <IconClock className="h-4 w-4" /> {getPostReadingTime(featuredPost)} min read
+                      <IconClock className="h-4 w-4" /> {featuredPost.readingTime} min read
                     </span>
                   </div>
 
@@ -165,7 +165,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                           {dateLabel}
                         </span>
                         <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
-                          <IconClock className="h-3 w-3" /> {getPostReadingTime(post)} min
+                          <IconClock className="h-3 w-3" /> {post.readingTime} min
                         </span>
                         {(post.tags ?? []).slice(0, 2).map((tag) => (
                           <span

@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { isRateLimited } from "@/lib/rateLimit";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 200;
+const MAX_MESSAGE_LENGTH = 500;
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 60 * 1000;
 
 function escapeHtml(unsafe: string): string {
   return unsafe
@@ -14,7 +22,20 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    const first = forwarded.split(",")[0]?.trim();
+    if (first) return first;
+  }
+  return request.headers.get("x-real-ip")?.trim() || "unknown";
+}
+
 export async function POST(request: NextRequest) {
+  if (isRateLimited(getClientIp(request), RATE_LIMIT, RATE_WINDOW_MS)) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+  }
+
   let body: unknown;
 
   try {
@@ -27,13 +48,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { name, email, message } = body as Record<string, unknown>;
+  const { name, email, message, website } = body as Record<string, unknown>;
+
+  // Honeypot: the real form never fills this hidden field. Bots do, so accept
+  // silently without sending anything.
+  if (isNonEmptyString(website)) {
+    return NextResponse.json({ success: true });
+  }
 
   if (!isNonEmptyString(name) || !isNonEmptyString(email) || !isNonEmptyString(message)) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  if (message.length > 500) {
+  if (name.length > MAX_NAME_LENGTH) {
+    return NextResponse.json({ error: "Name must be 100 characters or less" }, { status: 400 });
+  }
+
+  if (email.length > MAX_EMAIL_LENGTH || !EMAIL_PATTERN.test(email.trim())) {
+    return NextResponse.json({ error: "A valid email address is required" }, { status: 400 });
+  }
+
+  if (message.length > MAX_MESSAGE_LENGTH) {
     return NextResponse.json({ error: "Message must be 500 characters or less" }, { status: 400 });
   }
 

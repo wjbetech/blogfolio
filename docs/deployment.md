@@ -109,3 +109,7 @@ When diagnosing production issues, inspect the actual homelab runner, Docker Com
 ## Deployment gating
 
 Image publication is gated on the validation workflow succeeding (Phase 5), and deploys pin the exact built commit instead of tracking `:latest` (2026-08). Residual risks that remain by design: manual dispatch skips CI and falls back to `latest`, and Dependabot PRs skip the changelog check automatically.
+
+## Security headers
+
+`next.config.ts` applies `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, and a `Content-Security-Policy` to every route. The CSP allowlists `'self'` plus the Plausible origin (derived from `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC`). It currently permits `'unsafe-inline'` for scripts because Next.js App Router ships hydration data as inline scripts; migrating to nonce-based CSP with `strict-dynamic` is the known follow-up.

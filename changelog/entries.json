@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.13.3",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added a Content-Security-Policy allowlisting self and the Plausible origin; nonce-based strict-dynamic enforcement remains a documented follow-up."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.13.2",
     "changes": [
       {

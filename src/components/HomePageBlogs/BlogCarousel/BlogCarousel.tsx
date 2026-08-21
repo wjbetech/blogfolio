@@ -4,11 +4,14 @@ import React, { useRef, useImperativeHandle } from "react";
 import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import CarouselControls from "@/components/Carousel/CarouselControls";
 import BlogPostCard from "../BlogPostCard/BlogPostCard";
-import { allPosts } from "contentlayer/generated";
 import Link from "next/link";
-import { getPublishedPosts } from "@/lib/content";
+import type { BlogCardData } from "@/lib/homeCards";
 
-const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, ref) {
+type BlogCarouselProps = {
+  posts: BlogCardData[];
+};
+
+const BlogCarousel = React.forwardRef<CarouselHandle, BlogCarouselProps>(function BlogCarousel({ posts }, ref) {
   const innerRef = useRef<CarouselHandle | null>(null);
 
   useImperativeHandle(ref, () => ({
@@ -37,8 +40,8 @@ const BlogCarousel = React.forwardRef<CarouselHandle>(function BlogCarousel(_, r
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {getPublishedPosts(allPosts).map((post) => (
-          <BlogPostCard key={post.slug} post={post} />
+        {posts.map((post) => (
+          <BlogPostCard key={post.slug} card={post} />
         ))}
       </Carousel>
     </section>

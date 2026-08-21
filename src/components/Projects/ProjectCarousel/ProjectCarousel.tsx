@@ -4,11 +4,17 @@ import React, { useRef, useImperativeHandle } from "react";
 import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import CarouselControls from "@/components/Carousel/CarouselControls";
 import ProjectCard from "../ProjectPostCard/ProjectPostCard";
-import { allProjects } from "contentlayer/generated";
 import Link from "next/link";
-import { getPublishedProjects } from "@/lib/content";
+import type { ProjectCardData } from "@/lib/homeCards";
 
-const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarousel(_, ref) {
+type ProjectCarouselProps = {
+  projects: ProjectCardData[];
+};
+
+const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(function ProjectCarousel(
+  { projects },
+  ref
+) {
   const innerRef = useRef<CarouselHandle | null>(null);
 
   useImperativeHandle(ref, () => ({
@@ -37,7 +43,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle>(function ProjectCarouse
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {getPublishedProjects(allProjects).map((project) => (
+        {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </Carousel>

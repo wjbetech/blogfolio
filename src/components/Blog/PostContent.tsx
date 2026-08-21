@@ -82,19 +82,19 @@ export default function PostContent({ code }: PostContentProps) {
     code: (props: Record<string, unknown>) => {
       const block = typeof props.className === "string" && props.className.startsWith("language-");
       return block ? (
-        <code className="font-mono text-[0.925em] text-headline" {...props} />
+        <code className="font-mono text-[0.925em]" {...props} />
       ) : (
         <code className="rounded-md bg-bg-200 px-[5px] py-0.5 font-mono text-[0.875em] text-headline" {...props} />
       );
     },
 
     pre: (props: Record<string, unknown>) => (
-      <div className="my-8 overflow-hidden rounded-xl border border-accent-100/10 bg-bg-200">
-        <div className="flex items-center justify-between border-b border-accent-100/10 bg-bg-300/50 px-4 py-2 text-xs text-paragraph/60">
+      <div className="my-8 overflow-hidden rounded-xl border border-[#e5e7eb]/70 bg-[#f6f8fa]/85">
+        <div className="flex items-center justify-between border-b border-[#e5e7eb]/70 bg-[#eef2f7]/70 px-4 py-2 text-xs text-[#57606a]">
           <span className="font-mono lowercase tracking-wide">code</span>
           <span className="h-2 w-2 rounded-full bg-accent-200/60" aria-hidden="true" />
         </div>
-        <pre className="overflow-x-auto p-4 font-mono text-sm leading-6 [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-sm" {...props} />
+        <pre className="overflow-x-auto p-4 font-mono text-sm leading-6 text-[#24292e] [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-sm" {...props} />
       </div>
     ),
 

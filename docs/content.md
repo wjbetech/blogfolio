@@ -40,10 +40,10 @@ Draft content must not appear in:
 The current unfinished blog post is:
 
 ```text
-content/posts/2026-05-01-future-goals.md
+content/posts/2026-05-01-state-of-models-agentic-coding.md
 ```
 
-Its body is `WIP.` and it should remain `draft` until it is complete. Do not make drafts reachable merely because a visitor knows the slug.
+It is drafted but should remain `draft` until reviewed for publication. Do not make drafts reachable merely because a visitor knows the slug.
 
 The publication boundary is enforced centrally through `src/lib/content.ts` and applied to every public surface (pages, carousels, archives, navigation, RSS, sitemap, JSON-LD, generated static params). Phase 1 implemented this; see `docs/roadmap.md`.
 

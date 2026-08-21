@@ -112,4 +112,6 @@ Image publication is gated on the validation workflow succeeding (Phase 5), and 
 
 ## Security headers
 
-`next.config.ts` applies `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, and a `Content-Security-Policy` to every route. The CSP allowlists `'self'` plus the Plausible origin (derived from `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC`). It currently permits `'unsafe-inline'` for scripts because Next.js App Router ships hydration data as inline scripts; migrating to nonce-based CSP with `strict-dynamic` is the known follow-up.
+`next.config.ts` applies `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, and an enforced baseline `Content-Security-Policy` to every route. The CSP allowlists `'self'` plus the Plausible origin (derived from `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC`).
+
+`src/proxy.ts` additionally generates a per-request nonce and ships a strict, nonce-based policy (`'strict-dynamic'`) as **`Content-Security-Policy-Report-Only`**: violations appear in the browser console without blocking anything. Next.js reads the nonce from the request header and stamps all framework scripts automatically; site inline scripts (pre-paint theme restore, JSON-LD) receive it explicitly. Once console reports are clean, flip the response header in `proxy.ts` to `Content-Security-Policy` and remove the overlapping directives from the `next.config.ts` baseline so the two policies don't intersect.

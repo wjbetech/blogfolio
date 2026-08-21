@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.12.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added standard security headers (X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, HSTS) to every route and disabled the X-Powered-By header."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.12.1",
     "changes": [
       {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { createBlogListMetadata, generatePostMetadata } from "@/lib/metadata";
@@ -38,10 +39,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const blogPostingJsonLd = createBlogPostingJsonLd(post);
   const allPublished = getPublishedPosts(allPosts);
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingJsonLd) }} />
+      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingJsonLd) }} />
       <BlogPostView post={post} allPosts={allPublished} />
     </>
   );

@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 import { createDevMetadata } from "@/lib/metadata";
 import { getExistingProjectImages } from "@/lib/projectImages.server";
@@ -13,7 +14,8 @@ import { getPublishedProjects } from "@/lib/content";
 
 export const metadata = createDevMetadata();
 
-export default function DevPage() {
+export default async function DevPage() {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const publishedProjects = getPublishedProjects(allProjects);
   const entries = getChangelogSlice(0, 5);
 
@@ -26,7 +28,7 @@ export default function DevPage() {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(devProjectsJsonLd) }} />
+      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: serializeJsonLd(devProjectsJsonLd) }} />
 
       {/* ── Hero header ── */}
       <header className="relative">

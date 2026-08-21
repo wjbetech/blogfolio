@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.14.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added per-request CSP nonces via proxy.ts shipping a strict nonce-based policy in report-only mode; all inline scripts (theme pre-paint, JSON-LD) now carry nonces."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.13.4",
     "changes": [
       {

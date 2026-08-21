@@ -1,5 +1,5 @@
 import type { Post } from "contentlayer/generated";
-import { getPostSnippet, getPostReadingTime } from "@/lib/post";
+import { getPostSnippet } from "@/lib/post";
 
 function makePost(bodyRaw: string, excerpt?: string): Post {
   return {
@@ -47,24 +47,5 @@ describe("getPostSnippet", () => {
   it("normalizes Windows line endings", () => {
     const post = makePost("Paragraph one.\r\n\r\nParagraph two.");
     expect(getPostSnippet(post)).toBe("Paragraph one.");
-  });
-});
-
-describe("getPostReadingTime", () => {
-  it("returns 1 for empty content", () => {
-    const post = makePost("");
-    expect(getPostReadingTime(post)).toBe(1);
-  });
-
-  it("calculates reading time based on 200 wpm", () => {
-    // 400 words should be 2 minutes
-    const words = Array.from({ length: 400 }, () => "word").join(" ");
-    const post = makePost(words);
-    expect(getPostReadingTime(post)).toBe(2);
-  });
-
-  it("falls back to excerpt when body is empty", () => {
-    const post = makePost("", "word ".repeat(100));
-    expect(getPostReadingTime(post)).toBe(1); // 100 words / 200 = 0.5 => ceil => 1
   });
 });

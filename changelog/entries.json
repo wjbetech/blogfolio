@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.4",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Reading time now comes from the single compile-time Contentlayer field everywhere; removed the duplicate runtime calculation that could show different minutes on index and detail pages."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.3",
     "changes": [
       {

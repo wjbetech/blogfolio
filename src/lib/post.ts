@@ -18,10 +18,3 @@ export function getPostSnippet(post: Post, maxLength = 160) {
   if (base.length <= maxLength) return base;
   return `${base.slice(0, maxLength).trim()}…`;
 }
-
-export function getPostReadingTime(post: Post) {
-  const rawText = normalizeBodyRaw(post.body?.raw) || post.excerpt || "";
-  const cleaned = rawText.replace(/\s+/g, " ").trim();
-  const words = cleaned ? cleaned.split(" ").length : 0;
-  return Math.max(1, Math.ceil(words / 200));
-}

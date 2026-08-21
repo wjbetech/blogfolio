@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.13.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Rebuilt theme application: palettes are generated from themes.ts as data-theme CSS, a pre-paint script removes the load-time theme flash, and the unused theme cookie was removed."
+      },
+      {
+        "category": "Fix",
+        "description": "Clearing a theme now cleanly reverts to the welcome default instead of leaving stale colors; the welcome palette definition no longer disagrees with the rendered default."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.12.4",
     "changes": [
       {

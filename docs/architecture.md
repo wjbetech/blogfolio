@@ -36,8 +36,7 @@ src/lib/             Content, metadata, themes, analytics, changelog, and pure h
 public/              Static assets, including images/assets/
 scripts/             Content generation and validation wrappers
 changelog/           entries.json used by the /dev changelog
-__tests__/           Existing Jest suites
-tests/               Additional Jest suites and test helpers
+tests/               All Jest suites (lib, components, hooks, pages, routes, content) plus mocks and helpers
 .github/workflows/   CI, image publishing, deployment, and maintenance workflows
 ```
 

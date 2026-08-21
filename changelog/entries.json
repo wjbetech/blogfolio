@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.13.1",
+    "changes": [
+      {
+        "category": "Chore",
+        "description": "Consolidated all Jest suites into a single tests/ tree, removed a phantom mock mapping, folded a misnamed duplicate test into the content suite, and wired coverage with floors into CI."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.13.0",
     "changes": [
       {

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { deriveSlugFromFile, readFrontMatter } from "../../tests/utils/frontmatter";
+import { deriveSlugFromFile, readFrontMatter } from "../utils/frontmatter";
 
 type ProjectMeta = {
   file: string;

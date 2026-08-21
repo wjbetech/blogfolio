@@ -156,12 +156,21 @@ const config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^contentlayer/generated$": "<rootDir>/tests/mocks/contentlayer.ts",
-    "^contentlayer/generated/(.*)$": "<rootDir>/tests/mocks/contentlayer/$1",
-    "\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    "\\.(css|less|sass|scss)$": "<rootDir>/tests/mocks/styleMock.js"
   },
-  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+  testMatch: ["<rootDir>/tests/**/*.test.[jt]s?(x)"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
-  coverageProvider: "v8"
+  coverageProvider: "v8",
+  // Floors set just under the current measured baseline (2026-08) so CI fails
+  // on regression without blocking normal iteration.
+  coverageThreshold: {
+    global: {
+      statements: 40,
+      branches: 65,
+      functions: 55,
+      lines: 40
+    }
+  }
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.11.1",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed the bg-bg-300 color token registration, which was self-referential and resolved to no color."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.11.0",
     "changes": [
       {

@@ -119,3 +119,10 @@ export const createLanguageServicesMetadata = (): Metadata =>
       "Korean-English translation, proofreading, and editing by a native Brit with a master's in Korean linguistics and a decade in Korea.",
     path: "/language-services"
   });
+
+export const createContactMetadata = (): Metadata =>
+  buildMetadata({
+    title: "Contact | BlogFolio",
+    description: "Get in touch about development work, translation and editing, or anything else.",
+    path: "/contact"
+  });

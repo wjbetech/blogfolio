@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { deriveSlugFromFile, readFrontMatter } from "../../tests/utils/frontmatter";
+import { deriveSlugFromFile, readFrontMatter } from "../utils/frontmatter";
 
 type PostMeta = {
   file: string;
@@ -87,6 +87,18 @@ describe("Blog post frontmatter", () => {
       .map((post) => post.id)
       .filter(Boolean) as string[];
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("keeps slugs unique", () => {
+    const slugs = readPostMeta().map((post) => post.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+  });
+
+  it("includes at least three published slugs", () => {
+    const publishedSlugs = readPostMeta()
+      .filter((post) => post.status === "published")
+      .map((post) => post.slug);
+    expect(publishedSlugs.length).toBeGreaterThanOrEqual(3);
   });
 
   it("uses ordered image arrays and only allows non-blank image entries", () => {

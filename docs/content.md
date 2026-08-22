@@ -98,17 +98,16 @@ Supported, natively compiled elements:
 - unordered and ordered lists
 - links
 - `strong` and emphasis
+- strikethrough (`~~`, via remark-gfm)
 - inline code and fenced code blocks (`language-*` fenced blocks are styled as blocks, inline code is styled inline)
 - blockquotes
 - thematic breaks / dividers (`---`)
 - images (`![alt](src)`, rendered responsively)
+- GFM tables (scrollable wrapper, styled header row) and task-list checkboxes (via remark-gfm)
 
-Not supported by the current pipeline (verified against real compiled Contentlayer output):
+Not supported by the current pipeline:
 
-- GFM tables and task lists (requiring `remark-gfm`, which is not enabled)
-- strikethrough (`~~`) and GFM autolinks
-
-These are intentionally not claimed as supported. Adding them would require installing and verifying `remark-gfm` through Contentlayer's MDX pipeline.
+- GFM autolinks beyond standard Markdown link syntax
 
 The article architecture is:
 

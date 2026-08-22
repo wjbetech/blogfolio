@@ -16,10 +16,8 @@ type PostContentProps = {
  *
  * Supported elements (natively compiled by the Contentlayer pipeline):
  * headings, paragraphs, unordered/ordered lists, links, strong, emphasis,
- * inline and fenced code, blockquotes, thematic breaks (dividers), and images.
- *
- * GFM-only features (tables, task lists, strikethrough) are not produced by
- * the current Contentlayer pipeline and are intentionally not claimed here.
+ * strikethrough, inline and fenced code, blockquotes, thematic breaks
+ * (dividers), images, and GFM tables and task lists (via remark-gfm).
  */
 export default function PostContent({ code }: PostContentProps) {
   const Content = getCompiledMdxComponent(code);
@@ -65,6 +63,50 @@ export default function PostContent({ code }: PostContentProps) {
     ),
 
     em: (props: Record<string, unknown>) => <em className="italic" {...props} />,
+
+    del: (props: Record<string, unknown>) => (
+      <del className="text-paragraph/60 line-through decoration-accent-200/60" {...props} />
+    ),
+
+    table: (props: Record<string, unknown>) => (
+      <div className="my-8 overflow-x-auto rounded-xl border border-accent-100/15">
+        <table className="w-full border-collapse text-left text-sm" {...props} />
+      </div>
+    ),
+
+    thead: (props: Record<string, unknown>) => (
+      <thead className="bg-bg-200/70 text-headline" {...props} />
+    ),
+
+    th: (props: Record<string, unknown>) => (
+      <th
+        className="border-b border-accent-100/20 px-4 py-3 text-xs font-semibold uppercase tracking-wider"
+        {...props}
+      />
+    ),
+
+    td: (props: Record<string, unknown>) => (
+      <td className="border-b border-accent-100/10 px-4 py-3 align-top leading-relaxed" {...props} />
+    ),
+
+    input: (props: Record<string, unknown>) => {
+      const { type, ...rest } = props;
+      const inputType = typeof type === "string" ? type : "text";
+
+      if (inputType !== "checkbox") {
+        return <input type={inputType} {...rest} />;
+      }
+
+      // GFM task-list checkboxes are display-only in articles
+      return (
+        <input
+          type="checkbox"
+          readOnly
+          className="mr-2 h-4 w-4 translate-y-0.5 cursor-default accent-[color:var(--accent-200)]"
+          {...rest}
+        />
+      );
+    },
 
     ul: (props: Record<string, unknown>) => (
       <ul className="my-6 list-disc space-y-2 pl-6 text-paragraph marker:text-accent-200" {...props} />

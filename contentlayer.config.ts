@@ -1,4 +1,5 @@
 import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from "remark-gfm";
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 
 const dropDatePrefix = (value: string) => value.replace(/^\d{4}-\d{2}-\d{2}-/, "");
@@ -99,6 +100,7 @@ export default makeSource({
   contentDirPath: "content",
   documentTypes: [Post, Project],
   mdx: {
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       [
         rehypePrettyCode as never,

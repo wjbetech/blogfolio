@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.14.1",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Enabled remark-gfm in the MDX pipeline: posts now support GFM tables (scrollable, styled header row), task-list checkboxes, and strikethrough."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.14.0",
     "changes": [
       {

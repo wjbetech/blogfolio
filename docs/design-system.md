@@ -83,10 +83,12 @@ The blog body renders through a controlled component map in `PostContent`, produ
 - unordered/ordered lists
 - links
 - strong and emphasis
+- strikethrough
 - inline and fenced code
 - blockquotes
 - thematic breaks (dividers)
 - images
+- GFM tables (scrollable wrapper, styled header row) and task-list checkboxes
 
 The article body uses a `max-w-3xl` reading measure. See [content.md](./content.md) for the exact list of supported elements.
 

@@ -66,7 +66,7 @@ tests/               All Jest suites (lib, components, hooks, pages, routes, con
 ```text
 content/posts and content/projects
         |
-        | npm run contentlayer:generate
+        | pnpm run contentlayer:generate
         v
 .contentlayer/generated
         |
@@ -143,12 +143,12 @@ There is no shared client state store. Theme selection is persisted in `localSto
 ## Build commands
 
 ```bash
-npm run dev                 # Contentlayer watch plus Next dev server
-npm run contentlayer:generate
-npm run validate:content
-npm test
-npm run build
-npm run ci                  # validation, tests, and build
+pnpm run dev                 # Contentlayer watch plus Next dev server
+pnpm run contentlayer:generate
+pnpm run validate:content
+pnpm test
+pnpm run build
+pnpm run ci                  # validation, tests, and build
 ```
 
-`npm run lint` runs `eslint src` (the removed `next lint` command was replaced in Phase 5) and standalone `npx tsc --noEmit` is clean. Both are part of the standard pre-handoff gate alongside content validation, tests, and build.
+`pnpm run lint` runs `eslint src` (the removed `next lint` command was replaced in Phase 5) and standalone `pnpm exec tsc --noEmit` is clean. Both are part of the standard pre-handoff gate alongside content validation, tests, and build.

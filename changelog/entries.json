@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-21",
+    "version": "1.15.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Standardized on pnpm: tracked pnpm-lock.yaml with frozen installs in CI and Docker, pinned the version via packageManager, declared @contentlayer/cli, and fixed react-hooks compiler-rule violations."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-21",
     "version": "1.14.1",
     "changes": [
       {

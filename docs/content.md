@@ -37,13 +37,7 @@ Draft content must not appear in:
 - JSON-LD collections
 - generated public detail pages
 
-The current unfinished blog post is:
-
-```text
-content/posts/2026-05-01-state-of-models-agentic-coding.md
-```
-
-It is drafted but should remain `draft` until reviewed for publication. Do not make drafts reachable merely because a visitor knows the slug.
+All current posts are `published`. New work should start with `status: draft` and flip to `published` only when review is complete. Do not make drafts reachable merely because a visitor knows the slug.
 
 The publication boundary is enforced centrally through `src/lib/content.ts` and applied to every public surface (pages, carousels, archives, navigation, RSS, sitemap, JSON-LD, generated static params). Phase 1 implemented this; see `docs/roadmap.md`.
 

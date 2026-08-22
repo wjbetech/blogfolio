@@ -9,9 +9,9 @@ tags:
 images: []
 coverImage: ""
 featured: false
-publishedAt: 2026-05-01
+publishedAt: 2026-08-22
 updatedAt: 2026-08-21
-status: draft
+status: published
 ---
 
 Back in February, I promised we'd come full circle on the AI part of the verbosity story, and then (classic me) left you hanging through spring. Consider this the payoff.

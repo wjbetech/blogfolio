@@ -74,7 +74,7 @@ Turn the partial Markdown/MDX rendering into a reliable, controlled Blogfolio ar
 
 ### Deliberately not supported
 
-GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` through Contentlayer's pipeline), and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
+GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` through Contentlayer's pipeline), and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts). *(Superseded 2026-08: `remark-gfm` is now enabled and tables/task lists/strikethrough are supported; see `docs/content.md`.)*
 
 ## Phase 3 — Development and language-service conversion surfaces
 

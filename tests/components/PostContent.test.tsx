@@ -144,4 +144,64 @@ describe("PostContent", () => {
     expect(link).not.toBeNull();
     expect(link?.textContent).toBe("Visit");
   });
+
+  it("renders GFM tables inside a scrollable wrapper with styled cells", () => {
+    const code = compiledMdx(`
+      React.createElement(components.table, null,
+        React.createElement(components.thead, null,
+          React.createElement("tr", null,
+            React.createElement(components.th, null, "Model"),
+            React.createElement(components.th, null, "Price")
+          )
+        ),
+        React.createElement("tbody", null,
+          React.createElement("tr", null,
+            React.createElement(components.td, null, "Opus"),
+            React.createElement(components.td, null, "$5/$25")
+          )
+        )
+      )
+    `);
+
+    const { container } = render(<PostContent code={code} />);
+
+    const wrapper = container.querySelector("div.overflow-x-auto");
+    expect(wrapper).not.toBeNull();
+
+    const table = wrapper?.querySelector("table");
+    expect(table).not.toBeNull();
+    expect(table?.className).toContain("border-collapse");
+
+    const th = container.querySelector("th");
+    expect(th?.textContent).toBe("Model");
+    expect(th?.className).toContain("uppercase");
+
+    const td = container.querySelector("td");
+    expect(td?.textContent).toBe("Opus");
+    expect(td?.className).toContain("border-b");
+  });
+
+  it("renders strikethrough and task-list checkboxes via the controlled map", () => {
+    const code = compiledMdx(`
+      React.createElement("p", null,
+        React.createElement(components.del, null, "struck text")
+      ),
+      React.createElement(components.ul, null,
+        React.createElement("li", null,
+          React.createElement(components.input, { type: "checkbox", checked: true }),
+          " done item"
+        )
+      )
+    `);
+
+    const { container } = render(<PostContent code={code} />);
+
+    const del = container.querySelector("del");
+    expect(del).not.toBeNull();
+    expect(del?.className).toContain("line-through");
+
+    const checkbox = container.querySelector('input[type="checkbox"]');
+    expect(checkbox).not.toBeNull();
+    expect(checkbox).toHaveProperty("readOnly", true);
+  });
 });

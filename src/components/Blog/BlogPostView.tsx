@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { formatDate } from "@/lib/date";
 import CoverImage from "@/components/Blog/CoverImage";

@@ -23,7 +23,7 @@ The workflow name is `maintenance-reminder.yml`; do not refer to the obsolete `m
 
 Review:
 
-- posts or projects still marked `draft` (currently `2026-05-01-state-of-models-agentic-coding.md`)
+- posts or projects still marked `draft` (currently none)
 - project descriptions and links
 - `publishedAt` and `updatedAt`
 - referenced local images

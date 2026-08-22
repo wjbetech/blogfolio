@@ -10,7 +10,7 @@ This file is the short handoff for the next coding agent. It records decisions a
 - `/portfolio/[slug]` redirects to `/dev/[slug]`.
 - `draft` is a real publication state.
 - Drafts must not be publicly generated, listed, navigable, included in RSS, included in the sitemap, or included in JSON-LD collections.
-- `content/posts/2026-05-01-state-of-models-agentic-coding.md` is drafted but remains `draft` pending review.
+- `content/posts/2026-08-22-state-of-models-agentic-coding.md` is `published` (2026-08-22); there are currently no drafts.
 - The blog should eventually support a professional controlled Markdown/MDX article system.
 - The near-term product priority is attracting development and language-service work, not maximizing post volume.
 - The homelab deployment is operational.

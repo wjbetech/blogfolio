@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-08-22",
+    "version": "1.15.2",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Published the new blog post: The State of Models and Agentic Coding in 2026."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-22",
     "version": "1.15.1",
     "changes": [
       {

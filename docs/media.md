@@ -65,7 +65,7 @@ Avoid spaces and ambiguous generic filenames.
 
 ## Validation
 
-`npm run validate:content` checks local asset references from frontmatter and Markdown links. Project tests also check that referenced local project images exist.
+`pnpm run validate:content` checks local asset references from frontmatter and Markdown links. Project tests also check that referenced local project images exist.
 
 When adding a local asset:
 

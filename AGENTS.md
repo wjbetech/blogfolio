@@ -12,7 +12,7 @@ Blogfolio is William East's personal website (Next.js 16 App Router, TypeScript,
 - `draft` is a real publication state: drafts must never be publicly generated, listed, or included in RSS/sitemap/JSON-LD. The boundary lives in `src/lib/content.ts`.
 - `/dev/[slug]` is the only canonical project-detail route; never reintroduce `/portfolio/[slug]` as a page.
 - Secrets stay out of Git. `.env` and `.env.local` are gitignored; only `.env.example` is tracked.
-- Run `npm run validate:content`, `npm test`, `npm run build`, `npx tsc --noEmit`, and `npm run lint` before handing work on.
+- Run `pnpm run validate:content`, `pnpm test`, `pnpm run build`, `pnpm exec tsc --noEmit`, and `pnpm run lint` before handing work on.
 - PRs targeting `master` must modify `changelog/entries.json` unless the `no-changelog` label is applied.
 
 ## Agent skills

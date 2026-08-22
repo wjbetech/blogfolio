@@ -31,6 +31,9 @@ export default function useTheme(): UseThemeResult {
       return;
     }
     if (isKnownThemeId(saved) && saved !== themeId) {
+      // One-shot post-mount sync from storage; synchronous setState here is
+      // intentional (storage is not readable during SSR render).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setThemeId(saved);
     }
     // Only run on mount

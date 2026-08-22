@@ -4,8 +4,9 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+RUN corepack enable
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+RUN pnpm install --frozen-lockfile
 
 # ──────────────────────────────────────────────
 # Stage 2: Build the application
@@ -13,6 +14,7 @@ RUN npm ci
 FROM node:22-alpine AS builder
 WORKDIR /app
 
+RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -23,7 +25,7 @@ ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
 # next.config.ts must have output: "standalone" for this to work.
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+RUN pnpm run build
 
 # ──────────────────────────────────────────────
 # Stage 3: Minimal production image

@@ -54,8 +54,8 @@ As of 2026-08-21, the repository has:
 - passing content validation
 - 117 passing Jest tests
 - passing production build
-- clean standalone typecheck (`npx tsc --noEmit`)
-- `npm run lint` running `eslint src` with 0 errors
+- clean standalone typecheck (`pnpm exec tsc --noEmit`)
+- `pnpm run lint` running `eslint src` with 0 errors
 
 ## Next engineering task
 

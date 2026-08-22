@@ -126,7 +126,7 @@ Verified breakages on this branch (keep for authoring):
 - **`{/* ... */}` with a `/` path inside** (e.g. `/images/...`) can be parsed as `Invalid regular expression flag` (`{/_`). A prior `/{_ _/}` corruption also broke the build. Prefer deleting the comment; if you must annotate, keep it out of MDX or omit the leading `/`.
 - **Unclosed HTML tags** `<br>` / `<hr>` without self-closing `/>` → `Expected a closing tag for '<br>'` on `contentlayer:build`. Use Markdown line breaks or `<br />`.
 
-If `npm run dev` shows `SourceFetchDataError` + `@mdx-js/esbuild`, check `content/posts/*.md` for the above first.
+If `pnpm run dev` shows `SourceFetchDataError` + `@mdx-js/esbuild`, check `content/posts/*.md` for the above first.
 
 ### BlogToc scrolling (On this page)
 
@@ -174,10 +174,10 @@ See [media.md](./media.md) for project image ordering and fallback behavior.
 Useful commands:
 
 ```bash
-npm run dev
-npm run validate:content
-npm test
-npm run build
+pnpm run dev
+pnpm run validate:content
+pnpm test
+pnpm run build
 ```
 
 ## Validation behavior

@@ -40,15 +40,17 @@ Draft content is not publicly generated or listed.
 
 ## Building for development and production
 
+Requires pnpm (a `packageManager` field pins the version; Corepack handles it).
+
 ```bash
-npm run dev
-npm run validate:content
-npm test
-npm run build
-npm run start
+pnpm run dev
+pnpm run validate:content
+pnpm test
+pnpm run build
+pnpm run start
 ```
 
-`npm run ci` runs content validation, tests, and the production build. The current `npm run lint` script needs repair because it invokes the removed `next lint` command.
+`pnpm run ci` runs content validation, tests, and the production build. `pnpm run lint` runs `eslint src`.
 
 ## Project docs
 

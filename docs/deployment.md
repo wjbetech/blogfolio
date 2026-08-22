@@ -13,10 +13,10 @@ Triggers on:
 
 Runs on a GitHub-hosted runner with Node 20 and performs:
 
-1. `npm ci`
-2. `npm run validate:content`
-3. `npm test -- --runInBand`
-4. `npm run build`
+1. `pnpm install --frozen-lockfile`
+2. `pnpm run validate:content`
+3. `pnpm run test:ci`
+4. `pnpm run build`
 
 This is the repository's quality gate. Since Phase 5, `build-and-push.yml` triggers on this workflow's successful completion (`workflow_run` with `conclusion == "success"`), so a failed validation run blocks image publication.
 

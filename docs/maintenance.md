@@ -33,15 +33,15 @@ Review:
 Run:
 
 ```bash
-npm run validate:content
-npm test
-npm run build
+pnpm run validate:content
+pnpm test
+pnpm run build
 ```
 
 Standalone typecheck is part of the standard gate:
 
 ```bash
-npx tsc --noEmit
+pnpm exec tsc --noEmit
 ```
 
 ## Changelog

@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-08-22",
+    "version": "1.15.1",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed a CSP EvalError on blog posts by rendering BlogPostView server-side; compiled MDX is now evaluated on the server instead of in the browser."
+      }
+    ]
+  },
+  {
     "date": "2026-08-21",
     "version": "1.15.0",
     "changes": [

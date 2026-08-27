@@ -19,7 +19,7 @@ export function proxy(request: NextRequest) {
     // Next's own nonce'd loader. Listed for documentation and future flexibility.
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ""} https://plausible.io`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    "img-src 'self' data: https://images.unsplash.com",
     "font-src 'self'",
     "connect-src 'self' https://plausible.io",
     "object-src 'none'",

@@ -1,13 +1,16 @@
 ---
 id: "4"
-title: "Verbosity as Empathy: What Teaching and Translating Taught Me About Readable Code"
+title: "Verbosity in Coding: What Teaching and Translating Taught Me About Readable Code"
 excerpt: "When to be verbose in code, and why the same judgment you use in teaching and translation makes the call clearer."
 author: "William East"
 tags:
   - Teaching
   - Web Development
   - Translation
-images: []
+images:
+  [
+    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  ]
 coverImage: ""
 featured: false
 publishedAt: 2026-02-19

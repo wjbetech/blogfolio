@@ -7,7 +7,10 @@ tags:
   - Keyboards
   - Tech
   - Korea
-images: []
+images:
+  [
+    "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA2MjJfMTg5%2FMDAxNzUwNTcxNzU3MTE4.7Mz5DBAlUnfh4Z5tH7ySJ_65KalHAe-HWr34WpqWU84g.GbmF8HL_Fx8wPG6b98Ru283_imikdeYgzRDwi4QdJiwg.JPEG%2F1750571736086.jpg&type=sc960_832"
+  ]
 coverImage: ""
 featured: false
 publishedAt: 2026-01-28

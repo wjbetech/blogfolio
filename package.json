@@ -12,6 +12,8 @@
     "lint": "eslint src",
     "test": "jest",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "screenshot": "node ./scripts/screenshot.mjs",
+    "screenshot:all": "node ./scripts/screenshot.mjs --all",
     "validate:content": "node ./scripts/validate-content.mjs",
     "ci": "pnpm run validate:content && pnpm test --runInBand && pnpm run build",
     "pullAll": "node ./scripts/pull-all.js"

@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-08-27",
+    "version": "1.17.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Published orbit. (previously draft) with uniform 1280×720 WebP screenshot; updated link to /account-hub."
+      },
+      {
+        "category": "Style",
+        "description": "Stylised picme → pic-me (and kept orbit. casing) for consistent project titles."
+      },
+      {
+        "category": "Improvement",
+        "description": "Replaced 15 legacy PNGs for wordweb., pic-me, wowcomps, orbit. and atomology with uniform 1280×720 WebP (1440×810 clip @2×, q78, 5–79KB) for gallery 900×440 and card h-64; low-memory and shape-uniform."
+      },
+      {
+        "category": "Chore",
+        "description": "Updated wowcomps link to https://wowcomps.vercel.app/."
+      },
+      {
+        "category": "Chore",
+        "description": "Added Playwright + sharp devDeps and pnpm scripts screenshot / screenshot:all via scripts/screenshot.mjs; documented workflow in docs/media.md. Orbit sign-in capture noted as auth-limited."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-27",
     "version": "1.16.0",
     "changes": [
       {

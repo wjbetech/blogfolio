@@ -30,7 +30,7 @@ function buildContentSecurityPolicy(): string {
     "default-src 'self'",
     `script-src ${scriptSources.join(" ")}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: https://images.unsplash.com",
+    "img-src 'self' data: https://images.unsplash.com https://search.pstatic.net",
     "font-src 'self'",
     `connect-src ${connectSources.join(" ")}`,
     "object-src 'none'",
@@ -61,6 +61,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com"
+      },
+      {
+        protocol: "https",
+        hostname: "search.pstatic.net"
       }
     ]
   }

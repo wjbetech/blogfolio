@@ -10,7 +10,7 @@ tech:
 link: "https://github.com/wjbetech/cabin-chat"
 repo: "https://github.com/wjbetech/cabin-chat"
 images:
-  - /images/assets/projects/cabin-chat/1.home.png
+  - /images/assets/projects/cabin-chat/1.home.webp
 featured: false
 publishedAt: 2026-05-27
 updatedAt: 2026-05-27

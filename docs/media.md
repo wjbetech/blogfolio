@@ -51,6 +51,44 @@ The current conventions are:
 
 The `/dev` project index and `/dev/[slug]` detail page use the project image slider/lightbox. The detail page can display a larger gallery; project cards use the primary image.
 
+The slider `gallery` variant is `900×440` centered (`max-h-[440px] max-w-[900px]`, letterboxed — not cropped) and the card is `h-64` with `object-cover` (cropped). Screenshots larger than `1280px` are wasted bandwidth.
+
+### Project screenshot workflow — uniform, low-memory
+
+**Target (keeps cards + lightbox uniform):**
+
+- **Capture:** Playwright Chromium, viewport `1440×900`, `deviceScaleFactor:2`, clip `1440×810` (16:9) — no browser chrome, hide cookie/chat widgets
+- **Export:** `1280×720` WebP `quality 78, effort 6` → **~120–180 KB** (vs ~1 MB PNG). Lightbox caps at `80vh/80vw`, gallery caps at `900×440`, so `1280` is retina-crisp with no downscale waste.
+- **Budget:** each project < 800 KB total (e.g. 3× WebP). Prefer WebP over PNG/JPG; keep PNG only if lossless is required.
+
+**Automated (preferred):**
+
+```bash
+pnpm add -D playwright sharp
+npx playwright install chromium
+
+# all published projects with a live `link:` in content/projects/*.md
+node scripts/screenshot.mjs --all
+
+# single project, override URL (useful for github-only links or localhost)
+node scripts/screenshot.mjs --slug=wordweb
+node scripts/screenshot.mjs --slug=wordweb --url=https://wordweb-orcin.vercel.app --force
+
+# preview without writing
+node scripts/screenshot.mjs --all --dry-run
+```
+
+The script reads `content/projects/*.md` `link:` fields, skips `draft` and bare `github.com` links, screenshots to `public/images/assets/projects/<slug>/1.home.webp`, prints the frontmatter snippet to paste, then run:
+
+```bash
+pnpm run validate:content
+pnpm run build   # or pnpm dev to check slider at 900×440 / card h-64
+```
+
+**Manual fallback:** Chrome DevTools → Device Toolbar → `Responsive 1440×900` → hide cursor/cookie banner → `Capture screenshot` (clip `1440×810`) → `pnpm dlx sharp -i in.png -o 1.home.webp --quality 78 --effort 6` or Squoosh/TinyPNG.
+
+See `scripts/screenshot.mjs` header for all flags (`--width`, `--quality`, `--force`, `--dry-run`).
+
 ## Naming
 
 Prefer lowercase kebab-case and a project or post-specific name. For ordered project screenshots:
@@ -74,11 +112,10 @@ When adding a local asset:
 3. run content validation
 4. run the relevant tests and production build
 
-`next.config.ts` currently has no allowed remote image patterns. Prefer local assets unless a deliberate future decision adds and documents an external image host.
+`next.config.ts` allows `https://images.unsplash.com` and `https://search.pstatic.net` for *post* `images:` (via `remotePatterns` + CSP `img-src`). **Project screenshots remain local** — prefer `public/images/assets/projects/<slug>/` so the repo stays self-contained and `validate:content` can check them. Add a new remote host only deliberately and document it here and in `src/proxy.ts`.
 
 ## Current limitations
 
-- Posts currently have no committed cover or inline images.
-- There is no dedicated blog figure/caption component system.
-- Image optimization and size discipline remain manual repository responsibilities.
+- There is no dedicated blog figure/caption component system for inline post figures.
 - The content validator and Contentlayer schema should remain aligned when image fields evolve.
+- Posts now use Unsplash/Pstatic covers via remotePatterns; project screenshots are still local WebP via `scripts/screenshot.mjs`.

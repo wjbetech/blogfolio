@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -34,7 +33,6 @@ type DevProjectPageProps = {
 
 export default async function DevProjectPage({ params }: DevProjectPageProps) {
   const { slug } = await params;
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const projectIndex = publishedProjects.findIndex((p) => p.slug === slug);
   const project = projectIndex === -1 ? undefined : publishedProjects[projectIndex];
 
@@ -59,7 +57,8 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
 
   return (
     <article className="mx-auto w-full max-w-7xl">
-      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
+      {/* JSON-LD (application/ld+json) is data, not executable script — no CSP nonce needed. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
 
       {/* ── Back link ── */}
       <nav className="pt-2 md:pt-4 animate-in fade-in animation-duration-[700ms] fill-mode-backwards">

@@ -1,13 +1,16 @@
 ---
 id: "6"
-title: "Build Real Life Projects"
+title: "Build Your Own Solutions"
 excerpt: "Why building tools for your own hobbies and frustrations can keep creativity moving, especially when code and AI make iteration cheaper."
 author: "William East"
 tags:
   - Tech
   - Web Dev
   - Programming
-images: []
+images:
+  [
+    "https://images.unsplash.com/photo-1545665277-5937489579f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  ]
 coverImage: ""
 featured: false
 publishedAt: 2026-04-22

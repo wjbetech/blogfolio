@@ -1,5 +1,53 @@
 [
   {
+    "date": "2026-08-27",
+    "version": "1.17.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Published orbit. (previously draft) with uniform 1280×720 WebP screenshot; updated link to /account-hub."
+      },
+      {
+        "category": "Style",
+        "description": "Stylised picme → pic-me (and kept orbit. casing) for consistent project titles."
+      },
+      {
+        "category": "Improvement",
+        "description": "Replaced 15 legacy PNGs for wordweb., pic-me, wowcomps, orbit. and atomology with uniform 1280×720 WebP (1440×810 clip @2×, q78, 5–79KB) for gallery 900×440 and card h-64; low-memory and shape-uniform."
+      },
+      {
+        "category": "Chore",
+        "description": "Updated wowcomps link to https://wowcomps.vercel.app/."
+      },
+      {
+        "category": "Chore",
+        "description": "Added Playwright + sharp devDeps and pnpm scripts screenshot / screenshot:all via scripts/screenshot.mjs; documented workflow in docs/media.md. Orbit sign-in capture noted as auth-limited."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-27",
+    "version": "1.16.0",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed CSP nonce hydration mismatch by removing nonces from JSON-LD scripts (application/ld+json) and adding suppressHydrationWarning to the theme pre-paint script; framework scripts continue to receive per-request nonces via proxy."
+      },
+      {
+        "category": "Fix",
+        "description": "Removed Hero avatar effects — blob, hover-scale, shadow and blend overlay — simplifying to a static circular avatar and making Hero a server component."
+      },
+      {
+        "category": "Chore",
+        "description": "Allowed external images from https://images.unsplash.com and https://search.pstatic.net via Next.js remotePatterns and CSP img-src (enforced and report-only)."
+      },
+      {
+        "category": "Feature",
+        "description": "Added cover images to six posts (Unsplash/Pstatic) and retitled two posts for clarity: 'Verbosity as Empathy...' to 'Verbosity in Coding...' and 'Build Real Life Projects' to 'Build Your Own Solutions'."
+      }
+    ]
+  },
+  {
     "date": "2026-08-22",
     "version": "1.15.2",
     "changes": [

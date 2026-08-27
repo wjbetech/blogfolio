@@ -36,8 +36,12 @@ export default async function RootLayout({
       <body
         className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}
         style={{ transition: "none" }}>
-        {/* Restore the saved theme before first paint, then provide its CSS */}
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
+        {/* Restore the saved theme before first paint, then provide its CSS.
+            suppressHydrationWarning suppresses the false-positive mismatch caused
+            by browsers hiding the nonce attribute value (getAttribute('nonce')
+            returns "" after the script executes for security). Without it React
+            warns that server HTML had nonce="…" but the hydrated DOM shows "". */}
+        <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <ThemeStyles />
         <ThemeAside />
         <div className="px-6 flex-1 flex flex-col" style={{ transition: "none" }}>

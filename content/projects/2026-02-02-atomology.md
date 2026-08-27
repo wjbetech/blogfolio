@@ -10,11 +10,11 @@ tech:
 link: "https://atomology.vercel.app"
 repo: "https://github.com/wjbetech/Atomology"
 images:
-  - /images/assets/projects/atomology/1.home.png
-  - /images/assets/projects/atomology/2.correct-answer.png
-  - /images/assets/projects/atomology/3.hangman-mode.png
-  - /images/assets/projects/atomology/4.toggles.png
-  - /images/assets/projects/atomology/5.HUD.png
+  - /images/assets/projects/atomology/1.home.webp
+  - /images/assets/projects/atomology/2.correct-answer.webp
+  - /images/assets/projects/atomology/3.hangman-mode.webp
+  - /images/assets/projects/atomology/4.toggles.webp
+  - /images/assets/projects/atomology/5.HUD.webp
 featured: false
 publishedAt: 2025-09-15
 updatedAt: 2026-08-19

@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-08-27",
+    "version": "1.16.0",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Fixed CSP nonce hydration mismatch by removing nonces from JSON-LD scripts (application/ld+json) and adding suppressHydrationWarning to the theme pre-paint script; framework scripts continue to receive per-request nonces via proxy."
+      },
+      {
+        "category": "Fix",
+        "description": "Removed Hero avatar effects — blob, hover-scale, shadow and blend overlay — simplifying to a static circular avatar and making Hero a server component."
+      },
+      {
+        "category": "Chore",
+        "description": "Allowed external images from https://images.unsplash.com and https://search.pstatic.net via Next.js remotePatterns and CSP img-src (enforced and report-only)."
+      },
+      {
+        "category": "Feature",
+        "description": "Added cover images to six posts (Unsplash/Pstatic) and retitled two posts for clarity: 'Verbosity as Empathy...' to 'Verbosity in Coding...' and 'Build Real Life Projects' to 'Build Your Own Solutions'."
+      }
+    ]
+  },
+  {
     "date": "2026-08-22",
     "version": "1.15.2",
     "changes": [

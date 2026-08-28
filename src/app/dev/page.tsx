@@ -191,12 +191,6 @@ export default function DevPage() {
                 </span>
                 <span className="text-sm text-paragraph/50">technologies</span>
               </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-serif font-bold text-headline">
-                  {publishedProjects.filter((p) => p.featured).length}
-                </span>
-                <span className="text-sm text-paragraph/50">featured</span>
-              </div>
             </div>
           </div>
         </aside>

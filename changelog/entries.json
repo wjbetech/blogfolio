@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-08-28",
+    "version": "1.18.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Mobile reading pass: responsive header/hero/body rhythm, collapsible Sections TOC on mobile, and drop-cap fix (2.6em floated on <640px)."
+      },
+      {
+        "category": "Improvement",
+        "description": "Themed scrollbars (track bg-200 / thumb accent-100) for sidebars, code blocks and tables; sidebar track/thumb now matches rest of app."
+      },
+      {
+        "category": "Improvement",
+        "description": "Home carousels: hide scrollbars, rename Featured Blogs/Projects to Blogs/Posts, and enable click-and-drag scrolling via pointer capture."
+      },
+      {
+        "category": "Fix",
+        "description": "Increased mobile side padding to px-8 sm:px-6 for breathing room and renamed On this page to Sections."
+      },
+      {
+        "category": "Chore",
+        "description": "Docs cleanup: mark enlarged first letters + mobile pass shipped, drop callouts, and sync Content/Design/Arch/Todo with roadmap."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-28",
+    "version": "1.17.1",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Removed the redundant featured-project count from the /dev page's At a glance side panel."
+      }
+    ]
+  },
+  {
     "date": "2026-08-27",
     "version": "1.17.0",
     "changes": [

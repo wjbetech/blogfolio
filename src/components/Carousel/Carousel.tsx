@@ -43,7 +43,7 @@ const Carousel = React.forwardRef<CarouselHandle, CarouselProps>(
     return (
       // make container relative so absolute buttons are scoped here
       <div className="relative">
-        <div ref={scroller} className="flex overflow-x-auto no-scrollbar z-0" style={{ gap }}>
+        <div ref={scroller} className="flex overflow-x-auto themed-scrollbar z-0" style={{ gap }}>
           {children}
         </div>
 

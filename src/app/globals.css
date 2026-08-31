@@ -58,13 +58,68 @@
   }
 }
 
-/* Fallback: small screens no float to avoid collision */
+/* Mobile drop cap — scaled-down float to keep editorial feel without collision */
 @media (max-width: 639px) {
   .article-body > p:first-of-type::first-letter {
-    font-size: 1.15em;
+    font-size: 2.6em;
+    line-height: 0.85;
+    float: left;
+    padding-right: 0.12em;
+    padding-top: 0.04em;
+    margin-bottom: -0.05em;
+    font-family: var(--font-serif);
     font-weight: 700;
     color: var(--headline);
   }
+}
+
+/* Extra-narrow: reduce slightly to avoid wrapping on 320px */
+@media (max-width: 360px) {
+  .article-body > p:first-of-type::first-letter {
+    font-size: 2.2em;
+    line-height: 0.88;
+  }
+}
+
+/* Themed scrollbars — track bg-200, thumb accent-100 (sidebar + code/tables) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-100) var(--bg-200);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg-200);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--accent-100);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-200);
+}
+
+/* Utility for sidebar/overlay scroll areas that need explicit track/thumb */
+.themed-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-100) var(--bg-200);
+}
+.themed-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.themed-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-200);
+}
+.themed-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent-100);
+  border-radius: 9999px;
 }
 
 /* Pull-quote style for blockquotes that are short & centered - coexists with left-border */

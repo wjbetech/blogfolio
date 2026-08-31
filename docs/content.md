@@ -122,7 +122,7 @@ Verified breakages on this branch (keep for authoring):
 
 If `pnpm run dev` shows `SourceFetchDataError` + `@mdx-js/esbuild`, check `content/posts/*.md` for the above first.
 
-### BlogToc scrolling (On this page)
+### BlogToc scrolling (Sections)
 
 `src/components/Blog/BlogToc.tsx` reads `h2`/`h3` from `.article-body` and highlights the active section on scroll. It is mounted in `src/components/Blog/BlogPostView.tsx:108` with `key={post.slug}` (remount per post) and hidden below `xl`. Fixed behaviors:
 
@@ -133,7 +133,7 @@ Requires ≥2 headings to render (`BlogToc.tsx:112`).
 
 ### Editorial embellishments (future, not implemented)
 
-Polished treatment such as pull quotes, figures with captions, callouts, and related posts are planned refinements of the blog design, not current behavior. (Drop caps and the scroll-spy table of contents are implemented; see above and `docs/design-system.md`.) Do not document unimplemented features as available.
+Polished treatment such as pull quotes (and more elaborate blockquote variants) are planned refinements of the blog design, not current behavior. Implemented: drop caps, enlarged first letters, scroll-spy table of contents (`BlogToc` on `xl`+ and collapsible `BlogTocMobile` below `xl`; see above and `docs/design-system.md`), figures with captions (`PostContent` wraps `img` with `alt` → `<figcaption>`), related posts (`Continue reading` in `BlogPostView`), syntax-highlighted fenced code via `rehype-pretty-code`, GFM tables/task lists/strikethrough via `remark-gfm`, and the mobile reading experience pass (responsive rhythm, code/table overflow, `px-4 sm:px-6` layout). Callouts were dropped as not needed. Do not document unimplemented features as available.
 
 ## Images in content
 

@@ -45,7 +45,7 @@ The blog body now renders through a controlled component map in `PostContent`:
 - blockquotes, thematic-break dividers, and images
 - `max-w-3xl` article reading measure
 
-Not supported / not claimed: GFM tables/task lists/strikethrough (no `remark-gfm` in the pipeline) and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts).
+Not supported / not claimed: pull quotes and other Phase 4 embellishments beyond what has shipped. GFM tables/task lists/strikethrough are now supported via `remark-gfm` (PR #125), and drop caps, enlarged first letters, figures with captions, table of contents, related posts, and syntax-highlighted code have shipped (PRs #97, #101, #102). Callouts were dropped.
 
 ## Phase 3 — Development and language-service conversion surfaces ✅ (complete, merged via PR #96)
 
@@ -59,15 +59,17 @@ Conversion-surface improvements delivered:
 - Added a `/language-services` call-to-action link in the home hero, mirroring the existing `/dev` link.
 - Fixed a grammar typo in the language-services experience copy.
 
-## Phase 4 — Professional blog post redesign ✅ (implemented and verified, pending review/merge)
+## Phase 4 — Professional blog post redesign ✅ (complete, merged via PR #97, extended via PRs #101/#102)
 
 Editorial polish delivered:
 
 - editorial drop cap on the first paragraph (serif accent letter)
+- enlarged first letters — typographic scale refinement
 - refined article header: responsive title sizing (text-4xl → text-5xl → text-6xl), reading time badge
 - richer blockquote styling (accent background, rounded corner)
+- scroll-spy table of contents (`BlogToc` on `xl`+), related posts (`Continue reading`), figures with captions (`alt` → `figcaption`), and syntax-highlighted fenced code via `rehype-pretty-code`
 
-Not done (product decisions, left for a follow-up): figures/captions, callouts, table of contents, related posts, and a dedicated mobile reading experience pass.
+Not done (product decisions, left for a follow-up): pull quotes / richer blockquote treatments beyond the current style (`.pull` CSS exists but is not an authoring primitive; de-prioritized). Enlarged first letters, table of contents, related posts, figures with captions, and the mobile reading experience pass (`px-4 sm:px-6`, responsive header/heading rhythm, code/table overflow, `BlogTocMobile` collapsible TOC) have shipped; callouts were dropped.
 
 ## Phase 5 — Targeted cleanup ✅ (complete)
 
@@ -80,7 +82,7 @@ Delivered:
 - `build-and-push.yml` now depends on CI validation passing
 - Lint errors in `ThemeAside.tsx` and `entryParser.ts` fixed
 
-Intentionally deferred: unused shadcn/ui pruning, `force-dynamic`/server-theme revisit, test directory consolidation.
+Intentionally deferred: `force-dynamic`/server-theme revisit. Pruned unused shadcn/ui primitives (only `Button`/`Card` remain, PR #113) and consolidated test organization under `tests/` (PR #115) have shipped.
 
 ## All phases complete
 

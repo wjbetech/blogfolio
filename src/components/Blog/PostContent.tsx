@@ -48,7 +48,7 @@ export default function PostContent({ code }: PostContentProps) {
     h6: renderHeading(6),
 
     p: (props: Record<string, unknown>) => (
-      <p className="my-6 leading-8 text-pretty text-paragraph" {...props} />
+      <p className="my-5 sm:my-6 leading-7 sm:leading-8 text-[15px] sm:text-base text-pretty text-paragraph [overflow-wrap:anywhere] sm:[overflow-wrap:normal]" {...props} />
     ),
 
     a: (props: Record<string, unknown>) => (
@@ -69,8 +69,8 @@ export default function PostContent({ code }: PostContentProps) {
     ),
 
     table: (props: Record<string, unknown>) => (
-      <div className="my-8 overflow-x-auto rounded-xl border border-accent-100/15">
-        <table className="w-full border-collapse text-left text-sm" {...props} />
+      <div className="my-6 sm:my-8 -mx-8 sm:mx-0 overflow-x-auto overscroll-x-contain rounded-xl border border-accent-100/15 px-8 sm:px-0 [scrollbar-width:thin]">
+        <table className="w-full min-w-[28rem] border-collapse text-left text-[13px] sm:text-sm" {...props} />
       </div>
     ),
 
@@ -80,13 +80,13 @@ export default function PostContent({ code }: PostContentProps) {
 
     th: (props: Record<string, unknown>) => (
       <th
-        className="border-b border-accent-100/20 px-4 py-3 text-xs font-semibold uppercase tracking-wider"
+        className="border-b border-accent-100/20 px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs font-semibold uppercase tracking-wider"
         {...props}
       />
     ),
 
     td: (props: Record<string, unknown>) => (
-      <td className="border-b border-accent-100/10 px-4 py-3 align-top leading-relaxed" {...props} />
+      <td className="border-b border-accent-100/10 px-3 sm:px-4 py-2.5 sm:py-3 align-top text-[13px] sm:text-sm leading-6 sm:leading-relaxed" {...props} />
     ),
 
     input: (props: Record<string, unknown>) => {
@@ -109,49 +109,49 @@ export default function PostContent({ code }: PostContentProps) {
     },
 
     ul: (props: Record<string, unknown>) => (
-      <ul className="my-6 list-disc space-y-2 pl-6 text-paragraph marker:text-accent-200" {...props} />
+      <ul className="my-5 sm:my-6 list-disc space-y-1.5 sm:space-y-2 pl-5 sm:pl-6 text-[15px] sm:text-base text-paragraph marker:text-accent-200" {...props} />
     ),
 
     ol: (props: Record<string, unknown>) => (
       <ol
-        className="my-6 list-decimal space-y-2 pl-6 text-paragraph marker:font-semibold marker:text-accent-200"
+        className="my-5 sm:my-6 list-decimal space-y-1.5 sm:space-y-2 pl-5 sm:pl-6 text-[15px] sm:text-base text-paragraph marker:font-semibold marker:text-accent-200"
         {...props}
       />
     ),
 
-    li: (props: Record<string, unknown>) => <li className="leading-relaxed" {...props} />,
+    li: (props: Record<string, unknown>) => <li className="leading-7 sm:leading-relaxed" {...props} />,
 
     code: (props: Record<string, unknown>) => {
       const block = typeof props.className === "string" && props.className.startsWith("language-");
       return block ? (
         <code className="font-mono text-[0.925em]" {...props} />
       ) : (
-        <code className="rounded-md bg-bg-200 px-[5px] py-0.5 font-mono text-[0.875em] text-headline" {...props} />
+        <code className="rounded-md bg-bg-200 px-[5px] py-0.5 font-mono text-[0.875em] text-headline [overflow-wrap:anywhere]" {...props} />
       );
     },
 
     pre: (props: Record<string, unknown>) => (
-      <div className="my-8 overflow-hidden rounded-xl border border-[#e5e7eb]/70 bg-[#f6f8fa]/85">
-        <div className="flex items-center justify-between border-b border-[#e5e7eb]/70 bg-[#eef2f7]/70 px-4 py-2 text-xs text-[#57606a]">
+      <div className="my-6 sm:my-8 -mx-8 sm:mx-0 overflow-hidden rounded-xl border border-[#e5e7eb]/70 bg-[#f6f8fa]/85 sm:rounded-xl w-[calc(100%+4rem)] sm:w-auto max-w-none sm:max-w-full">
+        <div className="flex items-center justify-between border-b border-[#e5e7eb]/70 bg-[#eef2f7]/70 px-3 sm:px-4 py-2 text-xs text-[#57606a]">
           <span className="font-mono lowercase tracking-wide">code</span>
           <span className="h-2 w-2 rounded-full bg-accent-200/60" aria-hidden="true" />
         </div>
-        <pre className="overflow-x-auto p-4 font-mono text-sm leading-6 text-[#24292e] [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-sm" {...props} />
+        <pre className="overflow-x-auto overscroll-x-contain p-3 sm:p-4 font-mono text-[13px] sm:text-sm leading-6 text-[#24292e] [&>code]:bg-transparent [&>code]:px-0 [&>code]:py-0 [&>code]:text-[13px] sm:[&>code]:text-sm" {...props} />
       </div>
     ),
 
     blockquote: (props: Record<string, unknown>) => (
       <blockquote
-        className="my-10 border-l-4 border-accent-200 bg-accent-100/8 pl-6 pr-4 py-5 rounded-r-lg italic leading-relaxed text-paragraph/90"
+        className="my-8 sm:my-10 border-l-4 border-accent-200 bg-accent-100/8 pl-4 sm:pl-6 pr-3 sm:pr-4 py-4 sm:py-5 rounded-r-lg italic leading-7 sm:leading-relaxed text-[15px] sm:text-base text-paragraph/90"
         {...props}
       />
     ),
 
     hr: () => (
-      <div aria-hidden="true" className="my-12 flex items-center justify-center gap-3 text-accent-200/50">
-        <span className="h-px w-8 bg-accent-200/25" />
+      <div aria-hidden="true" className="my-8 sm:my-12 flex items-center justify-center gap-3 text-accent-200/50">
+        <span className="h-px w-6 sm:w-8 bg-accent-200/25" />
         <span className="text-sm tracking-[0.35em]">* * *</span>
-        <span className="h-px w-8 bg-accent-200/25" />
+        <span className="h-px w-6 sm:w-8 bg-accent-200/25" />
       </div>
     ),
 
@@ -159,21 +159,21 @@ export default function PostContent({ code }: PostContentProps) {
       const caption = String(alt).trim();
       const showCaption = caption.length > 0 && caption !== "";
       return (
-        <figure className="my-10">
+        <figure className="my-8 sm:my-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt={caption}
             className="h-auto w-full max-w-full rounded-lg border border-accent-100/10 object-cover"
             {...props}
           />
-          {showCaption && <figcaption className="mt-3 text-center text-sm italic leading-relaxed text-paragraph/60">{caption}</figcaption>}
+          {showCaption && <figcaption className="mt-2 sm:mt-3 text-center text-xs sm:text-sm italic leading-relaxed text-paragraph/60">{caption}</figcaption>}
         </figure>
       );
     }
   };
 
   return (
-    <div className="article-body mx-auto w-full max-w-3xl text-base text-paragraph">
+    <div className="article-body mx-auto w-full max-w-3xl text-[15px] sm:text-base leading-7 sm:leading-8 text-paragraph">
       {/* Compiled MDX components are intentionally created from trusted build output. */}
       {/* eslint-disable-next-line react-hooks/static-components */}
       <Content components={components} />

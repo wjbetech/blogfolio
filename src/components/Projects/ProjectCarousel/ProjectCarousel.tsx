@@ -26,7 +26,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(f
     <section className="">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <h2 className="text-2xl font-semibold font-serif text-headline">Featured Projects</h2>
+          <h2 className="text-2xl font-semibold font-serif text-headline">Posts</h2>
           <CarouselControls
             onPrev={() => innerRef.current?.scrollLeft()}
             onNext={() => innerRef.current?.scrollRight()}

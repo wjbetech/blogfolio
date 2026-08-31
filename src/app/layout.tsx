@@ -44,7 +44,7 @@ export default async function RootLayout({
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <ThemeStyles />
         <ThemeAside />
-        <div className="px-6 flex-1 flex flex-col" style={{ transition: "none" }}>
+        <div className="px-8 sm:px-6 flex-1 flex flex-col" style={{ transition: "none" }}>
           <main className="max-w-7xl mx-auto pb-4 w-full flex-1">{children}</main>
           <Footer />
         </div>

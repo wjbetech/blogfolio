@@ -93,7 +93,7 @@ const ThemeDrawerCarousel = forwardRef<ThemeDrawerCarouselHandle, Props>(({ acti
       <div
         ref={scrollerRef}
         {...dragHandlers}
-        className="flex gap-4 overflow-x-auto no-scrollbar pb-4 scroll-pl-6 px-6 cursor-grab active:cursor-grabbing select-none"
+        className="flex gap-4 overflow-x-auto themed-scrollbar pb-4 scroll-pl-6 px-6 cursor-grab active:cursor-grabbing select-none"
         style={{
           WebkitOverflowScrolling: "touch",
           scrollSnapType: "x mandatory",

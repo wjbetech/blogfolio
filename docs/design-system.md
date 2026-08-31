@@ -92,21 +92,21 @@ The blog body renders through a controlled component map in `PostContent`, produ
 
 The article body uses a `max-w-3xl` reading measure. See [content.md](./content.md) for the exact list of supported elements.
 
-Phase 4 (PR #97) added editorial polish on top of this system:
+Phase 4 (PR #97) added editorial polish on top of this system, extended via PRs #101/#102:
 
 - drop cap on the first paragraph of an article
 - responsive article title sizing and a reading-time badge
 - richer blockquote treatment (accent background, rounded corner)
-
-A scroll-spy table of contents (`BlogToc`) renders beside the article on `xl`+ viewports (PRs #101/#102).
+- scroll-spy table of contents (`BlogToc`) on `xl`+ viewports
+- related posts (`Continue reading` in `BlogPostView`)
+- figures with captions (`img` `alt` → `<figcaption>` inside `<figure>`)
+- syntax-highlighted fenced code via `rehype-pretty-code` (`github-light`) and GFM tables/task lists/strikethrough via `remark-gfm`
 
 The following editorial embellishments remain **future work**, not current capabilities:
 
-- pull quotes and more elaborate blockquote treatments
+- pull quotes and more elaborate blockquote treatments (beyond the current accent-background style; `.article-body blockquote.pull` CSS exists but is not yet an authoring primitive)
 - article-specific font variation
-- figures with captions
 - callouts
-- related posts
 - fully refined responsive article rhythm
 
 When these are added, they should be designed as controlled Blogfolio article components, not scattered one-off classes in individual posts.

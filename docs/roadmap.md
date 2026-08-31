@@ -69,12 +69,12 @@ Turn the partial Markdown/MDX rendering into a reliable, controlled Blogfolio ar
 - `PostContent` renders compiled output through a full, styled component map (headings with anchors, paragraphs, ordered/unordered lists, links, `strong`/emphasis, inline and fenced code, blockquotes, thematic-break dividers, and images).
 - A body `#` is treated as a level-2 section (the page `<h1>` is the article title); `HeadingAnchor` supports levels 2–6 and preserves inline formatting inside headings.
 - Article body uses a `max-w-3xl` reading measure.
-- Verified against real Contentlayer-compiled output (inline vs fenced code distinguished via the `language-` class; GFM tables/task lists/strikethrough do not compile and are not claimed).
+- Verified against real Contentlayer-compiled output (inline vs fenced code distinguished via the `language-` class).
 - Tests cover the supported component map (`tests/components/PostContent.test.tsx`).
 
 ### Deliberately not supported
 
-GFM tables, task lists, and strikethrough (would require enabling `remark-gfm` through Contentlayer's pipeline), and Phase 4 embellishments (drop caps, pull quotes, figures/captions, callouts, table of contents, related posts). *(Superseded 2026-08: `remark-gfm` is now enabled and tables/task lists/strikethrough are supported; see `docs/content.md`.)*
+Phase 4 embellishments that remained deferred at the time (pull quotes, callouts). GFM tables, task lists, and strikethrough were originally listed here but are now supported via `remark-gfm` (PR #125; see `docs/content.md`), and drop caps, figures with captions, table of contents, and related posts have since shipped (PRs #97, #101, #102).
 
 ## Phase 3 — Development and language-service conversion surfaces
 
@@ -100,7 +100,7 @@ A larger homepage-hierarchy redesign (section ordering, dedicated service CTAs) 
 
 ## Phase 4 — Professional blog post redesign
 
-**Status: implemented and verified (pending review/merge).**
+**Status: complete (merged via PR #97, extended via PRs #101 and #102).**
 
 ### Goal
 
@@ -112,16 +112,19 @@ Make the blog a polished credibility and personality surface without turning it 
 - refined article header: responsive title sizing (text-4xl → text-5xl → text-6xl), added reading time badge using Contentlayer's computed `readingTime` field
 - richer blockquote styling (accent background, rounded right corner)
 - `article-body` class on PostContent root for the drop-cap CSS selector
+- scroll-spy table of contents (`BlogToc` on `xl`+ viewports, reading `h2`/`h3` from `.article-body`, active-section highlighting, `key={post.slug}` remount; PRs #101/#102)
+- related posts (`Continue reading` — up to 3 most recent posts excluding current; `src/components/Blog/BlogPostView.tsx`)
+- figures with captions (`PostContent` wraps `img` in `<figure>` + `<figcaption>` from `alt` text)
+- build-time syntax highlighting for fenced code via `rehype-pretty-code` (`github-light` theme; PR #102) and GFM tables/task lists/strikethrough via `remark-gfm` (PR #125)
 
 ### Not done (product decisions, left for a follow-up)
 
 - enlarged first letters beyond the drop cap (typographic scale refinement)
-- pull quotes / richer blockquote treatments
-- figures with captions and callouts
-- table of contents and related posts
+- pull quotes / richer blockquote treatments beyond the current accent-background style (note: `.article-body blockquote.pull` CSS exists in `src/app/globals.css` but is not yet an authoring primitive)
+- callouts
 - mobile reading experience pass
 
-These are refinements scoped against Phase 2's component system and can be revisited later.
+Table of contents, related posts, and figures with captions have shipped (see Delivered above). These remaining items are refinements scoped against Phase 2's component system and can be revisited later.
 
 ## Phase 5 — Targeted cleanup and performance decisions
 
@@ -136,13 +139,13 @@ These are refinements scoped against Phase 2's component system and can be revis
 - removed stale Prisma references from `.gitignore` and dead `src/app/types/headers.ts`
 - chained `build-and-push.yml` to depend on `ci-content-validation.yml` succeeding (was previously independent)
 - fixed lint errors in `ThemeAside.tsx` (removed unnecessary state+effect sync) and `entryParser.ts` (eliminated `any`)
+- pruned unused shadcn/ui primitives — only `Button` and `Card` remain (PR #113)
+- consolidated test organization — removed `__tests__/`, unified under `tests/` with coverage floors (PR #115)
 
 ### Not done (intentionally deferred)
 
-- deciding which unused shadcn/ui primitives to keep or remove
 - revisiting `force-dynamic` and server-side theme initialization
-- consolidating test organization (`__tests__/` and `tests/`)
 
 Note: image publication *is* gated on validation success (see Delivered above); deploys pin the exact built commit since 2026-08. The remaining accepted risk is manual `workflow_dispatch` bypassing CI and falling back to `latest`.
 
-These were intentionally left for future consideration rather than broadening Phase 5 into a large refactor.
+This was intentionally left for future consideration rather than broadening Phase 5 into a large refactor.

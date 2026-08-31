@@ -133,7 +133,7 @@ Requires ≥2 headings to render (`BlogToc.tsx:112`).
 
 ### Editorial embellishments (future, not implemented)
 
-Polished treatment such as pull quotes, figures with captions, callouts, and related posts are planned refinements of the blog design, not current behavior. (Drop caps and the scroll-spy table of contents are implemented; see above and `docs/design-system.md`.) Do not document unimplemented features as available.
+Polished treatment such as pull quotes and callouts (and more elaborate blockquote variants) are planned refinements of the blog design, not current behavior. Implemented: drop caps and the scroll-spy table of contents (`BlogToc`; see above and `docs/design-system.md`), figures with captions (`PostContent` wraps `img` with `alt` → `<figcaption>`), related posts (`Continue reading` in `BlogPostView`), syntax-highlighted fenced code via `rehype-pretty-code`, and GFM tables/task lists/strikethrough via `remark-gfm`. Do not document unimplemented features as available.
 
 ## Images in content
 

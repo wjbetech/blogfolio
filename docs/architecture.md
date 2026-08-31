@@ -10,7 +10,7 @@ Blogfolio is a personal website for William East. Its near-term purpose is to at
 | Language | TypeScript 5 | Strict application typing |
 | Content | Contentlayer 0.3 + Markdown/MDX | Build-time typed content from `content/` |
 | Styling | Tailwind CSS v4 + CSS variables | Utility classes backed by the custom theme tokens |
-| UI primitives | Small set of shadcn-style components using Radix UI | Primarily `Button` and `Card`; many generated components are unused |
+| UI primitives | Small set of shadcn-style components using Radix UI | Only `Button` and `Card` remain after pruning unused primitives (PR #113) |
 | Icons | `@tabler/icons-react` plus small local SVG wrappers | UI and navigation icons |
 | Fonts | Next.js Google font loader | Inter, Bricolage Grotesque, Geist Mono |
 | Animation | `tw-animate-css` and CSS transitions | UI transitions and editorial entrance effects |
@@ -30,7 +30,7 @@ content/
 
 src/app/             App Router pages, layouts, route handlers, metadata routes
 src/components/      Feature-oriented React components
-src/components/ui/   shadcn-style primitives; only a subset is used
+src/components/ui/   shadcn-style primitives; only Button and Card remain after pruning (PR #113)
 src/hooks/           Client hooks for themes and carousel interaction
 src/lib/             Content, metadata, themes, analytics, changelog, and pure helpers
 public/              Static assets, including images/assets/
@@ -109,9 +109,9 @@ Controlled Blogfolio article components
 Rendered article
 ```
 
-Blog bodies render through `src/components/Blog/PostContent.tsx`, the controlled component map delivered in Phase 2 (PR #95) and extended since: editorial drop cap, reading-time badge, and blockquote styling (Phase 4, PR #97), hybrid layout with scroll-spy TOC (PR #101), and build-time syntax highlighting via `rehype-pretty-code` with the `github-light` theme (PR #102). It evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and styles links, lists, inline code, and fenced code.
+Blog bodies render through `src/components/Blog/PostContent.tsx`, the controlled component map delivered in Phase 2 (PR #95) and extended since: editorial drop cap, reading-time badge, and blockquote styling (Phase 4, PR #97), hybrid layout with scroll-spy TOC and related posts (PR #101), figures with captions (`alt` → `figcaption`), and build-time syntax highlighting via `rehype-pretty-code` with the `github-light` theme (PR #102) plus GFM tables/task lists/strikethrough via `remark-gfm` (PR #125). It evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and styles links, lists, inline code, and fenced code.
 
-The supported Markdown/MDX component vocabulary is defined and tested (`tests/components/PostContent.test.tsx`). Do not assume a Markdown element is professionally styled merely because Contentlayer can compile it; GFM tables, task lists, and strikethrough are not enabled.
+The supported Markdown/MDX component vocabulary is defined and tested (`tests/components/PostContent.test.tsx`). GFM tables, task lists, and strikethrough are enabled via `remark-gfm`; do not assume other Markdown extensions are styled unless listed in `docs/content.md`.
 
 ## State and client boundaries
 

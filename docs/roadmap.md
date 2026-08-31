@@ -74,7 +74,7 @@ Turn the partial Markdown/MDX rendering into a reliable, controlled Blogfolio ar
 
 ### Deliberately not supported
 
-Phase 4 embellishments that remained deferred at the time (pull quotes, callouts). GFM tables, task lists, and strikethrough were originally listed here but are now supported via `remark-gfm` (PR #125; see `docs/content.md`), and drop caps, figures with captions, table of contents, and related posts have since shipped (PRs #97, #101, #102).
+Phase 4 embellishments that remained deferred at the time (pull quotes). GFM tables, task lists, and strikethrough were originally listed here but are now supported via `remark-gfm` (PR #125; see `docs/content.md`), and drop caps, enlarged first letters, figures with captions, table of contents, and related posts have since shipped (PRs #97, #101, #102). Callouts were dropped as not needed.
 
 ## Phase 3 — Development and language-service conversion surfaces
 
@@ -112,19 +112,18 @@ Make the blog a polished credibility and personality surface without turning it 
 - refined article header: responsive title sizing (text-4xl → text-5xl → text-6xl), added reading time badge using Contentlayer's computed `readingTime` field
 - richer blockquote styling (accent background, rounded right corner)
 - `article-body` class on PostContent root for the drop-cap CSS selector
+- enlarged first letters — typographic scale refinement (lede `1.08em` + serif `::first-letter 3.4em` on `≥640px`; `src/app/globals.css`)
 - scroll-spy table of contents (`BlogToc` on `xl`+ viewports, reading `h2`/`h3` from `.article-body`, active-section highlighting, `key={post.slug}` remount; PRs #101/#102)
 - related posts (`Continue reading` — up to 3 most recent posts excluding current; `src/components/Blog/BlogPostView.tsx`)
 - figures with captions (`PostContent` wraps `img` in `<figure>` + `<figcaption>` from `alt` text)
 - build-time syntax highlighting for fenced code via `rehype-pretty-code` (`github-light` theme; PR #102) and GFM tables/task lists/strikethrough via `remark-gfm` (PR #125)
+- mobile reading experience pass — responsive header/hero/body spacing (`px-4 sm:px-6`, `mt-6 sm:mt-10`, `text-[1.9rem] sm:text-4xl`), heading scale + margins (`text-xl sm:text-2xl`, `mt-8 sm:mt-12`), article rhythm (`my-5 sm:my-6`, `leading-7 sm:leading-8`, `text-[15px] sm:text-base`), code/table overflow (`-mx-4 sm:mx-0`, `overscroll-x-contain`, `w-[calc(100%+2rem)]`), inline-code wrapping (`[overflow-wrap:anywhere]`), and collapsible mobile TOC (`BlogTocMobile` details below `xl`; `src/components/Blog/BlogTocMobile.tsx`)
 
 ### Not done (product decisions, left for a follow-up)
 
-- enlarged first letters beyond the drop cap (typographic scale refinement)
 - pull quotes / richer blockquote treatments beyond the current accent-background style (note: `.article-body blockquote.pull` CSS exists in `src/app/globals.css` but is not yet an authoring primitive)
-- callouts
-- mobile reading experience pass
 
-Table of contents, related posts, and figures with captions have shipped (see Delivered above). These remaining items are refinements scoped against Phase 2's component system and can be revisited later.
+Enlarged first letters, table of contents, related posts, figures with captions, and the mobile reading experience pass have shipped (see Delivered above); callouts were dropped as not needed. This remaining item is a refinement scoped against Phase 2's component system and can be revisited later if a use case emerges.
 
 ## Phase 5 — Targeted cleanup and performance decisions
 

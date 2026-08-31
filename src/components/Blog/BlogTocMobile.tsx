@@ -3,14 +3,11 @@
 import { useState, useEffect } from "react";
 
 /**
- * Scrolling table of contents for a blog article.
- *
- * Reads headings (h2/h3) from the rendered `.article-body` and highlights the
- * active section on scroll. Remount per post via `key={post.slug}` so state
- * resets on client navigation. Caller is responsible for
- * positioning (fixed/sticky wrapper). Returns null when there are < 2 headings.
+ * Mobile/tablet table of contents — collapsible, visible below xl.
+ * Reuses the same heading extraction as BlogToc but renders as <details>.
+ * Hidden on xl+ (where the sticky sidebar takes over) and when <2 headings.
  */
-export default function BlogToc() {
+export default function BlogTocMobile() {
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
@@ -25,7 +22,6 @@ export default function BlogToc() {
         ticking = false;
         return;
       }
-      // If we're at the very bottom, force last heading active (covers short final section)
       const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
       if (nearBottom) {
         setActiveId(els[els.length - 1].id);
@@ -44,7 +40,6 @@ export default function BlogToc() {
         const firstTop = els[0].getBoundingClientRect().top;
         if (firstTop > 120 && window.scrollY < 200) current = els[0].id;
       }
-      // Also respect hash if user clicked a TOC link
       if (!current && window.location.hash) {
         const hashId = window.location.hash.slice(1);
         if (els.some((e) => e.id === hashId)) current = hashId;
@@ -63,7 +58,6 @@ export default function BlogToc() {
     const init = () => {
       const article = document.querySelector(".article-body");
       if (!article) {
-        // Retry next frame if article not yet mounted (client nav race)
         rafId = requestAnimationFrame(init);
         return;
       }
@@ -73,7 +67,6 @@ export default function BlogToc() {
         text: el.textContent?.replace(/^#/, "").trim() ?? "",
         level: el.tagName === "H2" ? 2 : 3,
       }));
-      // Filter empties (HeadingAnchor always sets id via createHeadingSlug)
       const valid = items.filter((h) => h.id);
       setHeadings(valid);
       if (els.length > 0) setActiveId(els[0].id);
@@ -82,7 +75,6 @@ export default function BlogToc() {
       window.addEventListener("resize", onScroll);
       requestAnimationFrame(updateActive);
 
-      // If MDX hydrates slightly after effect, catch late h2/h3
       observer = new MutationObserver(() => {
         const next = Array.from(article.querySelectorAll("h2, h3")) as HTMLElement[];
         if (next.length !== els.length) {
@@ -112,24 +104,32 @@ export default function BlogToc() {
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label="Table of contents">
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-paragraph/40">
-        Sections
-      </p>
-      <ul className="space-y-1.5 border-l border-accent-100/15 pl-3">
-        {headings.map((h) => (
-          <li key={h.id}>
-            <a
-              href={`#${h.id}`}
-              className={`block text-[13px] leading-snug transition-colors hover:text-headline ${
-                h.level === 3 ? "pl-3" : ""
-              } ${activeId === h.id ? "text-accent-200 font-medium" : "text-paragraph/55"}`}
-            >
-              {h.text}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <details className="group rounded-xl border border-accent-100/15 bg-bg-200/40 open:bg-bg-200/60 transition-colors">
+      <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium text-headline [&::-webkit-details-marker]:hidden">
+        <span className="inline-flex items-center gap-2">
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-paragraph/40">Sections</span>
+          <span className="rounded-full bg-accent-100/15 px-1.5 py-0.5 text-[11px] text-paragraph/60">{headings.length}</span>
+        </span>
+        <span className="text-paragraph/40 transition-transform group-open:rotate-180" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </summary>
+      <nav aria-label="Table of contents" className="border-t border-accent-100/10 px-4 py-3">
+        <ul className="space-y-1.5">
+          {headings.map((h) => (
+            <li key={h.id}>
+              <a
+                href={`#${h.id}`}
+                className={`block py-1 text-[13px] leading-snug transition-colors hover:text-headline ${h.level === 3 ? "pl-4" : ""} ${activeId === h.id ? "text-accent-200 font-medium" : "text-paragraph/70"}`}
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
   );
 }

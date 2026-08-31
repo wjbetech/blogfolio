@@ -5,24 +5,24 @@ export type HeadingLevel = 2 | 3 | 4 | 5 | 6;
 
 const levelStyles: Record<HeadingLevel, { heading: string; wrapper: string }> = {
   2: {
-    heading: "text-2xl font-semibold font-serif text-headline scroll-mt-24 text-balance",
-    wrapper: "group relative mt-12 mb-4 flex flex-col gap-2"
+    heading: "text-xl sm:text-2xl font-semibold font-serif text-headline scroll-mt-24 text-balance",
+    wrapper: "group relative mt-8 sm:mt-12 mb-3 sm:mb-4 flex flex-col gap-2"
   },
   3: {
-    heading: "text-xl font-semibold font-serif text-headline scroll-mt-24 text-balance",
-    wrapper: "group relative mt-9 mb-3 flex flex-col gap-2"
+    heading: "text-lg sm:text-xl font-semibold font-serif text-headline scroll-mt-24 text-balance",
+    wrapper: "group relative mt-7 sm:mt-9 mb-2 sm:mb-3 flex flex-col gap-2"
   },
   4: {
-    heading: "text-lg font-semibold font-serif text-headline scroll-mt-24",
-    wrapper: "group relative mt-7 mb-2 flex flex-col gap-2"
+    heading: "text-base sm:text-lg font-semibold font-serif text-headline scroll-mt-24",
+    wrapper: "group relative mt-6 sm:mt-7 mb-2 flex flex-col gap-2"
   },
   5: {
     heading: "text-base font-semibold text-headline scroll-mt-24",
-    wrapper: "group relative mt-6 mb-2 flex flex-col gap-2"
+    wrapper: "group relative mt-5 sm:mt-6 mb-2 flex flex-col gap-2"
   },
   6: {
     heading: "text-sm font-semibold uppercase tracking-wide text-paragraph scroll-mt-24",
-    wrapper: "group relative mt-6 mb-2 flex flex-col gap-2"
+    wrapper: "group relative mt-5 sm:mt-6 mb-2 flex flex-col gap-2"
   }
 };
 

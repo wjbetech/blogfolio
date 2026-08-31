@@ -3,6 +3,7 @@
 import ChevronLeftIcon from "@/components/Icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
 import React, { useRef, useImperativeHandle, useCallback } from "react";
+import useCarouselDrag from "@/hooks/useCarouselDrag";
 
 type CarouselProps = {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export type CarouselHandle = {
 const Carousel = React.forwardRef<CarouselHandle, CarouselProps>(
   ({ children, gap = 56, step = 400, hideControls = false }, ref: React.Ref<CarouselHandle>) => {
     const scroller = useRef<HTMLDivElement>(null);
+    const dragHandlers = useCarouselDrag(scroller);
 
     const scrollBy = useCallback(
       (dir: number) => {
@@ -43,7 +45,11 @@ const Carousel = React.forwardRef<CarouselHandle, CarouselProps>(
     return (
       // make container relative so absolute buttons are scoped here
       <div className="relative">
-        <div ref={scroller} className="flex overflow-x-auto no-scrollbar z-0" style={{ gap }}>
+        <div
+          ref={scroller}
+          {...dragHandlers}
+          className="flex overflow-x-auto no-scrollbar z-0 cursor-grab active:cursor-grabbing select-none"
+          style={{ gap, touchAction: "pan-y" as const }}>
           {children}
         </div>
 

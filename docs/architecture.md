@@ -109,7 +109,7 @@ Controlled Blogfolio article components
 Rendered article
 ```
 
-Blog bodies render through `src/components/Blog/PostContent.tsx`, the controlled component map delivered in Phase 2 (PR #95) and extended since: editorial drop cap, reading-time badge, and blockquote styling (Phase 4, PR #97), hybrid layout with scroll-spy TOC and related posts (PR #101), figures with captions (`alt` → `figcaption`), and build-time syntax highlighting via `rehype-pretty-code` with the `github-light` theme (PR #102) plus GFM tables/task lists/strikethrough via `remark-gfm` (PR #125). It evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and styles links, lists, inline code, and fenced code.
+Blog bodies render through `src/components/Blog/PostContent.tsx`, the controlled component map delivered in Phase 2 (PR #95) and extended since: editorial drop cap, enlarged first letters, reading-time badge, and blockquote styling (Phase 4, PR #97), hybrid layout with scroll-spy TOC and related posts (PR #101), figures with captions (`alt` → `figcaption`), build-time syntax highlighting via `rehype-pretty-code` with the `github-light` theme (PR #102), GFM tables/task lists/strikethrough via `remark-gfm` (PR #125), and the mobile reading pass (responsive header/heading rhythm, code/table overflow with `BlogTocMobile`, `px-4 sm:px-6` layout). It evaluates Contentlayer's compiled `body.code`, maps headings to `HeadingAnchor`, and styles links, lists, inline code, and fenced code.
 
 The supported Markdown/MDX component vocabulary is defined and tested (`tests/components/PostContent.test.tsx`). GFM tables, task lists, and strikethrough are enabled via `remark-gfm`; do not assume other Markdown extensions are styled unless listed in `docs/content.md`.
 

@@ -35,19 +35,26 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
             onError={() => setImgError(true)}
           />
         </div>
-        <div className="p-6 flex flex-col flex-1 min-h-0">
-          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-paragraph/45 mb-3">
-            <time dateTime={card.publishedAt} className="tabular-nums">
+        <div className="p-6 flex flex-col flex-1 min-h-0 overflow-hidden">
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-paragraph/45 mb-3 shrink-0">
+            <time dateTime={card.publishedAt} className="tabular-nums shrink-0">
               {formatShortDate(card.publishedAt)}
             </time>
             <span className="text-paragraph/20">·</span>
-            <span>{card.readingTime} min</span>
+            <span className="shrink-0">{card.readingTime} min</span>
           </div>
-          <h3 className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
+          <h3
+            title={card.title}
+            className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden transition-colors duration-200 group-hover:text-accent-200"
+          >
             {card.title}
           </h3>
-          {card.snippet ? <p className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2">{card.snippet}</p> : null}
-          <div className="mt-auto pt-5 flex items-center gap-2 text-link font-semibold text-sm">
+          {card.snippet ? (
+            <p title={card.snippet} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden">
+              {card.snippet}
+            </p>
+          ) : null}
+          <div className="mt-auto pt-5 flex items-center gap-2 text-link font-semibold text-sm shrink-0">
             <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent-200 after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">
               Read
             </span>

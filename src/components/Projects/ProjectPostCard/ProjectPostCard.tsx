@@ -41,22 +41,27 @@ export default function ProjectCard({ project, priority = false }: { project: Pr
             onError={() => setImgError(true)}
           />
         </div>
-        <div className="p-6 flex flex-col flex-1 min-h-0">
+        <div className="p-6 flex flex-col flex-1 min-h-0 overflow-hidden">
           {project.tech.length > 0 ? (
-            <div className="flex flex-wrap gap-1.5 mb-3">
+            <div className="flex flex-nowrap items-center gap-1.5 mb-3 overflow-hidden shrink-0">
               {project.tech.slice(0, 3).map((t) => (
-                <span key={t} className="text-[11px] font-mono px-2 py-1 rounded bg-bg-200 text-paragraph/60">
+                <span key={t} className="text-[11px] font-mono px-2 py-1 rounded bg-bg-200 text-paragraph/60 truncate max-w-[6.5rem] shrink-0">
                   {t}
                 </span>
               ))}
-              {project.tech.length > 3 ? <span className="text-[11px] text-paragraph/40">+{project.tech.length - 3}</span> : null}
+              {project.tech.length > 3 ? <span className="text-[11px] text-paragraph/40 shrink-0">+{project.tech.length - 3}</span> : null}
             </div>
           ) : null}
-          <h3 className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
+          <h3
+            title={project.title}
+            className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden transition-colors duration-200 group-hover:text-accent-200"
+          >
             {project.title}
           </h3>
-          <p className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 flex-1">{project.description}</p>
-          <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm group-hover:gap-3 transition-all duration-200">
+          <p title={project.description} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden flex-1 min-h-0">
+            {project.description}
+          </p>
+          <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm group-hover:gap-3 transition-all duration-200 shrink-0">
             View <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" className="group-hover:translate-x-1 transition-transform duration-200" />
           </div>
         </div>

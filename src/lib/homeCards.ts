@@ -16,6 +16,9 @@ export type BlogCardData = {
   snippet: string;
   /** Declared cover image, or "" when the card should use the placeholder. */
   image: string;
+  publishedAt: string;
+  readingTime: number;
+  tags: string[];
 };
 
 export type ProjectCardData = {
@@ -24,6 +27,7 @@ export type ProjectCardData = {
   description: string;
   /** Primary ordered screenshot, or "" when the card should use the placeholder. */
   image: string;
+  tech: string[];
 };
 
 export function getBlogCardData(post: Post): BlogCardData {
@@ -31,7 +35,10 @@ export function getBlogCardData(post: Post): BlogCardData {
     slug: post.slug,
     title: post.title,
     snippet: getPostSnippet(post, 120),
-    image: post.coverImage?.trim() || post.images?.[0]?.trim() || ""
+    image: post.coverImage?.trim() || post.images?.[0]?.trim() || "",
+    publishedAt: post.publishedAt,
+    readingTime: post.readingTime ?? 0,
+    tags: (post.tags ?? []).slice(0, 3)
   };
 }
 
@@ -40,7 +47,8 @@ export function getProjectCardData(project: Project): ProjectCardData {
     slug: project.slug,
     title: project.title,
     description: project.description ?? "",
-    image: getPrimaryProjectImage(project.images)
+    image: getPrimaryProjectImage(project.images),
+    tech: (project.tech ?? []).slice(0, 4)
   };
 }
 

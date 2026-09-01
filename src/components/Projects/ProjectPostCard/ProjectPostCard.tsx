@@ -27,8 +27,8 @@ export default function ProjectCard({ project }: { project: ProjectCardData }) {
         })
       }
     >
-      <Card className="h-110 border border-accent-100/10 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-accent-200/25 active:shadow-md active:translate-y-0">
-        <div className="h-40 rounded-md overflow-hidden bg-accent-100">
+      <Card className="h-110 p-6 gap-0 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:shadow-sm active:translate-y-0">
+        <div className="h-48 rounded-lg overflow-hidden bg-bg-200 shrink-0">
           <Image
             src={imageSrc}
             alt={project.title}
@@ -40,17 +40,32 @@ export default function ProjectCard({ project }: { project: ProjectCardData }) {
           />
         </div>
 
-        <div className="mt-4 flex-1">
-          <h3 className="text-xl font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
+        <div className="mt-4 flex-1 min-h-0">
+          {project.tech.length > 0 ? (
+            <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+              {project.tech.slice(0, 3).map((t) => (
+                <span
+                  key={t}
+                  className="text-[11px] px-2 py-0.5 rounded-full bg-bg-200 border border-accent-100/15 text-paragraph/60"
+                >
+                  {t}
+                </span>
+              ))}
+              {project.tech.length > 3 ? (
+                <span className="text-[11px] text-paragraph/40">+{project.tech.length - 3}</span>
+              ) : null}
+            </div>
+          ) : null}
+          <h3 className="text-[1.15rem] leading-snug font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
             {project.title}
           </h3>
           {project.description ? (
-            <p className="text-sm text-paragraph mt-2 line-clamp-3">{project.description}</p>
+            <p className="text-[13px] leading-relaxed text-paragraph/75 mt-2.5 line-clamp-3">{project.description}</p>
           ) : null}
         </div>
 
-        <div className="mt-4">
-          <span className="inline-flex items-center gap-1.5 text-md font-bold text-link transition-colors duration-200 group-hover:text-accent-200">
+        <div className="mt-4 pt-3 border-t border-accent-100/10">
+          <span className="inline-flex items-center gap-1.5 text-[13px] font-bold text-link transition-colors duration-200 group-hover:text-accent-200">
             View
             <ArrowRightIcon
               width={14}

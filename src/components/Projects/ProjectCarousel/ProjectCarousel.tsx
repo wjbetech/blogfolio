@@ -25,7 +25,7 @@ const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(f
   return (
     <section className="">
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center pl-6">
           <h2 className="text-2xl font-semibold font-serif text-headline">Projects</h2>
           <CarouselControls
             onPrev={() => innerRef.current?.scrollLeft()}

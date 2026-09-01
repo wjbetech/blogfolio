@@ -44,11 +44,25 @@ const Carousel = React.forwardRef<CarouselHandle, CarouselProps>(
 
     return (
       // make container relative so absolute buttons are scoped here
-      <div className="relative">
+      <div className="relative group/carousel">
+        {/* edge fades hint that content is scrollable — subtle, theme-aware */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-bg-100 to-transparent z-[1] opacity-60 hidden sm:block"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-bg-100 to-transparent z-[1] opacity-60 hidden sm:block"
+        />
         <div
           ref={scroller}
-          {...dragHandlers}
-          className="flex overflow-x-auto no-scrollbar z-0 cursor-grab active:cursor-grabbing select-none"
+          onPointerDownCapture={dragHandlers.onPointerDown}
+          onPointerMoveCapture={dragHandlers.onPointerMove}
+          onPointerUp={dragHandlers.onPointerUp}
+          onPointerCancel={dragHandlers.onPointerCancel}
+          onClickCapture={dragHandlers.onClickCapture}
+          onDragStart={(e) => e.preventDefault()}
+          className="flex overflow-x-auto no-scrollbar z-0 cursor-grab active:cursor-grabbing select-none scroll-pb-2"
           style={{ gap, touchAction: "pan-y" as const }}>
           {children}
         </div>

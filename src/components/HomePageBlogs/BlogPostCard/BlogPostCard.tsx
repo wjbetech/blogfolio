@@ -10,7 +10,7 @@ import { formatShortDate } from "@/lib/date";
 
 const FALLBACK = "/images/assets/placeholder.png";
 
-export default function BlogPostCard({ card }: { card: BlogCardData }) {
+export default function BlogPostCard({ card, priority = false }: { card: BlogCardData; priority?: boolean }) {
   const [imgError, setImgError] = useState(false);
   const imageSrc = card.image && !imgError ? card.image : FALLBACK;
 
@@ -28,6 +28,8 @@ export default function BlogPostCard({ card }: { card: BlogCardData }) {
             alt={card.title}
             width={320}
             height={224}
+            sizes="(max-width: 640px) 80vw, 320px"
+            priority={priority}
             draggable={false}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04] select-none"
             onError={() => setImgError(true)}

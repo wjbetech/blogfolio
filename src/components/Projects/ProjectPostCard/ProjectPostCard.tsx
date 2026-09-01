@@ -10,7 +10,7 @@ import { trackAnalyticsEvent } from "@/lib/analytics";
 
 const FALLBACK = "/images/assets/placeholder.png";
 
-export default function ProjectCard({ project }: { project: ProjectCardData }) {
+export default function ProjectCard({ project, priority = false }: { project: ProjectCardData; priority?: boolean }) {
   const [imgError, setImgError] = useState(false);
   const imageSrc = project.image && !imgError ? project.image : FALLBACK;
 
@@ -32,8 +32,10 @@ export default function ProjectCard({ project }: { project: ProjectCardData }) {
           <Image
             src={imageSrc}
             alt={project.title}
-            width={280}
+            width={320}
             height={224}
+            sizes="(max-width: 640px) 80vw, 320px"
+            priority={priority}
             draggable={false}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04] select-none"
             onError={() => setImgError(true)}

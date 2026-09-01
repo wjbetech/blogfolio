@@ -40,8 +40,8 @@ const BlogCarousel = React.forwardRef<CarouselHandle, BlogCarouselProps>(functio
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {posts.map((post) => (
-          <BlogPostCard key={post.slug} card={post} />
+        {posts.map((post, idx) => (
+          <BlogPostCard key={post.slug} card={post} priority={idx < 2} />
         ))}
       </Carousel>
     </section>

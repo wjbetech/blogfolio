@@ -43,8 +43,8 @@ const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(f
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {projects.map((project, idx) => (
+          <ProjectCard key={project.slug} project={project} priority={idx < 2} />
         ))}
       </Carousel>
     </section>

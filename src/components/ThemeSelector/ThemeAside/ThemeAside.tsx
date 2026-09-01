@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import ThemeDrawer from "@/components/ThemeSelector/ThemeDrawer/ThemeDrawer";
-import useTheme from "@/hooks/useThemeHook";
+import { useTheme } from "@/lib/theme";
 
 export default function ThemeAside() {
   const [open, setOpen] = useState(false);

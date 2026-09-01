@@ -21,42 +21,34 @@ export default function BlogPostCard({ card }: { card: BlogCardData }) {
       onDragStart={(e) => e.preventDefault()}
       className="block w-80 shrink-0 group cursor-grab active:cursor-grabbing select-none"
     >
-      <Card className="h-110 p-6 gap-0 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:shadow-sm active:translate-y-0">
-        <div className="h-48 rounded-lg overflow-hidden bg-bg-200 shrink-0">
+      <Card className="h-110 p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
+        <div className="h-56 w-full overflow-hidden bg-bg-200 shrink-0">
           <Image
             src={imageSrc}
             alt={card.title}
             width={320}
-            height={192}
+            height={224}
             draggable={false}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] select-none"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04] select-none"
             onError={() => setImgError(true)}
           />
         </div>
-
-        <div className="mt-4 flex-1 min-h-0">
-          <div className="flex items-center gap-2 text-[11px] tracking-wide text-paragraph/55 mb-2.5">
+        <div className="p-6 flex flex-col flex-1 min-h-0">
+          <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-paragraph/45 mb-3">
             <time dateTime={card.publishedAt} className="tabular-nums">
               {formatShortDate(card.publishedAt)}
             </time>
             <span className="text-paragraph/20">·</span>
             <span>{card.readingTime} min</span>
-            {card.tags[0] ? (
-              <>
-                <span className="text-paragraph/20">·</span>
-                <span className="truncate max-w-[7rem]">{card.tags[0]}</span>
-              </>
-            ) : null}
           </div>
-          <h3 className="text-[1.15rem] leading-snug text-headline font-semibold line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
+          <h3 className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
             {card.title}
           </h3>
-          {card.snippet ? <p className="text-[13px] leading-relaxed text-paragraph/75 mt-2.5 line-clamp-3">{card.snippet}</p> : null}
-        </div>
-
-        <div className="mt-4 pt-3 border-t border-accent-100/10">
-          <span className="inline-flex items-center gap-1.5 text-[13px] text-link font-semibold transition-colors duration-200 group-hover:text-accent-200">
-            View
+          {card.snippet ? <p className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2">{card.snippet}</p> : null}
+          <div className="mt-auto pt-5 flex items-center gap-2 text-link font-semibold text-sm">
+            <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent-200 after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">
+              Read
+            </span>
             <ArrowRightIcon
               width={14}
               height={14}
@@ -64,7 +56,7 @@ export default function BlogPostCard({ card }: { card: BlogCardData }) {
               aria-hidden="true"
               className="transition-transform duration-200 group-hover:translate-x-1"
             />
-          </span>
+          </div>
         </div>
       </Card>
     </Link>

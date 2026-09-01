@@ -27,54 +27,36 @@ export default function ProjectCard({ project }: { project: ProjectCardData }) {
         })
       }
     >
-      <Card className="h-110 p-6 gap-0 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:-translate-y-1 active:shadow-sm active:translate-y-0">
-        <div className="h-48 rounded-lg overflow-hidden bg-bg-200 shrink-0">
+      <Card className="h-110 p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
+        <div className="h-56 w-full overflow-hidden bg-bg-200 shrink-0">
           <Image
             src={imageSrc}
             alt={project.title}
             width={280}
-            height={160}
+            height={224}
             draggable={false}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] select-none"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04] select-none"
             onError={() => setImgError(true)}
           />
         </div>
-
-        <div className="mt-4 flex-1 min-h-0">
+        <div className="p-6 flex flex-col flex-1 min-h-0">
           {project.tech.length > 0 ? (
-            <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+            <div className="flex flex-wrap gap-1.5 mb-3">
               {project.tech.slice(0, 3).map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] px-2 py-0.5 rounded-full bg-bg-200 border border-accent-100/15 text-paragraph/60"
-                >
+                <span key={t} className="text-[11px] font-mono px-2 py-1 rounded bg-bg-200 text-paragraph/60">
                   {t}
                 </span>
               ))}
-              {project.tech.length > 3 ? (
-                <span className="text-[11px] text-paragraph/40">+{project.tech.length - 3}</span>
-              ) : null}
+              {project.tech.length > 3 ? <span className="text-[11px] text-paragraph/40">+{project.tech.length - 3}</span> : null}
             </div>
           ) : null}
-          <h3 className="text-[1.15rem] leading-snug font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
+          <h3 className="font-serif text-[1.35rem] leading-tight font-semibold text-headline line-clamp-2 transition-colors duration-200 group-hover:text-accent-200">
             {project.title}
           </h3>
-          {project.description ? (
-            <p className="text-[13px] leading-relaxed text-paragraph/75 mt-2.5 line-clamp-3">{project.description}</p>
-          ) : null}
-        </div>
-
-        <div className="mt-4 pt-3 border-t border-accent-100/10">
-          <span className="inline-flex items-center gap-1.5 text-[13px] font-bold text-link transition-colors duration-200 group-hover:text-accent-200">
-            View
-            <ArrowRightIcon
-              width={14}
-              height={14}
-              strokeWidth={2.5}
-              aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            />
-          </span>
+          <p className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 flex-1">{project.description}</p>
+          <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm group-hover:gap-3 transition-all duration-200">
+            View <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" className="group-hover:translate-x-1 transition-transform duration-200" />
+          </div>
         </div>
       </Card>
     </Link>

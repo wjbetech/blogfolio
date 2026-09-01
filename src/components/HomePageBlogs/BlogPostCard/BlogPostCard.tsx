@@ -40,8 +40,12 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
             <time dateTime={card.publishedAt} className="tabular-nums shrink-0">
               {formatShortDate(card.publishedAt)}
             </time>
-            <span className="text-paragraph/20">·</span>
-            <span className="shrink-0">{card.readingTime} min</span>
+            {card.tags[0] ? (
+              <>
+                <span className="text-paragraph/20">·</span>
+                <span className="truncate max-w-[9rem]">{card.tags[0]}</span>
+              </>
+            ) : null}
           </div>
           <h3
             title={card.title}

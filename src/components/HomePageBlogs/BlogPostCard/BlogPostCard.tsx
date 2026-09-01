@@ -59,9 +59,7 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
             </p>
           ) : null}
           <div className="mt-auto pt-5 flex items-center gap-2 text-link font-semibold text-sm shrink-0">
-            <span className="relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-accent-200 after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:origin-left after:duration-300">
-              Read
-            </span>
+            <span>Read</span>
             <ArrowRightIcon
               width={14}
               height={14}

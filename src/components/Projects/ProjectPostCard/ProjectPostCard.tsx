@@ -61,8 +61,8 @@ export default function ProjectCard({ project, priority = false }: { project: Pr
           <p title={project.description} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-3 break-words [overflow-wrap:anywhere] overflow-hidden">
             {project.description}
           </p>
-          <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm group-hover:gap-3 transition-all duration-200 shrink-0">
-            View <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" className="group-hover:translate-x-1 transition-transform duration-200" />
+          <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm shrink-0">
+            View <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" />
           </div>
         </div>
       </Card>

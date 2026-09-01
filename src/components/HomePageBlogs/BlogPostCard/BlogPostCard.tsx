@@ -60,13 +60,7 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
           ) : null}
           <div className="mt-auto pt-5 flex items-center gap-2 text-link font-semibold text-sm shrink-0">
             <span>Read</span>
-            <ArrowRightIcon
-              width={14}
-              height={14}
-              strokeWidth={2.5}
-              aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            />
+            <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" />
           </div>
         </div>
       </Card>

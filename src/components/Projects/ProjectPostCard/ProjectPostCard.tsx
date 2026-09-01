@@ -27,8 +27,8 @@ export default function ProjectCard({ project, priority = false }: { project: Pr
         })
       }
     >
-      <Card className="h-110 p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
-        <div className="h-56 w-full overflow-hidden bg-bg-200 shrink-0">
+      <Card className="min-h-110 h-auto p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
+        <div className="h-48 w-full overflow-hidden bg-bg-200 shrink-0">
           <Image
             src={imageSrc}
             alt={project.title}
@@ -58,7 +58,7 @@ export default function ProjectCard({ project, priority = false }: { project: Pr
           >
             {project.title}
           </h3>
-          <p title={project.description} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden flex-1 min-h-0">
+          <p title={project.description} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-3 break-words [overflow-wrap:anywhere] overflow-hidden">
             {project.description}
           </p>
           <div className="mt-5 flex items-center gap-2 text-link font-bold text-sm group-hover:gap-3 transition-all duration-200 shrink-0">

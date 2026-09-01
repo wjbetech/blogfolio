@@ -21,8 +21,8 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
       onDragStart={(e) => e.preventDefault()}
       className="block w-80 shrink-0 group cursor-grab active:cursor-grabbing select-none"
     >
-      <Card className="h-110 p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
-        <div className="h-56 w-full overflow-hidden bg-bg-200 shrink-0">
+      <Card className="min-h-110 h-auto p-0 gap-0 overflow-hidden bg-card shadow-[0_1px_3px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 active:shadow-sm active:translate-y-0">
+        <div className="h-48 w-full overflow-hidden bg-bg-200 shrink-0">
           <Image
             src={imageSrc}
             alt={card.title}
@@ -50,7 +50,7 @@ export default function BlogPostCard({ card, priority = false }: { card: BlogCar
             {card.title}
           </h3>
           {card.snippet ? (
-            <p title={card.snippet} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] overflow-hidden">
+            <p title={card.snippet} className="text-[13px] leading-relaxed text-paragraph/70 mt-3 line-clamp-3 break-words [overflow-wrap:anywhere] overflow-hidden">
               {card.snippet}
             </p>
           ) : null}

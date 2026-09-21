@@ -2,21 +2,15 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 
-// Mock applyTheme side-effect helpers
-jest.mock("@/lib/applyTheme", () => ({
-  setThemeAttribute: jest.fn(),
-  removeThemeAttribute: jest.fn(),
-  saveThemeId: jest.fn(),
-  loadSavedThemeId: jest.fn(() => null)
-}));
-
 // Mock next/navigation usePathname used by Navbar
 jest.mock("next/navigation", () => ({ usePathname: () => "/" }));
 
-import * as lib from "@/lib/applyTheme";
-
 describe("Theme interaction", () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.removeAttribute("data-theme");
+    jest.clearAllMocks();
+  });
 
   it("applies theme when palette is clicked", async () => {
     render(<ThemeAside />);
@@ -36,8 +30,8 @@ describe("Theme interaction", () => {
     fireEvent.click(paletteButton);
 
     await waitFor(() => {
-      expect(lib.setThemeAttribute).toHaveBeenCalledWith("welcome");
-      expect(lib.saveThemeId).toHaveBeenCalledWith("welcome");
+      expect(document.documentElement.getAttribute("data-theme")).toBe("welcome");
+      expect(localStorage.getItem("site:theme")).toBe("welcome");
     });
   });
 });

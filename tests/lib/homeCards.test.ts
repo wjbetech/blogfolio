@@ -15,6 +15,9 @@ jest.mock("contentlayer/generated", () => ({
       coverImage: "",
       images: [],
       status: "published",
+      publishedAt: "2025-01-01",
+      readingTime: 5,
+      tags: ["nextjs"],
       body: { raw: "First paragraph.\n\nSecond paragraph." }
     },
     {
@@ -24,6 +27,9 @@ jest.mock("contentlayer/generated", () => ({
       coverImage: "",
       images: [],
       status: "draft",
+      publishedAt: "2025-01-02",
+      readingTime: 3,
+      tags: [],
       body: { raw: "Confidential draft body" }
     }
   ],
@@ -33,6 +39,7 @@ jest.mock("contentlayer/generated", () => ({
       title: "Published Project",
       description: "A project",
       images: ["2.settings.png", "1.home.png"],
+      tech: ["Next.js", "TypeScript"],
       status: "published"
     },
     {
@@ -40,6 +47,7 @@ jest.mock("contentlayer/generated", () => ({
       title: "Draft Project",
       description: "Hidden",
       images: [],
+      tech: [],
       status: "draft"
     }
   ]
@@ -53,12 +61,15 @@ describe("homeCards", () => {
 
   it("shapes blog cards with snippet and empty image fallback", () => {
     const [card] = getPublishedBlogCards();
-    expect(card).toEqual({
+    expect(card).toMatchObject({
       slug: "published-post",
       title: "Published Post",
       snippet: "Live excerpt",
       image: ""
     });
+    expect(card.publishedAt).toBeDefined();
+    expect(card.readingTime).toBeDefined();
+    expect(Array.isArray(card.tags)).toBe(true);
   });
 
   it("prefers coverImage then first image for blog cards", () => {
@@ -67,6 +78,9 @@ describe("homeCards", () => {
       title: "t",
       coverImage: "/cover.png",
       images: ["/first.png", "/second.png"],
+      publishedAt: "2025-01-01",
+      readingTime: 4,
+      tags: [],
       body: { raw: "text" }
     } as unknown as Post;
     expect(getBlogCardData(post).image).toBe("/cover.png");
@@ -83,5 +97,6 @@ describe("homeCards", () => {
   it("shapes project cards with the primary ordered image", () => {
     const [card] = getPublishedProjectCards();
     expect(card.image).toBe("1.home.png");
+    expect(Array.isArray(card.tech)).toBe(true);
   });
 });

@@ -1,35 +1,5 @@
-export function setThemeAttribute(id: string): void {
-  try {
-    document.documentElement.setAttribute("data-theme", id);
-  } catch (error) {
-    console.error("setThemeAttribute error", error);
-  }
-}
-
-export function removeThemeAttribute(): void {
-  try {
-    document.documentElement.removeAttribute("data-theme");
-  } catch (error) {
-    console.error("removeThemeAttribute error", error);
-  }
-}
-
-export function saveThemeId(id: string | null): void {
-  try {
-    if (id === null) {
-      localStorage.removeItem("site:theme");
-    } else {
-      localStorage.setItem("site:theme", id);
-    }
-  } catch (error) {
-    console.error("saveThemeId localStorage error", error);
-  }
-}
-
-export function loadSavedThemeId(): string | null {
-  try {
-    return localStorage.getItem("site:theme");
-  } catch {
-    return null;
-  }
-}
+// Deprecated re-export — deep Theme module lives at src/lib/theme/
+// This file remains for backward compat; new code should import from "@/lib/theme".
+export { setThemeAttribute, removeThemeAttribute } from "./theme/dom";
+export { saveThemeId, loadSavedThemeId, STORAGE_KEY } from "./theme/storage";
+export { THEME_ATTRIBUTE } from "./theme/dom";

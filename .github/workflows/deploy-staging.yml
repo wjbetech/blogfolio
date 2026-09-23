@@ -79,4 +79,11 @@ jobs:
       - name: Deploy separate staging stack
         run: docker compose -p blogfolio-staging -f docker-compose.staging.yml up -d --pull always
       - name: Check staging app on the homelab
-        run: curl --fail --silent --show-error http://127.0.0.1:3001/ --output /dev/null
+        run: |
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3001/ --output /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          curl --fail --show-error http://127.0.0.1:3001/ --output /dev/null

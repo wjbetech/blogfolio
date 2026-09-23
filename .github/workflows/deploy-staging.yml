@@ -67,7 +67,6 @@ jobs:
       packages: read
     env:
       BLOGFOLIO_STAGING_IMAGE_TAG: staging-${{ github.sha }}
-      CLOUDFLARE_STAGING_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_TUNNEL_TOKEN }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Log in to GHCR
@@ -77,6 +76,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy separate staging stack
+        env:
+          CLOUDFLARE_STAGING_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_STAGING_TUNNEL_TOKEN }}
         run: docker compose -p blogfolio-staging -f docker-compose.staging.yml up -d --pull always
       - name: Check staging app on the homelab
         run: |

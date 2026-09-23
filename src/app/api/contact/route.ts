@@ -32,6 +32,10 @@ function getClientIp(request: NextRequest): string {
 }
 
 export async function POST(request: NextRequest) {
+  if (process.env.DEPLOYMENT_ENV === "staging") {
+    return NextResponse.json({ error: "Contact is unavailable on the staging site." }, { status: 503 });
+  }
+
   if (isRateLimited(getClientIp(request), RATE_LIMIT, RATE_WINDOW_MS)) {
     return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
   }

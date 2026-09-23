@@ -2,6 +2,8 @@
 
 Blogfolio is deployed to an operational homelab. The production path is Docker image publication to GitHub Container Registry followed by a self-hosted GitHub Actions runner pulling the image and restarting Docker Compose. Cloudflare Tunnel provides public access without inbound router ports.
 
+The staging stack has its own workflow, image tag, Compose project, and tunnel. See [staging.md](./staging.md).
+
 ## Actual workflow files
 
 ### `ci-content-validation.yml`

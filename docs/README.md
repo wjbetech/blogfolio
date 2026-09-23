@@ -19,6 +19,7 @@ Planned work is explicitly labelled as planned. These documents do not imply tha
 | [architecture.md](./architecture.md) | Stack, repository structure, routes, data flow, and architectural conventions |
 | [hosting.md](./hosting.md) | The operational homelab, Docker, Cloudflare Tunnel, and production topology |
 | [deployment.md](./deployment.md) | The actual GitHub Actions, GHCR, and homelab deployment workflow |
+| [staging.md](./staging.md) | Staging stack, one-time tunnel setup, and branch workflow |
 | [media.md](./media.md) | Image storage, naming, ordering, and rendering conventions |
 | [seo.md](./seo.md) | Metadata, canonical URLs, RSS, sitemap, robots, and structured data |
 | [design-system.md](./design-system.md) | Theme tokens, typography, current styling conventions, and planned article styling |

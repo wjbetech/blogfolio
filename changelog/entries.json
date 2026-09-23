@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-09-23",
+    "version": "1.19.0",
+    "changes": [
+      {
+        "category": "Feature",
+        "description": "Added an isolated staging deployment at staging.wjbeast.com, with its own image, Compose stack, Cloudflare Tunnel, and branch workflow."
+      },
+      {
+        "category": "Improvement",
+        "description": "Disabled contact mail and search indexing on staging."
+      }
+    ]
+  },
+  {
     "date": "2026-08-28",
     "version": "1.18.0",
     "changes": [

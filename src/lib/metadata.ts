@@ -42,6 +42,7 @@ const buildMetadata = (options: {
     title: options.title,
     description: normalizeDescription(options.description),
     metadataBase,
+    robots: process.env.DEPLOYMENT_ENV === "staging" ? { index: false, follow: false } : undefined,
     alternates: {
       canonical,
       types: {

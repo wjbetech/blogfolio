@@ -158,7 +158,8 @@ const config = {
     "^contentlayer/generated$": "<rootDir>/tests/mocks/contentlayer.ts",
     "\\.(css|less|sass|scss)$": "<rootDir>/tests/mocks/styleMock.js"
   },
-  testMatch: ["<rootDir>/tests/**/*.test.[jt]s?(x)"],
+  roots: ["<rootDir>/src", "<rootDir>/tests"],
+  testMatch: ["**/tests/**/*.test.[jt]s?(x)"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
   coverageProvider: "v8",
   // Floors set just under the current measured baseline (2026-08) so CI fails

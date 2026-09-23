@@ -22,6 +22,8 @@ COPY . .
 # Override NEXT_PUBLIC_SITE_URL when building for production.
 ARG NEXT_PUBLIC_SITE_URL=https://wjbeast.com
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ARG DEPLOYMENT_ENV=production
+ENV DEPLOYMENT_ENV=$DEPLOYMENT_ENV
 
 # next.config.ts must have output: "standalone" for this to work.
 ENV NEXT_TELEMETRY_DISABLED=1

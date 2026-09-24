@@ -12,8 +12,8 @@ export const ColorThemes: ColorTheme[] = [
     button: "#84a98c",
     buttonText: "#fffffe",
     link: "#344e41",
-    "accent-100": "#a7c7e7",
-    "accent-200": "#f2cc8f",
+    "accent-100": "#47698A",
+    "accent-200": "#83560f",
     "accent-300": "#e07a5f"
   },
   {
@@ -178,7 +178,7 @@ export const ColorThemes: ColorTheme[] = [
     buttonText: "#272343",
     link: "#4b78c2",
     "accent-100": "#3fa66b",
-    "accent-200": "#7fb7e6",
+    "accent-200": "#4B6F91",
     "accent-300": "#db9600",
     "palette-border": "#ffd803"
   },
@@ -226,7 +226,7 @@ export const ColorThemes: ColorTheme[] = [
     buttonText: "#fffffe",
     link: "#05231d",
     "accent-100": "#4ea8a1",
-    "accent-200": "#4f8454",
+    "accent-200": "#2F5733",
     "accent-300": "#d19c00",
     "palette-border": "#3a7d5c"
   },
@@ -274,7 +274,7 @@ export const ColorThemes: ColorTheme[] = [
     buttonText: "#fff6e5",
     link: "#7c1d1d",
     "accent-100": "#f5c16c",
-    "accent-200": "#6fa58c",
+    "accent-200": "#486F5A",
     "accent-300": "#f43f5e",
     "palette-border": "#c81e1e"
   },
@@ -290,7 +290,7 @@ export const ColorThemes: ColorTheme[] = [
     buttonText: "#f5f2eb",
     link: "#b7c8d6",
     "accent-100": "#7a8572",
-    "accent-200": "#6c6551",
+    "accent-200": "#9A906F",
     "accent-300": "#8d5d26",
     "palette-border": "#7f5d3b"
   },
@@ -305,9 +305,9 @@ export const ColorThemes: ColorTheme[] = [
     button: "#8478ba",
     buttonText: "#ffffff",
     link: "#6458bf",
-    "accent-100": "#6d62bc",
-    "accent-200": "#405b88",
-    "accent-300": "#a95bff",
+    "accent-100": "#41348F",
+    "accent-200": "#233E7C",
+    "accent-300": "#5D2D8A",
     "palette-border": "#7c6fd8"
   },
   {
@@ -317,13 +317,13 @@ export const ColorThemes: ColorTheme[] = [
     "bg-200": "#383378",
     "bg-300": "#2b273b",
     headline: "#a48cf9",
-    paragraph: "#a1b89b",
+    paragraph: "#B4D99A",
     button: "#9dc398",
     buttonText: "#062220",
     link: "#9dc398",
-    "accent-100": "#5c7ea9",
-    "accent-200": "#947cbf",
-    "accent-300": "#678499",
+    "accent-100": "#718FCB",
+    "accent-200": "#FF956E",
+    "accent-300": "#64BBD4",
     "palette-border": "#2fb3a8"
   }
 ];

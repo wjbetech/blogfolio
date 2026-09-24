@@ -33,7 +33,7 @@ export default function BlogPostCard({ card }: { card: BlogCardData }) {
         </div>
 
         <div className="mt-4">
-          <span className="inline-flex items-center gap-1 text-link font-semibold">
+          <span className="inline-flex items-center gap-1 text-accent-200 font-semibold">
             View
             <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" />
           </span>

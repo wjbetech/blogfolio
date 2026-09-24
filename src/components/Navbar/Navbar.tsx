@@ -3,83 +3,55 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { trackAnalyticsEvent } from "@/lib/analytics";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
 import HamburgerIcon from "../Icons/HamburgerIcon";
 
-export default function Navbar({
-  onToggle,
-  isDrawerOpen
-}: {
-  onToggle?: () => void;
-  isDrawerOpen?: boolean;
-  activePalette?: string | null;
-}) {
-  const pathname = usePathname();
+const navLinks = [
+  { id: "home", href: "/", label: "Home" },
+  { id: "dev", href: "/dev", label: "Dev" },
+  { id: "language", href: "/language-services", label: "Language" },
+  { id: "blog", href: "/blog", label: "Blog" }
+];
+
+export default function Navbar({ onToggle, isDrawerOpen }: { onToggle?: () => void; isDrawerOpen?: boolean; activePalette?: string | null }) {
+  const pathname = usePathname() ?? "";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
   const mobileNavId = useId();
-  const currentPath = pathname ?? "";
   const isActiveLink = (href: string) =>
-    href === "/blog" ? currentPath === "/blog" || currentPath.startsWith("/blog/") : currentPath === href;
+    href === "/blog" || href === "/dev" || href === "/language-services"
+      ? pathname === href || pathname.startsWith(`${href}/`)
+      : pathname === href;
 
-  const navLinks = [
-    { id: "1", href: "/", label: "Home" },
-    { id: "2", href: "/blog", label: "Blog" },
-    { id: "3", href: "/dev", label: "Dev" },
-    { id: "4", href: "/language-services", label: "Language" },
-    { id: "5", href: "/contact", label: "Contact" }
-  ];
-
-  const handleLinkClick = (href?: string, surface: "desktop" | "mobile" = "mobile") => {
-    if (href === "/contact") {
-      trackAnalyticsEvent("Contact Click", {
-        surface: `navbar_${surface}`,
-        target: href
-      });
-    }
-
-    setMobileMenuOpen(false);
-  };
+  const handleLinkClick = () => setMobileMenuOpen(false);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-
     const menu = mobileMenuRef.current;
     const mobileButton = mobileButtonRef.current;
-    const focusableSelector =
-      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const firstFocusable = menu?.querySelector<HTMLElement>(focusableSelector);
-    firstFocusable?.focus();
-
+    const focusableSelector = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    menu?.querySelector<HTMLElement>(focusableSelector)?.focus();
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMobileMenuOpen(false);
         return;
       }
-
       if (event.key !== "Tab" || !menu) return;
-
       const focusable = Array.from(menu.querySelectorAll<HTMLElement>(focusableSelector));
-      if (focusable.length === 0) return;
-
+      if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-
       if (!event.shiftKey && document.activeElement === last) {
         first.focus();
         event.preventDefault();
       }
-
       if (event.shiftKey && document.activeElement === first) {
         last.focus();
         event.preventDefault();
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       mobileButton?.focus();
@@ -87,108 +59,29 @@ export default function Navbar({
   }, [mobileMenuOpen]);
 
   return (
-    <header className="relative isolate z-50 px-6" style={{ willChange: "transform", backfaceVisibility: "hidden" }}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between h-20">
-        <Link href="/" className="text-xl sm:text-2xl font-bold font-serif text-headline">
-          William East
-        </Link>
-
-        <div className="relative z-50 flex items-center gap-4">
-          {/* Desktop Navigation - hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Primary navigation">
+    <header className="relative isolate z-50 px-4 sm:px-6" style={{ willChange: "transform", backfaceVisibility: "hidden" }}>
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between">
+        <Link href="/" onClick={handleLinkClick} className="text-xl font-bold tracking-tight text-headline sm:text-2xl">William East</Link>
+        <div className="relative z-50 flex items-center gap-3">
+          <nav className="hidden items-center gap-2 md:flex" aria-label="Primary navigation">
             {navLinks.map((link) => {
               const active = isActiveLink(link.href);
-
-              return (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  onClick={() => handleLinkClick(link.href, "desktop")}
-                  style={{
-                    transition: "none",
-                    color: active ? "var(--headline)" : "var(--accent-200)"
-                  }}
-                  aria-current={active ? "page" : undefined}
-                  className={`flex items-baseline gap-2 relative pb-1 text-sm lg:text-lg font-serif ${
-                    active
-                      ? "font-semibold after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-100/50 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                      : "after:absolute after:bottom-px after:left-0 after:right-0 after:h-3 after:bg-accent-200/50 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                  }`}>
-                  <span className="text-xs font-normal text-paragraph" style={{ transition: "none" }}>
-                    0{link.id}
-                  </span>
-                  <span style={{ transition: "none" }}>{link.label}</span>
-                </Link>
-              );
+              return <Link key={link.id} href={link.href} onClick={handleLinkClick} aria-current={active ? "page" : undefined} className={`relative px-3 py-2 text-sm font-medium transition-colors after:absolute after:bottom-px after:left-2 after:right-3 after:h-3 after:origin-left after:transition-transform after:-z-10 ${active ? "font-semibold text-headline after:scale-x-100 after:bg-accent-100/50" : "text-accent-200 after:scale-x-0 after:invisible after:bg-accent-200/50 hover:after:scale-x-100 hover:after:visible"}`}>{link.label}</Link>;
             })}
           </nav>
-
-          {/* Mobile Menu Button - visible on mobile only */}
-          <button
-            ref={mobileButtonRef}
-            type="button"
-            aria-label="Toggle mobile menu"
-            aria-controls={mobileNavId}
-            aria-expanded={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden cursor-pointer p-0">
+          <button ref={mobileButtonRef} type="button" aria-label="Toggle mobile menu" aria-controls={mobileNavId} aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="cursor-pointer p-0 md:hidden">
             <HamburgerIcon open={mobileMenuOpen} />
           </button>
-
-          {/* Theme Toggle Button */}
-          <button
-            type="button"
-            aria-label="Theme settings"
-            aria-expanded={isDrawerOpen}
-            aria-controls="theme-drawer"
-            onClick={() => onToggle?.()}
-            className="rounded-full w-6 h-6 flex items-center justify-center cursor-pointer p-0">
-            <ColorPaletteIcon className="text-accent-100 w-full h-full -translate-y-px" />
+          <button type="button" aria-label="Theme settings" aria-expanded={isDrawerOpen} aria-controls="theme-drawer" onClick={() => onToggle?.()} className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full p-0">
+            <ColorPaletteIcon className="h-full w-full -translate-y-px text-accent-100" />
           </button>
         </div>
       </div>
-
-      {/* Mobile Menu Modal - full width, half screen height */}
-      <div
-        className={`md:hidden fixed left-0 right-0 top-20 h-[50vh] z-40 bg-bg-100 border-b border-accent-200/20 transition duration-300 ease-out ${
-          mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
-        }`}
-        role="presentation"
-        aria-hidden={!mobileMenuOpen}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) {
-            setMobileMenuOpen(false);
-          }
-        }}>
-        <nav
-          id={mobileNavId}
-          ref={mobileMenuRef}
-          aria-label="Mobile navigation"
-          aria-hidden={!mobileMenuOpen}
-          className="flex flex-col h-full justify-center items-start px-8 gap-8">
+      <div className={`fixed left-0 right-0 top-[4.5rem] z-40 h-[50vh] border-b border-accent-200/20 bg-bg-100 transition duration-300 ease-out md:hidden ${mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full pointer-events-none opacity-0"}`} role="presentation" aria-hidden={!mobileMenuOpen} onClick={(event) => { if (event.target === event.currentTarget) setMobileMenuOpen(false); }}>
+        <nav id={mobileNavId} ref={mobileMenuRef} aria-label="Mobile navigation" aria-hidden={!mobileMenuOpen} className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-3 px-6 sm:px-8">
           {navLinks.map((link) => {
-            const isBlogLink = link.href === "/blog";
-            const active = isBlogLink ? pathname === "/blog" || pathname?.startsWith("/blog/") : pathname === link.href;
-
-            return (
-              <Link
-                key={link.id}
-                href={link.href}
-                onClick={() => handleLinkClick(link.href, "mobile")}
-                style={{ transition: "none" }}
-                tabIndex={mobileMenuOpen ? undefined : -1}
-                className={`flex items-baseline gap-4 text-xl font-bold relative pb-2 ${
-                  active
-                    ? "text-headline after:absolute after:bottom-1 after:left-0 after:right-0 after:h-3 after:bg-accent-100 after:origin-left after:transform after:scale-x-100 after:-z-10"
-                    : "text-paragraph after:absolute after:bottom-1 after:left-0 after:right-0 after:h-3 after:bg-accent-200 after:origin-left after:transform after:scale-x-0 after:invisible hover:after:scale-x-100 hover:after:visible after:-z-10"
-                }`}
-                aria-current={active ? "page" : undefined}>
-                <span className="text-sm font-normal text-paragraph opacity-60" style={{ transition: "none" }}>
-                  0{link.id}
-                </span>
-                <span style={{ transition: "none" }}>{link.label}</span>
-              </Link>
-            );
+            const active = isActiveLink(link.href);
+            return <Link key={link.id} href={link.href} onClick={handleLinkClick} tabIndex={mobileMenuOpen ? undefined : -1} aria-current={active ? "page" : undefined} className={`rounded-xl border px-5 py-4 text-xl font-semibold transition-colors ${active ? "border-accent-200/40 bg-bg-200 text-headline" : "border-palette-border/50 text-paragraph hover:bg-bg-200/70"}`}>{link.label}</Link>;
           })}
         </nav>
       </div>

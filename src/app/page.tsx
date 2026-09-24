@@ -1,4 +1,4 @@
-import HomeDesigns from "@/components/HomeDesigns/HomeDesigns";
+import StudioHomepage from "@/components/HomeDesigns/StudioHomepage";
 import { createPersonJsonLd, createWebSiteJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 import { getPublishedBlogCards, getPublishedProjectCards } from "@/lib/homeCards";
 
@@ -16,7 +16,7 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(personJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(webSiteJsonLd) }} />
 
-      <HomeDesigns posts={blogCards} projects={projectCards} />
+      <StudioHomepage posts={blogCards} projects={projectCards} />
     </div>
   );
 }

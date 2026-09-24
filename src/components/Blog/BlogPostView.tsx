@@ -53,15 +53,6 @@ export default function BlogPostView({ post, allPosts }: Props) {
 
   return (
     <article className="mx-auto w-full max-w-7xl">
-      <div className="mb-8">
-        <Link href="/blog">
-          <Button variant="ghost" className="gap-2 text-link hover:text-headline cursor-pointer">
-            <ArrowLeftIcon className="w-4 h-4" />
-            Back to all blogs
-          </Button>
-        </Link>
-      </div>
-
       {/* Title section — dramatic serif title + horizontal meta bar, aligned to navbar */}
       <header className="mx-auto max-w-7xl space-y-4 sm:space-y-5 mt-6 sm:mt-10 mb-8 sm:mb-14">
         <h1 className="font-serif text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] sm:leading-[0.92] tracking-tight text-balance text-headline">

@@ -3,18 +3,33 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
 import ColorPaletteIcon from "../Icons/ColorPaletteIcon";
 import HamburgerIcon from "../Icons/HamburgerIcon";
 
 const navLinks = [
-  { id: "home", href: "/", label: "Home" },
+  { id: "blog", href: "/blog", label: "Blog" },
   { id: "dev", href: "/dev", label: "Dev" },
   { id: "language", href: "/language-services", label: "Language" },
-  { id: "blog", href: "/blog", label: "Blog" }
+  { id: "contact", href: "/contact", label: "Contact" }
 ];
+
+function getRouteFallback(pathname: string) {
+  if (pathname === "/") return "William East";
+  if (pathname.startsWith("/dev")) return "Dev";
+  if (pathname.startsWith("/language-services")) return "Language Services";
+  if (pathname.startsWith("/blog")) return "Blog";
+  if (pathname.startsWith("/contact")) return "Get in Touch";
+  if (pathname.startsWith("/font-playground")) return "Font Playground";
+  return "Blogfolio";
+}
 
 export default function Navbar({ onToggle, isDrawerOpen }: { onToggle?: () => void; isDrawerOpen?: boolean; activePalette?: string | null }) {
   const pathname = usePathname() ?? "";
+  const isBlogPost = pathname.startsWith("/blog/");
+  const isDevProject = pathname.startsWith("/dev/");
+  const hasBackLink = isBlogPost || isDevProject;
+  const [heading, setHeading] = useState<{ pathname: string; text: string } | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLElement>(null);
@@ -25,6 +40,26 @@ export default function Navbar({ onToggle, isDrawerOpen }: { onToggle?: () => vo
       : pathname === href;
 
   const handleLinkClick = () => setMobileMenuOpen(false);
+
+  useEffect(() => {
+    if (pathname === "/") return;
+
+    const main = document.querySelector("main");
+    if (!main) return;
+
+    const updateHeading = () => {
+      const text = main.querySelector("h1")?.textContent?.replace(/\s+/g, " ").trim();
+      if (text) setHeading((current) => (current?.pathname === pathname && current.text === text ? current : { pathname, text }));
+    };
+
+    const frame = requestAnimationFrame(updateHeading);
+    const observer = new MutationObserver(updateHeading);
+    observer.observe(main, { childList: true, characterData: true, subtree: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -61,7 +96,23 @@ export default function Navbar({ onToggle, isDrawerOpen }: { onToggle?: () => vo
   return (
     <header className="relative isolate z-50 px-4 sm:px-6" style={{ willChange: "transform", backfaceVisibility: "hidden" }}>
       <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between">
-        <Link href="/" onClick={handleLinkClick} className="text-xl font-bold tracking-tight text-headline sm:text-2xl">William East</Link>
+        <Link
+          href={isBlogPost ? "/blog" : isDevProject ? "/dev" : "/"}
+          onClick={handleLinkClick}
+          aria-label={isBlogPost ? "Back to all blogs" : isDevProject ? "Back to all projects" : pathname === "/" ? "William East home" : `Return home from ${heading?.pathname === pathname ? heading.text : getRouteFallback(pathname)}`}
+          title={isBlogPost ? "Back to all blogs" : isDevProject ? "Back to all projects" : heading?.pathname === pathname ? heading.text : getRouteFallback(pathname)}
+          className={`inline-flex min-w-0 items-center gap-2 truncate font-bold tracking-tight text-headline ${
+            hasBackLink ? "max-w-[60%] text-base sm:text-lg" : "max-w-[50%] text-xl sm:text-2xl"
+          }`}>
+          {hasBackLink ? (
+            <>
+              <ArrowLeftIcon className="size-4 shrink-0" />
+              <span className="truncate">{isBlogPost ? "Back to all blogs" : "Back to all projects"}</span>
+            </>
+          ) : (
+            heading?.pathname === pathname ? heading.text : getRouteFallback(pathname)
+          )}
+        </Link>
         <div className="relative z-50 flex items-center gap-3">
           <nav className="hidden items-center gap-2 md:flex" aria-label="Primary navigation">
             {navLinks.map((link) => {

@@ -60,25 +60,11 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
       {/* JSON-LD (application/ld+json) is data, not executable script — no CSP nonce needed. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
 
-      {/* ── Back link ── */}
-      <nav className="pt-2 md:pt-4 animate-in fade-in animation-duration-[700ms] fill-mode-backwards">
-        <Link
-          href="/dev"
-          className="group inline-flex items-center gap-2 font-sans text-sm text-paragraph hover:text-headline transition-colors duration-300">
-          <IconArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-          Back to all projects
-        </Link>
-      </nav>
-
       {/* ── Editorial header ── */}
       <header className="mt-10 md:mt-16">
-        <h1 className="mt-8 md:mt-10 font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95] text-headline animate-in fade-in slide-in-from-bottom-6 animation-duration-[900ms] animation-delay-[100ms] fill-mode-backwards">
+        <h1 className="font-serif text-4xl font-semibold tracking-tight text-headline md:text-5xl animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[150ms] fill-mode-backwards">
           {project.title}
         </h1>
-
-        <p className="mt-6 md:mt-8 max-w-2xl text-lg md:text-xl text-paragraph leading-relaxed animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[250ms] fill-mode-backwards">
-          {project.description}
-        </p>
       </header>
 
       {/* ── Meta strip ── */}
@@ -109,7 +95,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
             {project.tech.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono">
+                className="px-2.5 py-0.5 bg-bg-100/60 border border-accent-100/10 text-sm leading-5 text-paragraph/65 font-mono">
                 {tag}
               </span>
             ))}
@@ -215,15 +201,6 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
         </div>
       </nav>
 
-      {/* ── Footer back link ── */}
-      <footer className="mt-4 mb-16 border-t border-paragraph/15 pt-8">
-        <Link
-          href="/dev"
-          className="group inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.25em] text-paragraph/70 hover:text-headline transition-colors duration-300">
-          <IconArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-          Back to all projects
-        </Link>
-      </footer>
     </article>
   );
 }

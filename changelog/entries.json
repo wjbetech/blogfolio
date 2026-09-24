@@ -5,11 +5,11 @@
     "changes": [
       {
         "category": "Feature",
-        "description": "Added an isolated staging deployment at staging.wjbeast.com, with its own image, Compose stack, Cloudflare Tunnel, and branch workflow."
+        "description": "Added an isolated preview deployment with its own image, service stack, secure tunnel, and branch workflow."
       },
       {
         "category": "Improvement",
-        "description": "Disabled contact mail and search indexing on staging."
+        "description": "Disabled contact mail and search indexing on preview deployments."
       }
     ]
   },

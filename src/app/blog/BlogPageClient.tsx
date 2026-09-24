@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IconArrowRight, IconCalendar, IconClock } from "@tabler/icons-react";
 import type { Post } from "contentlayer/generated";
 import ChevronRightIcon from "@/components/Icons/ChevronRightIcon";
+import CardAtmosphere from "@/components/ui/CardAtmosphere";
 import { getPostSnippet } from "@/lib/post";
 import { getPublishedPosts } from "@/lib/content";
 import { formatShortDate } from "@/lib/date";
@@ -47,7 +48,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
     return (
       <div>
         <header className="pb-10 space-y-3">
-          <h1 className="text-4xl font-bold font-serif text-headline tracking-tight">Blog</h1>
+          <h1 className="sr-only">Blog</h1>
           <p className="text-base text-paragraph max-w-lg leading-relaxed">No posts yet — check back soon.</p>
         </header>
       </div>
@@ -76,16 +77,19 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
   return (
     <div className="pb-8">
       <header className="pb-10 space-y-3">
-        <h1 className="text-4xl font-bold font-serif text-headline tracking-tight">Blog</h1>
+        <h1 className="sr-only">Blog</h1>
         <p className="text-base text-paragraph max-w-lg leading-relaxed">Notes on software, life and work in Korea.</p>
       </header>
 
       <div className="flex gap-14 lg:gap-16">
         <section className="flex-1 min-w-0">
           {safeCurrentPage === 1 && !selectedTag && featuredPost && (
-            <Link href={`/blog/${featuredPost.slug}`} className="group block mb-8">
-              <article className="bg-bg-200/60 border border-accent-100/10 transition-shadow duration-300 hover:shadow-lg p-6 md:p-8">
-                <div className="flex flex-col gap-4">
+            <Link
+              href={`/blog/${featuredPost.slug}`}
+              className="group/card mb-8 block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-200 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-100">
+              <article className="relative isolate overflow-hidden rounded-xl border border-accent-100/15 bg-bg-200/65 p-6 shadow-sm transition-[border-color,background-color,box-shadow] duration-300 group-hover/card:border-accent-200/40 group-hover/card:bg-bg-200/90 group-hover/card:shadow-[0_16px_42px_-26px_var(--accent-200)] motion-reduce:transition-none md:p-8">
+                <CardAtmosphere />
+                <div className="relative z-30 flex flex-col gap-4">
                   <div className="flex items-center gap-4 text-sm text-paragraph/70">
                     <time className="tabular-nums">{formatDate(featuredPost.publishedAt)}</time>
                     <span className="text-[13px] flex items-center gap-2 text-paragraph/60">
@@ -116,7 +120,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                   <div className="mt-4">
                     <div className="flex items-center gap-3">
                       <span className="text-sm text-link font-medium">Read full article</span>
-                      <IconArrowRight className="h-4 w-4 text-accent-200" />
+                      <IconArrowRight className="h-4 w-4 text-accent-200 transition-transform duration-300 group-hover/card:translate-x-1 motion-reduce:transition-none" />
                     </div>
                   </div>
                 </div>
@@ -138,45 +142,45 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
           )}
 
           <div className="space-y-4">
-            {visiblePosts.map((post, i) => {
+            {visiblePosts.map((post) => {
               const dateLabel = formatDate(post.publishedAt);
               return (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group block bg-bg-200 px-2">
-                  <article
-                    className={`flex items-start gap-5 py-6 transition-colors duration-200 ${
-                      i < visiblePosts.length - 1 ? "border-b border-accent-100/15" : ""
-                    }`}>
-                    <div className="hidden sm:block w-24 shrink-0 pl-4">
-                      <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
-                        {dateLabel}
-                      </time>
-                    </div>
-
-                    <div className="flex-1 min-w-0 space-y-2">
-                      <h3 className="text-xl font-semibold text-headline leading-snug group-hover:text-accent-200 transition-colors duration-200">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-paragraph/80 leading-relaxed line-clamp-2">
-                        {getPostSnippet(post, 160)}
-                      </p>
-                      <div className="flex items-center gap-3 pt-1">
-                        <span className="sm:hidden text-[11px] text-paragraph/50 flex items-center gap-1">
-                          <IconCalendar className="h-3 w-3" />
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="group/card block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-200 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-100">
+                  <article className="relative isolate overflow-hidden rounded-xl border border-accent-100/12 bg-bg-200/55 p-5 shadow-sm transition-[border-color,background-color,box-shadow] duration-300 group-hover/card:border-accent-200/40 group-hover/card:bg-bg-200/85 group-hover/card:shadow-[0_14px_36px_-26px_var(--accent-200)] motion-reduce:transition-none sm:p-6">
+                    <CardAtmosphere />
+                    <div className="relative z-30 flex items-start gap-5">
+                      <div className="hidden w-24 shrink-0 pl-1 pt-1 sm:block">
+                        <time className="text-xs text-paragraph/60 tabular-nums" dateTime={post.publishedAt}>
                           {dateLabel}
-                        </span>
-                        <span className="text-[11px] text-paragraph/50 flex items-center gap-1">
-                          <IconClock className="h-3 w-3" /> {post.readingTime} min
-                        </span>
-                        {(post.tags ?? []).slice(0, 2).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[11px] px-2 py-0.5 rounded-full border border-accent-100/20 text-paragraph/50">
-                            {tag}
+                        </time>
+                      </div>
+
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <h3 className="text-xl font-semibold leading-snug text-headline transition-colors duration-200 group-hover/card:text-accent-200">
+                          {post.title}
+                        </h3>
+                        <p className="line-clamp-2 text-sm leading-relaxed text-paragraph/80">
+                          {getPostSnippet(post, 160)}
+                        </p>
+                        <div className="flex items-center gap-3 pt-1">
+                          <span className="flex items-center gap-1 text-[11px] text-paragraph/50 sm:hidden">
+                            <IconCalendar className="h-3 w-3" />
+                            {dateLabel}
                           </span>
-                        ))}
+                          <span className="flex items-center gap-1 text-[11px] text-paragraph/50">
+                            <IconClock className="h-3 w-3" /> {post.readingTime} min
+                          </span>
+                          {(post.tags ?? []).slice(0, 2).map((tag) => (
+                            <span key={tag} className="rounded-full border border-accent-100/20 px-2 py-0.5 text-[11px] text-paragraph/50">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-
                   </article>
                 </Link>
               );
@@ -191,9 +195,10 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
         <div className="hidden lg:block w-0.5 bg-accent-200/50 self-stretch" />
 
         <aside className="hidden lg:block w-56 shrink-0">
-          <div className="sticky top-24 space-y-8">
-            <div>
-              <h4 className="text-base font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+          <div className="sticky top-24 space-y-5">
+            <div className="relative isolate overflow-hidden rounded-xl border border-accent-100/20 bg-bg-200/70 p-4 shadow-sm">
+              <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-12 -z-10 size-32 rounded-full bg-accent-200/10 blur-3xl" />
+              <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-200 mb-4">
                 Archive
               </h4>
               <nav className="space-y-1">
@@ -205,7 +210,7 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                       <div key={year}>
                         <button
                           onClick={() => toggleYear(Number(year))}
-                          className="w-full flex items-center justify-between py-2 text-sm text-headline hover:text-accent-200 transition-colors group/year cursor-pointer">
+                          className={`group/year flex w-full cursor-pointer items-center justify-between rounded-md border px-2 py-2 text-sm transition-colors ${isOpen ? "border-accent-200/30 bg-accent-200/10 text-headline" : "border-transparent text-headline hover:border-accent-200/25 hover:bg-accent-200/5 hover:text-accent-200"}`}>
                           <span className="font-medium font-serif">{year}</span>
                           <span className="flex items-center gap-1.5">
                             <span className="text-[11px] text-paragraph/40 tabular-nums">{posts.length}</span>
@@ -233,8 +238,9 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
               </nav>
             </div>
 
-            <div>
-              <h4 className="text-base font-semibold font-serif uppercase tracking-widest text-paragraph/50 mb-4">
+            <div className="relative isolate overflow-hidden rounded-xl border border-accent-100/20 bg-bg-200/70 p-4 shadow-sm">
+              <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-12 -z-10 size-32 rounded-full bg-accent-100/10 blur-3xl" />
+              <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-200 mb-4">
                 Topics
               </h4>
               <div className="flex flex-wrap gap-1.5">
@@ -242,10 +248,10 @@ export default function BlogPageClient({ posts, currentPage }: BlogPageClientPro
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                    className={`text-[11px] px-2.5 py-1 rounded-full border transition-[border-color] cursor-pointer duration-200 text-paragraph ${
+                    className={`cursor-pointer rounded-full border px-2.5 py-1 text-[11px] text-paragraph transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-200 motion-reduce:transform-none motion-reduce:transition-none ${
                       selectedTag === tag
-                        ? "border-button"
-                        : "border-accent-100/25 hover:border-accent-100/50 hover:text-headline"
+                        ? "border-accent-200/45 bg-accent-200/15 text-headline shadow-sm"
+                        : "border-accent-100/25 bg-bg-100/50 hover:border-accent-200/35 hover:bg-accent-200/5 hover:text-headline"
                     }`}>
                     {tag}
                   </button>

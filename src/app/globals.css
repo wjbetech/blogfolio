@@ -3,6 +3,24 @@
 @import "shadcn/tailwind.css";
 @tailwind utilities;
 
+@keyframes card-sheen-forward {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 500% 0;
+  }
+}
+
+@keyframes card-sheen-reverse {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -500% 0;
+  }
+}
+
 /* Register CSS variables as Tailwind color utilities */
 @theme inline {
   --color-bg-100: var(--bg-100);

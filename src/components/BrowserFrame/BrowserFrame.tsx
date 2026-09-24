@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const directoryFor = (pathname: string) => {
@@ -27,7 +28,7 @@ export default function BrowserFrame({ children, origin }: { children: ReactNode
             <i className="h-3 w-3 rounded-full bg-[#febc2e]" />
             <i className="h-3 w-3 rounded-full bg-[#28c840]" />
           </span>
-          <span className="truncate text-xs font-semibold tracking-tight text-headline sm:text-sm">@wjbetech</span>
+          <Link href="/" aria-label="Go to homepage" className="truncate text-xs font-semibold tracking-tight text-headline transition-colors hover:text-accent-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100 sm:text-sm">@wjbetech</Link>
         </div>
         <span title={address} className="max-w-full justify-self-center truncate font-mono text-xs font-medium text-paragraph/80 sm:text-sm">{address}</span>
         <span className="max-w-full justify-self-end truncate font-mono text-xs text-paragraph/80 sm:text-sm">{directory}</span>

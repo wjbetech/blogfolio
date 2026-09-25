@@ -59,7 +59,7 @@ export default function CurrentRoleCard() {
             className={`mt-5 border-t border-accent-100/15 pt-4 transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none ${
               isOpen ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
             }`}>
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-accent-200">Day-to-day</p>
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-accent-200">Responsibilities</p>
             <ul className="mt-3 columns-1 gap-x-8 sm:columns-2">
               {roleResponsibilities.map((responsibility) => (
                 <li

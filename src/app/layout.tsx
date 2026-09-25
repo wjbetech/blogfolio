@@ -1,53 +1,43 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Bricolage_Grotesque, Geist_Mono, Inter } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import AnalyticsProvider from "@/components/Analytics/AnalyticsProvider";
+import BrowserFrame from "@/components/BrowserFrame/BrowserFrame";
 import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
 import ThemeStyles from "@/components/ThemeSelector/ThemeStyles/ThemeStyles";
 import { createSiteMetadata } from "@/lib/metadata";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-serif" });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"]
-});
+const plexSans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-serif" });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = createSiteMetadata();
-
 export const dynamic = "force-dynamic";
 
 const PRE_PAINT_THEME_SCRIPT = `try{var t=localStorage.getItem("site:theme");if(t){document.documentElement.setAttribute("data-theme",t)}}catch(e){}`;
 
-export default async function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   // Set by src/proxy.ts; Next.js also applies it to its own framework scripts
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const requestHeaders = await headers();
+  const nonce = requestHeaders.get("x-nonce") ?? undefined;
+  const host = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "wjbeast.com").split(",")[0].trim();
+  const protocol = (requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https")).split(",")[0].trim();
+  const origin = `${protocol}://${host}`;
 
   return (
-    <html lang="en" data-theme="welcome" className={inter.variable} suppressHydrationWarning>
-      <body
-        className={`${bricolage.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`}
-        style={{ transition: "none" }}>
-        {/* Restore the saved theme before first paint, then provide its CSS.
-            suppressHydrationWarning suppresses the false-positive mismatch caused
-            by browsers hiding the nonce attribute value (getAttribute('nonce')
-            returns "" after the script executes for security). Without it React
-            warns that server HTML had nonce="…" but the hydrated DOM shows "". */}
+    <html lang="en" data-theme="welcome" className={plexSans.variable} suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`} style={{ transition: "none" }}>
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <ThemeStyles />
-        <ThemeAside />
-        <div className="px-8 sm:px-6 flex-1 flex flex-col" style={{ transition: "none" }}>
-          <main className="max-w-7xl mx-auto pb-4 w-full flex-1">{children}</main>
-          <Footer />
-        </div>
+        <BrowserFrame origin={origin}>
+          <ThemeAside />
+          <div className="flex flex-1 flex-col px-4 sm:px-6" style={{ transition: "none" }}>
+            <main className="mx-auto w-full max-w-7xl flex-1 pb-4">{children}</main>
+            <Footer />
+          </div>
+        </BrowserFrame>
         <AnalyticsProvider />
       </body>
     </html>

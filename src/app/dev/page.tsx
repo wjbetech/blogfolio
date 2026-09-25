@@ -5,9 +5,12 @@ import { getExistingProjectImages } from "@/lib/projectImages.server";
 import { getChangelogSlice } from "@/lib/changelog/entryParser";
 import TrackedLink from "@/components/Analytics/TrackedLink";
 import ChangelogList from "@/components/Changelog/ChangelogList";
+import CardAtmosphere from "@/components/ui/CardAtmosphere";
 import { IconArrowUpRight, IconBrandGithub } from "@tabler/icons-react";
 import { allProjects } from "contentlayer/generated";
+import CurrentRoleCard from "./CurrentRoleCard";
 import ProjectImageSlider from "./ProjectImageSlider";
+import ProjectIndex from "./ProjectIndex";
 import { shouldShowLiveDemo } from "@/lib/projectLinks";
 import { getPublishedProjects } from "@/lib/content";
 
@@ -32,7 +35,8 @@ export default function DevPage() {
       {/* ── Hero header ── */}
       <header className="relative">
         <div className="relative pb-10 z-10 space-y-2">
-          <h1 className="text-4xl font-bold font-serif text-headline tracking-tight leading-[1.1]">Dev</h1>
+          <h1 className="sr-only">Dev</h1>
+          <CurrentRoleCard />
           <p className="text-paragraph leading-relaxed">
             My own projects - apps and software I built both for my own use, for friends or for co-workers.
           </p>
@@ -60,11 +64,12 @@ export default function DevPage() {
 
                 {/* ── Card ── */}
                 <div
-                  className={`flex flex-col items-stretch overflow-hidden bg-bg-200 border border-accent-100/8 ${
+                  className={`group/card relative isolate flex flex-col items-stretch overflow-hidden rounded-xl border border-accent-100/15 bg-bg-200/75 shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-accent-200/40 hover:shadow-[0_16px_42px_-26px_var(--accent-200)] motion-reduce:transition-none ${
                     isImageLeft ? "md:flex-row" : "md:flex-row-reverse"
                   }`}>
+                  <CardAtmosphere reverse={i % 2 === 1} />
                   {/* ── Visual side ── */}
-                  <div className="relative w-full md:w-[42%] shrink-0 p-4">
+                  <div className="relative z-10 w-full shrink-0 bg-bg-100/35 p-3 sm:p-4 md:w-[48%] lg:p-5">
                     <ProjectImageSlider
                       images={existingImages}
                       title={project.title}
@@ -74,13 +79,13 @@ export default function DevPage() {
 
                   {/* ── Content side ── */}
                   <div
-                    className={`flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 ${
+                    className={`relative z-10 flex flex-1 flex-col justify-between p-6 md:p-8 lg:p-10 ${
                       isImageLeft ? "md:pl-10" : "md:pr-10"
                     }`}>
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                       {/* Title */}
                       <div>
-                        <h2 className="text-3xl font-bold font-serif text-headline leading-[1.15] tracking-tight">
+                        <h2 className="text-3xl font-bold font-serif text-headline leading-[1.15] tracking-tight sm:text-4xl">
                           <TrackedLink
                             href={`/dev/${project.slug}`}
                             className="group/title inline-flex items-start gap-1.5 transition-colors duration-300 hover:text-accent-100"
@@ -92,21 +97,21 @@ export default function DevPage() {
                         </h2>
                       </div>
 
-                      {/* Description */}
-                      <p className="text-base text-paragraph/80 leading-[1.7] max-w-lg">{project.description}</p>
-
-                      {/* Tech stack */}
+                      {/* Tech stack: surface the tools before the supporting copy. */}
                       {project.tech && project.tech.length > 0 && (
-                        <div className="flex items-center gap-2 flex-wrap mt-4">
+                        <div className="flex flex-wrap items-center gap-2">
                           {project.tech.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 bg-bg-100/60 border border-accent-100/10 text-paragraph/65 font-mono">
+                              className="border border-accent-200/20 bg-bg-100/75 px-3 py-1.5 font-mono text-sm text-accent-200 shadow-sm">
                               {tag}
                             </span>
                           ))}
                         </div>
                       )}
+
+                      {/* Description */}
+                      <p className="max-w-lg text-base leading-[1.7] text-paragraph/80">{project.description}</p>
                     </div>
 
                     {/* Actions */}
@@ -132,7 +137,7 @@ export default function DevPage() {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group/demo inline-flex items-center gap-2 text-sm text-link font-medium hover:text-headline transition-colors"
+                          className="group/demo inline-flex items-center gap-2 rounded-md border border-accent-200/35 bg-bg-100/40 px-4 py-2.5 text-sm font-semibold text-link shadow-sm transition-[transform,background-color,border-color,box-shadow,color] duration-200 hover:-translate-y-0.5 hover:border-accent-200/70 hover:bg-accent-200/10 hover:text-headline hover:shadow-[0_8px_24px_-12px_var(--accent-200)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-200 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-200 motion-reduce:transform-none motion-reduce:transition-none"
                           eventName="Project CTA Click"
                           eventProps={{ kind: "demo", slug: project.slug, surface: "dev_secondary" }}>
                           Live Demo
@@ -148,39 +153,16 @@ export default function DevPage() {
         </section>
 
         {/* Vertical separator */}
-        <div className="hidden lg:block w-0.5 bg-accent-200/60 self-stretch" />
+        <div className="hidden lg:block w-px bg-accent-200/55 self-stretch" />
 
         {/* ════════════════ Sidebar ════════════════ */}
-        <aside className="hidden lg:block w-52 shrink-0">
-          <div className="sticky top-24 space-y-10">
-            {/* Project index */}
-            <div>
-              <h4 className="text-sm font-semibold text-paragraph/60 mb-5">Index</h4>
-              <nav className="space-y-0.5">
-                {publishedProjects.map((project, i) => (
-                  <a
-                    key={project.id}
-                    href={`#${project.slug}`}
-                    className="group/nav flex items-center gap-3 py-2 cursor-pointer"
-                    style={{ transition: "none" }}>
-                    <span
-                      className="text-xs font-paragraph/30 group-hover/nav:text-accent-200 tabular-nums"
-                      style={{ transition: "none" }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="text-sm text-paragraph/60 group-hover/nav:text-headline truncate"
-                      style={{ transition: "none" }}>
-                      {project.title}
-                    </span>
-                  </a>
-                ))}
-              </nav>
-            </div>
+        <aside className="hidden w-60 shrink-0 lg:block">
+          <div className="sticky top-24 space-y-5">
+            <ProjectIndex projects={publishedProjects.map(({ slug, title }) => ({ slug, title }))} />
 
             {/* Quick stats */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-paragraph/60 mb-3">At a glance</h4>
+            <div className="space-y-3 rounded-xl border border-accent-100/20 bg-bg-200/50 p-4">
+              <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-200">At a glance</h4>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-serif font-bold text-headline">{publishedProjects.length}</span>
                 <span className="text-sm text-paragraph/50">projects</span>

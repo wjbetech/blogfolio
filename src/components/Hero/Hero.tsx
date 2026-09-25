@@ -26,7 +26,7 @@ export default function Hero() {
               Fullstack Developer, AI Systems Engineer, and{" "}
               <Link
                 href="/dev"
-                className="inline relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
+                className="inline relative isolate pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
                 more
               </Link>
             </p>
@@ -35,7 +35,7 @@ export default function Hero() {
               Korean ⟺ English, Editing, Proofreading{" "}
               <Link
                 href="/language-services"
-                className="inline relative pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
+                className="inline relative isolate pb-1 text-link font-bold transition-colors after:absolute after:bottom-px after:-left-0.5 after:right-0 after:h-2 after:bg-accent-100/50 after:-z-10 font-serif">
                 here
               </Link>
             </p>

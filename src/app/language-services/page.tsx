@@ -24,7 +24,7 @@ export default function LanguageServicesPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto mb-12">
-        <h1 className="text-4xl font-bold font-serif text-headline mb-6">Language Services</h1>
+        <h1 className="sr-only">Language Services</h1>
         <p className="text-lg text-paragraph mb-8">
           Professional language services including translation, localization, proofreading, editing and consulting.
         </p>
@@ -49,7 +49,7 @@ export default function LanguageServicesPage() {
                     </h3>
                   </div>
 
-                  <p className="col-span-2 md:col-span-6 text-paragraph leading-relaxed md:pt-2 mx-4 px-6">
+                  <p className="col-span-2 md:col-span-6 text-paragraph leading-relaxed md:pt-2 mx-0 px-0 sm:mx-4 sm:px-6">
                     {service.description}
                   </p>
                 </div>

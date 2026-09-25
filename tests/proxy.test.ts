@@ -9,6 +9,15 @@ function makeRequest(url = "https://wjbeast.com/"): NextRequest {
 }
 
 describe("proxy", () => {
+  it("prevents staging pages from being indexed", () => {
+    process.env.DEPLOYMENT_ENV = "staging";
+    try {
+      expect(proxy(makeRequest()).headers.get("X-Robots-Tag")).toBe("noindex, nofollow");
+    } finally {
+      delete process.env.DEPLOYMENT_ENV;
+    }
+  });
+
   it("ships the strict policy as report-only on the response", () => {
     const response = proxy(makeRequest());
 

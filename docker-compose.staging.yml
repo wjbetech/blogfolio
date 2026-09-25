@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ghcr.io/wjbetech/blogfolio:${BLOGFOLIO_STAGING_IMAGE_TAG:?Set BLOGFOLIO_STAGING_IMAGE_TAG to a built staging image}
+    container_name: blogfolio-staging
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DEPLOYMENT_ENV: staging
+      NEXT_PUBLIC_SITE_URL: https://staging.wjbeast.com
+    ports:
+      - "127.0.0.1:3001:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: blogfolio-staging-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_STAGING_TUNNEL_TOKEN:?Set CLOUDFLARE_STAGING_TUNNEL_TOKEN}
+    depends_on:
+      app:
+        condition: service_healthy

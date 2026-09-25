@@ -44,7 +44,7 @@ export default function ProjectCard({ project }: { project: ProjectCardData }) {
         </div>
 
         <div className="mt-4">
-          <span className="inline-flex items-center gap-1 text-md font-bold text-link">
+          <span className="inline-flex items-center gap-1 text-md font-bold text-accent-200">
             View
             <ArrowRightIcon width={14} height={14} strokeWidth={2.5} aria-hidden="true" />
           </span>

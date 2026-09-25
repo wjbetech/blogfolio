@@ -7,7 +7,7 @@
     "contentlayer:generate": "node ./scripts/contentlayer-build.mjs",
     "contentlayer:dev": "node ./scripts/contentlayer-dev.mjs",
     "dev": "pnpm exec concurrently -- -k \"pnpm run contentlayer:dev\" \"next dev --turbopack\"",
-    "build": "pnpm run contentlayer:generate && next build",
+    "build": "pnpm run contentlayer:generate && next build --webpack",
     "start": "next start",
     "lint": "eslint src",
     "test": "jest",

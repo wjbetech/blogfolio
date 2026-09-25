@@ -1,6 +1,6 @@
 # Todo and engineering handoff
 
-This file is the short handoff for the next coding agent. It records decisions and the first engineering task; it is not permission to implement the entire roadmap.
+This file is the short handoff for the next coding agent. It records decisions and current follow-up items; it is not permission to implement the entire roadmap.
 
 ## Settled product decisions
 
@@ -84,6 +84,27 @@ Delivered:
 
 Intentionally deferred: `force-dynamic`/server-theme revisit. Pruned unused shadcn/ui primitives (only `Button`/`Card` remain, PR #113) and consolidated test organization under `tests/` (PR #115) have shipped.
 
+## `/dev` page review follow-ups (2026-09-24)
+
+These items came from the owner’s review of `/dev` on staging. They were implemented on `feat/homepage-design-explorations` and promoted to `staging` on 2026-09-24; roadmap phases 1–5 remain complete.
+
+- [x] **Remove staging details from public changelog copy.** Reworded deployment entries to avoid the staging hostname and environment name while preserving the general improvement.
+- [x] **Hide the “William East” wordmark on `/dev`.** Suppressed it on this route only; the brand link remains on other pages.
+- [x] **Feature the current role above the `/dev` introduction.** Added a prominent callout identifying William as a Software Engineer / AI-assisted engineer at ASTUTR. Co. in Gangnam, Seoul.
+- [x] **Make the current role details expandable.** Kept the title and company visible, added an accessible disclosure arrow for the duty list, and balanced the bullet columns to avoid uneven gaps.
+- [x] **Refocus project cards on the work and its stack.** Put the app preview and technologies earlier in the hierarchy and increased preview space.
+- [x] **Show complete project screenshots.** Changed the card slider to contain images across aspect ratios instead of cropping important UI.
+- [x] **Bring the blog-card sheen to project cards.** Reused the accent glow and moving metallic highlight on the project previews, with hover lift and reduced-motion support.
+- [x] **Give “Live Demo” links a satisfying hover treatment.** Added hover and keyboard-focus feedback with reduced-motion support.
+- [x] **Strengthen the project index sidebar.** Added a clearer panel and interactive active-project and hover states.
+
+## `/blog` page review follow-ups (2026-09-24)
+
+These items came from the owner’s review of `/blog`. They were implemented on `feat/homepage-design-explorations` and promoted to `staging` on 2026-09-24.
+
+- [x] **Give Archive and Topics clearer panels.** Matched the stronger sidebar treatment used on `/dev` and made expanded years and selected topics easier to spot.
+- [x] **Add depth and motion to post cards.** Added subtle accent glows, a passing sheen, hover lift, and clearer focus feedback while keeping the cards minimal and respecting reduced motion.
+
 ## All phases complete
 
-Phases 1–5 are done. No further roadmap phases are planned. Ongoing work is ad-hoc: content updates, feature additions, and maintenance as needed.
+Phases 1–5 are done. No further roadmap phases are planned. Ongoing work is ad-hoc: the follow-ups above, content updates, feature additions, and maintenance as needed.

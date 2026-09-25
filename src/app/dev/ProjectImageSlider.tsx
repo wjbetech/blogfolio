@@ -200,7 +200,7 @@ export default function ProjectImageSlider({
                   "group/slide shrink-0 w-full snap-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-100 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-200",
                   isGallery
                     ? "flex h-full items-center justify-center"
-                    : "relative h-full"
+                    : "relative h-full bg-bg-300"
                 )}
                 aria-label={`View ${title} image ${idx + 1} full size`}>
                 {isGallery ? (
@@ -213,7 +213,7 @@ export default function ProjectImageSlider({
                   />
                 ) : (
                   <>
-                    <Image src={src} alt={`${title} - image ${idx + 1}`} fill className="object-cover" />
+                    <Image src={src} alt={`${title} - image ${idx + 1}`} fill className="object-contain" />
                     <span className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-200 group-hover/slide:bg-black/10 group-focus-visible/slide:bg-black/10" />
                   </>
                 )}

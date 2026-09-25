@@ -29,8 +29,21 @@ describe("contact API route", () => {
   beforeEach(() => {
     resetRateLimits();
     mockSend.mockReset();
+    delete process.env.DEPLOYMENT_ENV;
     process.env.CONTACT_TO_EMAIL = "to@example.com";
     process.env.RESEND_API_KEY = "test-key";
+  });
+
+  it("does not send contact mail from staging", async () => {
+    process.env.DEPLOYMENT_ENV = "staging";
+    try {
+      const response = await POST(makeRequest({ name: "Will", email: "will@example.com", message: "Hello" }));
+
+      expect(response.status).toBe(503);
+      expect(mockSend).not.toHaveBeenCalled();
+    } finally {
+      delete process.env.DEPLOYMENT_ENV;
+    }
   });
 
   it("sends a valid submission", async () => {

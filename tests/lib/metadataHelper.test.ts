@@ -1,4 +1,5 @@
 import type { Post, Project } from "contentlayer/generated";
+import { SITE_URL } from "@/lib/metadata";
 import {
   toAbsoluteStructuredDataUrl,
   toAbsoluteStructuredDataUrls,
@@ -70,7 +71,7 @@ describe("createBlogPostingJsonLd", () => {
 
     expect(result["@type"]).toBe("BlogPosting");
     expect(result.headline).toBe("Test Post");
-    expect(result.image).toContain("https://wjbeast.com/images/test.png");
+    expect(result.image).toContain(`${SITE_URL}/images/test.png`);
     expect(result.datePublished).toBe("2024-01-01");
     expect(result.dateModified).toBe("2024-01-02");
   });

@@ -39,6 +39,9 @@ export function proxy(request: NextRequest) {
   });
 
   response.headers.set("Content-Security-Policy-Report-Only", cspHeader);
+  if (process.env.DEPLOYMENT_ENV === "staging") {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
 
   return response;
 }

@@ -64,6 +64,15 @@ const sampleProject: Project = {
 } as Project;
 
 describe("metadata helpers", () => {
+  it("marks staging metadata noindex", () => {
+    process.env.DEPLOYMENT_ENV = "staging";
+    try {
+      expect(createBlogListMetadata().robots).toEqual({ index: false, follow: false });
+    } finally {
+      delete process.env.DEPLOYMENT_ENV;
+    }
+  });
+
   it("uses coverImage first when both coverImage and images exist", () => {
     const post = makeSamplePost({
       coverImage: "https://cdn.example.com/cover.png",

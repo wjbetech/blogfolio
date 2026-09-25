@@ -30,8 +30,8 @@ export default function BrowserFrame({ children, origin }: { children: ReactNode
           </span>
           <Link href="/" aria-label="Go to homepage" className="truncate text-xs font-semibold tracking-tight text-headline transition-colors hover:text-accent-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100 sm:text-sm">@wjbetech</Link>
         </div>
-        <span title={address} className="min-w-0 max-w-full justify-self-end truncate font-mono text-xs font-medium text-paragraph/80 sm:justify-self-center sm:text-sm">{address}</span>
-        <span className="hidden max-w-full justify-self-end truncate font-mono text-xs text-paragraph/80 sm:block sm:text-sm">{directory}</span>
+        <span title={address} className="hidden min-w-0 max-w-full justify-self-center truncate font-mono text-xs font-medium text-paragraph/80 sm:block sm:text-sm">{address}</span>
+        <span className="min-w-0 max-w-full justify-self-end truncate font-mono text-xs text-paragraph/80 sm:text-sm">{directory}</span>
       </div>
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
     </div>

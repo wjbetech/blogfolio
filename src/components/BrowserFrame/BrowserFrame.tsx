@@ -21,7 +21,7 @@ export default function BrowserFrame({ children, origin }: { children: ReactNode
 
   return (
     <div className="flex min-h-screen w-full flex-1 flex-col bg-bg-100">
-      <div className="grid min-h-14 grid-cols-[1fr_auto_1fr] items-center gap-2 border-b border-palette-border/50 bg-bg-200/45 px-3 sm:px-6">
+      <div className="grid min-h-14 grid-cols-[auto_minmax(0,1fr)] items-center gap-2 border-b border-palette-border/50 bg-bg-200/45 px-3 sm:grid-cols-[1fr_auto_1fr] sm:px-6">
         <div className="flex min-w-0 items-center gap-2.5">
           <span aria-hidden="true" className="flex shrink-0 gap-1.5">
             <i className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -30,8 +30,8 @@ export default function BrowserFrame({ children, origin }: { children: ReactNode
           </span>
           <Link href="/" aria-label="Go to homepage" className="truncate text-xs font-semibold tracking-tight text-headline transition-colors hover:text-accent-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100 sm:text-sm">@wjbetech</Link>
         </div>
-        <span title={address} className="max-w-full justify-self-center truncate font-mono text-xs font-medium text-paragraph/80 sm:text-sm">{address}</span>
-        <span className="max-w-full justify-self-end truncate font-mono text-xs text-paragraph/80 sm:text-sm">{directory}</span>
+        <span title={address} className="hidden min-w-0 max-w-full justify-self-center truncate font-mono text-xs font-medium text-paragraph/80 sm:block sm:text-sm">{address}</span>
+        <span className="min-w-0 max-w-full justify-self-end truncate font-mono text-xs text-paragraph/80 sm:text-sm">{directory}</span>
       </div>
       <div className="flex min-h-0 flex-1 flex-col">{children}</div>
     </div>

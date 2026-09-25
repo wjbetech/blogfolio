@@ -9,7 +9,7 @@ describe("CurrentRoleCard", () => {
 
     const toggle = screen.getByRole("button", { name: "Show role details" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(screen.getByText("Day-to-day")).toBeInTheDocument();
+    expect(screen.getByText("Responsibilities")).toBeInTheDocument();
 
     fireEvent.click(toggle);
 

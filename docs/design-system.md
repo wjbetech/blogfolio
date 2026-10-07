@@ -4,7 +4,7 @@ Blogfolio is a personal editorial site with two practical goals: communicate dev
 
 ## Theme system
 
-Themes are defined as data in `src/lib/themes.ts` — the single source of truth. There are currently **20 themes**.
+Themes are defined as data in `src/lib/themes.ts` — the single source of truth. There are currently **23 themes**, including the World of Warcraft: Forever-inspired Mount Hyjal, Skyborne, and Timbermaw Hold palettes.
 
 The runtime mechanism is:
 

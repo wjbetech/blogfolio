@@ -325,5 +325,53 @@ export const ColorThemes: ColorTheme[] = [
     "accent-200": "#FF956E",
     "accent-300": "#64BBD4",
     "palette-border": "#2fb3a8"
+  },
+  {
+    id: "mount-hyjal",
+    name: "Mount Hyjal",
+    "bg-100": "#253629",
+    "bg-200": "#304332",
+    "bg-300": "#405340",
+    headline: "#EEF1DE",
+    paragraph: "#CBD4BD",
+    button: "#B5CC72",
+    buttonText: "#253019",
+    link: "#C5DF97",
+    "accent-100": "#849B5E",
+    "accent-200": "#B9DADD",
+    "accent-300": "#AE879D",
+    "palette-border": "#B5CC72"
+  },
+  {
+    id: "skyborne",
+    name: "Skyborne",
+    "bg-100": "#DDE8F5",
+    "bg-200": "#CCDCEE",
+    "bg-300": "#B9CCE3",
+    headline: "#243654",
+    paragraph: "#45546B",
+    button: "#345DA8",
+    buttonText: "#F7FAFF",
+    link: "#30538C",
+    "accent-100": "#4F899A",
+    "accent-200": "#99612F",
+    "accent-300": "#9A86AD",
+    "palette-border": "#345DA8"
+  },
+  {
+    id: "timbermaw-hold",
+    name: "Timbermaw Hold",
+    "bg-100": "#DDD3C2",
+    "bg-200": "#D0C3AD",
+    "bg-300": "#C1B196",
+    headline: "#3E3025",
+    paragraph: "#4E4235",
+    button: "#7C432F",
+    buttonText: "#FFF8EC",
+    link: "#6B3828",
+    "accent-100": "#7C8050",
+    "accent-200": "#B27444",
+    "accent-300": "#566E72",
+    "palette-border": "#7C432F"
   }
 ];

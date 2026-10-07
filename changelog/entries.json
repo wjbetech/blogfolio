@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-10-08",
+    "version": "1.21.0",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Removed the homepage hero's tinted background, vertical borders, and link divider, and strengthened the Current Location label."
+      },
+      {
+        "category": "Feature",
+        "description": "Added a noindex card-design comparison route with five minimal treatments for published posts and projects."
+      }
+    ]
+  },
+  {
     "date": "2026-10-07",
     "version": "1.20.0",
     "changes": [

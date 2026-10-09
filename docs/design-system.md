@@ -58,7 +58,7 @@ The blog redesign should establish a more precise article scale, reading width, 
 
 ## Layout and interaction
 
-The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. It is marked noindex. The homepage Writing carousel uses the shared compact horizontal card; project cards retain their existing layout.
+The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. It is marked noindex. The homepage Writing and Things I Built carousels use the shared compact horizontal card, with borderless sections, generous vertical padding, and wider card spacing.
 
 The root layout provides:
 

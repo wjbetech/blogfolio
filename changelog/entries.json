@@ -9,7 +9,7 @@
       },
       {
         "category": "Style",
-        "description": "Removed the Writing section's horizontal rules and added generous vertical padding."
+        "description": "Removed the Writing section's horizontal rules, added generous vertical padding and wider card spacing, and gave its heading an overshooting nav-style underline."
       }
     ]
   },

@@ -29,7 +29,7 @@ function Shelf({ title, entries, href, linkText, compact = false }: { title: str
   const carousel = useRef<CarouselHandle>(null);
   return <section className={`min-w-0 ${compact ? "py-12 md:py-16" : "border-t border-accent-200/60 pt-7"}`} aria-label={title}>
     <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-      <h2 className="text-3xl font-serif font-semibold tracking-tight text-headline sm:text-4xl">{title}</h2>
+      <h2 className="text-3xl font-serif font-semibold tracking-tight text-headline sm:text-4xl">{compact ? <span className="relative isolate inline-block after:absolute after:bottom-1 after:-left-1 after:-right-2 after:h-3 after:origin-left after:bg-accent-200/50 after:-z-10 after:transition-transform hover:after:scale-x-[1.04] motion-reduce:after:transition-none">{title}</span> : title}</h2>
       <div className="flex items-center gap-3 sm:gap-5">
         <Link href={href} className="text-sm font-semibold text-link underline decoration-accent-100/70 decoration-4 underline-offset-2 hover:text-headline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-100">{linkText} ↗</Link>
         <div className="flex gap-1">
@@ -38,7 +38,7 @@ function Shelf({ title, entries, href, linkText, compact = false }: { title: str
         </div>
       </div>
     </div>
-    <Carousel ref={carousel} hideControls gap={24} step={400}>
+    <Carousel ref={carousel} hideControls gap={compact ? 56 : 24} step={compact ? 408 : 400}>
       {entries.map((entry) => compact ? <CompactCard key={entry.href} entry={entry} divider={false} className="w-[min(22rem,calc(100vw-2rem))] shrink-0 snap-start" /> : <Link key={entry.href} href={entry.href} className="group block w-88 shrink-0 snap-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100">
         <article className="flex h-[26rem] flex-col overflow-hidden border border-palette-border/60 bg-bg-200/40 p-3">
           <div className="relative aspect-[7/4] shrink-0 overflow-hidden bg-bg-300"><Image src={entry.image || "/images/assets/placeholder.png"} alt="" fill sizes="(max-width: 640px) 304px, 352px" className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none" /></div>

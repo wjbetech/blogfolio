@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-10-09",
+    "version": "1.21.1",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Applied the selected compact horizontal design to homepage Writing cards, with square thumbnails and concise text. Project cards retain their existing layout."
+      },
+      {
+        "category": "Style",
+        "description": "Removed the Writing section's horizontal rules and added generous vertical padding and wider card spacing."
+      }
+    ]
+  },
+  {
+    "date": "2026-10-08",
+    "version": "1.21.0",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Removed the homepage hero's tinted background, vertical borders, and link divider, and strengthened the Current Location label."
+      },
+      {
+        "category": "Feature",
+        "description": "Added a noindex card-design comparison route with five minimal treatments for published posts and projects."
+      }
+    ]
+  },
+  {
     "date": "2026-10-07",
     "version": "1.20.0",
     "changes": [

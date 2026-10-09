@@ -1,6 +1,20 @@
 [
   {
     "date": "2026-10-09",
+    "version": "1.21.2",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Matched Things I Built to Writing with compact horizontal project cards, wider spacing, and generous padding without section borders, and reduced the gap between the two sections. Cards now have equal heights with up to three lines of description; removed the View labels while keeping each card clickable."
+      },
+      {
+        "category": "Style",
+        "description": "Applied the navbar's animated accent underline to the All articles and All projects links on hover and keyboard focus."
+      }
+    ]
+  },
+  {
+    "date": "2026-10-09",
     "version": "1.21.1",
     "changes": [
       {

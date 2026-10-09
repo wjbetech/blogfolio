@@ -25,13 +25,13 @@ function StudioHero() {
   </section>;
 }
 
-function Shelf({ title, entries, href, linkText, compact = false }: { title: string; entries: Entry[]; href: string; linkText: string; compact?: boolean }) {
+function Shelf({ title, entries, href, linkText, compact = false, className = "" }: { title: string; entries: Entry[]; href: string; linkText: string; compact?: boolean; className?: string }) {
   const carousel = useRef<CarouselHandle>(null);
-  return <section className={`min-w-0 ${compact ? "py-12 md:py-16" : "border-t border-accent-200/60 pt-7"}`} aria-label={title}>
+  return <section className={`min-w-0 ${compact ? "py-12 md:py-16" : "border-t border-accent-200/60 pt-7"} ${className}`} aria-label={title}>
     <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
       <h2 className="text-3xl font-serif font-semibold tracking-tight text-headline sm:text-4xl">{title}</h2>
       <div className="flex items-center gap-3 sm:gap-5">
-        <Link href={href} className="text-sm font-semibold text-link underline decoration-accent-100/70 decoration-4 underline-offset-2 hover:text-headline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-100">{linkText} ↗</Link>
+        <Link href={href} className="relative isolate px-3 py-2 text-sm font-semibold text-link transition-colors after:absolute after:bottom-1 after:left-2 after:right-3 after:h-3 after:origin-left after:scale-x-0 after:invisible after:bg-accent-200/50 after:transition-transform after:duration-300 after:-z-10 hover:text-headline hover:after:scale-x-100 hover:after:visible focus-visible:after:scale-x-100 focus-visible:after:visible focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-100">{linkText} ↗</Link>
         <div className="flex gap-1">
           <button type="button" aria-label={`Previous ${title.toLowerCase()}`} onClick={() => carousel.current?.scrollLeft()} className="flex size-9 items-center justify-center border border-palette-border/50 text-accent-200 hover:bg-bg-200 focus-visible:outline-2 focus-visible:outline-accent-100">←</button>
           <button type="button" aria-label={`Next ${title.toLowerCase()}`} onClick={() => carousel.current?.scrollRight()} className="flex size-9 items-center justify-center border border-palette-border/50 text-accent-200 hover:bg-bg-200 focus-visible:outline-2 focus-visible:outline-accent-100">→</button>
@@ -54,7 +54,9 @@ export default function StudioHomepage({ posts, projects }: { posts: BlogCardDat
   const projectEntries = projects.map((project) => ({ href: `/dev/${project.slug}`, title: project.title, description: project.description, image: project.image }));
   return <div className="space-y-12 pb-10 pt-4 md:space-y-16">
     <StudioHero />
-    <Shelf title="Writing" entries={blogEntries} href="/blog" linkText="All articles" compact />
-    <Shelf title="Things I Built" entries={projectEntries} href="/dev" linkText="All projects" />
+    <div>
+      <Shelf title="Writing" entries={blogEntries} href="/blog" linkText="All articles" compact className="pb-0 md:pb-0" />
+      <Shelf title="Things I Built" entries={projectEntries} href="/dev" linkText="All projects" compact className="pt-8 md:pt-8" />
+    </div>
   </div>;
 }

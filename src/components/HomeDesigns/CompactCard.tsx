@@ -3,9 +3,9 @@ import Link from "next/link";
 
 type Entry = { href: string; title: string; description: string; image: string };
 
-export default function CompactCard({ entry, className = "" }: { entry: Entry; className?: string }) {
+export default function CompactCard({ entry, className = "", divider = true }: { entry: Entry; className?: string; divider?: boolean }) {
   return <Link href={entry.href} className={`group block min-w-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-100 ${className}`}>
-    <article className="flex h-full items-start gap-4 border-b border-paragraph/20 pb-6">
+    <article className={`flex h-full items-start gap-4 pb-6 ${divider ? "border-b border-paragraph/20" : ""}`}>
       <div className="relative aspect-square w-24 shrink-0 overflow-hidden rounded-lg bg-bg-200">
         <Image src={entry.image || "/images/assets/placeholder.png"} alt="" fill sizes="96px" className="object-cover" />
       </div>

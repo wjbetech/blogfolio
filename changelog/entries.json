@@ -6,6 +6,10 @@
       {
         "category": "Style",
         "description": "Applied the selected compact horizontal design to homepage Writing cards, with square thumbnails and concise text. Project cards retain their existing layout."
+      },
+      {
+        "category": "Style",
+        "description": "Removed the Writing section's horizontal rules and added generous vertical padding."
       }
     ]
   },

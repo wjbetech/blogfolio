@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-10-09",
+    "version": "1.21.1",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Applied the selected compact horizontal design to homepage Writing cards, with square thumbnails and concise text. Project cards retain their existing layout."
+      }
+    ]
+  },
+  {
     "date": "2026-10-08",
     "version": "1.21.0",
     "changes": [

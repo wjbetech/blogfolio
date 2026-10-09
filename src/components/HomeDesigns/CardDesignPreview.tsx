@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { BlogCardData, ProjectCardData } from "@/lib/homeCards";
+import CompactCard from "./CompactCard";
 
 type Entry = { href: string; title: string; description: string; image: string };
 type Design = "open" | "inset" | "horizontal" | "image-led" | "type-first";
@@ -25,6 +26,7 @@ function Cover({ entry, className }: { entry: Entry; className: string }) {
 }
 
 function DesignCard({ entry, design }: { entry: Entry; design: Design }) {
+  if (design === "horizontal") return <CompactCard entry={entry} />;
   const description = <p className="line-clamp-2 text-sm leading-relaxed text-paragraph">{entry.description}</p>;
   const readLink = <span className="text-sm font-medium text-link">View <span aria-hidden="true">↗</span></span>;
   let content;
@@ -45,16 +47,6 @@ function DesignCard({ entry, design }: { entry: Entry; design: Design }) {
           <h3 className={`${titleClass} text-xl`}>{entry.title}</h3>
           {description}
           <div className="mt-auto pt-3">{readLink}</div>
-        </div>
-      </article>;
-      break;
-    case "horizontal":
-      content = <article className="flex h-full items-start gap-4 border-b border-paragraph/20 pb-6">
-        <Cover entry={entry} className="aspect-square w-24 shrink-0 rounded-lg" />
-        <div className="flex min-w-0 flex-1 flex-col gap-3">
-          <h3 className={`${titleClass} text-lg`}>{entry.title}</h3>
-          {description}
-          {readLink}
         </div>
       </article>;
       break;

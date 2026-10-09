@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import type { BlogCardData, ProjectCardData } from "@/lib/homeCards";
+import CompactCard from "./CompactCard";
 
 type Entry = { href: string; title: string; description: string; image: string };
 
@@ -24,7 +25,7 @@ function StudioHero() {
   </section>;
 }
 
-function Shelf({ title, entries, href, linkText }: { title: string; entries: Entry[]; href: string; linkText: string }) {
+function Shelf({ title, entries, href, linkText, compact = false }: { title: string; entries: Entry[]; href: string; linkText: string; compact?: boolean }) {
   const carousel = useRef<CarouselHandle>(null);
   return <section className="min-w-0 border-t border-accent-200/60 pt-7" aria-label={title}>
     <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
@@ -38,7 +39,7 @@ function Shelf({ title, entries, href, linkText }: { title: string; entries: Ent
       </div>
     </div>
     <Carousel ref={carousel} hideControls gap={24} step={400}>
-      {entries.map((entry) => <Link key={entry.href} href={entry.href} className="group block w-88 shrink-0 snap-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100">
+      {entries.map((entry) => compact ? <CompactCard key={entry.href} entry={entry} className="w-[min(22rem,calc(100vw-2rem))] shrink-0 snap-start" /> : <Link key={entry.href} href={entry.href} className="group block w-88 shrink-0 snap-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100">
         <article className="flex h-[26rem] flex-col overflow-hidden border border-palette-border/60 bg-bg-200/40 p-3">
           <div className="relative aspect-[7/4] shrink-0 overflow-hidden bg-bg-300"><Image src={entry.image || "/images/assets/placeholder.png"} alt="" fill sizes="(max-width: 640px) 304px, 352px" className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none" /></div>
           <div className="flex min-h-0 flex-1 flex-col px-2 pb-2 pt-4"><h3 className="line-clamp-2 min-h-[3.5rem] text-xl font-serif font-semibold leading-snug text-headline transition-colors group-hover:text-accent-100">{entry.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-relaxed text-paragraph">{entry.description}</p><span className="mt-auto inline-block pt-4 pb-1 text-sm font-semibold text-accent-200">View ↗</span></div>
@@ -53,7 +54,7 @@ export default function StudioHomepage({ posts, projects }: { posts: BlogCardDat
   const projectEntries = projects.map((project) => ({ href: `/dev/${project.slug}`, title: project.title, description: project.description, image: project.image }));
   return <div className="space-y-12 pb-10 pt-4 md:space-y-16">
     <StudioHero />
-    <Shelf title="Writing" entries={blogEntries} href="/blog" linkText="All articles" />
+    <Shelf title="Writing" entries={blogEntries} href="/blog" linkText="All articles" compact />
     <Shelf title="Things I Built" entries={projectEntries} href="/dev" linkText="All projects" />
   </div>;
 }

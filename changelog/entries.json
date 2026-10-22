@@ -1,11 +1,21 @@
 [
   {
+    "date": "2026-10-22",
+    "version": "1.22.0",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Redesigned the homepage with a profile sidebar, working introduction and animated blocks, project tiles with hover captions, and text-only recent blogs. Added persistent navigation, responsive layouts, and a palette control in a right-side rail."
+      }
+    ]
+  },
+  {
     "date": "2026-10-09",
     "version": "1.21.2",
     "changes": [
       {
         "category": "Style",
-        "description": "Matched Things I Built to Writing with compact horizontal project cards, wider spacing, and generous padding without section borders, and reduced the gap between the two sections. Cards now have equal heights with up to three lines of description; removed the View labels while keeping each card clickable."
+        "description": "Matched Things I Built to Writing with compact horizontal cards, wider spacing, generous padding, and no section borders. Project cards now share a height and show up to three blurb lines; removed View labels while keeping cards clickable."
       },
       {
         "category": "Style",

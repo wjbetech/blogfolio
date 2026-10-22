@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer/Footer";
 import AnalyticsProvider from "@/components/Analytics/AnalyticsProvider";
-import BrowserFrame from "@/components/BrowserFrame/BrowserFrame";
-import ThemeAside from "@/components/ThemeSelector/ThemeAside/ThemeAside";
+import SiteFrame from "@/components/SiteFrame/SiteFrame";
 import ThemeStyles from "@/components/ThemeSelector/ThemeStyles/ThemeStyles";
 import { createSiteMetadata } from "@/lib/metadata";
 
@@ -22,22 +20,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   // Set by src/proxy.ts; Next.js also applies it to its own framework scripts
   const requestHeaders = await headers();
   const nonce = requestHeaders.get("x-nonce") ?? undefined;
-  const host = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "wjbeast.com").split(",")[0].trim();
-  const protocol = (requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https")).split(",")[0].trim();
-  const origin = `${protocol}://${host}`;
 
   return (
     <html lang="en" data-theme="welcome" className={plexSans.variable} suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${geistMono.variable} antialiased bg-bg-100 min-h-screen flex flex-col`} style={{ transition: "none" }}>
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <ThemeStyles />
-        <BrowserFrame origin={origin}>
-          <ThemeAside />
-          <div className="flex flex-1 flex-col px-4 sm:px-6" style={{ transition: "none" }}>
-            <main className="mx-auto w-full max-w-7xl flex-1 pb-4">{children}</main>
-            <Footer />
-          </div>
-        </BrowserFrame>
+        <SiteFrame>{children}</SiteFrame>
         <AnalyticsProvider />
       </body>
     </html>

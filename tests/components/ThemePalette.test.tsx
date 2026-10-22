@@ -21,8 +21,8 @@ describe("Theme interaction", () => {
   it("applies theme when palette is clicked", async () => {
     render(<ThemeAside />);
 
-    // open the drawer via the navbar theme button
-    const themeToggle = screen.getByLabelText(/Theme settings/i);
+    // open the drawer via the palette button
+    const themeToggle = screen.getByRole("button", { name: "Theme settings" });
     fireEvent.click(themeToggle);
 
     // wait for a palette title to appear (Welcome Theme exists in ColorThemes)

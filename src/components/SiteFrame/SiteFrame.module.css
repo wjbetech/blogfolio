@@ -1,0 +1,30 @@
+.frame { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: clamp(48px, 6vw, 96px); width: 100%; max-width: 1280px; margin: 0 auto; min-height: 100dvh; padding: 64px 24px 72px; color: var(--paragraph); }
+.frame a:focus-visible { outline: 2px solid var(--accent-100); outline-offset: 6px; border-radius: 3px; }
+.sidebar { position: fixed; top: 64px; left: max(24px, calc((100vw - 1280px) / 2 + 24px)); display: flex; flex-direction: column; align-items: flex-start; width: 200px; height: calc(100dvh - 112px); overflow-y: auto; }
+.profile { width: 100%; }
+.avatar { display: block; position: relative; width: 96px; height: 96px; overflow: hidden; border-radius: 50%; margin: 0 0 20px; }
+.name { font-family: var(--font-serif), sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -.035em; color: var(--headline); }
+.bio { max-width: 185px; margin-top: 10px; font-size: 14px; line-height: 1.8; }
+.navigation { display: flex; flex-direction: column; gap: 23px; margin-top: 42px; }
+.navigation a { position: relative; display: flex; align-items: center; gap: 12px; font-family: var(--font-serif), sans-serif; font-size: 15px; font-weight: 700; color: var(--headline); }
+.navigation a:hover { color: var(--accent-200); }
+.navigation a[aria-current="page"] { color: var(--accent-300); }
+.github { margin-top: auto; padding: 40px 4px 4px; color: var(--headline); }
+.github:hover { color: var(--accent-200); }
+.paletteRail { position: fixed; top: calc(56px + var(--theme-drawer-height, 0px)); right: 24px; z-index: 80; display: flex; justify-content: center; width: 48px; }
+.theme-drawer-flow { width: 100%; }
+.sidebar { top: calc(64px + var(--theme-drawer-height, 0px)); }
+.content { position: relative; grid-column: 2; min-width: 0; padding-right: 56px; }
+@media (max-width: 767px) {
+  .frame { display: block; padding: 72px 16px 48px; }
+  .paletteRail { top: calc(106px + var(--theme-drawer-height, 0px)); right: 12px; width: 40px; }
+  .sidebar { position: static; width: auto; height: auto; overflow: visible; }
+  .profile { display: flex; gap: 18px; align-items: center; padding-right: 28px; }
+  .avatar { width: 72px; height: 72px; margin: 0; flex-shrink: 0; }
+  .name { font-size: 19px; }
+  .bio { max-width: 240px; margin-top: 4px; font-size: 13px; }
+  .navigation { flex-direction: row; flex-wrap: wrap; gap: 14px 20px; margin-top: 26px; }
+  .navigation a { gap: 5px; font-size: 14px; }
+  .github { margin-top: 0; padding-top: 22px; }
+  .content { padding-top: 42px; padding-right: 44px; }
+}

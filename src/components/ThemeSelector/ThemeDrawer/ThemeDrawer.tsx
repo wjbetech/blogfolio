@@ -8,12 +8,14 @@ export default function ThemeDrawer({
   open,
   onClose,
   onSelect,
-  active
+  active,
+  className = ""
 }: {
   open: boolean;
   onClose: () => void;
   onSelect: (id: string) => void;
   active?: string | null;
+  className?: string;
 }) {
   const carouselRef = useRef<ThemeDrawerCarouselHandle | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -82,12 +84,12 @@ export default function ThemeDrawer({
       role="dialog"
       aria-modal="true"
       aria-labelledby="theme-drawer-title"
-      className={`overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-300 ease-in-out ${
+      className={`${className} overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-[400ms] ease-in-out ${
         open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
       }`}>
       {/* Title bar — aligned with the carousel container */}
       <div className="w-full">
-        <div className="relative max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+        <div className="relative w-full py-2">
           <div className="flex items-center justify-center gap-2">
             <button
               type="button"
@@ -113,7 +115,7 @@ export default function ThemeDrawer({
           <button
             onClick={onClose}
             aria-label="Close theme drawer"
-            className="absolute right-4 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2 cursor-pointer text-headline shrink-0">
+            className="absolute right-3 md:right-6 top-1/2 flex size-10 md:size-12 -translate-y-1/2 items-center justify-center cursor-pointer text-headline shrink-0">
             <UpArrowIcon />
           </button>
         </div>

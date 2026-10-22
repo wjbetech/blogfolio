@@ -13,6 +13,7 @@ import { getPrimaryProjectImage } from "@/lib/projectImages";
 export type BlogCardData = {
   slug: string;
   title: string;
+  publishedAt: string;
   snippet: string;
   /** Declared cover image, or "" when the card should use the placeholder. */
   image: string;
@@ -30,6 +31,7 @@ export function getBlogCardData(post: Post): BlogCardData {
   return {
     slug: post.slug,
     title: post.title,
+    publishedAt: post.publishedAt,
     snippet: getPostSnippet(post, 120),
     image: post.coverImage?.trim() || post.images?.[0]?.trim() || ""
   };
@@ -45,7 +47,7 @@ export function getProjectCardData(project: Project): ProjectCardData {
 }
 
 export function getPublishedBlogCards(): BlogCardData[] {
-  return getPublishedPosts(allPosts).map(getBlogCardData);
+  return getPublishedPosts(allPosts).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map(getBlogCardData);
 }
 
 export function getPublishedProjectCards(): ProjectCardData[] {

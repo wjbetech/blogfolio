@@ -58,7 +58,7 @@ The blog redesign should establish a more precise article scale, reading width, 
 
 ## Layout and interaction
 
-The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. It is marked noindex. The homepage Writing and Things I Built carousels use the shared compact horizontal card, with borderless sections, generous vertical padding, and wider card spacing.
+The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. The root layout uses a fixed profile sidebar with route-aware navigation; the active link uses accent-300. A borderless fixed header spans only the content column, with the current page title on the left and palette control on the right. Next.js navigation updates the right-hand page content while preserving the sidebar and header. On mobile the sidebar becomes a profile header with wrapping navigation below the fixed page header. The homepage adds a working introduction with reduced-motion-aware rolling blocks, square project tiles with hover/focus captions (always visible on touch devices), and a text-only recent blog list ordered by publication date.
 
 The root layout provides:
 

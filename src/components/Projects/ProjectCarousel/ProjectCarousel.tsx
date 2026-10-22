@@ -25,8 +25,8 @@ const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(f
   return (
     <section className="">
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <h2 className="text-2xl font-semibold font-serif text-headline">Posts</h2>
+        <div className="flex items-center pl-6">
+          <h2 className="text-2xl font-semibold font-serif text-headline">Projects</h2>
           <CarouselControls
             onPrev={() => innerRef.current?.scrollLeft()}
             onNext={() => innerRef.current?.scrollRight()}
@@ -43,8 +43,8 @@ const ProjectCarousel = React.forwardRef<CarouselHandle, ProjectCarouselProps>(f
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {projects.map((project, idx) => (
+          <ProjectCard key={project.slug} project={project} priority={idx < 2} />
         ))}
       </Carousel>
     </section>

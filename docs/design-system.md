@@ -4,11 +4,11 @@ Blogfolio is a personal editorial site with two practical goals: communicate dev
 
 ## Theme system
 
-Themes are defined as data in `src/lib/themes.ts` — the single source of truth. There are currently **23 themes**, including the World of Warcraft: Forever-inspired Mount Hyjal, Skyborne, and Timbermaw Hold palettes.
+Themes are defined as data in `src/lib/theme/palettes.ts` — the single source of truth. `src/lib/themes.ts` remains as a deprecated compatibility re-export. There are currently **23 themes**, including the World of Warcraft: Forever-inspired Mount Hyjal, Skyborne, and Timbermaw Hold palettes.
 
 The runtime mechanism is:
 
-1. The root layout renders `<ThemeStyles />`, a server-generated `<style>` block containing one `[data-theme="<id>"]` rule per theme, generated directly from `themes.ts` (a `:root` rule mirrors welcome as the fallback default).
+1. The root layout renders `<ThemeStyles />`, a server-generated `<style>` block containing one `[data-theme="<id>"]` rule per theme, generated directly from the palette data (a `:root` rule mirrors welcome as the fallback default).
 2. A tiny pre-paint script at the top of `<body>` reads the saved theme id from `localStorage` (`site:theme`) and sets the `data-theme` attribute on `<html>` before first paint, so there is no theme flash.
 3. Selecting a theme (`useThemeHook` → `applyTheme.ts`) sets the `data-theme` attribute and persists the id to `localStorage`. Clearing reverts to the welcome default.
 4. Components use Tailwind utilities whose colors resolve through the CSS variables.
@@ -58,7 +58,7 @@ The blog redesign should establish a more precise article scale, reading width, 
 
 ## Layout and interaction
 
-The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. The root layout uses a fixed profile sidebar with route-aware navigation; the active link uses accent-300. A borderless fixed header spans only the content column, with the current page title on the left and palette control on the right. Next.js navigation updates the right-hand page content while preserving the sidebar and header. On mobile the sidebar becomes a profile header with wrapping navigation below the fixed page header. The homepage adds a working introduction with reduced-motion-aware rolling blocks, square project tiles with hover/focus captions (always visible on touch devices), and a text-only recent blog list ordered by publication date.
+The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. The root layout uses a fixed profile sidebar with route-aware navigation; the active link uses accent-300. A narrow fixed rail holds the palette control at the top right. Opening the theme drawer pushes page content and both side panels down in sync; closing it restores their position with the same motion. Next.js navigation updates the right-hand page content while preserving the profile sidebar. On mobile the sidebar becomes a profile header with wrapping navigation. The homepage adds a working introduction with reduced-motion-aware rolling blocks, square project tiles with hover/focus captions (always visible on touch devices), and a text-only recent blog list ordered by publication date.
 
 The root layout provides:
 

@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import ThemeDrawer from "@/components/ThemeSelector/ThemeDrawer/ThemeDrawer";
-import useTheme from "@/hooks/useThemeHook";
 import ColorPaletteIcon from "@/components/Icons/ColorPaletteIcon";
+import { useTheme } from "@/lib/theme";
 
 export default function ThemeAside({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);

@@ -22,7 +22,7 @@ const BlogCarousel = React.forwardRef<CarouselHandle, BlogCarouselProps>(functio
   return (
     <section className="mt-12">
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center pl-6">
           <h2 className="text-2xl font-semibold font-serif text-headline">Blogs</h2>
           <CarouselControls
             onPrev={() => innerRef.current?.scrollLeft()}
@@ -40,8 +40,8 @@ const BlogCarousel = React.forwardRef<CarouselHandle, BlogCarouselProps>(functio
       </div>
 
       <Carousel ref={innerRef} hideControls>
-        {posts.map((post) => (
-          <BlogPostCard key={post.slug} card={post} />
+        {posts.map((post, idx) => (
+          <BlogPostCard key={post.slug} card={post} priority={idx < 2} />
         ))}
       </Carousel>
     </section>

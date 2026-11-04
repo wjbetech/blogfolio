@@ -18,12 +18,12 @@ describe("proxy", () => {
     }
   });
 
-  it("ships the strict policy as report-only on the response", () => {
+  it("ships the strict policy as enforced on the response", () => {
     const response = proxy(makeRequest());
 
-    const policy = response.headers.get("Content-Security-Policy-Report-Only");
+    const policy = response.headers.get("Content-Security-Policy");
     expect(policy).toBeTruthy();
-    expect(response.headers.get("Content-Security-Policy")).toBeNull();
+    expect(response.headers.get("Content-Security-Policy-Report-Only")).toBeNull();
 
     expect(policy).toContain("default-src 'self'");
     expect(policy).toContain("'strict-dynamic'");
@@ -32,8 +32,8 @@ describe("proxy", () => {
   });
 
   it("generates a fresh nonce per request", () => {
-    const first = proxy(makeRequest()).headers.get("Content-Security-Policy-Report-Only") ?? "";
-    const second = proxy(makeRequest()).headers.get("Content-Security-Policy-Report-Only") ?? "";
+    const first = proxy(makeRequest()).headers.get("Content-Security-Policy") ?? "";
+    const second = proxy(makeRequest()).headers.get("Content-Security-Policy") ?? "";
 
     const nonceOf = (policy: string) => policy.match(/'nonce-([^']+)'/)?.[1];
     expect(nonceOf(first)).toBeTruthy();
@@ -46,7 +46,7 @@ describe("proxy", () => {
     env.NODE_ENV = "development";
 
     try {
-      const devPolicy = proxy(makeRequest()).headers.get("Content-Security-Policy-Report-Only") ?? "";
+      const devPolicy = proxy(makeRequest()).headers.get("Content-Security-Policy") ?? "";
       expect(devPolicy).toContain("'unsafe-eval'");
     } finally {
       if (previous === undefined) delete env.NODE_ENV;

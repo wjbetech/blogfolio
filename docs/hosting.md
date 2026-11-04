@@ -78,3 +78,9 @@ The repository can document the intended topology and automation, but only the h
 - whether the public domain resolves correctly
 
 See [deployment.md](./deployment.md) for the repository's workflow behavior.
+
+## Host security verification still required
+
+Repository changes cannot establish LAN isolation. Before treating the host as hardened, verify an unprivileged LXC or dedicated VM, no unnecessary host mounts, firewall denial from the app/runner to LAN and Proxmox management, no router port forwards or UPnP exposure (including IPv6), and a dedicated runner identity with only deployment permissions. Docker access is powerful and must not be granted to untrusted jobs. Patch the host kernel, Docker, and Proxmox independently of the application image.
+
+From the Proxmox web UI, select the Ubuntu container/VM that runs Blogfolio and open its console. Read-only checks can then collect `hostname`, `id`, `docker ps --format '{{.Names}} {{.Image}} {{.Ports}}'`, `ss -lnt`, and firewall status. Do not paste `.env`, tunnel tokens, or full `docker inspect` output: those can contain credentials. An administrator must determine firewall rules from the actual network topology before changing them.

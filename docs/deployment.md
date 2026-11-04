@@ -24,7 +24,7 @@ This is the repository's quality gate. Since Phase 5, `build-and-push.yml` trigg
 
 ### `build-and-push.yml`
 
-Triggers when `ci-content-validation.yml` completes successfully on `master`, or on manual workflow dispatch. The build job is skipped unless the validation workflow concluded with `success`.
+Triggers on pushes to `master`, or manual dispatch on `master`. Its own validation job must pass before image publication. Validation, checkout, and image tags use the same full commit SHA.
 
 It:
 
@@ -34,7 +34,7 @@ It:
 4. builds and pushes `ghcr.io/<repository>` using Docker Buildx
 5. passes `NEXT_PUBLIC_SITE_URL` as a Docker build argument, defaulting to `https://wjbeast.com`
 
-The workflow waits for the validation workflow rather than running fully independently, but one residual risk remains: manual `workflow_dispatch` bypasses CI entirely and deploys the mutable `:latest` tag. Treat an unexpected production image as a reason to check for a manual dispatch.
+The workflow runs its own validation before image publication, but one residual risk remains: manual image builds must validate before publication; standalone manual deploy dispatch is rejected. Treat an unexpected production image as a reason to check for a manual dispatch.
 
 ### `deploy.yml`
 
@@ -48,7 +48,7 @@ It runs on:
 
 The runner:
 
-1. resolves the image tag — the short SHA of the commit the build produced (`workflow_run.head_sha`), or `latest` on manual dispatch
+1. resolves the image tag — the full SHA of the commit the build produced (`workflow_run.head_sha`); standalone manual deploy dispatch is rejected
 2. logs into GHCR
 3. pulls `ghcr.io/<repository>:<tag>`
 4. runs `docker compose up -d --pull always` from `/home/will/blogfolio` with `BLOGFOLIO_IMAGE_TAG=<tag>`, which pins the Compose app service to that exact image
@@ -110,10 +110,16 @@ When diagnosing production issues, inspect the actual homelab runner, Docker Com
 
 ## Deployment gating
 
-Image publication is gated on the validation workflow succeeding (Phase 5), and deploys pin the exact built commit instead of tracking `:latest` (2026-08). Residual risks that remain by design: manual dispatch skips CI and falls back to `latest`, and Dependabot PRs skip the changelog check automatically.
+Image publication requires its own validation job, and automatic deployments pin the full validated commit SHA. Standalone manual deployments are rejected. Dependabot PRs skip the changelog check automatically.
 
 ## Security headers
 
-`next.config.ts` applies `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, and an enforced baseline `Content-Security-Policy` to every route. The CSP allowlists `'self'` plus the Plausible origin (derived from `NEXT_PUBLIC_PLAUSIBLE_SCRIPT_SRC`).
+The production proxy enforces a per-request nonce script CSP. next.config.ts supplies baseline headers for all routes, including API/static responses. Inline styles remain supported for the dynamic UI, but arbitrary inline scripts are blocked on pages. Existing HTTPS, frame, MIME, referrer, and permissions headers remain enabled.
 
-`src/proxy.ts` additionally generates a per-request nonce and ships a strict, nonce-based policy (`'strict-dynamic'`) as **`Content-Security-Policy-Report-Only`**: violations appear in the browser console without blocking anything. Next.js reads the nonce from the request header and stamps all framework scripts automatically; site inline scripts (pre-paint theme restore, JSON-LD) receive it explicitly. Once console reports are clean, flip the response header in `proxy.ts` to `Content-Security-Policy` and remove the overlapping directives from the `next.config.ts` baseline so the two policies don't intersect.
+## Security hardening (2026-11)
+
+Production deploy checks out the successful build commit and runs its Compose file with `/home/will/blogfolio` as the project directory, preserving the host environment file. Containers have CPU/memory/PID and log limits, dropped capabilities, and no-new-privileges. Cloudflared is version-pinned. Image builds validate their own immutable input and audit production dependencies. Master and staging require PRs/checks; deployment environments allow only their named branches.
+
+The contact route trusts a validated CF-Connecting-IP only because the supported public ingress is Cloudflare Tunnel. Maintain that ingress boundary: alternate direct access must not accept user-supplied proxy headers. Apply an edge rate limit for POST /api/contact in Cloudflare as additional protection.
+
+Strict nonce-based script CSP is enforced by proxy.ts; JSON-LD, theme bootstrap, and analytics receive the nonce. Styles remain inline-compatible for existing dynamic theme/UI styles.

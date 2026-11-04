@@ -1,3 +1,4 @@
+import NonceJsonLd from "@/components/NonceJsonLd";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
   return (
     <article className="mx-auto w-full max-w-7xl">
       {/* JSON-LD (application/ld+json) is data, not executable script — no CSP nonce needed. */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
+      <NonceJsonLd html={serializeJsonLd(projectJsonLd)} />
 
       {/* ── Editorial header ── */}
       <header className="mt-6 md:mt-10">

@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <script nonce={nonce} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: PRE_PAINT_THEME_SCRIPT }} />
         <ThemeStyles />
         <SiteFrame>{children}</SiteFrame>
-        <AnalyticsProvider />
+        <AnalyticsProvider nonce={nonce} />
       </body>
     </html>
   );

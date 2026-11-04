@@ -51,6 +51,7 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [
           ...SECURITY_HEADERS,
+          // Page CSP is enforced with per-request nonces by proxy.ts.
           { key: "Content-Security-Policy", value: buildContentSecurityPolicy() }
         ]
       }

@@ -1,7 +1,7 @@
 # ──────────────────────────────────────────────
 # Stage 1: Install dependencies
 # ──────────────────────────────────────────────
-FROM node:22-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /app
 
 RUN corepack enable
@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile
 # ──────────────────────────────────────────────
 # Stage 2: Build the application
 # ──────────────────────────────────────────────
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 
 RUN corepack enable
@@ -32,7 +32,7 @@ RUN pnpm run build
 # ──────────────────────────────────────────────
 # Stage 3: Minimal production image
 # ──────────────────────────────────────────────
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production

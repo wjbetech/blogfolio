@@ -8,6 +8,7 @@ type PostMeta = {
   id: string | undefined;
   title: string | undefined;
   excerpt: string | undefined;
+  homeBlurb: string | undefined;
   author: string | undefined;
   tags: string[];
   featured: boolean | undefined;
@@ -34,6 +35,7 @@ function readPostMeta(): PostMeta[] {
         id: data.id as string | undefined,
         title: data.title as string | undefined,
         excerpt: data.excerpt as string | undefined,
+        homeBlurb: data.homeBlurb as string | undefined,
         author: data.author as string | undefined,
         tags: (data.tags as string[] | undefined) ?? [],
         featured: data.featured as boolean | undefined,
@@ -55,6 +57,7 @@ describe("Blog post frontmatter", () => {
       "title",
       "slug",
       "excerpt",
+      "homeBlurb",
       "author",
       "tags",
       "featured",
@@ -69,6 +72,8 @@ describe("Blog post frontmatter", () => {
         expect(value).toBeDefined();
       });
       expect(post.tags?.length).toBeGreaterThan(0);
+      expect(post.homeBlurb?.trim().length).toBeGreaterThan(0);
+      expect(post.homeBlurb?.trim().length).toBeLessThanOrEqual(160);
       expect(post.status).toMatch(/^(draft|published)$/);
     });
   });

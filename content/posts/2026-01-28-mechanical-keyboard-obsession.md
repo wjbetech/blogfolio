@@ -2,6 +2,7 @@
 id: "2"
 title: "Hunting Keyboards in Seoul When You've Already Got Six at Home"
 excerpt: "What a 6-board stack and a few afternoons at Yongsan and Gangbyeon TechnoMart taught me about buying keyboards in Korea."
+homeBlurb: "A keyboard hunt through Seoul's markets, told by someone who already owns more boards than sense."
 author: "William East"
 tags:
   - Keyboards

@@ -1,20 +1,23 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, type Ref } from "react";
 import ThemeDrawerCarousel, { ThemeDrawerCarouselHandle } from "../ThemeCarousel/ThemeDrawerCarousel";
 import UpArrowIcon from "../../Icons/UpArrowIcon";
+import styles from "./ThemeDrawer.module.css";
 
 export default function ThemeDrawer({
   open,
   onClose,
   onSelect,
   active,
+  contentRef,
   className = ""
 }: {
   open: boolean;
   onClose: () => void;
   onSelect: (id: string) => void;
   active?: string | null;
+  contentRef?: Ref<HTMLDivElement>;
   className?: string;
 }) {
   const carouselRef = useRef<ThemeDrawerCarouselHandle | null>(null);
@@ -84,49 +87,42 @@ export default function ThemeDrawer({
       role="dialog"
       aria-modal="true"
       aria-labelledby="theme-drawer-title"
-      className={`${className} overflow-hidden border-b-2 bg-bg-200 border-b-accent-300 transition-all duration-[400ms] ease-in-out ${
-        open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+      style={{ height: "var(--theme-drawer-height, 0px)" }}
+      className={`${className} relative shrink-0 overflow-hidden bg-bg-200 shadow-[inset_0_-2px_0_var(--accent-300)] transition-opacity duration-[400ms] ease-in-out motion-reduce:transition-none ${
+        open ? "opacity-100" : "opacity-0"
       }`}>
-      {/* Title bar — aligned with the carousel container */}
-      <div className="w-full">
-        <div className="relative w-full py-2">
-          <div className="flex items-center justify-center gap-2">
-            <button
-              type="button"
-              aria-label="Scroll themes left"
-              onClick={() => carouselRef.current?.scrollLeft()}
-              className="inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
-              ‹
-            </button>
-
-            <h3 id="theme-drawer-title" className="text-xl font-semibold text-headline text-center shrink-0">
-              Themes
-            </h3>
-
-            <button
-              type="button"
-              aria-label="Scroll themes right"
-              onClick={() => carouselRef.current?.scrollRight()}
-              className="inline-flex items-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
-              ›
-            </button>
-          </div>
-
+      <div ref={contentRef} className={styles.drawerGrid}>
+        <div className={styles.carouselControls}>
           <button
-            onClick={onClose}
-            aria-label="Close theme drawer"
-            className="absolute right-3 md:right-6 top-1/2 flex size-10 md:size-12 -translate-y-1/2 items-center justify-center cursor-pointer text-headline shrink-0">
-            <UpArrowIcon />
+            type="button"
+            aria-label="Scroll themes left"
+            onClick={() => carouselRef.current?.scrollLeft()}
+            className="inline-flex items-center justify-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
+            ‹
+          </button>
+          <h3 id="theme-drawer-title" className="text-xl font-semibold text-headline text-center">
+            Themes
+          </h3>
+          <button
+            type="button"
+            aria-label="Scroll themes right"
+            onClick={() => carouselRef.current?.scrollRight()}
+            className="inline-flex items-center justify-center text-xl p-1 cursor-pointer hover:opacity-80 shrink-0">
+            ›
           </button>
         </div>
-      </div>
 
-      {/* Carousel — constrained width, scrolls independently below title */}
-      <div className="w-full">
-        <div className="max-w-7xl mx-auto pb-4">
+        <div className={styles.carouselArea}>
           <ThemeDrawerCarousel ref={carouselRef} active={active} onSelect={(id) => onSelect(id)} />
         </div>
       </div>
+
+      <button
+        onClick={onClose}
+        aria-label="Close theme drawer"
+        className={`${styles.closeButton} flex items-center justify-center cursor-pointer text-headline shrink-0`}>
+        <UpArrowIcon />
+      </button>
     </div>
   );
 }

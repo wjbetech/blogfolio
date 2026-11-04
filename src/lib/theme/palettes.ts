@@ -4,17 +4,17 @@ export const ColorThemes: ColorTheme[] = [
   {
     id: "welcome",
     name: "Welcome Theme",
-    "bg-100": "#eaf4f4",
-    "bg-200": "#d4e9e2",
-    "bg-300": "#bddbd0",
-    headline: "#344e41",
-    paragraph: "#5f6f73",
-    button: "#84a98c",
-    buttonText: "#fffffe",
-    link: "#344e41",
-    "accent-100": "#a7c7e7",
-    "accent-200": "#f2cc8f",
-    "accent-300": "#e07a5f"
+    "bg-100": "#F2F5F8",
+    "bg-200": "#E4EBF2",
+    "bg-300": "#D4DFE9",
+    headline: "#243654",
+    paragraph: "#45546B",
+    button: "#356F82",
+    buttonText: "#F7FAFF",
+    link: "#356F82",
+    "accent-100": "#356F82",
+    "accent-200": "#87552C",
+    "accent-300": "#6D5C82"
   },
   {
     id: "ulduar",
@@ -161,6 +161,22 @@ export const ColorThemes: ColorTheme[] = [
     "palette-border": "#7f5af0"
   },
   {
+    id: "elune",
+    name: "Elune's Blessing",
+    "bg-100": "#b4bfff",
+    "bg-200": "#a5adf9",
+    "bg-300": "#959de8",
+    headline: "#3f3e8b",
+    paragraph: "#161f66",
+    button: "#8478ba",
+    buttonText: "#ffffff",
+    link: "#6458bf",
+    "accent-100": "#6d62bc",
+    "accent-200": "#405b88",
+    "accent-300": "#a95bff",
+    "palette-border": "#7c6fd8"
+  },
+  {
     id: "camelot",
     name: "Merlin's Camelot",
     "bg-100": "#fffffe",
@@ -289,22 +305,6 @@ export const ColorThemes: ColorTheme[] = [
     "palette-border": "#7f5d3b"
   },
   {
-    id: "elune",
-    name: "Elune's Blessing",
-    "bg-100": "#b4bfff",
-    "bg-200": "#a5adf9",
-    "bg-300": "#959de8",
-    headline: "#3f3e8b",
-    paragraph: "#161f66",
-    button: "#8478ba",
-    buttonText: "#ffffff",
-    link: "#6458bf",
-    "accent-100": "#6d62bc",
-    "accent-200": "#405b88",
-    "accent-300": "#a95bff",
-    "palette-border": "#7c6fd8"
-  },
-  {
     id: "zangarmarsh",
     name: "Zangarmarsh",
     "bg-100": "#413a70",
@@ -339,18 +339,18 @@ export const ColorThemes: ColorTheme[] = [
   {
     id: "skyborne",
     name: "Skyborne",
-    "bg-100": "#DDE8F5",
-    "bg-200": "#CCDCEE",
-    "bg-300": "#B9CCE3",
+    "bg-100": "#F2F5F8",
+    "bg-200": "#E4EBF2",
+    "bg-300": "#D4DFE9",
     headline: "#243654",
     paragraph: "#45546B",
-    button: "#345DA8",
+    button: "#356F82",
     buttonText: "#F7FAFF",
-    link: "#30538C",
-    "accent-100": "#4F899A",
-    "accent-200": "#99612F",
-    "accent-300": "#9A86AD",
-    "palette-border": "#345DA8"
+    link: "#356F82",
+    "accent-100": "#356F82",
+    "accent-200": "#87552C",
+    "accent-300": "#6D5C82",
+    "palette-border": "#356F82"
   },
   {
     id: "timbermaw-hold",

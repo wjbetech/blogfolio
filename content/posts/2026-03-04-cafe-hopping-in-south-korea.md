@@ -2,6 +2,7 @@
 id: "5"
 title: "Cafe Hopping in South Korea"
 excerpt: "An art form in and of itself, Korea's cafe culture is stunning, but is there a dark truth behind it all?"
+homeBlurb: "A look at Seoul's cafe culture, the creative spaces it offers, and the pressures behind it."
 author: "William East"
 tags:
   - Life

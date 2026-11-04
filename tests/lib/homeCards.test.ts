@@ -12,6 +12,7 @@ jest.mock("contentlayer/generated", () => ({
       slug: "published-post",
       title: "Published Post",
       excerpt: "Live excerpt",
+      homeBlurb: "Specific homepage summary",
       coverImage: "",
       images: [],
       status: "published",
@@ -24,6 +25,7 @@ jest.mock("contentlayer/generated", () => ({
       slug: "draft-post",
       title: "Draft Post",
       excerpt: "Secret draft text",
+      homeBlurb: "Secret draft summary",
       coverImage: "",
       images: [],
       status: "draft",
@@ -65,6 +67,7 @@ describe("homeCards", () => {
       slug: "published-post",
       title: "Published Post",
       snippet: "Live excerpt",
+      homeBlurb: "Specific homepage summary",
       image: ""
     });
     expect(card.publishedAt).toBeDefined();

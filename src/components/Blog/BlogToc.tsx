@@ -113,7 +113,7 @@ export default function BlogToc() {
 
   return (
     <nav aria-label="Table of contents">
-      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-paragraph/40">
+      <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-paragraph">
         Sections
       </p>
       <ul className="space-y-1.5 border-l border-accent-100/15 pl-3">
@@ -123,7 +123,7 @@ export default function BlogToc() {
               href={`#${h.id}`}
               className={`block text-[13px] leading-snug transition-colors hover:text-headline ${
                 h.level === 3 ? "pl-3" : ""
-              } ${activeId === h.id ? "text-accent-200 font-medium" : "text-paragraph/55"}`}
+                } ${activeId === h.id ? "text-link font-semibold" : "text-paragraph"}`}
             >
               {h.text}
             </a>

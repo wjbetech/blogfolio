@@ -164,22 +164,9 @@ describe("BlogPageClient", () => {
     expect(screen.queryByText("This should stay hidden")).not.toBeInTheDocument();
   });
 
-  it("filters posts by tag when a tag is selected", () => {
+  it("shows the archive without topic controls", () => {
     render(<BlogPageClient posts={posts} currentPage={1} />);
-
-    // select the "Life" tag
-    fireEvent.click(screen.getByRole("button", { name: "Life" }));
-
-    expect(screen.getByText("Showing posts tagged")).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Introductions" })).not.toBeInTheDocument();
-    expect(screen.queryByText("Featured article summary")).not.toBeInTheDocument();
-
-    expect(screen.getByText("Summary for post 2")).toBeInTheDocument();
-    expect(screen.getByText("Summary for post 5")).toBeInTheDocument();
-
-    expect(screen.queryByText("Summary for post 1")).not.toBeInTheDocument();
-    expect(screen.queryByText("Summary for post 3")).not.toBeInTheDocument();
-    expect(screen.queryByText("Summary for post 4")).not.toBeInTheDocument();
-    expect(screen.queryByText("Summary for post 6")).not.toBeInTheDocument();
+    expect(screen.getByRole("complementary", { name: "Writing archive" })).toBeInTheDocument();
+    expect(screen.queryByText("Topics")).not.toBeInTheDocument();
   });
 });

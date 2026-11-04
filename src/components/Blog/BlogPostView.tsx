@@ -21,7 +21,7 @@ function RelatedPosts({ posts, currentSlug }: { posts: Post[]; currentSlug: stri
 
   return (
     <div className="mt-16 border-t border-accent-100/15 pt-10">
-      <h2 className="mb-6 text-xs font-semibold uppercase tracking-widest text-paragraph/40">
+      <h2 className="mb-6 text-xs font-semibold uppercase tracking-widest text-paragraph">
         Continue reading
       </h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -34,10 +34,10 @@ function RelatedPosts({ posts, currentSlug }: { posts: Post[]; currentSlug: stri
             <h3 className="mb-1.5 text-sm font-semibold leading-snug text-headline group-hover:text-accent-200 transition-colors">
               {p.title}
             </h3>
-            <p className="text-xs leading-relaxed text-paragraph/55 line-clamp-2">
+            <p className="text-xs leading-relaxed text-paragraph line-clamp-2">
               {p.excerpt || "Read this article →"}
             </p>
-            <div className="mt-3 flex items-center gap-2 text-[11px] text-paragraph/40">
+            <div className="mt-3 flex items-center gap-2 text-[11px] text-paragraph">
               <CalendarIcon className="w-3 h-3" />
               <time dateTime={p.publishedAt}>{formatDate(p.publishedAt)}</time>
             </div>
@@ -54,12 +54,14 @@ export default function BlogPostView({ post, allPosts }: Props) {
   return (
     <article className="mx-auto w-full max-w-7xl">
       {/* Title section — dramatic serif title + horizontal meta bar, aligned to navbar */}
-      <header className="mx-auto max-w-7xl space-y-4 sm:space-y-5 mt-6 sm:mt-10 mb-8 sm:mb-14">
-        <h1 className="font-serif text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.95] sm:leading-[0.92] tracking-tight text-balance text-headline">
+      <header className="mx-auto w-full max-w-[56rem] space-y-4 sm:space-y-5 mt-6 sm:mt-10 mb-8 sm:mb-14">
+        <h1 className="font-serif text-[2rem] sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.08] tracking-tight text-balance text-headline">
           {post.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 border-y border-accent-100/15 py-2.5 sm:py-3 text-[13px] sm:text-sm text-paragraph/60">
+        {post.excerpt && <p className="max-w-[64ch] text-base leading-7 text-paragraph sm:text-lg sm:leading-8">{post.excerpt}</p>}
+
+        <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 border-y border-accent-100/15 py-2.5 sm:py-3 text-[13px] sm:text-sm text-paragraph">
           <span className="inline-flex items-center gap-1.5">
             <CalendarIcon className="w-3.5 h-3.5" />
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -73,33 +75,26 @@ export default function BlogPostView({ post, allPosts }: Props) {
               </span>
             </>
           )}
-          {post.excerpt && (
-            <>
-              <span className="text-paragraph/20 hidden sm:inline">|</span>
-              <span className="hidden sm:inline text-paragraph/50 italic">{post.excerpt}</span>
-            </>
-          )}
         </div>
       </header>
 
       {/* Hero — same width as the blog body (48rem) */}
-      <section className="mx-auto max-w-[48rem] mb-6 sm:mb-10 overflow-hidden rounded-xl">
+      <section className="mx-auto w-full max-w-[56rem] mb-6 sm:mb-10 overflow-hidden rounded-xl">
         <CoverImage src={heroImage} title={post.title} className="rounded-xl" />
       </section>
 
       {/* Mobile TOC — collapsible, only below xl where sidebar is hidden */}
-      <div className="xl:hidden mx-auto w-full max-w-[48rem] mb-6 sm:mb-8">
+      <div className="min-[1360px]:hidden mx-auto w-full max-w-[42rem] mb-6 sm:mb-8">
         <BlogTocMobile key={`mobile-${post.slug}`} />
       </div>
 
       {/* Readable body (48rem) + TOC pushed to the right edge of the navbar frame */}
-      <div className="flex gap-8">
-        <div className="hidden xl:block flex-1" aria-hidden="true" />
-        <div className="mx-auto xl:mx-0 w-full max-w-[48rem] flex-shrink-0 min-w-0">
+      <div className="mx-auto grid w-full max-w-[56rem] grid-cols-1 gap-8 min-[1360px]:grid-cols-[minmax(0,42rem)_12rem]">
+        <div className="w-full min-w-0">
           <PostContent code={post.body.code} />
         </div>
-        <aside className="hidden xl:block flex-1">
-          <div className="sticky top-40 w-52 ml-auto">
+        <aside className="hidden min-[1360px]:block">
+          <div className="sticky top-40 w-48">
             <BlogToc key={post.slug} />
           </div>
         </aside>

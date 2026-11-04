@@ -14,6 +14,7 @@ export type BlogCardData = {
   slug: string;
   title: string;
   publishedAt: string;
+  homeBlurb: string;
   snippet: string;
   /** Declared cover image, or "" when the card should use the placeholder. */
   image: string;
@@ -35,6 +36,7 @@ export function getBlogCardData(post: Post): BlogCardData {
     slug: post.slug,
     title: post.title,
     publishedAt: post.publishedAt,
+    homeBlurb: post.homeBlurb,
     snippet: getPostSnippet(post, 120),
     image: post.coverImage?.trim() || post.images?.[0]?.trim() || "",
     readingTime: post.readingTime ?? 0,

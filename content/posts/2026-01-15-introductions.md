@@ -2,6 +2,7 @@
 id: "1"
 title: "Introductions"
 excerpt: "A Brit in Seoul who went from Korean linguistics to shipping code. Here's the short version of how I got here."
+homeBlurb: "From Korean linguistics to software engineering: the winding route that brought me to Seoul."
 author: "William East"
 tags:
   - Web Development

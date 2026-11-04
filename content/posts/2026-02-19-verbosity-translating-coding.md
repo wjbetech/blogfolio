@@ -2,6 +2,7 @@
 id: "4"
 title: "Verbosity in Coding: What Teaching and Translating Taught Me About Readable Code"
 excerpt: "When to be verbose in code, and why the same judgment you use in teaching and translation makes the call clearer."
+homeBlurb: "How teaching and translation reveal when explicit code makes software easier to understand."
 author: "William East"
 tags:
   - Teaching

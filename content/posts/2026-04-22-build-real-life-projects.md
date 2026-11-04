@@ -2,6 +2,7 @@
 id: "6"
 title: "Build Your Own Solutions"
 excerpt: "Why building tools for your own hobbies and frustrations can keep creativity moving, especially when code and AI make iteration cheaper."
+homeBlurb: "Why the most motivating software projects often begin with a personal frustration or hobby."
 author: "William East"
 tags:
   - Tech

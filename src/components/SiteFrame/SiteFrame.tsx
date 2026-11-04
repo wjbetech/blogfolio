@@ -29,7 +29,7 @@ export default function SiteFrame({ children }: { children: ReactNode }) {
           </Link>
           <div>
             <p className={styles.name}>William East</p>
-            <p className={styles.bio}>Developer, translator, and teacher.<br />A Brit building things in Seoul.</p>
+            <p className={styles.bio}>AI engineer, adjunct professor, and Korean-English language services in Seoul, Korea.</p>
           </div>
         </div>
         <nav className={styles.navigation} aria-label="Primary navigation">

@@ -61,56 +61,40 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectJsonLd) }} />
 
       {/* ── Editorial header ── */}
-      <header className="mt-10 md:mt-16">
-        <h1 className="font-serif text-4xl font-semibold tracking-tight text-headline md:text-5xl animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[150ms] fill-mode-backwards">
+      <header className="mt-6 md:mt-10">
+        <h1 className="font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-headline md:text-5xl">
           {project.title}
         </h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-paragraph sm:text-lg sm:leading-8">{project.description}</p>
       </header>
 
       {/* ── Meta strip ── */}
-      <div className="mt-12 md:mt-16 border-y border-paragraph/15 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 animate-in fade-in slide-in-from-bottom-4 animation-duration-[700ms] animation-delay-[400ms] fill-mode-backwards">
-        <div className="py-6 px-1 sm:pr-6 border-b sm:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
+      <div className="mt-6 grid grid-cols-1 gap-x-5 border-y border-accent-100/20 py-3 sm:grid-cols-2 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
+        <div className="flex items-baseline gap-2 py-2 text-sm">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-paragraph">
             Published
           </span>
-          <time dateTime={project.publishedAt} className="font-serif text-lg font-semibold text-headline">
+          <time dateTime={project.publishedAt} className="text-headline">
             {formatDate(project.publishedAt)}
           </time>
         </div>
 
-        <div className="py-6 px-1 sm:pl-6 lg:px-6 border-b lg:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
+        <div className="flex items-baseline gap-2 py-2 text-sm">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-paragraph">
             Last updated
           </span>
-          <time dateTime={project.updatedAt} className="font-serif text-lg font-semibold text-headline">
+          <time dateTime={project.updatedAt || project.publishedAt} className="text-headline">
             {formatDate(project.updatedAt || project.publishedAt)}
           </time>
         </div>
 
-        <div className="py-6 px-1 sm:pr-6 lg:px-6 border-b sm:border-b-0 lg:border-r border-paragraph/15">
-          <span className="block font-sans text-[0.65rem] uppercase tracking-[0.3em] text-paragraph/60 mb-2">
-            Stack
-          </span>
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((tag) => (
-              <span
-                key={tag}
-                className="px-2.5 py-0.5 bg-bg-100/60 border border-accent-100/10 text-sm leading-5 text-paragraph/65 font-mono">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="py-6 px-1 sm:pl-6 lg:px-6">
-          <span className="block font-sans text-[0.65rem] text-paragraph/60 mb-2">Links</span>
-          <div className="flex flex-col items-start gap-1.5">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 py-2 text-sm lg:justify-end">
             {project.repo && (
               <TrackedLink
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-link hover:text-headline transition-colors"
+                className="group inline-flex items-center gap-2 font-medium text-link hover:text-headline transition-colors"
                 eventName="Project CTA Click"
                 eventProps={{ kind: "github", slug: project.slug, surface: "dev_slug" }}>
                 <IconBrandGithub className="w-4 h-4" />
@@ -123,7 +107,7 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 text-sm font-medium text-link hover:text-headline transition-colors"
+                className="group inline-flex items-center gap-2 font-medium text-link hover:text-headline transition-colors"
                 eventName="Project CTA Click"
                 eventProps={{ kind: "demo", slug: project.slug, surface: "dev_slug" }}>
                 Live Demo
@@ -131,14 +115,22 @@ export default async function DevProjectPage({ params }: DevProjectPageProps) {
               </TrackedLink>
             )}
             {!project.repo && !shouldShowLiveDemo(project.link, project.repo) && (
-              <span className="text-sm text-paragraph/50">Private project</span>
+              <span className="text-paragraph">Private project</span>
             )}
-          </div>
         </div>
       </div>
 
+      {project.tech.length > 0 && <details className="group mt-3">
+        <summary className="w-fit cursor-pointer list-none text-sm font-medium text-link underline decoration-accent-100 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-link [&::-webkit-details-marker]:hidden">
+          Built with <span className="font-mono text-xs">({project.tech.length})</span>
+        </summary>
+        <ul className="mt-3 flex flex-wrap gap-2" aria-label="Technology stack">
+          {project.tech.map((tag) => <li key={tag} className="border border-accent-100/25 bg-bg-200/60 px-2.5 py-1 font-mono text-xs text-paragraph">{tag}</li>)}
+        </ul>
+      </details>}
+
       {/* ── Gallery ── */}
-      <section className="mt-12 md:mt-16 animate-in fade-in zoom-in-[0.98] animation-duration-[900ms] animation-delay-[500ms] fill-mode-backwards">
+      <section className="mt-8 md:mt-10">
         <ProjectImageSlider
           variant="gallery"
           images={images}

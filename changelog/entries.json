@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-11-04",
+    "version": "1.23.0",
+    "changes": [
+      {
+        "category": "Style",
+        "description": "Refined the portfolio with a five-column site frame, six homepage projects, compact project and writing lists, improved typography, and a coordinated theme drawer."
+      },
+      {
+        "category": "Feature",
+        "description": "Added an ASTUTR work page, dedicated homepage post blurbs, and a Writing archive in the palette rail."
+      }
+    ]
+  },
+  {
     "date": "2026-10-22",
     "version": "1.22.0",
     "changes": [

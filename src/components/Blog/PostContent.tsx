@@ -48,7 +48,7 @@ export default function PostContent({ code }: PostContentProps) {
     h6: renderHeading(6),
 
     p: (props: Record<string, unknown>) => (
-      <p className="my-5 sm:my-6 leading-7 sm:leading-8 text-[15px] sm:text-base text-pretty text-paragraph [overflow-wrap:anywhere] sm:[overflow-wrap:normal]" {...props} />
+      <p className="my-5 sm:my-6 leading-7 sm:leading-[1.8] text-base sm:text-[17px] text-pretty text-paragraph [overflow-wrap:anywhere] sm:[overflow-wrap:normal]" {...props} />
     ),
 
     a: (props: Record<string, unknown>) => (
@@ -173,7 +173,7 @@ export default function PostContent({ code }: PostContentProps) {
   };
 
   return (
-    <div className="article-body mx-auto w-full max-w-3xl text-[15px] sm:text-base leading-7 sm:leading-8 text-paragraph">
+    <div className="article-body mx-auto w-full max-w-[42rem] text-base leading-7 text-paragraph sm:text-[17px] sm:leading-[1.8]">
       {/* Compiled MDX components are intentionally created from trusted build output. */}
       {/* eslint-disable-next-line react-hooks/static-components */}
       <Content components={components} />

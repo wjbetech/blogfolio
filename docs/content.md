@@ -50,6 +50,7 @@ Defined in `contentlayer.config.ts`:
 | `id` | string | yes | Stable unique content ID |
 | `title` | string | yes | Display title |
 | `excerpt` | string | yes for validation/publishing | Cards, metadata, RSS, and snippets |
+| `homeBlurb` | string | yes | Short, post-specific description shown on homepage writing cards (160 characters max) |
 | `author` | string | yes | Author name |
 | `tags` | string list | yes | Filtering and JSON-LD keywords |
 | `images` | string list | no | Ordered article images |
@@ -59,7 +60,7 @@ Defined in `contentlayer.config.ts`:
 | `updatedAt` | date | yes | Last meaningful update |
 | `status` | enum | yes | `draft` or `published` |
 
-Contentlayer currently marks `excerpt` optional, while `scripts/validate-content.mjs` requires it. Until that discrepancy is resolved, follow the stricter publishing policy and provide an excerpt for every post.
+Contentlayer currently marks `excerpt` optional, while `scripts/validate-content.mjs` requires it. Until that discrepancy is resolved, follow the stricter publishing policy and provide an excerpt for every post. `homeBlurb` is a separate required field for homepage cards; keep it concise and specific to the post.
 
 ## Project frontmatter
 

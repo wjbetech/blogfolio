@@ -60,6 +60,7 @@ jobs:
             DEPLOYMENT_ENV=staging
 
   deploy:
+    environment: staging
     needs: build
     runs-on: [self-hosted, homelab]
     permissions:

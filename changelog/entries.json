@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-11-04",
+    "version": "1.23.2",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Patch runtime dependencies, enforce script nonces, bound contact requests and rate-limit storage, constrain container resources, and pin automated builds to validated commits."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-04",
     "version": "1.23.1",
     "changes": [
       {

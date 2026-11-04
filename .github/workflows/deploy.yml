@@ -11,8 +11,13 @@ on:
   # Also allow manual deploys from the Actions tab
   workflow_dispatch:
 
+concurrency:
+  group: blogfolio-production-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
+    environment: production
     name: Pull & restart on homelab
     # Only run if the upstream workflow succeeded (or if triggered manually)
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
@@ -22,17 +27,23 @@ jobs:
       packages: read
 
     steps:
+      - name: Checkout deployment configuration
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
       - name: Determine image tag
         id: image
         run: |
           # After a build-and-push run, deploy the exact commit it built
-          # (build-and-push tags images with the short SHA). Manual dispatch
-          # falls back to :latest.
+          # Images use full commit SHAs. Legacy manual dispatch
+          # is rejected rather than bypassing validation.
           if [ -n "${{ github.event.workflow_run.head_sha }}" ]; then
             SHA="${{ github.event.workflow_run.head_sha }}"
-            echo "tag=${SHA::7}" >> "$GITHUB_OUTPUT"
+            echo "tag=${SHA}" >> "$GITHUB_OUTPUT"
           else
-            echo "tag=latest" >> "$GITHUB_OUTPUT"
+            echo "Manual deployment requires an explicit validated image; use the automatic pipeline." >&2
+            exit 1
           fi
 
       - name: Log in to GHCR
@@ -52,4 +63,4 @@ jobs:
         working-directory: /home/will/blogfolio
         env:
           BLOGFOLIO_IMAGE_TAG: ${{ steps.image.outputs.tag }}
-        run: docker compose up -d --pull always
+        run: docker compose --project-directory /home/will/blogfolio -f "$GITHUB_WORKSPACE/docker-compose.yml" up -d --pull always

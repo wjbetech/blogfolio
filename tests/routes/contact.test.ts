@@ -19,7 +19,7 @@ function makeRequest(body: unknown, ip = "203.0.113.10"): NextRequest {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-forwarded-for": ip
+      "cf-connecting-ip": ip
     },
     body: JSON.stringify(body)
   }) as unknown as NextRequest;
@@ -101,4 +101,18 @@ describe("contact API route", () => {
     expect(blocked.status).toBe(429);
     expect(mockSend).toHaveBeenCalledTimes(5);
   });
+  it("rejects oversized JSON before sending email", async () => {
+    const response = await POST(makeRequest({ name: "Will", email: "will@example.com", message: "x".repeat(9000) }));
+    expect(response.status).toBe(413);
+    expect(mockSend).not.toHaveBeenCalled();
+  });
+  it("does not trust a rotating forwarded header", async () => {
+    for (let n = 0; n < 5; n++) {
+      const request = makeRequest({ website: "bot" });
+      request.headers.set("x-forwarded-for", `192.0.2.${n}`);
+      expect((await POST(request)).status).toBe(200);
+    }
+    expect((await POST(makeRequest({ website: "bot" }))).status).toBe(429);
+  });
+
 });

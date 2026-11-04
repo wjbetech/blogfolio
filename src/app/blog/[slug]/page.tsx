@@ -1,3 +1,4 @@
+import NonceJsonLd from "@/components/NonceJsonLd";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -42,7 +43,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       {/* JSON-LD (application/ld+json) is data, not executable script — no CSP nonce needed. */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogPostingJsonLd) }} />
+      <NonceJsonLd html={serializeJsonLd(blogPostingJsonLd)} />
       <BlogPostView post={post} allPosts={allPublished} />
     </>
   );

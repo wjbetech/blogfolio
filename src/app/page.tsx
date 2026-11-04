@@ -1,3 +1,4 @@
+import NonceJsonLd from "@/components/NonceJsonLd";
 import StudioHomepage from "@/components/HomeDesigns/StudioHomepage";
 import { createPersonJsonLd, createWebSiteJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 import { getPublishedBlogCards, getPublishedProjectCards } from "@/lib/homeCards";
@@ -13,8 +14,8 @@ export default function Page() {
       {/* JSON-LD is type="application/ld+json" (not executable JS) so it does not
           require a CSP nonce and omitting it avoids a false hydration mismatch
           where the browser hides nonce attribute values after parsing. */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(personJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(webSiteJsonLd) }} />
+      <NonceJsonLd html={serializeJsonLd(personJsonLd)} />
+      <NonceJsonLd html={serializeJsonLd(webSiteJsonLd)} />
 
       <StudioHomepage posts={blogCards} projects={projectCards} />
     </div>

@@ -1,3 +1,4 @@
+import NonceJsonLd from "@/components/NonceJsonLd";
 import { IconBrandGithub } from "@tabler/icons-react";
 import { createProjectsCollectionJsonLd, serializeJsonLd } from "@/lib/metadataHelper";
 import { createDevMetadata } from "@/lib/metadata";
@@ -39,7 +40,7 @@ export default function DevPage() {
   return (
     <div>
       {/* JSON-LD (application/ld+json) is data, not executable script — no CSP nonce needed. */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(devProjectsJsonLd) }} />
+      <NonceJsonLd html={serializeJsonLd(devProjectsJsonLd)} />
 
       <CurrentRoleCard />
       <section aria-label="Selected projects" className={styles.projects}>

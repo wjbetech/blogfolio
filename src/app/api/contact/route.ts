@@ -1,3 +1,4 @@
+import { isIP } from "node:net";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isRateLimited } from "@/lib/rateLimit";
@@ -23,12 +24,9 @@ function isNonEmptyString(value: unknown): value is string {
 }
 
 function getClientIp(request: NextRequest): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    const first = forwarded.split(",")[0]?.trim();
-    if (first) return first;
-  }
-  return request.headers.get("x-real-ip")?.trim() || "unknown";
+  // Public ingress must be restricted to Cloudflare Tunnel.
+  const ip = request.headers.get("cf-connecting-ip")?.trim();
+  return ip && isIP(ip) ? `ip:${ip}` : "ip:unknown";
 }
 
 export async function POST(request: NextRequest) {
@@ -43,7 +41,21 @@ export async function POST(request: NextRequest) {
   let body: unknown;
 
   try {
-    body = await request.json();
+    const reader = request.body?.getReader();
+    if (!reader) return NextResponse.json({ error: "Missing body" }, { status: 400 });
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > 8192) {
+        await reader.cancel();
+        return NextResponse.json({ error: "Request too large" }, { status: 413 });
+      }
+      chunks.push(value);
+    }
+    body = JSON.parse(Buffer.concat(chunks).toString("utf8"));
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
@@ -84,6 +96,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
   }
 
+  if (isRateLimited("global:contact-mail", 50, RATE_WINDOW_MS)) {
+    return NextResponse.json({ error: "Contact limit reached. Please try again later." }, { status: 429 });
+  }
   const resend = new Resend(apiKey);
 
   try {

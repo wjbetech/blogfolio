@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * Per-request CSP nonce generation (Next.js 16 proxy convention).
- *
- * The full policy is set on the REQUEST so Next.js extracts the nonce and
- * stamps its own framework scripts; on the RESPONSE it ships as
- * Content-Security-Policy-Report-Only so violations surface in the browser
- * console without blocking anything. To enforce, rename the response header
- * to "Content-Security-Policy" once reports are clean.
- */
+/** Generate and enforce a fresh script nonce on every page response. */
 export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const isDev = process.env.NODE_ENV === "development";
@@ -38,7 +30,7 @@ export function proxy(request: NextRequest) {
     }
   });
 
-  response.headers.set("Content-Security-Policy-Report-Only", cspHeader);
+  response.headers.set("Content-Security-Policy", cspHeader);
   if (process.env.DEPLOYMENT_ENV === "staging") {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
   }

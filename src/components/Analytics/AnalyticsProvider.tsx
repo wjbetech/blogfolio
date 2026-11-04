@@ -5,7 +5,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { ANALYTICS_ENABLED, PLAUSIBLE_DOMAIN, PLAUSIBLE_SCRIPT_SRC, trackPageView } from "@/lib/analytics";
 
-export default function AnalyticsProvider() {
+export default function AnalyticsProvider({ nonce }: { nonce?: string }) {
   const pathname = usePathname();
   const [isReady, setIsReady] = useState(false);
 
@@ -20,6 +20,7 @@ export default function AnalyticsProvider() {
 
   return (
     <Script
+      nonce={nonce}
       defer
       data-domain={PLAUSIBLE_DOMAIN}
       src={PLAUSIBLE_SCRIPT_SRC}

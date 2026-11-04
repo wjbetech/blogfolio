@@ -84,4 +84,3 @@ describe("ProjectIndex", () => {
     expect(observerCallback).toBeUndefined();
   });
 });
-

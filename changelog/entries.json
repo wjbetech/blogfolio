@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-11-04",
+    "version": "1.23.1",
+    "changes": [
+      {
+        "category": "Fix",
+        "description": "Bundle the font playground’s Literata font locally so the production Docker build no longer depends on its Google Fonts download URL."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-04",
     "version": "1.23.0",
     "changes": [
       {

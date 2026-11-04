@@ -1,10 +1,11 @@
-import { IBM_Plex_Sans, IBM_Plex_Serif, Literata, Source_Sans_3, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Serif, Source_Sans_3, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import FontPairingPlayground from "@/components/FontPairingPlayground/FontPairingPlayground";
 
 const spaceGrotesk = Space_Grotesk({ weight: ["400", "500", "600", "700"], subsets: ["latin"], display: "swap" });
 const ibmPlexSans = IBM_Plex_Sans({ weight: ["400", "500", "600", "700"], subsets: ["latin"], display: "swap" });
 const ibmPlexSerif = IBM_Plex_Serif({ weight: ["400", "500", "600", "700"], subsets: ["latin"], display: "swap" });
-const literata = Literata({ weight: ["400", "500", "600", "700"], subsets: ["latin"], display: "swap" });
+const literata = localFont({ src: "../../fonts/Literata.ttf", weight: "400 700", display: "swap" });
 const sourceSans = Source_Sans_3({ weight: ["400", "500", "600", "700"], subsets: ["latin"], display: "swap" });
 
 const pairings = [

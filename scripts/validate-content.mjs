@@ -331,9 +331,19 @@ async function main() {
 
   validateRequiredFields(
     postDocs,
-    ["id", "title", "slug", "excerpt", "author", "tags", "featured", "publishedAt", "updatedAt", "status"],
+    ["id", "title", "slug", "excerpt", "homeBlurb", "author", "tags", "featured", "publishedAt", "updatedAt", "status"],
     errors
   );
+  for (const document of postDocs) {
+    const homeBlurb = document.frontmatter.homeBlurb;
+    if (typeof homeBlurb !== "string" || homeBlurb.trim().length === 0) {
+      errors.push(`${document.kind}:${document.fileName} has a blank homeBlurb.`);
+      continue;
+    }
+    if (homeBlurb.trim().length > 160) {
+      errors.push(`${document.kind}:${document.fileName} has a homeBlurb longer than 160 characters.`);
+    }
+  }
   validateRequiredFields(
     projectDocs,
     ["id", "title", "slug", "description", "tech", "link", "featured", "publishedAt", "updatedAt", "status"],

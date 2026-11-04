@@ -3,6 +3,22 @@
 @import "shadcn/tailwind.css";
 @tailwind utilities;
 
+/* One animated distance keeps the drawer, page flow, and fixed rails in sync. */
+@property --theme-drawer-height {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+:root {
+  --theme-drawer-offset: max(0px, calc(var(--theme-drawer-height) - var(--theme-drawer-scroll, 0px)));
+  transition: --theme-drawer-height 400ms ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { transition: none; }
+}
+
 @keyframes card-sheen-forward {
   from {
     translate: 0 0;
@@ -35,6 +51,8 @@
   --color-accent-200: var(--accent-200);
   --color-accent-300: var(--accent-300);
   --color-palette-border: var(--palette-border);
+  --font-display: var(--font-display-family);
+  --font-serif: var(--font-display-family);
 }
 
 /* Theme palettes (welcome default + all [data-theme] blocks) are generated
@@ -70,7 +88,7 @@
     float: left;
     padding-right: 0.14em;
     padding-top: 0.06em;
-    font-family: var(--font-serif);
+    font-family: var(--font-display-family);
     font-weight: 700;
     color: var(--headline);
   }
@@ -85,7 +103,7 @@
     padding-right: 0.12em;
     padding-top: 0.04em;
     margin-bottom: -0.05em;
-    font-family: var(--font-serif);
+    font-family: var(--font-display-family);
     font-weight: 700;
     color: var(--headline);
   }
@@ -164,7 +182,7 @@
   border-bottom: 1px solid color-mix(in srgb, var(--accent-200) 22%, transparent);
   background: transparent;
   text-align: center;
-  font-family: var(--font-serif);
+  font-family: var(--font-display-family);
   font-size: 1.35em;
   line-height: 1.45;
   font-style: italic;

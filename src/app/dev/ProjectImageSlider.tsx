@@ -179,17 +179,17 @@ export default function ProjectImageSlider({
       <div
         className={cn(
           "w-full rounded-sm",
-          isGallery ? "mx-auto flex max-w-[900px] flex-col" : "relative h-64 md:h-full overflow-hidden"
+          isGallery ? "mx-auto flex w-full max-w-[900px] flex-col" : "relative h-64 md:h-full overflow-hidden"
         )}>
         <div
           className={cn(
-            isGallery ? "relative h-[440px] overflow-hidden" : "relative h-full overflow-hidden"
+            isGallery ? "relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-bg-100/75" : "relative h-full overflow-hidden"
           )}>
           <div
             ref={scrollRef}
             className={cn(
               "flex snap-x snap-mandatory no-scrollbar overflow-x-auto",
-              isGallery ? "h-full w-full" : "h-full"
+                  isGallery ? "h-full w-full" : "h-full"
             )}>
             {displayImages.map((src, idx) => (
               <button
@@ -199,7 +199,7 @@ export default function ProjectImageSlider({
                 className={cn(
                   "group/slide shrink-0 w-full snap-center cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-100 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-200",
                   isGallery
-                    ? "flex h-full items-center justify-center"
+                    ? "flex h-full items-center justify-center p-2 sm:p-3"
                     : "relative h-full bg-bg-300"
                 )}
                 aria-label={`View ${title} image ${idx + 1} full size`}>
@@ -209,7 +209,7 @@ export default function ProjectImageSlider({
                     src={src}
                     alt={`${title} - image ${idx + 1}`}
                     draggable={false}
-                    className="block h-auto w-auto max-h-[440px] max-w-[900px]"
+                    className="block h-full w-full object-contain"
                   />
                 ) : (
                   <>

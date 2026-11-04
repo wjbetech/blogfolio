@@ -4,21 +4,13 @@ import CurrentRoleCard from "@/app/dev/CurrentRoleCard";
 import ProjectIndex from "@/app/dev/ProjectIndex";
 
 describe("CurrentRoleCard", () => {
-  it("expands and collapses the role responsibilities accessibly", () => {
+  it("shows responsibilities and links to the detailed work page", () => {
     render(<CurrentRoleCard />);
-
-    const toggle = screen.getByRole("button", { name: "Show role details" });
-    expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(screen.getByText("Responsibilities")).toBeInTheDocument();
-
-    fireEvent.click(toggle);
-
-    expect(screen.getByRole("button", { name: "Hide role details" })).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByText(/Figma designs into polished, production-ready experiences/)).toBeInTheDocument();
-    expect(screen.getByText(/Research and apply AI in day-to-day work/)).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: "Hide role details" }));
-    expect(screen.getByRole("button", { name: "Show role details" })).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByRole("heading", { level: 1, name: /AI Engineer .* ASTUTR/ })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Software & data" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Infrastructure" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Applied AI" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Find Out More" })).toHaveAttribute("href", "/dev/astutr");
   });
 });
 

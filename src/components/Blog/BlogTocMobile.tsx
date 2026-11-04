@@ -107,10 +107,10 @@ export default function BlogTocMobile() {
     <details className="group rounded-xl border border-accent-100/15 bg-bg-200/40 open:bg-bg-200/60 transition-colors">
       <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-medium text-headline [&::-webkit-details-marker]:hidden">
         <span className="inline-flex items-center gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-paragraph/40">Sections</span>
-          <span className="rounded-full bg-accent-100/15 px-1.5 py-0.5 text-[11px] text-paragraph/60">{headings.length}</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-paragraph">Sections</span>
+          <span className="rounded-full bg-bg-100 px-1.5 py-0.5 text-[11px] text-paragraph">{headings.length}</span>
         </span>
-        <span className="text-paragraph/40 transition-transform group-open:rotate-180" aria-hidden="true">
+        <span className="text-paragraph transition-transform group-open:rotate-180" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -122,7 +122,7 @@ export default function BlogTocMobile() {
             <li key={h.id}>
               <a
                 href={`#${h.id}`}
-                className={`block py-1 text-[13px] leading-snug transition-colors hover:text-headline ${h.level === 3 ? "pl-4" : ""} ${activeId === h.id ? "text-accent-200 font-medium" : "text-paragraph/70"}`}
+                className={`block py-1 text-[13px] leading-snug transition-colors hover:text-headline ${h.level === 3 ? "pl-4" : ""} ${activeId === h.id ? "text-link font-semibold" : "text-paragraph"}`}
               >
                 {h.text}
               </a>

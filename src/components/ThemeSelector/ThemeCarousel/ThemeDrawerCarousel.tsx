@@ -2,7 +2,7 @@
 
 import React, { useRef, useImperativeHandle, forwardRef, useCallback } from "react";
 import PaletteItem, { PALETTE_CARD_WIDTH } from "../../Palettes/Palette";
-import { ColorThemes } from "@/lib/themes";
+import { ColorThemes } from "@/lib/theme";
 import { themeToPalette } from "@/lib/themePalette";
 import useCarouselDrag from "@/hooks/useCarouselDrag";
 

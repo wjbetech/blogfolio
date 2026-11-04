@@ -18,7 +18,8 @@ function makePost(bodyRaw: string, excerpt?: string): Post {
     slug: "test",
     readingTime: 1,
     url: "/blog/test",
-    excerpt
+    excerpt,
+    homeBlurb: "A short home card description."
   } as Post;
 }
 

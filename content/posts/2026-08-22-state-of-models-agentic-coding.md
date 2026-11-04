@@ -2,6 +2,7 @@
 id: "7"
 title: "The State of Models and Agentic Coding in 2026"
 excerpt: "Where the models actually stand in mid-2026, why the leaderboard question is dead, and what working with coding agents looks like now."
+homeBlurb: "A field report on today's models, agentic workflows, and what matters when you're shipping software."
 author: "William East"
 tags:
   - AI

@@ -1,15 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import useTheme from "@/hooks/useThemeHook";
-import * as lib from "@/lib/applyTheme";
-
-// Mock the DOM/storage side-effect helpers
-jest.mock("@/lib/applyTheme", () => ({
-  setThemeAttribute: jest.fn(),
-  removeThemeAttribute: jest.fn(),
-  saveThemeId: jest.fn(),
-  loadSavedThemeId: jest.fn()
-}));
+import { useTheme } from "@/lib/theme";
 
 function TestComponent() {
   const { theme, themeId, setThemeById, setTheme, clearTheme, themes } = useTheme();
@@ -28,44 +19,42 @@ function TestComponent() {
 
 describe("useTheme hook", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    localStorage.clear();
+    document.documentElement.removeAttribute("data-theme");
   });
 
   it("adopts a valid saved theme on mount and applies its attribute", async () => {
-    (lib.loadSavedThemeId as jest.Mock).mockReturnValue("gnome");
+    localStorage.setItem("site:theme", "gnome");
 
     render(<TestComponent />);
 
     await waitFor(() => expect(screen.getByTestId("theme-id").textContent).toBe("gnome"));
-    expect(lib.setThemeAttribute).toHaveBeenCalledWith("gnome");
-    expect(lib.saveThemeId).toHaveBeenCalledWith("gnome");
+    expect(document.documentElement.getAttribute("data-theme")).toBe("gnome");
+    expect(localStorage.getItem("site:theme")).toBe("gnome");
   });
 
   it("ignores an invalid saved id and clears it", async () => {
-    (lib.loadSavedThemeId as jest.Mock).mockReturnValue("deleted-theme");
+    localStorage.setItem("site:theme", "deleted-theme");
 
     render(<TestComponent />);
 
-    await waitFor(() => expect(lib.saveThemeId).toHaveBeenCalledWith(null));
-    expect(screen.getByTestId("theme-id").textContent).toBe("welcome");
-    expect(lib.setThemeAttribute).not.toHaveBeenCalledWith("deleted-theme");
+    await waitFor(() => expect(screen.getByTestId("theme-id").textContent).toBe("welcome"));
+    // Invalid id is self-healed: storage no longer holds the deleted id
+    expect(localStorage.getItem("site:theme")).not.toBe("deleted-theme");
+    expect(document.documentElement.getAttribute("data-theme")).not.toBe("deleted-theme");
   });
 
   it("setThemeById updates theme and applies the attribute", async () => {
-    (lib.loadSavedThemeId as jest.Mock).mockReturnValue(null);
-
     render(<TestComponent />);
 
     fireEvent.click(screen.getByText("set-kiln"));
 
     await waitFor(() => expect(screen.getByTestId("theme-id").textContent).toBe("kiln"));
-    expect(lib.setThemeAttribute).toHaveBeenCalledWith("kiln");
-    expect(lib.saveThemeId).toHaveBeenCalledWith("kiln");
+    expect(document.documentElement.getAttribute("data-theme")).toBe("kiln");
+    expect(localStorage.getItem("site:theme")).toBe("kiln");
   });
 
   it("ignores unknown theme ids", async () => {
-    (lib.loadSavedThemeId as jest.Mock).mockReturnValue(null);
-
     render(<TestComponent />);
 
     fireEvent.click(screen.getByText("set-bogus"));
@@ -74,8 +63,6 @@ describe("useTheme hook", () => {
   });
 
   it("clearTheme reverts to the welcome default and clears storage", async () => {
-    (lib.loadSavedThemeId as jest.Mock).mockReturnValue(null);
-
     render(<TestComponent />);
 
     fireEvent.click(screen.getByText("set-kiln"));
@@ -84,7 +71,7 @@ describe("useTheme hook", () => {
     fireEvent.click(screen.getByText("clear"));
 
     await waitFor(() => expect(screen.getByTestId("theme-id").textContent).toBe("welcome"));
-    expect(lib.saveThemeId).toHaveBeenCalledWith("welcome");
-    expect(lib.setThemeAttribute).toHaveBeenLastCalledWith("welcome");
+    expect(localStorage.getItem("site:theme")).toBe("welcome");
+    expect(document.documentElement.getAttribute("data-theme")).toBe("welcome");
   });
 });

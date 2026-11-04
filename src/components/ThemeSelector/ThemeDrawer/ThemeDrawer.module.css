@@ -1,0 +1,41 @@
+.drawerGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.carouselControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-block: 8px;
+}
+
+.carouselArea {
+  min-width: 0;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-bottom: 16px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: calc(max(24px, (100vw - 1440px) / 2 + 24px) + (min(100vw, 1440px) - 144px) / 10 - 24px);
+  width: 48px;
+  height: 48px;
+}
+
+@media (max-width: 767px) {
+  .drawerGrid { padding-inline: 16px; }
+  .closeButton {
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+}

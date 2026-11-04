@@ -13,9 +13,13 @@ import { getPrimaryProjectImage } from "@/lib/projectImages";
 export type BlogCardData = {
   slug: string;
   title: string;
+  publishedAt: string;
+  homeBlurb: string;
   snippet: string;
   /** Declared cover image, or "" when the card should use the placeholder. */
   image: string;
+  readingTime: number;
+  tags: string[];
 };
 
 export type ProjectCardData = {
@@ -24,14 +28,19 @@ export type ProjectCardData = {
   description: string;
   /** Primary ordered screenshot, or "" when the card should use the placeholder. */
   image: string;
+  tech: string[];
 };
 
 export function getBlogCardData(post: Post): BlogCardData {
   return {
     slug: post.slug,
     title: post.title,
+    publishedAt: post.publishedAt,
+    homeBlurb: post.homeBlurb,
     snippet: getPostSnippet(post, 120),
-    image: post.coverImage?.trim() || post.images?.[0]?.trim() || ""
+    image: post.coverImage?.trim() || post.images?.[0]?.trim() || "",
+    readingTime: post.readingTime ?? 0,
+    tags: (post.tags ?? []).slice(0, 3)
   };
 }
 
@@ -40,12 +49,13 @@ export function getProjectCardData(project: Project): ProjectCardData {
     slug: project.slug,
     title: project.title,
     description: project.description ?? "",
-    image: getPrimaryProjectImage(project.images)
+    image: getPrimaryProjectImage(project.images),
+    tech: (project.tech ?? []).slice(0, 4)
   };
 }
 
 export function getPublishedBlogCards(): BlogCardData[] {
-  return getPublishedPosts(allPosts).map(getBlogCardData);
+  return getPublishedPosts(allPosts).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map(getBlogCardData);
 }
 
 export function getPublishedProjectCards(): ProjectCardData[] {

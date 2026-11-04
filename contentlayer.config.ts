@@ -26,6 +26,7 @@ const Post = defineDocumentType(() => ({
     // `content` is the document body rather than a frontmatter field, so
     // we remove it from required fields to avoid duplication.
     excerpt: { type: "string", required: false },
+    homeBlurb: { type: "string", required: true },
     author: { type: "string", required: true },
     tags: { type: "list", of: { type: "string" }, required: true },
     images: { type: "list", of: { type: "string" }, required: false },

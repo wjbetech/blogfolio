@@ -9,7 +9,7 @@ import ArrowRightIcon from "@/components/Icons/ArrowRightIcon";
 
 const FALLBACK = "/images/assets/placeholder.png";
 
-export default function BlogPostCard({ card }: { card: BlogCardData }) {
+export default function BlogPostCard({ card, priority = false }: { card: BlogCardData; priority?: boolean }) {
   const [imgError, setImgError] = useState(false);
   const imageSrc = card.image && !imgError ? card.image : FALLBACK;
 
@@ -22,6 +22,7 @@ export default function BlogPostCard({ card }: { card: BlogCardData }) {
             alt={card.title}
             width={320}
             height={192}
+            priority={priority}
             className="w-full h-full object-cover"
             onError={() => setImgError(true)}
           />

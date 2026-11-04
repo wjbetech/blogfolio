@@ -4,16 +4,16 @@ Blogfolio is a personal editorial site with two practical goals: communicate dev
 
 ## Theme system
 
-Themes are defined as data in `src/lib/themes.ts` — the single source of truth. There are currently **23 themes**, including the World of Warcraft: Forever-inspired Mount Hyjal, Skyborne, and Timbermaw Hold palettes.
+Themes are defined as data in `src/lib/theme/palettes.ts` — the single source of truth. `src/lib/themes.ts` remains as a deprecated compatibility re-export. There are currently **23 themes**, including the World of Warcraft: Forever-inspired Mount Hyjal, Skyborne, and Timbermaw Hold palettes.
 
 The runtime mechanism is:
 
-1. The root layout renders `<ThemeStyles />`, a server-generated `<style>` block containing one `[data-theme="<id>"]` rule per theme, generated directly from `themes.ts` (a `:root` rule mirrors welcome as the fallback default).
+1. The root layout renders `<ThemeStyles />`, a server-generated `<style>` block containing one `[data-theme="<id>"]` rule per theme, generated directly from the palette data (a `:root` rule mirrors welcome as the fallback default).
 2. A tiny pre-paint script at the top of `<body>` reads the saved theme id from `localStorage` (`site:theme`) and sets the `data-theme` attribute on `<html>` before first paint, so there is no theme flash.
 3. Selecting a theme (`useThemeHook` → `applyTheme.ts`) sets the `data-theme` attribute and persists the id to `localStorage`. Clearing reverts to the welcome default.
 4. Components use Tailwind utilities whose colors resolve through the CSS variables.
 
-The server does not participate in theme selection; `<html data-theme="welcome">` is the SSR default and carries `suppressHydrationWarning` because the pre-paint script may change it before hydration. There is no theme cookie. Do not add palette variables to `globals.css`; edit `themes.ts` instead.
+The server does not participate in theme selection; `<html data-theme="welcome">` is the SSR default and carries `suppressHydrationWarning` because the pre-paint script may change it before hydration. There is no theme cookie. Do not add palette variables to `globals.css`; edit `src/lib/theme/palettes.ts`, the active source of truth.
 
 ## Color tokens
 
@@ -42,29 +42,17 @@ Several standard shadcn tokens are not defined by Blogfolio. Treat those as know
 
 Fonts are loaded in `src/app/layout.tsx`:
 
-- Inter: body text, navigation, descriptions, UI labels
-- Bricolage Grotesque: display headings and editorial titles
-- Geist Mono: code and technical labels
+- IBM Plex Sans for body text, navigation, descriptions, and controls (`--font-sans`)
+- Space Grotesk for display headings (`--font-display-family`, with `font-serif` retained as a compatibility alias)
+- Geist Mono for code, dates, and technical labels (`--font-geist-mono`)
 
-Existing pages use an editorial scale rather than one globally enforced utility class. Current conventions include:
-
-- large serif display headings for hero and project detail pages
-- serif section headings
-- Inter body copy with generous line height
-- small metadata and labels
-- monospace code and technical tags
-
-The blog redesign should establish a more precise article scale, reading width, and spacing rhythm without forcing unrelated pages into the article layout.
+Use Space Grotesk for the main thesis and section titles, IBM Plex Sans for reading, and Geist Mono for short factual labels. The homepage thesis scales from 38–64px, article copy is 16px on small screens and 17px at desktop with a 42rem reading measure, and utility labels stay compact while retaining readable contrast. Do not use mono styling for ordinary paragraphs or every action.
 
 ## Layout and interaction
 
-The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. It is marked noindex. The homepage Writing and Things I Built carousels use the shared compact horizontal card, with borderless sections, generous vertical padding, and wider card spacing.
+The development preview at `/card-designs` compares five card treatments using published posts and projects: open canvas, inset surface, compact horizontal, image-led, and type-first. The root layout uses a persistent profile sidebar with route-aware navigation and a palette control in the top-right rail. Page layouts must fit the main column left by the profile; project navigation stays in the content flow to keep screenshots readable. On mobile the sidebar becomes a compact profile and navigation header. Project galleries use a responsive 16:9 frame with `object-contain` so screenshots remain fully visible.
 
-The root layout provides:
-
-- horizontal `px-4 sm:px-6` page padding (tighter on <640px for reading measure)
-- a `max-w-7xl` main content wrapper
-- shared navbar, theme drawer, and footer
+The homepage leads with “AI Engineer. / Korean ↔ English Services.” and a short introduction, followed by six project image tiles and three recent articles with dedicated homepage blurbs. Desktop uses five equal grid columns: the profile occupies the first, content spans the middle three, and the palette occupies the last. The Writing archive appears below the palette only on `/blog`, returning to the content flow on mobile. Projects use compact image-and-text rows with an ASTUTR work overview at `/dev/astutr`. Keep primary navigation lower in the desktop profile rail and compact beneath the profile on mobile. Project names and descriptions remain visible without hover. Keep the site's existing reduced-motion support in any interaction or transition.
 
 Important existing interaction systems include:
 
@@ -92,7 +80,7 @@ The blog body renders through a controlled component map in `PostContent`, produ
 - images
 - GFM tables (scrollable wrapper, styled header row) and task-list checkboxes
 
-The article body uses a `max-w-3xl` reading measure. See [content.md](./content.md) for the exact list of supported elements.
+The article body uses a 42rem reading measure. Its desktop table of contents appears only when the main column can fit both the text and navigation; the collapsible version stays in the article flow at narrower widths. See [content.md](./content.md) for the exact list of supported elements.
 
 Phase 4 (PR #97) added editorial polish on top of this system, extended via PRs #101/#102 and the mobile reading pass:
 

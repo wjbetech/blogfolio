@@ -1,0 +1,21 @@
+.projects { display: grid; }
+.project { display: grid; grid-template-columns: 242px minmax(0, 1fr); align-items: center; gap: 28px; padding: 48px 0; border-bottom: 2px solid color-mix(in srgb, var(--paragraph) 10%, transparent); scroll-margin-top: 100px; }
+.project:first-child { padding-top: 0; }
+.project:last-child { border-bottom: 0; }
+.thumbnail { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px; background: var(--bg-200); }
+.image { object-fit: cover; }
+.title { margin: 0; font-size: 22px; font-weight: 600; line-height: 1.3; color: var(--headline); }
+.description { margin: 10px 0 0; color: var(--paragraph); font-size: 15px; line-height: 1.7; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.links a { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 7px 13px; border: 1px solid color-mix(in srgb, var(--link) 35%, transparent); border-radius: 6px; background: var(--bg-200); font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--link); cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+.links a.primaryButton { border-color: var(--button); background: var(--button); color: var(--buttonText); }
+.links a.githubButton { width: 36px; padding: 7px; }
+.links a:hover { border-color: var(--link); box-shadow: 0 3px 8px -4px color-mix(in srgb, var(--paragraph) 40%, transparent); }
+.links a:not(.primaryButton):hover { background: color-mix(in srgb, var(--link) 10%, var(--bg-200)); }
+.title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.project a:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .links a { transition: none; } }
+@media (max-width: 600px) {
+  .project { grid-template-columns: 1fr; gap: 18px; padding: 40px 0; }
+  .thumbnail { aspect-ratio: 2 / 1; }
+}

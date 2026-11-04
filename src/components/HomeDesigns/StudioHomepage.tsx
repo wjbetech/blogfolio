@@ -1,62 +1,83 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Carousel, { type CarouselHandle } from "@/components/Carousel/Carousel";
 import type { BlogCardData, ProjectCardData } from "@/lib/homeCards";
-import CompactCard from "./CompactCard";
+import styles from "./StudioHomepage.module.css";
 
-type Entry = { href: string; title: string; description: string; image: string };
-
-function Portrait({ className, sizes = "(max-width: 768px) 100vw, 400px" }: { className: string; sizes?: string }) {
-  return <div className={`relative overflow-hidden bg-transparent ${className}`}><Image src="/images/assets/avatar.png" alt="William East in Seoul" fill priority unoptimized sizes={sizes} className="object-cover" style={{ clipPath: "polygon(46px 0, 100% 0, 100% 100%, 0 100%, 0 46px)" }} /></div>;
-}
-
-function StudioHero() {
-  return <section className="overflow-hidden border-y border-palette-border/65">
-    <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
-      <div className="flex flex-col justify-between p-6 sm:p-8 lg:p-10">
-        <div><h1 className="max-w-2xl font-serif text-[clamp(3rem,5.5vw,5rem)] font-semibold leading-[0.96] tracking-[-0.055em] text-headline">Words and <span className="text-accent-100">working code.</span></h1><p className="mt-5 max-w-xl text-base leading-relaxed text-paragraph sm:text-lg">I&apos;m Will. I design and ship software, translate between Korean and English, and teach the ideas that connect both.</p></div>
-        <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 pt-4 text-sm font-semibold text-link"><Link href="/dev" className="hover:text-headline focus-visible:outline-2 focus-visible:outline-accent-100">See my projects ↗</Link><Link href="/contact" className="hover:text-headline focus-visible:outline-2 focus-visible:outline-accent-100">Work with me ↗</Link></div>
-      </div>
-      <div className="relative min-h-72 border-t border-palette-border/60 bg-bg-300 md:min-h-[28rem] md:border-t-0"><div className="flex min-h-[18rem] items-center justify-center p-4 sm:p-5 md:min-h-[28rem]"><Portrait className="aspect-[506/478] w-full max-w-[430px]" sizes="430px" /></div><div className="absolute bottom-6 left-6 bg-bg-100/95 px-4 py-3 shadow-lg sm:bottom-7 sm:left-7"><span className="block font-mono text-[11px] font-semibold uppercase tracking-[0.15em] text-accent-200">Current Location</span><span className="mt-1 block font-semibold text-headline">Seoul, South Korea</span></div></div>
-    </div>
-  </section>;
-}
-
-function Shelf({ title, entries, href, linkText, compact = false, className = "" }: { title: string; entries: Entry[]; href: string; linkText: string; compact?: boolean; className?: string }) {
-  const carousel = useRef<CarouselHandle>(null);
-  return <section className={`min-w-0 ${compact ? "py-12 md:py-16" : "border-t border-accent-200/60 pt-7"} ${className}`} aria-label={title}>
-    <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-      <h2 className="text-3xl font-serif font-semibold tracking-tight text-headline sm:text-4xl">{title}</h2>
-      <div className="flex items-center gap-3 sm:gap-5">
-        <Link href={href} className="relative isolate px-3 py-2 text-sm font-semibold text-link transition-colors after:absolute after:bottom-1 after:left-2 after:right-3 after:h-3 after:origin-left after:scale-x-0 after:invisible after:bg-accent-200/50 after:transition-transform after:duration-300 after:-z-10 hover:text-headline hover:after:scale-x-100 hover:after:visible focus-visible:after:scale-x-100 focus-visible:after:visible focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-100">{linkText} ↗</Link>
-        <div className="flex gap-1">
-          <button type="button" aria-label={`Previous ${title.toLowerCase()}`} onClick={() => carousel.current?.scrollLeft()} className="flex size-9 items-center justify-center border border-palette-border/50 text-accent-200 hover:bg-bg-200 focus-visible:outline-2 focus-visible:outline-accent-100">←</button>
-          <button type="button" aria-label={`Next ${title.toLowerCase()}`} onClick={() => carousel.current?.scrollRight()} className="flex size-9 items-center justify-center border border-palette-border/50 text-accent-200 hover:bg-bg-200 focus-visible:outline-2 focus-visible:outline-accent-100">→</button>
-        </div>
-      </div>
-    </div>
-    <Carousel ref={carousel} hideControls gap={compact ? 56 : 24} step={compact ? 408 : 400}>
-      {entries.map((entry) => compact ? <CompactCard key={entry.href} entry={entry} divider={false} className="w-[min(22rem,calc(100vw-2rem))] shrink-0 snap-start" /> : <Link key={entry.href} href={entry.href} className="group block w-88 shrink-0 snap-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100">
-        <article className="flex h-[26rem] flex-col overflow-hidden border border-palette-border/60 bg-bg-200/40 p-3">
-          <div className="relative aspect-[7/4] shrink-0 overflow-hidden bg-bg-300"><Image src={entry.image || "/images/assets/placeholder.png"} alt="" fill sizes="(max-width: 640px) 304px, 352px" className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none" /></div>
-          <div className="flex min-h-0 flex-1 flex-col px-2 pb-2 pt-4"><h3 className="line-clamp-2 min-h-[3.5rem] text-xl font-serif font-semibold leading-snug text-headline transition-colors group-hover:text-accent-100">{entry.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-relaxed text-paragraph">{entry.description}</p><span className="mt-auto inline-block pt-4 pb-1 text-sm font-semibold text-accent-200">View ↗</span></div>
-        </article>
-      </Link>)}
-    </Carousel>
-  </section>;
+function ProjectImage({ project, priority = false, featured = false }: { project: ProjectCardData; priority?: boolean; featured?: boolean }) {
+  return (
+    <Image
+      src={project.image || "/images/assets/placeholder.png"}
+      alt=""
+      fill
+      priority={priority}
+      sizes={featured ? "(max-width: 767px) 92vw, (max-width: 1200px) 72vw, 880px" : "(max-width: 767px) 44vw, (max-width: 1200px) 34vw, 280px"}
+      className="object-cover"
+    />
+  );
 }
 
 export default function StudioHomepage({ posts, projects }: { posts: BlogCardData[]; projects: ProjectCardData[] }) {
-  const blogEntries = posts.map((post) => ({ href: `/blog/${post.slug}`, title: post.title, description: post.snippet, image: post.image }));
-  const projectEntries = projects.map((project) => ({ href: `/dev/${project.slug}`, title: project.title, description: project.description, image: project.image }));
-  return <div className="space-y-12 pb-10 pt-4 md:space-y-16">
-    <StudioHero />
-    <div>
-      <Shelf title="Writing" entries={blogEntries} href="/blog" linkText="All articles" compact className="pb-0 md:pb-0" />
-      <Shelf title="Things I Built" entries={projectEntries} href="/dev" linkText="All projects" compact className="pt-8 md:pt-8" />
+  const featured = projects.find((project) => project.slug === "wordweb") ?? projects[0];
+  const selectedProjects = [...(featured ? [featured] : []), ...projects.filter((project) => project.slug !== featured?.slug)].slice(0, 6);
+  const projectSubtitles: Record<string, string> = {
+    "wordweb": "Explore meanings",
+    "orbit": "Personal productivity",
+    "picme": "Picture-word game",
+    "atomology": "Periodic table game",
+    "wowcomps": "Classic WoW raid planning",
+    "cabin-chat": "Self-hosted real-time chat",
+  };
+
+  return (
+    <div className={styles.body}>
+      <section className={styles.introduction} aria-labelledby="home-introduction">
+        <h1 id="home-introduction"><span>AI Engineer.</span><span>Korean ↔ English Services.</span></h1>
+        <p className={styles.lede}>Currently working as an <strong>AI Engineer</strong> at a fast-paced startup based in <strong>Gangnam, Seoul</strong>.</p>
+        <p className={styles.context}>Alongside engineering, I teach at <strong>Seoul University of Foreign Studies</strong> and support Korean ↔ English editing, translation, and proofreading. I also enjoy heavy metal and guitar, baking, working out, and retro gaming.</p>
+      </section>
+
+      {selectedProjects.length > 0 && <section className={styles.featured} aria-labelledby="projects-heading">
+        <div className={styles.sectionHeading}>
+          <h2 className={styles.sectionLabel} id="projects-heading">Projects</h2>
+          <Link href="/dev">View all <span aria-hidden="true">↗</span></Link>
+        </div>
+        <div className={styles.projectGrid}>
+          {selectedProjects.map((project, index) => <Link key={project.slug} href={`/dev/${project.slug}`} className={styles.projectCard} aria-label={`${project.title}: ${projectSubtitles[project.slug] ?? "Selected project"}`}>
+            <div className={styles.projectTileImage}>
+              <ProjectImage project={project} priority={index === 0} featured={index === 0} />
+              <div className={styles.imageCaption}>
+                <div>
+                  <h3>{project.slug === "wordweb" ? "wordweb." : project.title}</h3>
+                  <p>{projectSubtitles[project.slug] ?? "Selected project"}</p>
+                </div>
+                <span aria-hidden="true">↗</span>
+              </div>
+            </div>
+          </Link>)}
+        </div>
+      </section>}
+
+      <section className={styles.blogs} aria-labelledby="recent-writing">
+        <div className={styles.sectionHeading}>
+          <h2 id="recent-writing">Writings</h2>
+        </div>
+        <div className={styles.posts}>
+          {posts.slice(0, 3).map((post) => <article key={post.slug} className={styles.post}>
+            <p className={styles.postMeta}><time dateTime={post.publishedAt}>{new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(post.publishedAt))}</time></p>
+            <div className={styles.postContent}>
+              <h3><Link href={`/blog/${post.slug}`}>{post.title}<span aria-hidden="true">↗</span></Link></h3>
+              <p className={styles.postBlurb}>{post.homeBlurb}</p>
+            </div>
+          </article>)}
+        </div>
+        <div className={styles.morePosts}>
+          <Link href="/blog">View more articles <span aria-hidden="true">↗</span></Link>
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div><Link href="/contact">Get in touch</Link><Link href="/rss.xml">RSS</Link></div>
+      </footer>
     </div>
-  </div>;
+  );
 }

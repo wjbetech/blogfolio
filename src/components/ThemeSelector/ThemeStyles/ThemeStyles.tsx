@@ -1,4 +1,4 @@
-import { buildThemeCss } from "@/lib/themeStyles";
+import { getThemeCss } from "@/lib/theme";
 
 /**
  * Server-rendered stylesheet containing every theme as a [data-theme] block,
@@ -10,7 +10,7 @@ export default function ThemeStyles() {
   return (
     <style
       data-theme-styles=""
-      dangerouslySetInnerHTML={{ __html: buildThemeCss() }}
+      dangerouslySetInnerHTML={{ __html: getThemeCss() }}
     />
   );
 }
